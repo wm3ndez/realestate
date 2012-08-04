@@ -1,0 +1,7 @@
+.idea/*
+venv/*
+venv
+build/*
+
+*.pyc
+*.db

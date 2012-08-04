@@ -1,0 +1,20 @@
+django
+PIL
+feedparser
+south
+python-twitter
+sorl-thumbnail
+django-debug-toolbar
+django-extensions
+django-seo
+django-admin-tools
+mysql-python
+
+-e git+https://github.com/tschellenbach/Django-facebook.git#egg=Django-facebook
+coverage
+decorator
+ipdb
+ipdbplugin
+ipython
+fabric
+django-localeurl
