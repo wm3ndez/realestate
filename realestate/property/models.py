@@ -101,6 +101,12 @@ class PropiedadManager(models.Manager):
     def activas(self, **kwargs):
         return self.filter(estado='activa', **kwargs)
 
+    def casas(self, **kwargs):
+        return self.activas().filter(tipo='casa')
+
+    def apartamentos(self, **kwargs):
+        return self.activas().filter(tipo='apartamento')
+
 
 class Propiedad(models.Model):
     titulo = models.CharField(max_length=60)
