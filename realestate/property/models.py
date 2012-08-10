@@ -129,6 +129,7 @@ class Propiedad(models.Model):
     intercom = models.BooleanField(default=0)
     notas = models.TextField(max_length=500)
     coordenadas = models.CharField(max_length=22, default='19.000000,-70.400000')
+    featured = models.BooleanField(default=False)
 
     objects = PropiedadManager()
 
@@ -155,7 +156,7 @@ class Propiedad(models.Model):
 
 
     def get_absolute_url(self):
-        return reverse('property_details',args=[self.slug])
+        return reverse('property_details', args=[self.slug])
 
 
 class Imagen_Propiedad(models.Model):
