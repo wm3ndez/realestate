@@ -147,7 +147,7 @@ class Propiedad(models.Model):
         return None
 
     def get_address(self):
-        return self.sector + ', ' + self.sector.ciudad + ', ' + self.sector.ciudad.provincia
+        return '%s, %s, %s' % (self.sector, self.sector.ciudad, self.sector.ciudad.provincia)
 
     def __unicode__(self):
         return self.titulo

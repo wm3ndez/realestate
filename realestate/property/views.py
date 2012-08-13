@@ -1,3 +1,4 @@
+from django.core.mail import send_mail
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponse
@@ -88,7 +89,9 @@ def details(request, slug):
     if request.POST:
         form = PropiedadContactForm(request.POST)
         if form.is_valid():
-            pass
+            _send_contact_form(form, prop)
+            form = PropiedadContactForm()
+            #TODO: Redirect to a thank you page
     else:
         form = PropiedadContactForm()
 
@@ -96,3 +99,10 @@ def details(request, slug):
     data = {'propiedad': prop, 'recent': recentp, 'form': form}
     return render_to_response("propiedad/propiedad.html", data, context_instance=RequestContext(request))
 
+
+def _send_contact_form(form, prop):
+    asunto = '%s %s' % ('Cliente Interesado en la propiedad:', prop.titulo)
+    mensaje = "El cliente %s esta interesado en esta propiedad y le ha dejado el siguiente mensaje:\n\n%s" % (
+        form.cleaned_data.get('nombre'), form.cleaned_data.get('mensaje'))
+    send_mail(asunto, mensaje, form.cleaned_data.get('email'),
+        [prop.agente.user.email, ], fail_silently=False)

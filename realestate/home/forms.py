@@ -2,7 +2,7 @@ from realestate.property.models import PROVINCIAS, OFERTAS, TIPO_PROPIEDADES, Ag
 from django import forms
 
 PRICE_RANGE = (
-    ('', 'Any'),
+    ('', '--'),
     (5000, '5,000'),
     (10000, '10,000'),
     (50000, '50,000'),
@@ -14,7 +14,7 @@ PRICE_RANGE = (
     )
 
 BATHROOMS_RANGE = (
-    ('', 'Any'),
+    ('', '--'),
     ('1', '1+'),
     ('2', '2+'),
     ('3', '3+'),
@@ -23,7 +23,7 @@ BATHROOMS_RANGE = (
     )
 
 BEDROOMS_RANGE = (
-    ('', 'Any'),
+    ('', '--'),
     ('1', '1+'),
     ('2', '2+'),
     ('3', '3+'),
