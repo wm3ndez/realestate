@@ -20,8 +20,9 @@ class ImagenAdmin(admin.ModelAdmin):
     date_hierarchy = 'agregada'
 
 
-class ImagenPropiedadInline(AdminImageMixin,admin.TabularInline):
+class ImagenPropiedadInline(AdminImageMixin, admin.TabularInline):
     model = Imagen_Propiedad
+
 
 class PropiedadAdmin(admin.ModelAdmin):
     # Esto hace que los unicos campos a mostrar sean los siguientes:
@@ -29,7 +30,9 @@ class PropiedadAdmin(admin.ModelAdmin):
 
     fieldsets = [
         ("Descripcion de la Propiedad",
-             {'fields': ['titulo','slug', 'descripcion', ('precio', 'sector', 'agente'), ('tipo', 'oferta', 'estado')]}),
+             {
+             'fields': ['titulo', 'slug', 'descripcion', ('precio', 'sector', 'agente'), ('tipo', 'oferta', 'estado')]})
+        ,
         ('Detalles',
              {
              #'classes': ('collapse',),
@@ -44,9 +47,9 @@ class PropiedadAdmin(admin.ModelAdmin):
         ImagenPropiedadInline,
         ]
 
-    list_display = ('titulo_Friendly','estado', 'tipo', 'sector', 'agente', 'creacion', 'imagen_miniatura')
+    list_display = ('titulo_Friendly', 'estado', 'tipo', 'sector', 'agente', 'creacion', 'imagen_miniatura')
     search_fields = ['titulo']
-    list_filter = ['creacion', 'agente', 'titulo','estado']
+    list_filter = ['creacion', 'agente', 'titulo', 'estado']
     date_hierarchy = 'creacion'
 
     def titulo_Friendly(self, object):
@@ -66,7 +69,6 @@ class PropiedadAdmin(admin.ModelAdmin):
     titulo_Friendly.short_description = "Titulo de la Propiedad"
 
 
-
     class Media:
         js = ('js/admin/propiedades.js',)
 
@@ -75,9 +77,29 @@ class EspecialAdmin(admin.ModelAdmin):
     list_display = ('prodiedad', 'estado')
 
 
+class AgenteAdmin(admin.ModelAdmin):
+    list_display = ('agente', 'telefono', 'celular', 'imagen')
+
+    def agente(self, agente):
+        return agente.__unicode__()
+
+    agente.short_description = u'Agente Vendedor'
+
+    def imagen(self, object):
+        imageobj = object.fotografia
+        if imageobj:
+            image = get_thumbnail(imageobj, '133x100', quality=99)
+            return '<img src="%s" />' % image.url
+        else:
+            return u'Por favor, agregue una imagen.'
+
+    imagen.short_description = u'Fotografia'
+    imagen.allow_tags = True
+
+
 admin.site.register(Propiedad, PropiedadAdmin)
 admin.site.register(Sector)
 admin.site.register(Ciudad)
-admin.site.register(Agente)
+admin.site.register(Agente, AgenteAdmin)
 admin.site.register(Imagen_Propiedad, ImagenAdmin)
 admin.site.register(Especial)

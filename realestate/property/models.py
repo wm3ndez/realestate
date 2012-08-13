@@ -85,12 +85,13 @@ class Agente(models.Model):
     celular = models.CharField(max_length=15)
     ciudad = models.ForeignKey(Ciudad)
     direccion = models.CharField(max_length=200)
+    fotografia = ImageField(upload_to='agentes/', default='')
     user = models.OneToOneField(User)
 
     def __unicode__(self):
-        if not self.user.first_name and not self.user.last_name:
-            return self.user.username
-        return self.user.first_name + " " + self.user.last_name
+        if (self.user.first_name or self.user.last_name):
+            return '%s %s' % (self.user.first_name, self.user.last_name)
+        return self.user.username
 
     class Meta:
         verbose_name = 'Agente'
