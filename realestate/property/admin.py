@@ -31,25 +31,26 @@ class PropiedadAdmin(admin.ModelAdmin):
     fieldsets = [
         ("Descripcion de la Propiedad",
              {
-             'fields': ['titulo', 'slug', 'descripcion', ('precio', 'sector', 'agente'), ('tipo', 'oferta', 'estado')]})
-        ,
+             'fields': ['titulo', 'slug', 'descripcion', ('precio', 'sector', 'agente'),
+                 ('tipo', 'oferta', 'estado', 'featured')
+             ]
+         }),
         ('Detalles',
              {
              #'classes': ('collapse',),
              'fields': [('tamano_solar', 'tamano_construccion'), ('niveles', 'dormitorios', 'banios'),
                  ('marquesina', 'parqueo_techado', 'balcon'), ( 'servicio', 'intercom', 'piscina'),
                  ( 'cocina', 'comedor'), 'coordenadas', 'notas']
-         }
-            )
+         })
     ]
 
     inlines = [
         ImagenPropiedadInline,
         ]
 
-    list_display = ('titulo_Friendly', 'estado', 'tipo', 'sector', 'agente', 'creacion', 'imagen_miniatura')
-    search_fields = ['titulo']
-    list_filter = ['creacion', 'agente', 'titulo', 'estado']
+    list_display = ('titulo_Friendly', 'estado', 'tipo', 'sector', 'agente', 'creacion', 'featured', 'imagen_miniatura')
+    search_fields = ['titulo', ]
+    list_filter = ['creacion', 'agente', 'titulo', 'estado',]
     date_hierarchy = 'creacion'
 
     def titulo_Friendly(self, object):
