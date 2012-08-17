@@ -1,4 +1,5 @@
-from django.core.mail import send_mail
+from django.conf import settings
+from django.core.mail.message import EmailMessage
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponse
@@ -104,5 +105,8 @@ def _send_contact_form(form, prop):
     asunto = '%s %s' % ('Cliente Interesado en la propiedad:', prop.titulo)
     mensaje = "El cliente %s esta interesado en esta propiedad y le ha dejado el siguiente mensaje:\n\n%s" % (
         form.cleaned_data.get('nombre'), form.cleaned_data.get('mensaje'))
-    send_mail(asunto, mensaje, form.cleaned_data.get('email'),
-        [prop.agente.user.email, ], fail_silently=False)
+    _from = settings.DEFAULT_FROM_EMAIL
+    to = [prop.agente.user.email, ]
+    reply = form.cleaned_data.get('email')
+    email = EmailMessage(asunto, mensaje, _from, to, headers={'Reply-To': reply})
+    email.send(fail_silently=False)
