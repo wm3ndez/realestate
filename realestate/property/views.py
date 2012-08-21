@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.core.mail.message import EmailMessage
+from django.db.models.query_utils import Q
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponse
@@ -27,56 +28,59 @@ def _get_paginator(propiedades, request):
     return resultado
 
 
-def _render_search_page(queryset, request):
+def _render_search_page(queryset, request, template='propiedad/search.html'):
     queryset = queryset.order_by('-id')
     resultado = _get_paginator(queryset, request)
-    return render_to_response("propiedad/search.html", {'resultado': resultado},
+    return render_to_response(template, {'resultado': resultado},
         context_instance=RequestContext(request))
 
 
-def _apply_search_filters(request, properties):
-    if request.POST['provincia']:
-        properties = properties.filter(sector__ciudad__provincia__icontains=request.POST['provincia'])
-    if request.POST['precio_max']:
-        properties = properties.filter(precio__lte=request.POST['precio_max'])
-    if request.POST['precio_min']:
-        properties = properties.filter(precio__gte=request.POST['precio_min'])
-    if request.POST['tipo']:
-        properties = properties.filter(tipo=request.POST['tipo'])
-    if request.POST['oferta']:
-        properties = properties.filter(oferta=request.POST['oferta'])
+def _apply_search_filters(data, properties):
+    if data.get('location'):
+        properties = properties.filter(Q(sector__nombre__icontains=data.get('location')) |
+                                       Q(sector__ciudad__nombre__icontains=data.get('location')) |
+                                       Q(sector__ciudad__provincia__icontains=data.get('location')))
+    if data.get('precio_max'):
+        properties = properties.filter(precio__lte=data.get('precio_max'))
+    if data.get('precio_min'):
+        properties = properties.filter(precio__gte=data.get('precio_min'))
+    if data.get('tipo'):
+        properties = properties.filter(tipo=data.get('tipo'))
+    if data.get('oferta'):
+        properties = properties.filter(oferta=data.get('oferta'))
     return properties
 
 
-def _venta_alquiler(tipo, request, oferta='venta'):
+def _venta_alquiler(tipo, request, oferta='venta', template='propiedad/search.html'):
     if oferta == 'venta':
         prop = Propiedad.objects.activas().filter(oferta__exact='venta')
     else:
         prop = Propiedad.objects.activas().filter(oferta__exact='alquiler')
     if tipo is not None:
         prop = prop.filter(tipo=tipo)
-    return _render_search_page(prop, request)
+    return _render_search_page(prop, request, template)
 
 
 def propiedades(request):
     prop = Propiedad.objects.activas().order_by('-id')
-    return _render_search_page(prop, request)
+    return _render_search_page(prop, request, template='propiedad/listing.html')
 
 
 def venta(request, tipo=None):
-    return _venta_alquiler(tipo, request)
+    return _venta_alquiler(tipo, request, template='propiedad/venta.html')
 
 
-def renta(request, tipo=None):
-    return _venta_alquiler(tipo, request, 'alquiler')
+def alquiler(request, tipo=None):
+    return _venta_alquiler(tipo, request, 'alquiler', template='propiedad/alquiler.html')
 
 
 def search(request):
     res = Propiedad.objects.activas()
+    #import ipdb; ipdb.set_trace()
     if request.POST:
         form = SearchForm(request.POST)
         if form.is_valid():
-            res = _apply_search_filters(request, res)
+            res = _apply_search_filters(form.cleaned_data, res)
 
     return _render_search_page(res, request)
 

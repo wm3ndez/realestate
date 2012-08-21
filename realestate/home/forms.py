@@ -32,13 +32,13 @@ BEDROOMS_RANGE = (
     )
 
 class SearchForm(forms.Form):
-    location = forms.CharField()
-    tipo = forms.ChoiceField(choices=TIPO_PROPIEDADES)
-    precio_min = forms.ChoiceField(choices=PRICE_RANGE)
-    precio_max = forms.ChoiceField(choices=PRICE_RANGE)
-    oferta = forms.ChoiceField(choices=OFERTAS)
-    beds = forms.ChoiceField(choices=BEDROOMS_RANGE)
-    baths = forms.ChoiceField(choices=BATHROOMS_RANGE)
+    location = forms.CharField(required=False)
+    tipo = forms.ChoiceField(choices=TIPO_PROPIEDADES, required=False)
+    precio_min = forms.ChoiceField(choices=PRICE_RANGE, required=False)
+    precio_max = forms.ChoiceField(choices=PRICE_RANGE, required=False)
+    oferta = forms.ChoiceField(choices=OFERTAS, required=False)
+    beds = forms.ChoiceField(choices=BEDROOMS_RANGE, required=False)
+    baths = forms.ChoiceField(choices=BATHROOMS_RANGE, required=False)
 
 
 class ContactForm(forms.Form):

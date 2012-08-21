@@ -8,7 +8,8 @@ register = template.Library()
 @register.filter
 def currency(dollars):
     dollars = float(dollars)
-    return "$%s%s" % (intcomma(int(dollars)), ("%0.2f" % dollars)[-3:])
+    #return "$%s%s" % (intcomma(int(dollars)), ("%0.2f" % dollars)[-3:])
+    return "$%s" % intcomma(int(dollars), False)
 
 
 @register.filter
