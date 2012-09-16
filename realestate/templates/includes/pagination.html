@@ -1,0 +1,17 @@
+<ul>
+    {% if previous %}
+        <li><a href="{{ previous }}">Anterior</a></li>
+    {% else %}
+        <li class="disabled"><a href="#">Anterior</a></li>
+    {% endif %}
+    {% for link in links %}
+        <li{% if link.page == current %} class="active"{% endif %}>
+            <a href="{{ link.href }}">{{ link.page }}</a>
+        </li>
+    {% endfor %}
+    {% if next %}
+        <li><a href="{{ next }}">Siguiente</a></li>
+    {% else %}
+        <li class="disabled"><a href="#">Siguiente</a></li>
+    {% endif %}
+</ul>

@@ -7,30 +7,14 @@ from django.http import HttpResponse
 from realestate.home.forms import SearchForm
 from realestate.property.forms import PropiedadContactForm
 from realestate.property.models import  Propiedad
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from realestate.utils import paginate
 
-PROPIEDADES_POR_PAGINA = 10
-
-def _get_paginator(propiedades, request):
-    paginator = Paginator(propiedades, PROPIEDADES_POR_PAGINA)
-    page = request.GET.get('page')
-    try:
-        resultado = paginator.page(page)
-    except TypeError:
-        # If page is not an integer, deliver first page.
-        resultado = paginator.page(1)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        resultado = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        resultado = paginator.page(paginator.num_pages)
-    return resultado
+PROPIEDADES_POR_PAGINA = 15
 
 
 def _render_search_page(queryset, request, template='propiedad/search.html'):
     queryset = queryset.order_by('-id')
-    resultado = _get_paginator(queryset, request)
+    resultado = paginate(request, queryset, PROPIEDADES_POR_PAGINA)
     return render_to_response(template, {'resultado': resultado},
         context_instance=RequestContext(request))
 
