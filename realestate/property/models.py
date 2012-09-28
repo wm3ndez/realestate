@@ -51,7 +51,7 @@ PROVINCIAS = (
     ('Valverde', 'Valverde'),
     )
 
-OFERTAS = ( ('venta', 'Venta'), ('alquiler', 'Alquiler'), ('venta_alquiler', 'Venta y/o Alquiler'))
+OFERTAS = ( ('venta', 'Venta'), ('alquiler', 'Alquiler'), ('venta_alq', 'Venta y/o Alquiler'))
 ESTADO_PROPIEDAD = ( ('activa', 'Activa'), ('inactiva', 'Inactiva'), ('vendida', 'Vendida'))
 ESTADO_ESPECIAL = ( ('activa', 'Activa'), ('inactiva', 'Inactiva'),)
 

@@ -31,9 +31,15 @@ BEDROOMS_RANGE = (
     ('5', '5+'),
     )
 
+PROVINCIAS_CHOICES = (('','Todas'),) + PROVINCIAS
+TIPO_PROPIEDADES_CHOICES = (('','Todos'),) + TIPO_PROPIEDADES
+
 class SearchForm(forms.Form):
-    location = forms.CharField(required=False)
-    tipo = forms.ChoiceField(choices=TIPO_PROPIEDADES, required=False)
+    id= forms.CharField(required=False)
+    titulo = forms.CharField(required=False)
+    agente = forms.ModelChoiceField(queryset=Agente.objects.all(), required=False)
+    location = forms.ChoiceField(choices=PROVINCIAS_CHOICES, required=False)
+    tipo = forms.ChoiceField(choices=TIPO_PROPIEDADES_CHOICES, required=False)
     precio_min = forms.ChoiceField(choices=PRICE_RANGE, required=False)
     precio_max = forms.ChoiceField(choices=PRICE_RANGE, required=False)
     oferta = forms.ChoiceField(choices=OFERTAS, required=False)
