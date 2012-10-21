@@ -18,6 +18,10 @@ urlpatterns = patterns('',
     url(r'^contacto/$', 'realestate.home.views.contacto', name='home_contact'),
     url(r'^servicios/$', 'realestate.home.views.servicios', name='home_services'),
     url(r'^escribenos/$', 'realestate.home.views.escribenos', name='home_escribenos'),
+
+    #Ajax
+    url(r'^listado_propiedades/$', 'realestate.property.views.get_mapa_propiedades', name='mapa-propiedades')
+
     (r'^admin/', include(admin.site.urls)), # Enabling Admin
     (r'^i18n/', include('django.conf.urls.i18n')),
 )

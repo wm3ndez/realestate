@@ -8,12 +8,16 @@ from realestate.home.forms import SearchForm
 from realestate.property.forms import PropiedadContactForm
 from realestate.property.models import  Propiedad
 from realestate.utils import paginate
+from realestate.utils.decorators import ajax_required
+from sorl.thumbnail.shortcuts import get_thumbnail
 
-PROPIEDADES_POR_PAGINA = 15
+if settings.PROPIEDADES_POR_PAGINA:
+    PROPIEDADES_POR_PAGINA = settings.PROPIEDADES_POR_PAGINA
+else:
+    PROPIEDADES_POR_PAGINA = 15
 
 
 def _render_search_page(queryset, request, template='propiedad/search.html'):
-    queryset = queryset.order_by('-id')
     resultado = paginate(request, queryset, PROPIEDADES_POR_PAGINA)
     return render_to_response(template, {'resultado': resultado},
         context_instance=RequestContext(request))
@@ -42,6 +46,11 @@ def _venta_alquiler(tipo, request, oferta='venta', template='propiedad/search.ht
         prop = Propiedad.objects.activas().filter(oferta__exact='alquiler')
     if tipo is not None:
         prop = prop.filter(tipo=tipo)
+    if request.GET.get('sort') == '-precio':
+        prop = prop.order_by('-precio')
+    else:
+        prop = prop.order_by('precio')
+
     return _render_search_page(prop, request, template)
 
 
@@ -60,9 +69,13 @@ def alquiler(request, tipo=None):
 
 def search(request):
     res = Propiedad.objects.activas()
-    #import ipdb; ipdb.set_trace()
+    #    import ipdb; ipdb.set_trace()
     if request.POST:
         form = SearchForm(request.POST)
+        if form.is_valid():
+            res = _apply_search_filters(form.cleaned_data, res)
+    else:
+        form = SearchForm(request.GET)
         if form.is_valid():
             res = _apply_search_filters(form.cleaned_data, res)
 
@@ -87,6 +100,34 @@ def details(request, slug):
     recentp = Propiedad.objects.all().order_by('-creacion')[:5]
     data = {'propiedad': prop, 'recent': recentp, 'form': form}
     return render_to_response("propiedad/propiedad.html", data, context_instance=RequestContext(request))
+
+
+@ajax_required
+def get_mapa_propiedades(request):
+    from realestate.property.templatetags.extra_functions import currency
+
+    listado_propiedades = []
+    for propiedad in Propiedad.objects.activas():
+        lat, lng = propiedad.coordenadas.split(',')
+        try:
+            im = get_thumbnail(propiedad.imagen_principal.imagen, '135x90', crop='center', quality=99).url
+        except ValueError:
+            im = ''
+
+        listado_propiedades.append({
+            'id': propiedad.id,
+            'url': propiedad.get_absolute_url(),
+            'street': propiedad.get_address(),
+            'title': propiedad.titulo,
+            'lat': lat,
+            'lng': lng,
+            'price': currency(propiedad.precio),
+            'img': im,
+
+
+        })
+
+    return {'propiedades': listado_propiedades, }
 
 
 def _send_contact_form(form, prop):

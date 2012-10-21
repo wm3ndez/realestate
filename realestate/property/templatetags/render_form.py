@@ -42,5 +42,10 @@ def render_offer_select():
 
 @register.inclusion_tag('forms/search.html', takes_context=True)
 def get_search_form(context):
-    form = SearchForm(context['request'].POST)
+    form = SearchForm(context['request'].GET)
+    return {'form':form}
+
+@register.inclusion_tag('forms/secondary_search.html', takes_context=True)
+def get_secondary_search_form(context):
+    form = SearchForm(context['request'].GET)
     return {'form':form}

@@ -143,11 +143,13 @@ class Propiedad(models.Model):
 
     objects = PropiedadManager()
 
-    def imagen_principal(self):
+    def _imagen_principal(self):
         im = self.imagen_propiedad_set.all()
         if im.count():
             return im[0]
         return None
+
+    imagen_principal = property(_imagen_principal)
 
     def get_address(self):
         return '%s, %s, %s' % (self.sector, self.sector.ciudad, self.sector.ciudad.provincia)
