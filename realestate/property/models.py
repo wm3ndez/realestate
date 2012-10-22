@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 from django.db import models
@@ -169,6 +170,38 @@ class Propiedad(models.Model):
 
     def get_absolute_url(self):
         return reverse('property_details', args=[self.slug])
+
+    def get_features(self):
+        features = [
+            u'Niveles: %s' % self.niveles,
+            u'Dormitorios: %s' % self.dormitorios,
+            u'Baños: %s' % self.banios,
+        ]
+        if self.cocina:
+            features.append(u'Cocina')
+        if self.comedor:
+            features.append(u'Comedor')
+        if self.servicio:
+            features.append(u'Hab. de Servicio')
+        if self.amueblado:
+            features.append(u'Amueblado/a')
+        if self.piscina:
+            features.append(u'Piscina')
+        if self.balcon:
+            features.append(u'%s balcon(es)' % self.balcon)
+        if self.marquesina:
+            features.append(u'Marquesina para %s vehículo(s)' % self.marquesina)
+        if self.parqueo_techado:
+            features.append(u'Parqueo Techado')
+        if self.tamano_construccion:
+            features.append(u'%s Mts2 de const.' % self.tamano_construccion)
+        if self.tamano_solar:
+            features.append(u'%s Mts2 de solar' % self.tamano_solar)
+
+        return features
+
+    def propiedades_en_el_area(self):
+        return Propiedad.objects.filter(sector=self.sector).order_by('?')[:4]
 
 
 class Imagen_Propiedad(models.Model):

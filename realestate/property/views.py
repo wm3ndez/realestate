@@ -132,8 +132,8 @@ def get_mapa_propiedades(request):
 
 def _send_contact_form(form, prop):
     asunto = '%s %s' % ('Cliente Interesado en la propiedad:', prop.titulo)
-    mensaje = "El cliente %s esta interesado en esta propiedad y le ha dejado el siguiente mensaje:\n\n%s" % (
-        form.cleaned_data.get('nombre'), form.cleaned_data.get('mensaje'))
+    mensaje = "El cliente %s esta interesado en esta propiedad y le ha dejado el siguiente mensaje:\n\n%s\n\nTelefono: %s" % (
+        form.cleaned_data.get('nombre'), form.cleaned_data.get('mensaje'),form.cleaned_data.get('telefono'))
     _from = settings.DEFAULT_FROM_EMAIL
     to = [prop.agente.user.email, ]
     reply = form.cleaned_data.get('email')
