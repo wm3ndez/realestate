@@ -62,7 +62,7 @@ class PropiedadAdmin(admin.ModelAdmin):
         return '%s, %s' % (propiedad.sector.ciudad, propiedad.sector.ciudad.provincia )
 
     def imagen_miniatura(self, object):
-        imageobj = object.imagen_principal()
+        imageobj = object.imagen_principal
         if imageobj:
             image = get_thumbnail(imageobj.imagen, '75x50', quality=99)
             return '<img src="%s" />' % image.url
