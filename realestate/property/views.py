@@ -111,7 +111,7 @@ def get_mapa_propiedades(request):
         lat, lng = propiedad.coordenadas.split(',')
         try:
             im = get_thumbnail(propiedad.imagen_principal.imagen, '135x90', crop='center', quality=99).url
-        except ValueError:
+        except (ValueError,AttributeError):
             im = ''
 
         listado_propiedades.append({
