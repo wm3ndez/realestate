@@ -114,9 +114,13 @@ def get_mapa_propiedades(request):
         except (ValueError,AttributeError):
             im = ''
 
+        try:
+            url = propiedad.get_absolute_url()
+        except:
+            url = ''
         listado_propiedades.append({
             'id': propiedad.id,
-            'url': propiedad.get_absolute_url(),
+            'url': url,
             'street': propiedad.get_address(),
             'title': propiedad.titulo,
             'lat': lat,
