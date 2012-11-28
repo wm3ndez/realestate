@@ -4,6 +4,7 @@ from django.template.defaultfilters import slugify
 from django.db import models
 from django.contrib.auth.models import User
 from sorl.thumbnail import ImageField
+from django.utils.translation import ugettext as _
 
 TIPO_PROPIEDADES = (
     ('casa', 'Casas'),
@@ -82,12 +83,12 @@ class Sector(models.Model):
 
 
 class Agente(models.Model):
-    telefono = models.CharField(max_length=15)
-    celular = models.CharField(max_length=15)
-    ciudad = models.ForeignKey(Ciudad)
-    direccion = models.CharField(max_length=200)
-    fotografia = ImageField(upload_to='agentes/', default='')
-    user = models.OneToOneField(User)
+    telefono = models.CharField(max_length=15, verbose_name=_(u'Teléfono'))
+    celular = models.CharField(max_length=15, verbose_name=_(u'Celular'))
+    ciudad = models.ForeignKey(Ciudad, verbose_name=_(u'Ciudad'))
+    direccion = models.CharField(max_length=200, verbose_name=_(u'Dirección'))
+    fotografia = ImageField(upload_to='agentes/', default='', verbose_name=_(u'Fotografía'))
+    user = models.OneToOneField(User, verbose_name=_(u'Usuario'))
 
     def __unicode__(self):
         if (self.user.first_name or self.user.last_name):
@@ -114,33 +115,34 @@ class PropiedadManager(models.Manager):
 
 
 class Propiedad(models.Model):
-    titulo = models.CharField(max_length=60)
-    slug = models.CharField(max_length=60, unique=True, blank=False)
-    descripcion = models.TextField(max_length=1000)
-    precio = models.DecimalField(max_digits=12, decimal_places=2, default=0.0)
+    titulo = models.CharField(max_length=60, verbose_name=_(u'Título de la Propiedad'))
+    slug = models.CharField(max_length=60, unique=True, blank=False, verbose_name=_(u'Slug'))
+    descripcion = models.TextField(max_length=1000, verbose_name=_(u'Descripción'))
+    precio = models.DecimalField(max_digits=12, decimal_places=2, default=0.0, verbose_name=_(u'Precio'))
     sector = models.ForeignKey(Sector)
-    tipo = models.CharField(max_length=30, choices=TIPO_PROPIEDADES)
-    oferta = models.CharField(max_length=10, choices=OFERTAS)
-    estado = models.CharField(max_length=10, choices=ESTADO_PROPIEDAD)
+    tipo = models.CharField(max_length=30, choices=TIPO_PROPIEDADES, verbose_name=_(u'Tipo de Inmueble'))
+    oferta = models.CharField(max_length=10, choices=OFERTAS, verbose_name=_(u'Oferta'))
+    estado = models.CharField(max_length=10, choices=ESTADO_PROPIEDAD, verbose_name=_(u'Estado'))
     agente = models.ForeignKey(Agente)
-    creacion = models.DateTimeField(auto_now_add=True)
-    niveles = models.IntegerField(max_length=2, default=1)
-    dormitorios = models.IntegerField(max_length=2, default=3)
-    banios = models.IntegerField(max_length=2, default=2)
-    servicio = models.BooleanField(default=0)
-    marquesina = models.IntegerField(max_length=2, default=0)
-    tamano_solar = models.IntegerField(default=0)
-    tamano_construccion = models.IntegerField(default=0)
-    cocina = models.BooleanField(default=1)
-    parqueo_techado = models.BooleanField(default=0)
-    comedor = models.BooleanField(default=1)
-    amueblado = models.BooleanField(default=0)
-    piscina = models.BooleanField(default=0)
-    balcon = models.IntegerField(max_length=2, default=0)
-    intercom = models.BooleanField(default=0)
-    notas = models.TextField(max_length=500)
-    coordenadas = models.CharField(max_length=22, default='19.000000,-70.400000')
-    featured = models.BooleanField(default=False)
+    creacion = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Creación'))
+    niveles = models.IntegerField(max_length=2, default=1, verbose_name=_(u'Niveles'))
+    dormitorios = models.IntegerField(max_length=2, default=3, verbose_name=_(u'Dormintorios'))
+    banios = models.IntegerField(max_length=2, default=2, verbose_name=_(u'Baños'))
+    servicio = models.BooleanField(default=0, verbose_name=_(u'Servicio?'))
+    marquesina = models.IntegerField(max_length=2, default=0, verbose_name=_(u'Marquesina?'))
+    tamano_solar = models.IntegerField(default=0, verbose_name=_(u'Área del Terreno'))
+    tamano_construccion = models.IntegerField(default=0, verbose_name=_(u'Área de Construcción'))
+    cocina = models.BooleanField(default=1, verbose_name=_(u'Cocina'))
+    parqueo_techado = models.BooleanField(default=0, verbose_name=_(u'Parque Techado?'))
+    comedor = models.BooleanField(default=1, verbose_name=_(u'Comedor?'))
+    amueblado = models.BooleanField(default=0, verbose_name=_(u'Amueblado?'))
+    piscina = models.BooleanField(default=0, verbose_name=_(u'Piscina?'))
+    balcon = models.IntegerField(max_length=2, default=0, verbose_name=_(u'Balcón'))
+    intercom = models.BooleanField(default=0, verbose_name=_(u'Intercom?'))
+    notas = models.TextField(max_length=500, verbose_name=_(u'Notas privadas acerca de esta propiedad.'))
+    coordenadas = models.CharField(max_length=22, default='19.000000,-70.400000', verbose_name=_(u'Coordenadas'))
+    featured = models.BooleanField(default=False, verbose_name=_(u'Propiedad Destacada?'))
+    vistas = models.IntegerField(verbose_name=_(u'Notas privadas acerca de esta propiedad.'), null=True)
 
     objects = PropiedadManager()
 
@@ -176,7 +178,7 @@ class Propiedad(models.Model):
             u'Niveles: %s' % self.niveles,
             u'Dormitorios: %s' % self.dormitorios,
             u'Baños: %s' % self.banios,
-        ]
+            ]
         if self.cocina:
             features.append(u'Cocina')
         if self.comedor:

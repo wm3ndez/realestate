@@ -2,6 +2,7 @@ from models import *
 from django.contrib import admin
 from sorl.thumbnail import get_thumbnail
 from sorl.thumbnail.admin import AdminImageMixin
+from realestate.property.templatetags.extra_functions import currency
 
 class ImagenAdmin(admin.ModelAdmin):
     def titulo_Friendly(self, object):
@@ -30,33 +31,38 @@ class PropiedadAdmin(admin.ModelAdmin):
 
     fieldsets = [
         ("Descripcion de la Propiedad",
-         {
+             {
              'fields': ['titulo', 'slug', 'descripcion', ('precio', 'sector', 'agente'),
-                        ('tipo', 'oferta', 'estado', 'featured')
+                 ('tipo', 'oferta', 'estado', 'featured')
              ]
          }),
         ('Detalles',
-         {
+             {
              #'classes': ('collapse',),
              'fields': [('tamano_solar', 'tamano_construccion'), ('niveles', 'dormitorios', 'banios'),
-                        ('marquesina', 'parqueo_techado', 'balcon'), ( 'servicio', 'intercom', 'piscina'),
-                        ( 'cocina', 'comedor'), 'coordenadas', 'notas']
+                 ('marquesina', 'parqueo_techado', 'balcon'), ( 'servicio', 'intercom', 'piscina'),
+                 ( 'cocina', 'comedor'), 'coordenadas', 'notas']
          })
     ]
 
     inlines = [
         ImagenPropiedadInline,
-    ]
+        ]
 
     list_display = (
-    'id', 'titulo_Friendly', 'precio', 'estado', 'tipo', 'ciudad', 'sector', 'agente', 'creacion', 'featured',
-    'imagen_miniatura')
+        'id', 'titulo', 'currency_price', 'estado', 'tipo', 'ciudad', 'sector', 'agente', 'creacion', 'featured',
+        'imagen_miniatura')
+
+    def currency_price(self, propiedad):
+        return currency(propiedad.precio)
+
+    currency_price.short_description = u'Precio'
+
+    list_display_links = ('id', 'titulo')
     search_fields = ['titulo', 'sector__ciudad']
     list_filter = ['creacion', 'agente', 'titulo', 'estado', ]
     date_hierarchy = 'creacion'
 
-    def titulo_Friendly(self, propiedad):
-        return propiedad.titulo
 
     def ciudad(self, propiedad):
         return '%s, %s' % (propiedad.sector.ciudad, propiedad.sector.ciudad.provincia )
@@ -71,8 +77,6 @@ class PropiedadAdmin(admin.ModelAdmin):
 
     imagen_miniatura.short_description = "Imagen"
     imagen_miniatura.allow_tags = True
-
-    titulo_Friendly.short_description = "Titulo de la Propiedad"
 
 
     class Media:
