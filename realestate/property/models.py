@@ -2,6 +2,7 @@
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 from django.db import models
+
 from django.contrib.auth.models import User
 from sorl.thumbnail import ImageField
 from django.utils.translation import ugettext as _
@@ -112,6 +113,12 @@ class PropiedadManager(models.Manager):
 
     def featured(self, **kwargs):
         return self.activas().filter(featured=True)
+
+    def alquiler(self, **kwargs):
+        return self.activas().filter(oferta__in=('venta_alq','alquiler'))
+
+    def venta(self, **kwargs):
+        return self.activas().filter(oferta__in=('venta_alq','venta'))
 
 
 class Propiedad(models.Model):

@@ -41,9 +41,9 @@ def _apply_search_filters(data, properties):
 
 def _venta_alquiler(tipo, request, oferta='venta', template='propiedad/search.html'):
     if oferta == 'venta':
-        prop = Propiedad.objects.activas().filter(oferta__exact='venta')
+        prop = Propiedad.objects.venta()
     else:
-        prop = Propiedad.objects.activas().filter(oferta__exact='alquiler')
+        prop = Propiedad.objects.alquiler()
     if tipo is not None:
         prop = prop.filter(tipo=tipo)
     if request.GET.get('sort') == '-precio':
