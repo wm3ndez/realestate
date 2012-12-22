@@ -4,7 +4,7 @@ __credits__ = ['Williams Mendez, williamsmendez.com, @wmendezt']
 
 
 __license__ = 'BSD'
-__version__ = '1.0.1'
+__version__ = '1.0.2'
 __maintainer__ = 'Williams Mendez'
 __email__ = 'wmendez27@gmail.com'
 __status__ = 'Production'
