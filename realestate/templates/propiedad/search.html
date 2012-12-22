@@ -1,0 +1,31 @@
+{% extends "base_theme.html" %}
+{% load static re_paginator %}
+{% block content %}
+    <div class="row">
+        <div class="span4 select_height"> Mostrando {{ resultado.start_index }} - {{ resultado.end_index }}
+            de {{ resultado.paginator.count }} resultados
+        </div>
+        <div class="pull-right">
+            <form action="{% url search %}" id="form-sort">
+                Ordenar por :
+                <select id="sort" name="sort" class="span3">
+                    <option value="precio">Precio: Ascendente</option>
+                    <option value="-precio"{% if request.GET.sort == '-precio' %} selected="selected"{% endif %}>Precio:
+                        Descendente
+                    </option>
+                </select>
+            </form>
+        </div>
+    </div>
+
+
+    {% include 'includes/listado_propiedades.html' %}
+
+
+    {# pagination #}
+    <div class="pagination pagination-centered">
+        {% pagination_url resultado %}
+    </div>
+    {# pagination #}
+
+{% endblock %}

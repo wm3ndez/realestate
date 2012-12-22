@@ -9,12 +9,18 @@ django-extensions
 django-seo
 django-admin-tools
 mysql-python
+django-newsletter
+surlex
+django-tinymce
 
--e git+https://github.com/tschellenbach/Django-facebook.git#egg=Django-facebook
 coverage
+django-coverage
 decorator
 ipdb
 ipdbplugin
 ipython
 fabric
 django-localeurl
+
+-e git+https://github.com/tschellenbach/Django-facebook.git#egg=Django-facebook
+-e git+ssh://git@bitbucket.org/wm3ndez/django-hitcounter.git#egg=django-hitcount

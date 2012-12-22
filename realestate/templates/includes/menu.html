@@ -1,0 +1,44 @@
+<div class="header-bottom">
+    <!-- Navigation Level 2 (Drop-down menus) -->
+    <div class="nav2">
+        <ul>
+            <li><a href="{% url index %}">Inicio</a></li>
+        </ul>
+        <ul>
+            <li><a href="{% url home_aboutus %}">Nosotros</a></li>
+        </ul>
+        <ul>
+            <li><a href="{% url home_services %}">Servicios</a></li>
+        </ul>
+        <ul>
+            <li><a href="{% url search %}">Propiedades</a></li>
+        </ul>
+        <ul>
+            <li class="dir"><a href="{% url properties_for_sale %}">Venta</a>
+                <ul>
+                    <li><a href="{% url properties_for_sale 'apartamento' %}">Apartamentos</a></li>
+                    <li><a href="{% url properties_for_sale 'casa' %}">Casas</a></li>
+                    <li><a href="{% url properties_for_sale 'local' %}">Locales</a></li>
+                </ul>
+            </li>
+        </ul>
+        <ul>
+            <li class="dir"><a href="{% url properties_for_rent %}">Alquiler</a>
+                <ul>
+                    <li><a href="{% url properties_for_rent 'apartamento' %}">Apartamentos</a></li>
+                    <li><a href="{% url properties_for_rent 'casa' %}">Casas</a></li>
+                    <li><a href="{% url properties_for_rent 'local' %}">Locales</a></li>
+                </ul>
+            </li>
+        </ul>
+        <ul>
+            <li><a href="{% url home_contact %}">Contacto</a></li>
+        </ul>
+        <ul>
+            <li><a href="{% url home_escribenos %}">Escr&iacute;benos</a></li>
+        </ul>
+        <ul>
+            <li><a>C&aacute;lculo Pr&eacute;stamo</a></li>
+        </ul>
+    </div>
+</div>

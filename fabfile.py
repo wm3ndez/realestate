@@ -3,11 +3,11 @@ from fabric.api import local, run, env
 env.hosts = ['wmendez@108.59.4.79:22']
 
 def test_app(cli_args=''):
-    local('venv/bin/coverage -x holguinmatos/manage_local.py test %s' % cli_args)
+    local('venv/bin/coverage -x holguinmatos/manage.py test %s' % cli_args)
 
 
 def run_server(cli_args=''):
-    local('venv/bin/python holguinmatos/manage_local.py runserver 0.0.0.0:8000 %s' % cli_args)
+    local('venv/bin/python holguinmatos/manage.py runserver 0.0.0.0:8000 %s' % cli_args)
 
 
 def pushpull():

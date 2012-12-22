@@ -1,0 +1,132 @@
+{% load i18n realestate %}
+
+<div class="row"><!-- start header -->
+    <div class="span4 logo">
+        <a href="/">
+            <div class="row">
+                {% comment %}
+                <div class="span1">
+                    <img src="{{ STATIC_URL }}css/images/Home-green-48.png" alt=""/>
+                </div>
+                <div class="span3">
+                    <h1>
+                        <small>Bootstrap</small>
+                        <br/><span>Real</span> estate
+                    </h1>
+                </div>
+                {% endcomment %}
+                <div class="span3">
+                    <img src="{{ STATIC_URL }}css/images/gdm_logo.jpg" alt="Grupo de Inversiones DM, S.R.L"/>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="span4 customer_service pull-right text-right">
+        <br/>
+        <h4>Contáctanos: 809-295-8088 / 809-626-8088</h4>
+        <h4>
+            <small>24 horas al día, 7 días a la semana</small>
+        </h4>
+    </div>
+</div>
+<!-- end header -->
+
+<div class="row"><!-- start nav -->
+    <div class="span12">
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="container">
+                    <div class="nav-collapse">
+                        <ul class="nav">
+                            <li><a href="/" class="first">{% trans "Inicio" %}</a></li>
+                            <li><a href="{% url properties_for_sale %}">{% trans "Venta" %}</a></li>
+                            <li><a href="{% url properties_for_rent %}">{% trans "Renta" %}</a></li>
+                            {% comment %}
+                            <li><a href="compare.html">New homes</a></li>
+                            <li><a href="property.html">Property of the day</a></li>
+                            {% endcomment %}
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    Propiedades <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{% url all_properties %}">Propiedades</a></li>
+                                    {% comment %}
+                                    <li><a href="map_properties.html">Properties map</a></li>
+                                    <li><a href="property.html">Single property</a></li>
+                                    <li><a href="compare.html">Compare properties</a></li>
+                                    {% endcomment %}
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    Otras páginas <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    {% comment %}
+                                    <li><a href="typography.html">Typography</a></li>
+                                    <li><a href="terms.html">Terms and conditions</a></li>
+                                    {% endcomment %}
+                                    <li><a href="{% url home_aboutus %}">{% trans "Nosotros" %}</a></li>
+                                    <li><a href="{% url home_services %}">{% trans "Servicios" %}</a></li>
+                                    <li><a href="{% url home_contact %}">{% trans "Contacto" %}</a></li>
+                                </ul>
+                            </li>
+
+                        </ul>
+
+                        <ul class="nav pull-right">
+
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown">Suscríbete!<strong
+                                        class="caret"></strong></a>
+
+                                <div class="dropdown-menu">
+                                    {% get_newsletter_form %}
+                                </div>
+                            </li>
+                            {% comment %}
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong
+                                        class="caret"></strong></a>
+
+                                <div class="dropdown-menu">
+                                    <form action="index.html" method="post">
+                                        <input type="text" name="user[username]" placeholder="Username or email"
+                                               size="30"/>
+                                        <input type="password" name="user[password]" placeholder="Password" size="30"/>
+                                        <input id="remember_me" type="checkbox" name="user[remember_me]" value="1"/>
+                                        <label class="string optional"> Remember me</label>
+
+                                        <input class="btn btn-primary" type="submit" name="commit" value="Sign In"/>
+                                    </form>
+                                </div>
+                            </li>
+                            {% endcomment %}
+
+                        </ul>
+                    </div>
+                    <!-- /.nav-collapse -->
+                </div>
+            </div>
+            <!-- /navbar-inner -->
+        </div>
+        <!-- /navbar -->
+    </div>
+</div>
+<!-- end nav -->
+
+
+<div class="logo-menu clear">
+    {# <div class="logo"><a href="/"></a></div> #}
+    <div class="menu">
+        <ul class="sprite">
+            <li><a href="/" class="activelink"><span></span>{% trans "Inicio" %}</a></li>
+            <li><a href="{% url properties_for_rent %}"><span></span>{% trans "Renta" %}</a></li>
+            <li><a href="{% url properties_for_sale %}"><span></span>{% trans "Venta" %}</a></li>
+            <li><a href="{% url home_aboutus %}"><span></span>{% trans "Nosotros" %}</a></li>
+            <li><a href="{% url home_contact %}"><span></span>{% trans "Contacto" %}</a></li>
+        </ul>
+    </div>
+</div>
+&nbsp;

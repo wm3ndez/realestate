@@ -1,0 +1,16 @@
+{% load thumbnail extra_functions %}
+<div class="list-slide">
+    <ul class="listings clear">
+        {% for propiedad in propiedades %}
+            <li{% if forloop.first %} class="first"{% endif %}>
+                {% thumbnail propiedad.imagen_principal.imagen "210x129" crop="center" as image %}
+                    <img align="middle" src="{{ image.url }}" alt="{{ propiedad.titulo }}"
+                         title="{{ propiedad.titulo }}"/>
+                {% endthumbnail %}
+                <a href="{{ propiedad.get_absolute_url }}" title="{{ propiedad.titulo }}">{{ propiedad.titulo }}</a>
+                <label>Price: <span>{{ propiedad.precio|currency }}</span></label>
+                <p>{{ propiedad.descripcion|safe|truncatewords_html:25 }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

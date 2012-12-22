@@ -1,0 +1,31 @@
+{% load thumbnail %}
+<div class="span7 home_carousel no_margin_left pull-right">
+    <!-- Start slideshow-carousel -->
+    <div id="carousel-loader">
+
+    </div>
+    <div id="carousel" class="showcase">
+        {% for propiedad in propiedades %}
+            <div class="showcase-slide">
+                <div class="showcase-content">
+                    <a href="{{ propiedad.get_absolute_url }}">
+                        {% thumbnail propiedad.imagen_principal.imagen "590x326" crop="center" as image %}
+                            <img src="{{ image.url }}" alt="{{ propiedad.titulo }}">
+                        {% endthumbnail %}
+                    </a>
+                </div>
+
+                <div class="showcase-caption carousel-caption">
+                    <a href="{{ propiedad.get_absolute_url }}">
+                        <h4>{{ propiedad.titulo }}</h4>
+
+                        <p>{{ propiedad.descripcion|truncatewords_html:"20" }}</p>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+    <!-- // end of slideshow-carousel -->
+
+</div>

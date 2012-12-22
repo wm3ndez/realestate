@@ -1,0 +1,136 @@
+/* <str> */
+
+@import "themes/custom/variables.less";
+@import "base/mixins.less";
+
+/*The theme switcher*/
+#theme_switcher {
+   top:10px;
+   left:10px;
+   position:fixed;
+}
+
+/* general styles */
+body {padding-top: 10px;padding-bottom: 40px;}
+iframe{border:none; padding: 0;}
+.span12, .container {width: 940px;}
+.navbar-inner .container {width: auto;}
+.span7.home_carousel {width: 590px;}
+.no_margin_left {margin-left: 0;}
+.center {text-align:center;margin: 0 auto;}
+.text-right {text-align:right;}
+footer h4 {margin-bottom: 8px;}
+.links a {	margin-right: 5px;}
+h1 span, h3 span {
+	font-weight: normal;
+}
+
+/* logo */
+.logo {height: 65px;}
+.span4.logo h1{line-height: 21px}
+.span4.logo .span1{width:auto}
+
+/* home page form with gradient */
+.lform {
+	#gradient > .vertical(@white, lighten(@grayLight, 30%)); 	
+	border-bottom: 1px solid lighten(@grayLight, 15%);
+    border-left: 1px solid lighten(@grayLight, 15%);
+    border-right: 1px solid lighten(@grayLight, 15%);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+	border: 1px solid lighten(@grayLight, 15%);
+	height: 287px;
+}
+.lform form {
+	margin-bottom: 0px;
+}
+.lform form .input-xlarge {
+	width: 300px;
+}
+.lform form .btn-primary {
+	margin-right: -9px;
+}
+
+/* map sizes */
+#home_map_canvas {width: 300px; height: 350px;}
+#map_canvas {width: 620px; height: 414px;}
+.thumbnail{position:relative;}
+
+/* initially hidden */
+#people_viewing{display:none;}
+.showcase{display:none;}
+
+/*The showcase*/
+.showcase-caption{color:@textColor;}
+#showcase-loader{background: url('images/loader.gif') no-repeat 50% 50%; display: block; width:620px; height: 414px;}
+#carousel-loader{background: url('images/loader.gif') no-repeat 50% 50%; display: block; width:590px; height: 326px;}
+
+.mini_property{
+height: 170px; display:block;
+}
+#home_map_canvas {
+cursor: pointer;
+}
+
+/*The slider*/
+#portamento_container {
+	position:relative;
+}
+#portamento_container #contact_agent {
+	float:none; 
+	position:absolute;
+}
+#portamento_container #contact_agent.fixed {
+	position:fixed;
+}
+
+/*Customize the modal*/
+.modal-body {max-height: 550px;}
+.modal-body {max-height: 550px;}
+.modal-header .close { position:absolute;font-size: @baseFontSize; right: 15px;color:@grayDarker; opacity: 0.7}
+.modal-header { border: none;}
+
+.select_height{line-height:28px}
+
+/*Premium properties*/
+.premium_properties {
+	padding-top: 28px;
+	border-right: 1px solid #ddd;
+	border-left: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	width: 618px;
+	.box-shadow(0 1px 1px rgba(0,0,0,.075));
+	margin-bottom: @baseLineHeight;
+}
+.premium_properties .thumbnail{
+	border: none;
+	.border-radius(0);
+	.box-shadow(none);
+}
+.premium_properties .span2{
+	width: 192px;
+	text-align: center;
+}
+.premium_property {
+	position: relative;
+}
+
+/*The dropdown*/
+.dropdown-menu form {
+	padding: 15px;
+	padding-bottom: 0px;
+}
+
+.dropdown-menu input {
+	margin-bottom: 15px;
+}
+
+.dropdown-menu .btn-primary {
+	clear: left;
+	width: 100%;
+	height: 32px;
+	font-size: 13px;
+}
+.dropdown-menu #remember_me {
+	float: left;
+	margin-right: 10px;
+}

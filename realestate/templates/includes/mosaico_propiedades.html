@@ -1,0 +1,24 @@
+{% load extra_functions thumbnail %}
+
+
+<ul class="thumbnails">
+    {% for propiedad in resultado.object_list %}
+        <li class="span2">
+            <div class="thumbnail mini_property">
+                <a href="{{ propiedad.get_absolute_url }}">
+                    {% thumbnail propiedad.imagen_principal.imagen "135x90" crop="center" as image %}
+                        <img align="middle" src="{{ image.url }}" alt="{{ propiedad.titulo }}"
+                             title="{{ propiedad.titulo }}"/>
+                    {% endthumbnail %}
+                </a>
+                <h5>Price : {{ propiedad.precio|currency }}</h5>
+
+                <p>
+                    <a href="{{ propiedad.get_absolute_url }}">{{ propiedad.titulo }}</a><br>{{ propiedad.get_address }}
+                </p>
+            </div>
+        </li>
+    {% empty %}
+        <h4>No hay propiedades a mostrar.</h4>
+    {% endfor %}
+</ul>

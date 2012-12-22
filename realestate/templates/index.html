@@ -1,0 +1,72 @@
+{% extends 'base_theme.html' %}
+{% load extra_functions  thumbnail render_form static homepage i18n realestate %}
+{% block extra_js %}
+{% endblock %}
+
+{% comment %}
+       <ul id="feature">
+           <li class="feat" style="display:list-item;" id="feature1">
+               {% get_ultimas_casas %}
+           </li>
+           <li class="feat" style="display:none;" id="feature2">
+               {% get_ultimos_apartamentos %}
+           </li>
+       </ul>
+{% endcomment %}
+
+{% block content %}
+
+
+
+    <div class="row">
+
+        {% get_search_form %}
+        {% frontpage_carousel %}
+    </div>
+
+    {% comment %}
+    <div class="row">
+        <div class="span4">
+            <h3><span>Latest</span> properties</h3>
+            <a href="map_properties.html"><img src="{{ STATIC_URL }}css/images/latest_properties.jpg" alt=""/></a>
+
+            <p>Sign up for our weekly newsletter and stay up-to-date with the latest offers, and newest products.<a
+                    href="map_properties.html" class="pull-right">more...</a></p>
+        </div>
+        <div class="span4">
+            <h3><span>New</span> homes</h3>
+            <a href="listings.html"><img src="{{ STATIC_URL }}css/images/new_homes.png" alt=""/></a>
+
+            <p>Sign up for our weekly newsletter and stay up-to-date with the latest offers, and newest products.<a
+                    href="listings.html" class="pull-right">more...</a></p>
+        </div>
+        <div class="span4">
+            <h3><span>Homes</span> abroad</h3>
+            <a href="listings.html"><img src="{{ STATIC_URL }}css/images/homes_abroad.png" alt=""/></a>
+
+            <p>Sign up for our weekly newsletter and stay up-to-date with the latest offers, and newest products.<a
+                    href="listings.html" class="pull-right">more...</a></p>
+        </div>
+    </div>
+    {% endcomment %}
+
+    <div class="row">
+        <br/>
+
+        <div class="span4">
+            <h3>Localidades <span>populares</span></h3>
+
+
+            <div id="home_map_canvas"></div>
+
+
+        </div>
+        <div class="span8">
+            {% get_featured %}
+
+        </div>
+
+    </div>
+
+
+{% endblock %}

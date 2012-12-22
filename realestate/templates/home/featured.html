@@ -1,0 +1,44 @@
+<h3>Propiedades <span>destacadas</span></h3>
+
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        <th>Descripción</th>
+        <th>Localidad</th>
+        <th>Precio</th>
+        <th>&nbsp;</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for propiedad in propiedades %}
+        <tr>
+            <td>
+                <a href="{{ propiedad.get_absolute_url }}" title="{{ propiedad.titulo }}">{{ propiedad.titulo }}</a>
+            </td>
+            <td>
+                {{ propiedad.sector.ciudad }}
+            </td>
+            <td> &dollar;{{ propiedad.precio }} </td>
+            <td><a href="{{ propiedad.get_absolute_url }}" title="{{ propiedad.titulo }}">Ver</a></td>
+        </tr>
+    {% endfor %}
+    {% comment %}
+    <tr>
+        <td><a href="property.html">8 bedroom house for sale</a></td>
+        <td>London</td>
+        <td>&pound;39,950,000</td>
+        <td>1 day</td>
+        <td><a href="property.html">View</a></td>
+    </tr>
+    {% endcomment %}
+
+    </tbody>
+</table>
+{% comment %}
+More cities : <a href="map_properties.html">London</a>, <a href="map_properties.html">Scotland</a>, <a
+        href="map_properties.html">Wales</a>, <a href="map_properties.html">Northern Ireland</a>, <a
+        href="map_properties.html">Birmingham</a>, <a href="map_properties.html">Leeds</a>, <a
+        href="map_properties.html">Glasgow</a>, <a href="map_properties.html">Sheffield</a>, <a
+        href="map_properties.html">Bradford</a>, <a href="map_properties.html">Edinburgh</a>, <a
+        href="map_properties.html">Liverpool</a>, <a href="map_properties.html">Manchester</a>
+{% endcomment %}
