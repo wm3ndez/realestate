@@ -150,8 +150,6 @@ setup(
         'django-coverage==1.2.4',
         'django-debug-toolbar==0.9.4',
         'django-extensions==1.1.1',
-        '-e git+https://github.com/tschellenbach/Django-facebook.git#egg=django_facebook-dev',
-        '-e git+ssh://git@bitbucket.org/wm3ndez/django-hitcounter.git#egg=django_hitcount-dev',
         'django-localeurl==1.5',
         'django-newsletter==0.4.1',
         'django-seo==0.3.5',
