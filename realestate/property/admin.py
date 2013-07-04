@@ -4,12 +4,13 @@ from sorl.thumbnail import get_thumbnail
 from sorl.thumbnail.admin import AdminImageMixin
 from realestate.property.templatetags.extra_functions import currency
 
-class ImagenAdmin(admin.ModelAdmin):
-    def titulo_Friendly(self, object):
-        return object.titulo
 
-    def imagen_miniatura(self, object):
-        image = get_thumbnail(object.imagen, '75x50', crop='center', quality=99)
+class ImagenAdmin(admin.ModelAdmin):
+    def titulo_Friendly(self, obj):
+        return obj.titulo
+
+    def imagen_miniatura(self, obj):
+        image = get_thumbnail(obj.imagen, '75x50', crop='center', quality=99)
         return '<img src="%s" />' % image.url
 
     imagen_miniatura.short_description = "Imagen"
@@ -31,27 +32,30 @@ class PropiedadAdmin(admin.ModelAdmin):
 
     fieldsets = [
         ("Descripcion de la Propiedad",
-             {
-             'fields': ['titulo', 'slug', 'descripcion', ('precio', 'sector', 'agente'),
+         {
+             'fields': [
+                 'titulo', 'descripcion', ('precio', 'sector', 'agente'),
                  ('tipo', 'oferta', 'estado', 'featured')
              ]
          }),
         ('Detalles',
-             {
-             #'classes': ('collapse',),
-             'fields': [('tamano_solar', 'tamano_construccion'), ('niveles', 'dormitorios', 'banios'),
-                 ('marquesina', 'parqueo_techado', 'balcon'), ( 'servicio', 'intercom', 'piscina'),
-                 ( 'cocina', 'comedor'), 'coordenadas', 'notas']
+         {
+             'fields': [
+                 ('tamano_solar', 'tamano_construccion'), ('niveles', 'dormitorios', 'banios'),
+                 ('marquesina', 'parqueo_techado', 'balcon'), ('servicio', 'intercom', 'piscina'),
+                 ('cocina', 'comedor'), 'coordenadas', 'notas'
+             ]
          })
     ]
 
     inlines = [
         ImagenPropiedadInline,
-        ]
+    ]
 
     list_display = (
-        'id', 'titulo', 'currency_price', 'estado', 'tipo', 'ciudad', 'sector', 'agente', 'creacion', 'featured',
-        'imagen_miniatura')
+        'id', 'titulo', 'slug', 'currency_price', 'estado', 'tipo', 'ciudad', 'sector', 'agente', 'creacion',
+        'featured', 'imagen_miniatura'
+    )
 
     def currency_price(self, propiedad):
         return currency(propiedad.precio)
@@ -67,8 +71,8 @@ class PropiedadAdmin(admin.ModelAdmin):
     def ciudad(self, propiedad):
         return '%s, %s' % (propiedad.sector.ciudad, propiedad.sector.ciudad.provincia )
 
-    def imagen_miniatura(self, object):
-        imageobj = object.imagen_principal
+    def imagen_miniatura(self, obj):
+        imageobj = obj.imagen_principal
         if imageobj:
             image = get_thumbnail(imageobj.imagen, '75x50', quality=99)
             return '<img src="%s" />' % image.url
@@ -77,7 +81,6 @@ class PropiedadAdmin(admin.ModelAdmin):
 
     imagen_miniatura.short_description = "Imagen"
     imagen_miniatura.allow_tags = True
-
 
     class Media:
         js = ('js/admin/propiedades.js',)
@@ -95,8 +98,8 @@ class AgenteAdmin(admin.ModelAdmin):
 
     agente.short_description = u'Agente Vendedor'
 
-    def imagen(self, object):
-        imageobj = object.fotografia
+    def imagen(self, obj):
+        imageobj = obj.fotografia
         if imageobj:
             image = get_thumbnail(imageobj, '133x100', quality=99)
             return '<img src="%s" />' % image.url

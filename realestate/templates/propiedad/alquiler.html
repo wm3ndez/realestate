@@ -3,21 +3,17 @@
 {% block content %}
     <div class="row">
         <div class="span4">
-
             {% get_secondary_search_form %}
-
-
         </div>
 
         <div class="span8">
-
 
             <div class="row">
                 <div class="span4 select_height"> Mostrando {{ resultado.start_index }} - {{ resultado.end_index }}
                     de {{ resultado.paginator.count }} resultados
                 </div>
                 <div class="pull-right">
-                    <form action="{% url properties_for_rent %}" id="form-sort">
+                    <form action="{% url 'properties_for_rent' %}" id="form-sort">
                         Ordenar por :
                         <select id="sort" name="sort" class="span3">
                             <option value="precio">Precio: Ascendente</option>

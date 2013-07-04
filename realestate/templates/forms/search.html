@@ -1,6 +1,6 @@
 <h3>Buscar Propiedad</h3>
 <!--Buscador de Propiedades-->
-<form id="FormContent" action="{% url search %}" method="post">
+<form id="FormContent" action="{% url 'search' %}" method="post">
     {% csrf_token %}
     <div class="box-search">
         <label>ID de la Propiedad:</label>

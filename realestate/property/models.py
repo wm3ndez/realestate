@@ -4,6 +4,7 @@ from django.template.defaultfilters import slugify
 from django.db import models
 
 from django.contrib.auth.models import User
+import os
 from sorl.thumbnail import ImageField
 from django.utils.translation import ugettext as _
 
@@ -15,7 +16,7 @@ TIPO_PROPIEDADES = (
     ('penthouse', 'Penthouses'),
     ('oficina', 'Oficina'),
     ('finca', 'Finca'),
-    )
+)
 PROVINCIAS = (
     ('Azua', 'Azua'),
     ('Bahoruco', 'Bahoruco'),
@@ -52,7 +53,7 @@ PROVINCIAS = (
     ('Santiago Rodriguez', 'Santiago Rodriguez'),
     ('Santo Domingo', 'Santo Domingo'),
     ('Valverde', 'Valverde'),
-    )
+)
 
 OFERTAS = ( ('venta', 'Venta'), ('alquiler', 'Alquiler'), ('venta_alq', 'Venta y/o Alquiler'))
 ESTADO_PROPIEDAD = ( ('activa', 'Activa'), ('inactiva', 'Inactiva'), ('vendida', 'Vendida'))
@@ -115,17 +116,17 @@ class PropiedadManager(models.Manager):
         return self.activas().filter(featured=True)
 
     def alquiler(self, **kwargs):
-        return self.activas().filter(oferta__in=('venta_alq','alquiler'))
+        return self.activas().filter(oferta__in=('venta_alq', 'alquiler'))
 
     def venta(self, **kwargs):
-        return self.activas().filter(oferta__in=('venta_alq','venta'))
+        return self.activas().filter(oferta__in=('venta_alq', 'venta'))
 
 
 class Propiedad(models.Model):
-    titulo = models.CharField(max_length=60, verbose_name=_(u'Título de la Propiedad'))
-    slug = models.CharField(max_length=60, unique=True, blank=False, verbose_name=_(u'Slug'))
+    titulo = models.CharField(max_length=100, verbose_name=_(u'Título de la Propiedad'))
+    slug = models.SlugField(max_length=100, unique=True, blank=False, verbose_name=_(u'Slug'))
     descripcion = models.TextField(max_length=1000, verbose_name=_(u'Descripción'))
-    precio = models.DecimalField(max_digits=12, decimal_places=2, default=0.0, verbose_name=_(u'Precio'))
+    precio = models.FloatField(default=0.0, verbose_name=_(u'Precio'))
     sector = models.ForeignKey(Sector)
     tipo = models.CharField(max_length=30, choices=TIPO_PROPIEDADES, verbose_name=_(u'Tipo de Inmueble'))
     oferta = models.CharField(max_length=10, choices=OFERTAS, verbose_name=_(u'Oferta'))
@@ -171,11 +172,16 @@ class Propiedad(models.Model):
         verbose_name = 'Propiedad'
         verbose_name_plural = 'Propiedades'
 
-    def save(self, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.titulo)
-        super(Propiedad, self).save(**kwargs)
+    def _generate_valid_slug(self):
+        slug = slugify(self.titulo)
+        while Propiedad.objects.filter(slug=slug).exists():
+            slug = '%s-1' % slug
+        return slug
 
+    def save(self, **kwargs):
+        if not self.slug or len(self.slug) == 0:
+            self.slug = self._generate_valid_slug()
+        super(Propiedad, self).save(**kwargs)
 
     def get_absolute_url(self):
         return reverse('property_details', args=[self.slug])
@@ -185,7 +191,7 @@ class Propiedad(models.Model):
             u'Niveles: %s' % self.niveles,
             u'Dormitorios: %s' % self.dormitorios,
             u'Baños: %s' % self.banios,
-            ]
+        ]
         if self.cocina:
             features.append(u'Cocina')
         if self.comedor:
@@ -223,7 +229,7 @@ class Imagen_Propiedad(models.Model):
     ordering = ['orden']
 
     def get_filename(self):
-        return self.imagen.path.split('/')[-1]
+        return os.path.basename(self.imagen.path)
 
     def __unicode__(self):
         return self.titulo

@@ -1,0 +1,1 @@
+-e git+git@bitbucket.org:wm3ndez/realestate.git#egg=Realestate

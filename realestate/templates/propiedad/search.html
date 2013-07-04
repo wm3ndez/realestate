@@ -6,7 +6,7 @@
             de {{ resultado.paginator.count }} resultados
         </div>
         <div class="pull-right">
-            <form action="{% url search %}" id="form-sort">
+            <form action="{% url 'search' %}" id="form-sort">
                 Ordenar por :
                 <select id="sort" name="sort" class="span3">
                     <option value="precio">Precio: Ascendente</option>

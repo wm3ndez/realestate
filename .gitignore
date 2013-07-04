@@ -6,4 +6,4 @@ build/*
 *.pyc
 *.db
 
-testproject/
+testproject/media/cache/

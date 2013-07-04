@@ -1,4 +1,4 @@
-{% load i18n realestate %}
+{% load i18n realestate static %}
 
 <div class="row"><!-- start header -->
     <div class="span4 logo">
@@ -16,7 +16,7 @@
                 </div>
                 {% endcomment %}
                 <div class="span3">
-                    <img src="{{ STATIC_URL }}css/images/gdm_logo.jpg" alt="Grupo de Inversiones DM, S.R.L"/>
+                    <img src="{% static "css/images/gdm_logo.jpg" %} alt=" Grupo de Inversiones DM, S.R.L"/>
                 </div>
             </div>
         </a>
@@ -39,8 +39,8 @@
                     <div class="nav-collapse">
                         <ul class="nav">
                             <li><a href="/" class="first">{% trans "Inicio" %}</a></li>
-                            <li><a href="{% url properties_for_sale %}">{% trans "Venta" %}</a></li>
-                            <li><a href="{% url properties_for_rent %}">{% trans "Renta" %}</a></li>
+                            <li><a href="{% url 'properties_for_sale' %}">{% trans "Venta" %}</a></li>
+                            <li><a href="{% url 'properties_for_rent' %}">{% trans "Renta" %}</a></li>
                             {% comment %}
                             <li><a href="compare.html">New homes</a></li>
                             <li><a href="property.html">Property of the day</a></li>
@@ -50,7 +50,7 @@
                                     Propiedades <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{% url all_properties %}">Propiedades</a></li>
+                                    <li><a href="{% url 'all_properties' %}">Propiedades</a></li>
                                     {% comment %}
                                     <li><a href="map_properties.html">Properties map</a></li>
                                     <li><a href="property.html">Single property</a></li>
@@ -67,9 +67,9 @@
                                     <li><a href="typography.html">Typography</a></li>
                                     <li><a href="terms.html">Terms and conditions</a></li>
                                     {% endcomment %}
-                                    <li><a href="{% url home_aboutus %}">{% trans "Nosotros" %}</a></li>
-                                    <li><a href="{% url home_services %}">{% trans "Servicios" %}</a></li>
-                                    <li><a href="{% url home_contact %}">{% trans "Contacto" %}</a></li>
+                                    <li><a href="{% url 'home_aboutus' %}">{% trans "Nosotros" %}</a></li>
+                                    <li><a href="{% url 'home_services' %}">{% trans "Servicios" %}</a></li>
+                                    <li><a href="{% url 'home_contact' %}">{% trans "Contacto" %}</a></li>
                                 </ul>
                             </li>
 
@@ -122,10 +122,10 @@
     <div class="menu">
         <ul class="sprite">
             <li><a href="/" class="activelink"><span></span>{% trans "Inicio" %}</a></li>
-            <li><a href="{% url properties_for_rent %}"><span></span>{% trans "Renta" %}</a></li>
-            <li><a href="{% url properties_for_sale %}"><span></span>{% trans "Venta" %}</a></li>
-            <li><a href="{% url home_aboutus %}"><span></span>{% trans "Nosotros" %}</a></li>
-            <li><a href="{% url home_contact %}"><span></span>{% trans "Contacto" %}</a></li>
+            <li><a href="{% url 'properties_for_rent' %}"><span></span>{% trans "Renta" %}</a></li>
+            <li><a href="{% url 'properties_for_sale' %}"><span></span>{% trans "Venta" %}</a></li>
+            <li><a href="{% url 'home_aboutus' %}"><span></span>{% trans "Nosotros" %}</a></li>
+            <li><a href="{% url 'home_contact' %}"><span></span>{% trans "Contacto" %}</a></li>
         </ul>
     </div>
 </div>
