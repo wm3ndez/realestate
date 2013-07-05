@@ -190,7 +190,7 @@ class Propiedad(models.Model):
         match = re.match('[^\w\s-]', self.slug)
         if not match:
             return False
-        return self.slug != slugify(self.slug)
+        return self.slug == slugify(self.slug)
 
     def get_absolute_url(self):
         return reverse('property_details', args=[self.slug])
