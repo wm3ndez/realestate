@@ -173,14 +173,17 @@ class Propiedad(models.Model):
         verbose_name_plural = 'Propiedades'
 
     def _generate_valid_slug(self):
-        slug = slugify(self.titulo)
-        while Propiedad.objects.filter(slug=slug).exists():
-            slug = '%s-1' % slug
-        return slug
+        if not self.is_valid_slug():
+            slug = slugify(self.titulo)
+            while Propiedad.objects.filter(slug=slug).exists():
+                slug = '%s-1' % slug
+            self.slug = slug
+
+    def is_valid_slug(self):
+        return self.slug or len(self.slug) < 10 or self.slug != slugify(self.slug)
 
     def save(self, **kwargs):
-        if not self.slug or len(self.slug) == 0:
-            self.slug = self._generate_valid_slug()
+        self._generate_valid_slug()
         super(Propiedad, self).save(**kwargs)
 
     def get_absolute_url(self):
