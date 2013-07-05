@@ -5,6 +5,7 @@ from django.db import models
 
 from django.contrib.auth.models import User
 import os
+import re
 from sorl.thumbnail import ImageField
 from django.utils.translation import ugettext as _
 
@@ -172,19 +173,24 @@ class Propiedad(models.Model):
         verbose_name = 'Propiedad'
         verbose_name_plural = 'Propiedades'
 
+    def save(self, **kwargs):
+        self._generate_valid_slug()
+        super(Propiedad, self).save(**kwargs)
+
     def _generate_valid_slug(self):
         if not self.is_valid_slug():
             slug = slugify(self.titulo)
-            while Propiedad.objects.filter(slug=slug).exists():
+            while Propiedad.objects.filter(slug=slug).exclude(id=self.id).exists():
                 slug = '%s-1' % slug
             self.slug = slug
 
     def is_valid_slug(self):
-        return self.slug or len(self.slug) < 10 or self.slug != slugify(self.slug)
-
-    def save(self, **kwargs):
-        self._generate_valid_slug()
-        super(Propiedad, self).save(**kwargs)
+        if self.slug is None or len(self.slug) < 10:
+            return False
+        match = re.match('[^\w\s-]', self.slug)
+        if not match:
+            return False
+        return self.slug != slugify(self.slug)
 
     def get_absolute_url(self):
         return reverse('property_details', args=[self.slug])
