@@ -1,5 +1,5 @@
 from django import template
-from property.models import Propiedad
+from propiedad.models import Propiedad
 from newsletter.models import Newsletter
 
 

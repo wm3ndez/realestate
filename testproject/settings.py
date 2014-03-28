@@ -27,7 +27,7 @@ DATABASES = {
     }
 }
 
-TIME_ZONE = 'America/Santiago'
+TIME_ZONE = 'America/Santo_Domingo'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
