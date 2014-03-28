@@ -11,9 +11,6 @@ class AdminImageWidget(AdminFileWidget):
 
     def render(self, name, value, attrs=None):
         output = []
-        import pdb;
-
-        pdb.set_trace()
         image = get_thumbnail(object.imagen, '75x50', crop='center', quality=99)
         output.append(
             '<a target="_blank" href="%s"><img src="%s"/></a><br />%s ' % (
