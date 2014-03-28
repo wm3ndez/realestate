@@ -2,7 +2,7 @@ from models import *
 from django.contrib import admin
 from sorl.thumbnail import get_thumbnail
 from sorl.thumbnail.admin import AdminImageMixin
-from realestate.property.templatetags.extra_functions import currency
+from realestate.propiedad.templatetags.extra_functions import currency
 
 
 class ImagenAdmin(admin.ModelAdmin):

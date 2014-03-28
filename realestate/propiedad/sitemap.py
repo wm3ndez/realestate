@@ -1,5 +1,5 @@
 from django.contrib.sitemaps import Sitemap
-from realestate.property.models import Propiedad
+from realestate.propiedad.models import Propiedad
 
 class PropiedadSitemap(Sitemap):
     changefreq = 'monthly'

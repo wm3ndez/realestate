@@ -1,4 +1,4 @@
-from realestate.property.models import PROVINCIAS, OFERTAS, TIPO_PROPIEDADES, Agente
+from realestate.propiedad.models import PROVINCIAS, OFERTAS, TIPO_PROPIEDADES, Agente
 from django import forms
 
 PRICE_RANGE = (
@@ -11,7 +11,7 @@ PRICE_RANGE = (
     (1000000, '1,000,000'),
     (5000000, '5,000,000'),
     (10000000, '10,000,000'),
-    )
+)
 
 BATHROOMS_RANGE = (
     ('', '--'),
@@ -20,7 +20,7 @@ BATHROOMS_RANGE = (
     ('3', '3+'),
     ('4', '4+'),
     ('5', '5+'),
-    )
+)
 
 BEDROOMS_RANGE = (
     ('', '--'),
@@ -29,13 +29,14 @@ BEDROOMS_RANGE = (
     ('3', '3+'),
     ('4', '4+'),
     ('5', '5+'),
-    )
+)
 
-PROVINCIAS_CHOICES = (('','Todas'),) + PROVINCIAS
-TIPO_PROPIEDADES_CHOICES = (('','Todos'),) + TIPO_PROPIEDADES
+PROVINCIAS_CHOICES = (('', 'Todas'),) + PROVINCIAS
+TIPO_PROPIEDADES_CHOICES = (('', 'Todos'),) + TIPO_PROPIEDADES
+
 
 class SearchForm(forms.Form):
-    id= forms.CharField(required=False)
+    id = forms.CharField(required=False)
     titulo = forms.CharField(required=False)
     agente = forms.ModelChoiceField(queryset=Agente.objects.all(), required=False)
     location = forms.ChoiceField(choices=PROVINCIAS_CHOICES, required=False)

@@ -1,9 +1,9 @@
-from django.core.urlresolvers import reverse
 from realestate.home.models import News, Links
 from django import template
-from realestate.property.models import Especial, TIPO_PROPIEDADES
+from realestate.propiedad.models import Especial
 
 register = template.Library()
+
 
 @register.inclusion_tag('widgets/news.html')
 def news_widget():

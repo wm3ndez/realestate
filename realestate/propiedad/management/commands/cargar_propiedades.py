@@ -1,5 +1,5 @@
 from django.template.defaultfilters import slugify
-from realestate.property.models import Propiedad, Sector, Ciudad, Agente, Imagen_Propiedad
+from realestate.propiedad.models import Propiedad, Sector, Ciudad, Agente, Imagen_Propiedad
 import os
 from django.core.management.base import BaseCommand
 from django.conf import settings
@@ -40,7 +40,7 @@ class Command(BaseCommand):
                 prop.estado = 'activa'
                 prop.save()
 
-            imagen = Imagen_Propiedad(titulo='',propiedad=prop)
+            imagen = Imagen_Propiedad(titulo='', propiedad=prop)
             imagen.imagen.name = 'propiedades/' + propiedad[6]
             if not os.path.isfile(imagen.imagen.path): continue
             if int(propiedad[7]):

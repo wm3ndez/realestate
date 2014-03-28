@@ -1,7 +1,8 @@
 from django.template import Library
-from realestate.property.models import Propiedad
+from realestate.propiedad.models import Propiedad
 
 register = Library()
+
 
 @register.inclusion_tag('home/homepage_listing.html')
 def get_ultimas_casas(limit=4):

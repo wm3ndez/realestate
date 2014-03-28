@@ -5,8 +5,8 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponse
 from realestate.home.forms import SearchForm
-from realestate.property.forms import PropiedadContactForm
-from realestate.property.models import  Propiedad
+from realestate.propiedad.forms import PropiedadContactForm
+from realestate.propiedad.models import Propiedad
 from realestate.utils import paginate
 from realestate.utils.decorators import ajax_required
 from sorl.thumbnail.shortcuts import get_thumbnail
@@ -20,7 +20,7 @@ else:
 def _render_search_page(queryset, request, template='propiedad/search.html'):
     resultado = paginate(request, queryset, PROPIEDADES_POR_PAGINA)
     return render_to_response(template, {'resultado': resultado},
-        context_instance=RequestContext(request))
+                              context_instance=RequestContext(request))
 
 
 def _apply_search_filters(data, properties):
@@ -104,14 +104,14 @@ def details(request, slug):
 
 @ajax_required
 def get_mapa_propiedades(request):
-    from realestate.property.templatetags.extra_functions import currency
+    from realestate.propiedad.templatetags.extra_functions import currency
 
     listado_propiedades = []
     for propiedad in Propiedad.objects.activas():
         lat, lng = propiedad.coordenadas.split(',')
         try:
             im = get_thumbnail(propiedad.imagen_principal.imagen, '135x90', crop='center', quality=99).url
-        except (ValueError,AttributeError):
+        except (ValueError, AttributeError):
             im = ''
 
         try:
@@ -137,7 +137,7 @@ def get_mapa_propiedades(request):
 def _send_contact_form(form, prop):
     asunto = '%s %s' % ('Cliente Interesado en la propiedad:', prop.titulo)
     mensaje = "El cliente %s esta interesado en esta propiedad y le ha dejado el siguiente mensaje:\n\n%s\n\nTelefono: %s" % (
-        form.cleaned_data.get('nombre'), form.cleaned_data.get('mensaje'),form.cleaned_data.get('telefono'))
+        form.cleaned_data.get('nombre'), form.cleaned_data.get('mensaje'), form.cleaned_data.get('telefono'))
     _from = settings.DEFAULT_FROM_EMAIL
     to = [prop.agente.user.email, ]
     reply = form.cleaned_data.get('email')
