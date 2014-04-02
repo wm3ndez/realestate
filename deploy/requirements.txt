@@ -12,6 +12,7 @@ mysql-python
 django-newsletter
 surlex
 django-tinymce
+Werkzeug
 
 coverage
 django-coverage
