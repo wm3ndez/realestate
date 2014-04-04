@@ -3,7 +3,7 @@
 
 <ul class="thumbnails">
     {% for propiedad in resultado.object_list %}
-        <li class="span2">
+        <li class="col-md-2">
             <div class="thumbnail mini_property">
                 <a href="{{ propiedad.get_absolute_url }}">
                     {% thumbnail propiedad.imagen_principal.imagen "135x90" crop="center" as image %}

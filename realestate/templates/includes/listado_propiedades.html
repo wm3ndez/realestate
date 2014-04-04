@@ -3,7 +3,7 @@
 
 {% for propiedad in resultado.object_list %}
     <div class="row ">
-        <div class="span2">
+        <div class="col-md-2">
             <a href="{{ propiedad.get_absolute_url }}" class="thumbnail">
                 {% thumbnail propiedad.imagen_principal.imagen "135x90" crop="center" as image %}
                     <img align="middle" src="{{ image.url }}" alt="{{ propiedad.titulo }}"
@@ -16,7 +16,7 @@
             <h6>Área Const.: {{ propiedad.tamano_construccion }} mt&sup2;</h6>
         </div>
 
-        <div class="span6">
+        <div class="col-md-6">
             <a href="{{ propiedad.get_absolute_url }}"><h3>{{ propiedad.titulo }}</h3></a>
 
             <p>{{ propiedad.descripcion }}</p>

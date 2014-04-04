@@ -8,7 +8,7 @@
         <div class="pull-right">
             <form action="{% url 'search' %}" id="form-sort">
                 Ordenar por :
-                <select id="sort" name="sort" class="span3">
+                <select id="sort" name="sort" class="col-md-3">
                     <option value="precio">Precio: Ascendente</option>
                     <option value="-precio"{% if request.GET.sort == '-precio' %} selected="selected"{% endif %}>Precio:
                         Descendente

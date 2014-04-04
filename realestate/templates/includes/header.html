@@ -5,18 +5,18 @@
         <a href="/">
             <div class="row">
                 {% comment %}
-                <div class="span1">
+                <div class="col-md-1">
                     <img src="{{ STATIC_URL }}css/images/Home-green-48.png" alt=""/>
                 </div>
-                <div class="span3">
+                <div class="col-md-3">
                     <h1>
                         <small>Bootstrap</small>
                         <br/><span>Real</span> estate
                     </h1>
                 </div>
                 {% endcomment %}
-                <div class="span3">
-                    <img src="{% static "css/images/gdm_logo.jpg" %} alt=" Grupo de Inversiones DM, S.R.L"/>
+                <div class="col-md-3">
+                    <img src="{% static "css/images/gdm_logo.jpg" %}" alt=" Grupo de Inversiones DM, S.R.L"/>
                 </div>
             </div>
         </a>
@@ -32,11 +32,11 @@
 <!-- end header -->
 
 <div class="row"><!-- start nav -->
-    <div class="span12">
+    <div class="col-md-12">
         <div class="navbar">
             <div class="navbar-inner">
                 <div class="container">
-                    <div class="nav-collapse">
+                    <div class="navbar-collapse">
                         <ul class="nav">
                             <li><a href="/" class="first">{% trans "Inicio" %}</a></li>
                             <li><a href="{% url 'properties_for_sale' %}">{% trans "Venta" %}</a></li>
