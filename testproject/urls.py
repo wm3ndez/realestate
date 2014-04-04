@@ -21,22 +21,19 @@ urlpatterns = patterns(
     url(r'^servicios/$', 'realestate.home.views.servicios', name='home_services'),
     url(r'^escribenos/$', 'realestate.home.views.escribenos', name='home_escribenos'),
 
-    (r'^admin/', include(admin.site.urls)), # Enabling Admin
+    (r'^admin/', include(admin.site.urls)),  # Enabling Admin
 
-    (r'^tinymce/', include('tinymce.urls')), #TinyMCE
-    (r'^newsletter/', include('newsletter.urls')), #django-newsletter
+    (r'^tinymce/', include('tinymce.urls')),  #TinyMCE
+    (r'^newsletter/', include('newsletter.urls')),  #django-newsletter
 
     #Ajax
     url(r'^mapa-propiedades/$', 'realestate.propiedad.views.get_mapa_propiedades', name='mapa-propiedades'),
 
     url(r'^ajax/hit/$', update_hit_count_ajax, name='hitcount_update_ajax'),
-    (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': {'propiedades': sitemap.PropiedadSitemap}}),
+    (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap',
+     {'sitemaps': {'propiedades': sitemap.PropiedadSitemap}}),
 
 )
 
 if settings.DEBUG:
-    urlpatterns += patterns(
-        '',
-        (r'^media/(.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
-        (r'^static/(.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
-    )
+    urlpatterns += patterns('django.contrib.staticfiles.views', url(r'^static/(?P<path>.*)$', 'serve'), )

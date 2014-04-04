@@ -5,7 +5,6 @@ from django.contrib import admin
 from realestate.propiedad import sitemap
 
 admin.autodiscover()
-import djadmin2
 
 urlpatterns = patterns(
     '',
@@ -24,7 +23,6 @@ urlpatterns = patterns(
 
 
     url(r'^listado_propiedades/$', 'realestate.propiedad.views.get_mapa_propiedades', name='mapa-propiedades'), # Ajax
-    url(r'^admin2/', include(djadmin2.default.urls)),
     (r'^admin/', include(admin.site.urls)), # Enabling Admin
     (r'^i18n/', include('django.conf.urls.i18n')),
     (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': {'blog': sitemap.PropiedadSitemap}}),

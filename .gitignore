@@ -8,3 +8,4 @@ build/*
 
 testproject/media/*
 testproject/static/admin/*
+testproject/static/bootstrap

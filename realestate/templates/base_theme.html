@@ -21,17 +21,15 @@
     <title>{% block title %}WilliamsMendez.com{% endblock %}</title>
     {% block extrahead %}{% endblock %}
     {% block css %}
-        <link id="switch_style" href="{% static "css/real_estate.css" %}" rel="stylesheet">
-        <link id="switch_style" href="{% static "css/original.css" %}" rel="stylesheet">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+        <!-- Latest compiled and minified JavaScript -->
     {% endblock %}
     {% block extra_css %}{% endblock %}
-
-    {% block js %}
-
-        <!--[if lt IE 9]>
-		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-    {% endblock %}
 
 </head>
 
@@ -47,38 +45,36 @@
 </div>
 <!-- /container -->
 
-<script type="text/javascript">
+{% block js %}
 
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', '']);
-    _gaq.push(['_setDomainName', 'example.com']);
-    _gaq.push(['_trackPageview']);
+    <script type="text/javascript">
 
-    (function () {
-        var ga = document.createElement('script');
-        ga.type = 'text/javascript';
-        ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(ga, s);
-    })();
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', '']);
+        _gaq.push(['_setDomainName', 'example.com']);
+        _gaq.push(['_trackPageview']);
 
-</script>
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
 
-<script type="text/javascript" src="{% static "js/jquery.min.js" %}"></script>
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-<script type="text/javascript" src="{% static "js/jquery.aw-showcase/jquery.aw-showcase.js" %}"></script>
-<link rel="stylesheet" href="{% static "js/jquery.aw-showcase/css/style.css" %}"/>
-<script type="text/javascript" src="{% static "bootstrap/js/bootstrap.js" %}"></script>
+    </script>
 
-<link rel="stylesheet" href="{% static "js/badger/badger.min.css" %}"/>
-<script type="text/javascript" src="{% static "js/badger/badger.min.js" %}"></script>
-
-<script type="text/javascript" src="{% static "js/portamento-min.js" %}"></script>
-<script type="text/javascript" src="{% static "js/global.js" %}"></script>
-<script type="text/javascript">
-    var url_mapa_propiedades = "{% url 'mapa-propiedades' %}";
-</script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript">
+        var url_mapa_propiedades = "{% url 'mapa-propiedades' %}";
+    </script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+{% endblock %}
 {% block extra_js %} {% endblock %}
 </body>
 </html>
