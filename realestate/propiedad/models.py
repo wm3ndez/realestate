@@ -61,6 +61,13 @@ OFERTAS = ( ('venta', 'Venta'), ('alquiler', 'Alquiler'), ('venta_alq', 'Venta y
 ESTADO_PROPIEDAD = ( ('activa', 'Activa'), ('inactiva', 'Inactiva'), ('vendida', 'Vendida'))
 ESTADO_ESPECIAL = ( ('activa', 'Activa'), ('inactiva', 'Inactiva'),)
 
+VALIDATIONS = [
+    ('realestate.propiedad.utils.validation_simple', _('Uno o más caracteres')),
+    ('realestate.propiedad.utils.validation_integer', _('Número entero')),
+    ('realestate.propiedad.utils.validation_yesno', _('Si o No')),
+    ('realestate.propiedad.utils.validation_decimal', _('Número decimal')),
+]
+
 
 class Ciudad(models.Model):
     nombre = models.CharField(max_length=45)
@@ -227,6 +234,32 @@ class Propiedad(models.Model):
 
     def propiedades_en_el_area(self):
         return Propiedad.objects.filter(sector=self.sector).order_by('?')[:4]
+
+
+class Atributos(models.Model):
+    nombre = models.CharField(u'Atributo', max_length=100)
+    validacion = models.CharField(u'Tipo de valor', choices=VALIDATIONS, max_length=100)
+
+    class Meta:
+        ordering = ('nombre',)
+        verbose_name = 'Atributo'
+        verbose_name_plural = 'Atributos'
+
+    def __unicode__(self):
+        return self.nombre
+
+
+class AtributosPropiedad(models.Model):
+    propiedad = models.ForeignKey(Propiedad)
+    atributo = models.ForeignKey(Atributos)
+    valor = models.CharField(u'Valor', max_length=255)
+
+    class Meta:
+        verbose_name = 'Atributo de Propiedad'
+        verbose_name_plural = 'Atributos de Propiedad'
+
+    def __unicode__(self):
+        return self.atributo.nombre + ': ' + self.valor
 
 
 class Imagen_Propiedad(models.Model):

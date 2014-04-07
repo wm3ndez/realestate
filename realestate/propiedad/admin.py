@@ -1,8 +1,11 @@
+from django.forms import ValidationError
+from django.forms.models import ModelForm
 from models import *
 from django.contrib import admin
 from sorl.thumbnail import get_thumbnail
 from sorl.thumbnail.admin import AdminImageMixin
 from realestate.propiedad.templatetags.extra_functions import currency
+from realestate.propiedad.utils import import_validator, validate_attribute_value
 
 
 class ImagenAdmin(admin.ModelAdmin):
@@ -22,8 +25,29 @@ class ImagenAdmin(admin.ModelAdmin):
     date_hierarchy = 'agregada'
 
 
+def clean_attribute_value(cleaned_data):
+    value = cleaned_data['valor']
+    attribute = cleaned_data['atributo']
+    obj = cleaned_data['propiedad']
+    success, valid_value, error_message = validate_attribute_value(attribute, value, obj)
+
+    if not success:
+        raise ValidationError(error_message)
+    return valid_value
+
+
 class ImagenPropiedadInline(AdminImageMixin, admin.TabularInline):
     model = Imagen_Propiedad
+
+
+class AtributosPropiedadInlineForm(ModelForm):
+    def clean_value(self):
+        return clean_attribute_value(self.cleaned_data)
+
+
+class AtributosPropiedadInline(admin.TabularInline):
+    model = AtributosPropiedad
+    form = AtributosPropiedadInlineForm
 
 
 class PropiedadAdmin(admin.ModelAdmin):
@@ -50,6 +74,7 @@ class PropiedadAdmin(admin.ModelAdmin):
 
     inlines = [
         ImagenPropiedadInline,
+        AtributosPropiedadInline
     ]
 
     list_display = (
@@ -110,9 +135,24 @@ class AgenteAdmin(admin.ModelAdmin):
     imagen.allow_tags = True
 
 
+class AtributosForm(ModelForm):
+    def clean_validation(self):
+        validation = self.cleaned_data['validacion']
+        try:
+            import_validator(validation)
+        except ImportError:
+            raise ValidationError(_("Invalid validation function specifed!"))
+        return validation
+
+
+class AtributosAdmin(admin.ModelAdmin):
+    form = AtributosForm
+
+
 admin.site.register(Propiedad, PropiedadAdmin)
 admin.site.register(Sector)
 admin.site.register(Ciudad)
 admin.site.register(Agente, AgenteAdmin)
 admin.site.register(Imagen_Propiedad, ImagenAdmin)
 admin.site.register(Especial)
+admin.site.register(AtributosAdmin)
