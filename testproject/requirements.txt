@@ -1,1 +1,2 @@
--e git+git@bitbucket.org:wm3ndez/realestate.git#egg=Realestate
+-e git@github.com:wm3ndez/realestate.git#egg=Realestate
+gunicorn

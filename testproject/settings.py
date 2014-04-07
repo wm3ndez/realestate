@@ -111,6 +111,7 @@ INSTALLED_APPS = (
     'newsletter',
     'hitcount',
     'django.contrib.staticfiles',
+    'gunicorn',
 
 )
 
