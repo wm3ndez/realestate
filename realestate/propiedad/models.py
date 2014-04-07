@@ -62,10 +62,10 @@ ESTADO_PROPIEDAD = ( ('activa', 'Activa'), ('inactiva', 'Inactiva'), ('vendida',
 ESTADO_ESPECIAL = ( ('activa', 'Activa'), ('inactiva', 'Inactiva'),)
 
 VALIDATIONS = [
-    ('propiedad.utils.validation_simple', _('Uno o más caracteres')),
-    ('propiedad.utils.validation_integer', _('Número entero')),
-    ('propiedad.utils.validation_yesno', _('Si o No')),
-    ('propiedad.utils.validation_decimal', _('Número decimal')),
+    ('realestate.propiedad.utils.validation_simple', _('Uno o más caracteres')),
+    ('realestate.propiedad.utils.validation_integer', _('Número entero')),
+    ('realestate.propiedad.utils.validation_yesno', _('Si o No')),
+    ('realestate.propiedad.utils.validation_decimal', _('Número decimal')),
 ]
 
 
