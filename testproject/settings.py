@@ -155,3 +155,8 @@ PROPIEDADES_POR_PAGINA = 16
 HITCOUNT_KEEP_HIT_ACTIVE = {'days': 7}
 HITCOUNT_HITS_PER_IP_LIMIT = 0
 HITCOUNT_EXCLUDE_USER_GROUP = ('Editor', )
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+}
