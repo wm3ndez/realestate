@@ -103,13 +103,10 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
     'realestate',
     'realestate.propiedad',
-    'realestate.cms',
     'realestate.home',
     'testproject',
     'testproject.localsite',
     'tinymce',
-    'newsletter',
-    'hitcount',
     'django.contrib.staticfiles',
     'gunicorn',
 

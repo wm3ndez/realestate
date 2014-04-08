@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class News(models.Model):
     title = models.CharField(max_length=100)
     slug = models.CharField(max_length=100)
@@ -19,6 +20,7 @@ class News(models.Model):
     def __unicode__(self):
         return self.title
 
+
 class Contacts(models.Model):
     name = models.CharField(max_length=60)
     phone = models.CharField(max_length=20)
@@ -30,8 +32,10 @@ class Contacts(models.Model):
     class Meta:
         verbose_name = 'Contacto'
         verbose_name_plural = 'Contactos'
+
     def __unicode__(self):
         return self.name
+
 
 class Links(models.Model):
     name = models.CharField(max_length=32)
