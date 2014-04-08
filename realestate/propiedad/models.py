@@ -8,7 +8,6 @@ import os
 import re
 from sorl.thumbnail import ImageField
 from django.utils.translation import ugettext as _
-from tinymce.models import HTMLField
 
 TIPO_PROPIEDADES = (
     ('casa', 'Casas'),

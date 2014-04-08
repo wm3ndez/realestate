@@ -23,7 +23,6 @@ urlpatterns = patterns(
 
     (r'^admin/', include(admin.site.urls)),  # Enabling Admin
 
-    (r'^tinymce/', include('tinymce.urls')),  #TinyMCE
     (r'^newsletter/', include('newsletter.urls')),  #django-newsletter
 
     #Ajax
