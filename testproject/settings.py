@@ -106,13 +106,10 @@ INSTALLED_APPS = (
     'realestate.home',
     'testproject',
     'testproject.localsite',
-    'tinymce',
     'django.contrib.staticfiles',
     'gunicorn',
 
 )
-
-ADMIN2_THEME_DIRECTORY = "admin2/bootstrap/"
 
 MIDDLEWARE_CLASSES = (
     # This loads the index definitions, so it has to come first
@@ -134,24 +131,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.messages.context_processors.messages",
 )
 
-# Using django-tinymce
-NEWSLETTER_RICHTEXT_WIDGET = "tinymce.widgets.TinyMCE"
-
-TINYMCE_DEFAULT_CONFIG = {
-    'plugins': "table,spellchecker,paste,searchreplace",
-    'theme': "advanced",
-    'cleanup_on_startup': True,
-    'custom_undo_redo_levels': 10,
-}
-TINYMCE_SPELLCHECKER = True
-TINYMCE_COMPRESSOR = True
 
 #Propiedades
 PROPIEDADES_POR_PAGINA = 16
-
-HITCOUNT_KEEP_HIT_ACTIVE = {'days': 7}
-HITCOUNT_HITS_PER_IP_LIMIT = 0
-HITCOUNT_EXCLUDE_USER_GROUP = ('Editor', )
 
 LOGGING = {
     'version': 1,

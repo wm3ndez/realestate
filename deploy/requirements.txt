@@ -24,6 +24,5 @@ fabric
 django-localeurl
 
 -e git+https://github.com/tschellenbach/Django-facebook.git#egg=Django-facebook
--e git+ssh://git@bitbucket.org/wm3ndez/django-hitcounter.git#egg=django-hitcount
 
 pytz

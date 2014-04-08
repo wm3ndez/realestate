@@ -134,7 +134,7 @@ class PropiedadManager(models.Manager):
 class Propiedad(models.Model):
     titulo = models.CharField(max_length=100, verbose_name=_(u'Título de la Propiedad'))
     slug = models.SlugField(max_length=100, unique=True, blank=False, verbose_name=_(u'Slug'))
-    descripcion = HTMLField(max_length=1000, verbose_name=_(u'Descripción'))
+    descripcion = models.TextField(verbose_name=_(u'Descripción'))
     precio = models.FloatField(default=0.0, verbose_name=_(u'Precio'))
     sector = models.ForeignKey(Sector)
     tipo = models.CharField(max_length=30, choices=TIPO_PROPIEDADES, verbose_name=_(u'Tipo de Inmueble'))
