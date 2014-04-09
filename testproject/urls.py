@@ -28,7 +28,6 @@ urlpatterns = patterns(
     #Ajax
     url(r'^mapa-propiedades/$', 'realestate.propiedad.views.get_mapa_propiedades', name='mapa-propiedades'),
 
-    url(r'^ajax/hit/$', update_hit_count_ajax, name='hitcount_update_ajax'),
     (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap',
      {'sitemaps': {'propiedades': sitemap.PropiedadSitemap}}),
 

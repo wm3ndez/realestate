@@ -1,20 +1,9 @@
-{% load i18n realestate static %}
+{% load i18n realestate_utils static %}
 
 <div class="row"><!-- start header -->
     <div class="span4 logo">
         <a href="/">
             <div class="row">
-                {% comment %}
-                <div class="col-md-1">
-                    <img src="{{ STATIC_URL }}css/images/Home-green-48.png" alt=""/>
-                </div>
-                <div class="col-md-3">
-                    <h1>
-                        <small>Bootstrap</small>
-                        <br/><span>Real</span> estate
-                    </h1>
-                </div>
-                {% endcomment %}
                 <div class="col-md-3">
                     <img src="" alt=""/>
                 </div>
@@ -41,21 +30,12 @@
                             <li><a href="/" class="first">{% trans "Inicio" %}</a></li>
                             <li><a href="{% url 'properties_for_sale' %}">{% trans "Venta" %}</a></li>
                             <li><a href="{% url 'properties_for_rent' %}">{% trans "Renta" %}</a></li>
-                            {% comment %}
-                            <li><a href="compare.html">New homes</a></li>
-                            <li><a href="property.html">Property of the day</a></li>
-                            {% endcomment %}
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     Propiedades <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{% url 'all_properties' %}">Propiedades</a></li>
-                                    {% comment %}
-                                    <li><a href="map_properties.html">Properties map</a></li>
-                                    <li><a href="property.html">Single property</a></li>
-                                    <li><a href="compare.html">Compare properties</a></li>
-                                    {% endcomment %}
                                 </ul>
                             </li>
                             <li class="dropdown">
@@ -63,10 +43,6 @@
                                     Otras páginas <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    {% comment %}
-                                    <li><a href="typography.html">Typography</a></li>
-                                    <li><a href="terms.html">Terms and conditions</a></li>
-                                    {% endcomment %}
                                     <li><a href="{% url 'home_aboutus' %}">{% trans "Nosotros" %}</a></li>
                                     <li><a href="{% url 'home_services' %}">{% trans "Servicios" %}</a></li>
                                     <li><a href="{% url 'home_contact' %}">{% trans "Contacto" %}</a></li>
@@ -87,7 +63,6 @@
 
 
 <div class="logo-menu clear">
-    {# <div class="logo"><a href="/"></a></div> #}
     <div class="menu">
         <ul class="sprite">
             <li><a href="/" class="activelink"><span></span>{% trans "Inicio" %}</a></li>

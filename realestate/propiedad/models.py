@@ -200,7 +200,7 @@ class Propiedad(models.Model):
         return self.slug == slugify(self.slug)
 
     def get_absolute_url(self):
-        return reverse('property_details', args=[self.slug])
+        return reverse('propiedad_details', args=[self.slug])
 
     def get_features(self):
         features = [

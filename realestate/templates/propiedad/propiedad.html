@@ -1,5 +1,5 @@
 {% extends 'base_theme.html' %}
-{% load extra_functions thumbnail i18n realestate realestateforms hitcount_tags %}
+{% load extra_functions thumbnail i18n realestate_utils realestateforms %}
 {% block title %}{{ propiedad.titulo }} | WILLIAMSMENDEZ.COM{% endblock %}
 {% block content %}
 
@@ -162,12 +162,4 @@
         </div>
     </div>
 
-{% endblock %}
-
-{% block extra_js %}
-    <script type="text/javascript"><!--
-        $(document).ready(function() {
-            {% get_hit_count_javascript for propiedad %}
-        });
-    --></script>
 {% endblock %}
