@@ -23,10 +23,10 @@ class News(models.Model):
 
 class Contacto(models.Model):
     nombre = models.CharField(max_length=60)
-    telefono = models.CharField(max_length=20)
-    celular = models.CharField(max_length=20)
-    email = models.EmailField()
-    info = models.TextField()
+    telefono = models.CharField(max_length=20, null=True, blank=True)
+    celular = models.CharField(max_length=20, null=True, blank=True)
+    email = models.EmailField(null=True, blank=True)
+    info = models.TextField(null=True, blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
 
     class Meta:
