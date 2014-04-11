@@ -21,10 +21,10 @@ class News(models.Model):
         return self.title
 
 
-class Contacts(models.Model):
-    name = models.CharField(max_length=60)
-    phone = models.CharField(max_length=20)
-    cellphone = models.CharField(max_length=20)
+class Contacto(models.Model):
+    nombre = models.CharField(max_length=60)
+    telefono = models.CharField(max_length=20)
+    celular = models.CharField(max_length=20)
     email = models.EmailField()
     info = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
@@ -34,14 +34,14 @@ class Contacts(models.Model):
         verbose_name_plural = 'Contactos'
 
     def __unicode__(self):
-        return self.name
+        return self.nombre
 
 
 class Links(models.Model):
     name = models.CharField(max_length=32)
     link = models.URLField(max_length=255)
     description = models.CharField(max_length=150)
-    contact = models.OneToOneField(Contacts)
+    contacto = models.OneToOneField(Contacto)
     active = models.BooleanField(default=False)
 
     def get_url(self):

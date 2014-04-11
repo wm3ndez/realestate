@@ -8,6 +8,7 @@ import os
 import re
 from sorl.thumbnail import ImageField
 from django.utils.translation import ugettext as _
+from realestate.home.models import Contacto
 
 TIPO_PROPIEDADES = (
     ('casa', 'Casas'),
@@ -140,6 +141,7 @@ class Propiedad(models.Model):
     oferta = models.CharField(max_length=10, choices=OFERTAS, verbose_name=_(u'Oferta'))
     estado = models.CharField(max_length=10, choices=ESTADO_PROPIEDAD, verbose_name=_(u'Estado'))
     agente = models.ForeignKey(Agente)
+    contacto = models.ForeignKey(Contacto)
     creacion = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Creación'))
     niveles = models.IntegerField(max_length=2, default=1, verbose_name=_(u'Niveles'))
     dormitorios = models.IntegerField(max_length=2, default=3, verbose_name=_(u'Dormintorios'))
