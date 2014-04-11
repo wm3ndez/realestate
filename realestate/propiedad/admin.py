@@ -37,7 +37,7 @@ def clean_attribute_value(cleaned_data):
 
 
 class ImagenPropiedadInline(AdminImageMixin, admin.TabularInline):
-    model = Imagen_Propiedad
+    model = ImagenPropiedad
 
 
 class AtributosPropiedadInlineForm(ModelForm):
@@ -153,6 +153,6 @@ admin.site.register(Propiedad, PropiedadAdmin)
 admin.site.register(Sector)
 admin.site.register(Ciudad)
 admin.site.register(Agente, AgenteAdmin)
-admin.site.register(Imagen_Propiedad, ImagenAdmin)
+admin.site.register(ImagenPropiedad, ImagenAdmin)
 admin.site.register(Especial)
 admin.site.register(Atributos, AtributosAdmin)

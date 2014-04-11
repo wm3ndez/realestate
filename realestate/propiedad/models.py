@@ -134,14 +134,14 @@ class PropiedadManager(models.Manager):
 class Propiedad(models.Model):
     titulo = models.CharField(max_length=100, verbose_name=_(u'Título de la Propiedad'))
     slug = models.SlugField(max_length=100, unique=True, blank=False, verbose_name=_(u'Slug'))
-    descripcion = models.TextField(verbose_name=_(u'Descripción'))
+    descripcion = models.TextField(verbose_name=_(u'Descripción'), null=True, blank=True)
     precio = models.FloatField(default=0.0, verbose_name=_(u'Precio'))
-    sector = models.ForeignKey(Sector)
+    sector = models.ForeignKey(Sector, null=True, blank=True)
     tipo = models.CharField(max_length=30, choices=TIPO_PROPIEDADES, verbose_name=_(u'Tipo de Inmueble'))
     oferta = models.CharField(max_length=10, choices=OFERTAS, verbose_name=_(u'Oferta'))
     estado = models.CharField(max_length=10, choices=ESTADO_PROPIEDAD, verbose_name=_(u'Estado'))
     agente = models.ForeignKey(Agente)
-    contacto = models.ForeignKey(Contacto)
+    contacto = models.ForeignKey(Contacto, null=True, blank=True)
     creacion = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Creación'))
     niveles = models.IntegerField(max_length=2, default=1, verbose_name=_(u'Niveles'))
     dormitorios = models.IntegerField(max_length=2, default=3, verbose_name=_(u'Dormintorios'))
@@ -157,20 +157,20 @@ class Propiedad(models.Model):
     piscina = models.BooleanField(default=0, verbose_name=_(u'Piscina?'))
     balcon = models.IntegerField(max_length=2, default=0, verbose_name=_(u'Balcón'))
     intercom = models.BooleanField(default=0, verbose_name=_(u'Intercom?'))
-    notas = models.TextField(max_length=500, verbose_name=_(u'Notas privadas acerca de esta propiedad.'))
+    notas = models.TextField(max_length=500, verbose_name=_(u'Notas privadas.'), null=True, blank=True)
     coordenadas = models.CharField(max_length=22, default='19.000000,-70.400000', verbose_name=_(u'Coordenadas'))
     featured = models.BooleanField(default=False, verbose_name=_(u'Propiedad Destacada?'))
-    vistas = models.IntegerField(verbose_name=_(u'Notas privadas acerca de esta propiedad.'), null=True)
+    vistas = models.IntegerField(verbose_name=_(u'Vistas'), null=True)
 
     objects = PropiedadManager()
 
-    def _imagen_principal(self):
-        im = self.imagen_propiedad_set.all()
+    @property
+    def imagen_principal(self):
+        im = self.imagenpropiedad_set.all()
         if im.count():
             return im[0]
         return None
 
-    imagen_principal = property(_imagen_principal)
 
     def get_address(self):
         return '%s, %s, %s' % (self.sector, self.sector.ciudad, self.sector.ciudad.provincia)
@@ -263,7 +263,7 @@ class AtributosPropiedad(models.Model):
         return self.atributo.nombre + ': ' + self.valor
 
 
-class Imagen_Propiedad(models.Model):
+class ImagenPropiedad(models.Model):
     titulo = models.CharField(max_length=60)
     imagen = ImageField(upload_to='propiedades/')
     propiedad = models.ForeignKey(Propiedad)
@@ -290,7 +290,7 @@ class Especial(models.Model):
     final = models.DateTimeField(verbose_name=u'Fecha de Desactivacion de la oferta')
 
     def __unicode__(self):
-        return self.propiedad.titulo + ' - ' + self.propiedad.sector.nombre
+        return '%s - %s' % (self.propiedad.titulo, self.propiedad.sector.nombre)
 
     class Meta:
         verbose_name = 'Propiedad en Oferta'

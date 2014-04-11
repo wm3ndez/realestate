@@ -47,7 +47,7 @@ class Links(models.Model):
     def get_url(self):
         if self.link.startswith('http'):
             return self.link
-        return 'http://' + self.link
+        return 'http://%s' % self.link
 
     class Meta:
         verbose_name = 'Link'

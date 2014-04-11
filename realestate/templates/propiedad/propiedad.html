@@ -45,7 +45,7 @@
                     <!-- Start slideshow-carousel -->
                     <div id="showcase-loader"></div>
                     <div id="showcase" class="showcase">
-                        {% for imagen in propiedad.imagen_propiedad_set.all %}
+                        {% for imagen in propiedad.imagenpropiedad_set.all %}
                             {% thumbnail imagen.imagen "620x410" crop="center" as bigimage %}
                                 {% thumbnail imagen.imagen "116x90" crop="center" as thumb %}
 
