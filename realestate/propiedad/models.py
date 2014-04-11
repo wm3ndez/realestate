@@ -143,20 +143,6 @@ class Propiedad(models.Model):
     agente = models.ForeignKey(Agente)
     contacto = models.ForeignKey(Contacto, null=True, blank=True)
     creacion = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Creación'))
-    niveles = models.IntegerField(max_length=2, default=1, verbose_name=_(u'Niveles'))
-    dormitorios = models.IntegerField(max_length=2, default=3, verbose_name=_(u'Dormintorios'))
-    banios = models.IntegerField(max_length=2, default=2, verbose_name=_(u'Baños'))
-    servicio = models.BooleanField(default=0, verbose_name=_(u'Servicio?'))
-    marquesina = models.IntegerField(max_length=2, default=0, verbose_name=_(u'Marquesina?'))
-    tamano_solar = models.IntegerField(default=0, verbose_name=_(u'Área del Terreno'))
-    tamano_construccion = models.IntegerField(default=0, verbose_name=_(u'Área de Construcción'))
-    cocina = models.BooleanField(default=1, verbose_name=_(u'Cocina'))
-    parqueo_techado = models.BooleanField(default=0, verbose_name=_(u'Parque Techado?'))
-    comedor = models.BooleanField(default=1, verbose_name=_(u'Comedor?'))
-    amueblado = models.BooleanField(default=0, verbose_name=_(u'Amueblado?'))
-    piscina = models.BooleanField(default=0, verbose_name=_(u'Piscina?'))
-    balcon = models.IntegerField(max_length=2, default=0, verbose_name=_(u'Balcón'))
-    intercom = models.BooleanField(default=0, verbose_name=_(u'Intercom?'))
     notas = models.TextField(max_length=500, verbose_name=_(u'Notas privadas.'), null=True, blank=True)
     coordenadas = models.CharField(max_length=22, default='19.000000,-70.400000', verbose_name=_(u'Coordenadas'))
     featured = models.BooleanField(default=False, verbose_name=_(u'Propiedad Destacada?'))
@@ -173,6 +159,8 @@ class Propiedad(models.Model):
 
 
     def get_address(self):
+        if self.sector is None:
+            return 'No provista'
         return '%s, %s, %s' % (self.sector, self.sector.ciudad, self.sector.ciudad.provincia)
 
     def __unicode__(self):
@@ -205,39 +193,25 @@ class Propiedad(models.Model):
         return reverse('propiedad_details', args=[self.slug])
 
     def get_features(self):
-        features = [
-            u'Niveles: %s' % self.niveles,
-            u'Dormitorios: %s' % self.dormitorios,
-            u'Baños: %s' % self.banios,
-        ]
-        if self.cocina:
-            features.append(u'Cocina')
-        if self.comedor:
-            features.append(u'Comedor')
-        if self.servicio:
-            features.append(u'Hab. de Servicio')
-        if self.amueblado:
-            features.append(u'Amueblado/a')
-        if self.piscina:
-            features.append(u'Piscina')
-        if self.balcon:
-            features.append(u'%s balcon(es)' % self.balcon)
-        if self.marquesina:
-            features.append(u'Marquesina para %s vehículo(s)' % self.marquesina)
-        if self.parqueo_techado:
-            features.append(u'Parqueo Techado')
-        if self.tamano_construccion:
-            features.append(u'%s Mts2 de const.' % self.tamano_construccion)
-        if self.tamano_solar:
-            features.append(u'%s Mts2 de solar' % self.tamano_solar)
+        atributos = []
+        for atributo in self.atributopropiedad_set.all():
+            if atributo.atributo.validacion == 'realestate.propiedad.utils.validation_simple':
+                atributos.append(u'%s: %s' % (atributo.atributo.nombre, atributo.valor))
+            elif atributo.atributo.validacion == 'realestate.propiedad.utils.validation_yesno':
+                atributos.append(u'%s' % atributo.valor)
+            else:
+                if atributo.atributo.validacion == 'realestate.propiedad.utils.validation_integer':
+                    atributos.append(u'%s %s' % (atributo.valor, atributo.atributo.nombre))
+                else:
+                    atributos.append(u'%.2f %s' % (atributo.valor, atributo.atributo.nombre))
 
-        return features
+        return atributos
 
     def propiedades_en_el_area(self):
         return Propiedad.objects.filter(sector=self.sector).order_by('?')[:4]
 
 
-class Atributos(models.Model):
+class Atributo(models.Model):
     nombre = models.CharField(u'Atributo', max_length=100)
     validacion = models.CharField(u'Tipo de valor', choices=VALIDATIONS, max_length=100)
 
@@ -250,17 +224,19 @@ class Atributos(models.Model):
         return self.nombre
 
 
-class AtributosPropiedad(models.Model):
+class AtributoPropiedad(models.Model):
     propiedad = models.ForeignKey(Propiedad)
-    atributo = models.ForeignKey(Atributos)
+    atributo = models.ForeignKey(Atributo)
     valor = models.CharField(u'Valor', max_length=255)
+    # orden = models.SmallIntegerField(u'Orden', default=99)
 
     class Meta:
         verbose_name = 'Atributo de Propiedad'
         verbose_name_plural = 'Atributos de Propiedad'
+        # ordering = ['orden', ]
 
     def __unicode__(self):
-        return self.atributo.nombre + ': ' + self.valor
+        return '%s: %s' % (self.atributo.nombre, self.valor)
 
 
 class ImagenPropiedad(models.Model):

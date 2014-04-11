@@ -13,3 +13,4 @@ def local_deploy():
     local('mv testproject/realestate.db testproject/realestate_bak.db')
     local('venv/bin/python testproject/manage.py syncdb;', False)
     local('venv/bin/python testproject/manage.py migrate')
+    local('venv/bin/python testproject/manage.py loaddata realestate/propiedad/fixtures/atributos.json')

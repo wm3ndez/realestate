@@ -46,36 +46,28 @@ class AtributosPropiedadInlineForm(ModelForm):
 
 
 class AtributosPropiedadInline(admin.TabularInline):
-    model = AtributosPropiedad
+    model = AtributoPropiedad
     form = AtributosPropiedadInlineForm
 
 
 class PropiedadAdmin(admin.ModelAdmin):
-    # Esto hace que los unicos campos a mostrar sean los siguientes:
     change_form_template = "admin/realestate/propiedad/change_form.html"
-
     fieldsets = [
         ("Descripcion de la Propiedad",
          {
              'fields': [
-                 'titulo', 'descripcion', ('precio', 'sector', 'agente'),
-                 ('tipo', 'oferta', 'estado', 'featured')
+                 'titulo', 'descripcion', 'precio', 'sector', 'tipo', 'oferta', 'estado', 'featured'
              ]
          }),
         ('Detalles',
          {
              'fields': [
-                 ('tamano_solar', 'tamano_construccion'), ('niveles', 'dormitorios', 'banios'),
-                 ('marquesina', 'parqueo_techado', 'balcon'), ('servicio', 'intercom', 'piscina'),
-                 ('cocina', 'comedor'), 'coordenadas', 'notas'
+                 'agente', 'contacto', 'notas', 'coordenadas',
              ]
          })
     ]
 
-    inlines = [
-        ImagenPropiedadInline,
-        AtributosPropiedadInline
-    ]
+    inlines = [AtributosPropiedadInline, ImagenPropiedadInline, ]
 
     list_display = (
         'id', 'titulo', 'slug', 'currency_price', 'estado', 'tipo', 'ciudad', 'sector', 'agente', 'creacion',
@@ -94,6 +86,8 @@ class PropiedadAdmin(admin.ModelAdmin):
 
 
     def ciudad(self, propiedad):
+        if propiedad.sector is None:
+            return u'(No seleccionada)'
         return '%s, %s' % (propiedad.sector.ciudad, propiedad.sector.ciudad.provincia )
 
     def imagen_miniatura(self, obj):
@@ -155,4 +149,4 @@ admin.site.register(Ciudad)
 admin.site.register(Agente, AgenteAdmin)
 admin.site.register(ImagenPropiedad, ImagenAdmin)
 admin.site.register(Especial)
-admin.site.register(Atributos, AtributosAdmin)
+admin.site.register(Atributo, AtributosAdmin)
