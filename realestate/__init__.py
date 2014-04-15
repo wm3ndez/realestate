@@ -1,5 +1,5 @@
 __author__ = 'Williams Mendez'
-__copyright__ = 'Copyright 2012, Williams Mendez'
+__copyright__ = 'Copyright 2014, Williams Mendez'
 __credits__ = ['Williams Mendez, williamsmendez.com, @wmendezt']
 
 __license__ = 'BSD'
