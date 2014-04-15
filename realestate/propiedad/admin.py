@@ -56,7 +56,7 @@ class PropiedadAdmin(admin.ModelAdmin):
         ("Descripcion de la Propiedad",
          {
              'fields': [
-                 'titulo', 'descripcion', 'precio', 'sector', 'tipo', 'oferta', 'estado', 'featured'
+                 'titulo', 'descripcion', 'precio', 'sector', 'tipo', 'oferta', 'estado', 'featured', 'Frontpage',
              ]
          }),
         ('Detalles',
@@ -84,11 +84,10 @@ class PropiedadAdmin(admin.ModelAdmin):
     list_filter = ['creacion', 'agente', 'titulo', 'estado', ]
     date_hierarchy = 'creacion'
 
-
     def ciudad(self, propiedad):
         if propiedad.sector is None:
             return u'(No seleccionada)'
-        return '%s, %s' % (propiedad.sector.ciudad, propiedad.sector.ciudad.provincia )
+        return '%s, %s' % (propiedad.sector.ciudad, propiedad.sector.ciudad.provincia)
 
     def imagen_miniatura(self, obj):
         imageobj = obj.imagen_principal
