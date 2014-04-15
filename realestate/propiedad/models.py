@@ -57,9 +57,9 @@ PROVINCIAS = (
     ('Valverde', 'Valverde'),
 )
 
-OFERTAS = ( ('venta', 'Venta'), ('alquiler', 'Alquiler'), ('venta_alq', 'Venta y/o Alquiler'))
-ESTADO_PROPIEDAD = ( ('activa', 'Activa'), ('inactiva', 'Inactiva'), ('vendida', 'Vendida'))
-ESTADO_ESPECIAL = ( ('activa', 'Activa'), ('inactiva', 'Inactiva'),)
+OFERTAS = (('venta', 'Venta'), ('alquiler', 'Alquiler'), ('venta_alq', 'Venta y/o Alquiler'))
+ESTADO_PROPIEDAD = (('activa', 'Activa'), ('inactiva', 'Inactiva'), ('vendida', 'Vendida'))
+ESTADO_ESPECIAL = (('activa', 'Activa'), ('inactiva', 'Inactiva'),)
 
 VALIDATIONS = [
     ('realestate.propiedad.utils.validation_simple', _(u'Uno o más caracteres')),
@@ -144,8 +144,9 @@ class Propiedad(models.Model):
     contacto = models.ForeignKey(Contacto, null=True, blank=True)
     creacion = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Creación'))
     notas = models.TextField(max_length=500, verbose_name=_(u'Notas privadas.'), null=True, blank=True)
-    coordenadas = models.CharField(max_length=22, default='19.000000,-70.400000', verbose_name=_(u'Coordenadas'))
+    coordenadas = models.CharField(max_length=255, default='19.000000,-70.400000', verbose_name=_(u'Coordenadas'))
     featured = models.BooleanField(default=False, verbose_name=_(u'Propiedad Destacada?'))
+    frontpage = models.BooleanField(default=False, verbose_name=_(u'Mostrar en Frontpage?'))
     vistas = models.IntegerField(verbose_name=_(u'Vistas'), null=True)
 
     objects = PropiedadManager()
@@ -156,7 +157,6 @@ class Propiedad(models.Model):
         if im.count():
             return im[0]
         return None
-
 
     def get_address(self):
         if self.sector is None:
