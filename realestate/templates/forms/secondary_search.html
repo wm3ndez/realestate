@@ -1,14 +1,14 @@
 {% load static i18n realestateforms %}
 
 <div class="row">
-    <h4 class="span3 well">Cambiar criterios de búsqueda</h4>
+    <h4 class="thumbnail">Cambiar criterios de búsqueda</h4>
 
-    <div class="span3 well">
+    <div class="thumbnail">
 
         <form class="form-inline mini" style="margin-bottom: 0px;" action="{% url 'search' %}">
             <fieldset>
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-12">
                         <div class="form-group">
                             <label for="id_location" class="control-label">Provincia</label>
 
@@ -18,7 +18,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="id_tipo" class="control-label">Tipo</label>
 
@@ -38,7 +38,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="id_beds" class="control-label">Dormitorios</label>
 
@@ -47,7 +47,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="id_baths" class="control-label">Baños</label>
 
@@ -57,7 +57,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="focusedInput" class="control-label">Precio</label>
 
@@ -73,8 +73,7 @@
 
                     </div>
                     <div class="row">
-
-                        <div class="span2 pull-right" style="margin-top: 10px;">
+                        <div class="col-md-2 " style="margin-top: 10px;">
                             <button class="btn btn-primary pull-right" type="submit">Buscar</button>
 
                         </div>

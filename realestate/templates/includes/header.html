@@ -1,7 +1,7 @@
 {% load i18n realestate_utils static %}
 
-<div class="row"><!-- start header -->
-    <div class="span4 logo">
+<div class="row">
+    <div class="col-md-4 logo">
         <a href="/">
             <div class="row">
                 <div class="col-md-3">
@@ -10,7 +10,7 @@
             </div>
         </a>
     </div>
-    <div class="span4 customer_service pull-right text-right">
+    <div class="col-md-4 customer_service pull-right text-right">
         <br/>
         <h4>Contáctanos: 000-000-0000</h4>
         <h4>
@@ -18,59 +18,50 @@
         </h4>
     </div>
 </div>
-<!-- end header -->
 
 <div class="row"><!-- start nav -->
     <div class="col-md-12">
-        <div class="navbar">
-            <div class="navbar-inner">
-                <div class="container">
-                    <div class="navbar-collapse">
-                        <ul class="nav">
-                            <li><a href="/" class="first">{% trans "Inicio" %}</a></li>
-                            <li><a href="{% url 'properties_for_sale' %}">{% trans "Venta" %}</a></li>
-                            <li><a href="{% url 'properties_for_rent' %}">{% trans "Renta" %}</a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    Propiedades <b class="caret"></b>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{% url 'all_properties' %}">Propiedades</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    Otras páginas <b class="caret"></b>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{% url 'home_aboutus' %}">{% trans "Nosotros" %}</a></li>
-                                    <li><a href="{% url 'home_services' %}">{% trans "Servicios" %}</a></li>
-                                    <li><a href="{% url 'home_contact' %}">{% trans "Contacto" %}</a></li>
-                                </ul>
-                            </li>
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">Real Estate</a>
+                </div>
 
-                        </ul>
-                    </div>
-                    <!-- /.nav-collapse -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/" class="first">{% trans "Inicio" %}</a></li>
+                        <li><a href="{% url 'properties_for_sale' %}">{% trans "Venta" %}</a></li>
+                        <li><a href="{% url 'properties_for_rent' %}">{% trans "Renta" %}</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Propiedades <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'all_properties' %}">Propiedades</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Otras páginas <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'home_aboutus' %}">{% trans "Nosotros" %}</a></li>
+                                <li><a href="{% url 'home_services' %}">{% trans "Servicios" %}</a></li>
+                                <li><a href="{% url 'home_contact' %}">{% trans "Contacto" %}</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
                 </div>
             </div>
-            <!-- /navbar-inner -->
-        </div>
-        <!-- /navbar -->
+        </nav>
     </div>
 </div>
-<!-- end nav -->
-
-
-<div class="logo-menu clear">
-    <div class="menu">
-        <ul class="sprite">
-            <li><a href="/" class="activelink"><span></span>{% trans "Inicio" %}</a></li>
-            <li><a href="{% url 'properties_for_rent' %}"><span></span>{% trans "Renta" %}</a></li>
-            <li><a href="{% url 'properties_for_sale' %}"><span></span>{% trans "Venta" %}</a></li>
-            <li><a href="{% url 'home_aboutus' %}"><span></span>{% trans "Nosotros" %}</a></li>
-            <li><a href="{% url 'home_contact' %}"><span></span>{% trans "Contacto" %}</a></li>
-        </ul>
-    </div>
-</div>
-&nbsp;

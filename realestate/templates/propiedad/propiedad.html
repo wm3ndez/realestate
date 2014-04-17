@@ -27,13 +27,13 @@
 
     <div class="row">
 
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-8">
                     <h3>{{ propiedad.titulo }}</h3>
                     <h6>{{ propiedad.get_address }}</h6>
                 </div>
-                <div class="span3 text-right">
+                <div class="col-md-4 text-right">
                     <h2>{{ propiedad.precio|currency }}</h2>
                 </div>
             </div>
@@ -41,7 +41,7 @@
             <div class="row">
                 <br/>
 
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <!-- Start slideshow-carousel -->
                     <div id="showcase-loader"></div>
                     <div id="showcase" class="showcase">
@@ -70,7 +70,7 @@
             <div class="row">
                 <br/>
 
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <h4>Características</h4>
 
                     <div class="row">
@@ -85,19 +85,17 @@
                     <h4>Otras propiedades en esta área</h4>
                     <ul class="thumbnails">
                         {% for en_area in propiedad.propiedades_en_el_area %}
-                            <li class="col-md-2">
-                                <div class="thumbnail mini_property">
-                                    <a href="{{ en_area.get_absolute_url }}">
-                                        {% thumbnail en_area.imagen_principal.imagen "130x87" crop="center" as image %}
-                                            <img src="{{ image.url }}" alt="{{ en_area.titulo }}">
-                                        {% endthumbnail %}
-                                    </a>
-                                    <h5>Precio : {{ en_area.precio|currency }}</h5>
+                            <li class="col-md-3 list-group-item">
+                                <a href="{{ en_area.get_absolute_url }}">
+                                    {% thumbnail en_area.imagen_principal.imagen "130x87" crop="center" as image %}
+                                        <img src="{{ image.url }}" alt="{{ en_area.titulo }}">
+                                    {% endthumbnail %}
+                                </a>
+                                <h5>Precio : {{ en_area.precio|currency }}</h5>
 
-                                    <p><a href="{{ en_area.get_absolute_url }}">{{ en_area.titulo }}</a><br/>
-                                        {{ en_area.get_address }}
-                                    </p>
-                                </div>
+                                <p><a href="{{ en_area.get_absolute_url }}">{{ en_area.titulo }}</a><br/>
+                                    {{ en_area.get_address }}
+                                </p>
                             </li>
                         {% empty %}
                             No hay más propiedades en esta área.
@@ -107,7 +105,7 @@
             </div>
 
         </div>
-        <div class="span4 pull-right" id="portamento_container">
+        <div class="col-md-3 pull-right" id="portamento_container">
             <div id="property_map" class="center">
                 <a href="#mapModal">
                     <img src="http://maps.google.com/staticmap?center={{ propiedad.coordenadas }}&amp;zoom=14&amp;size=250x250&amp;maptype=mobile&amp;markers={{ propiedad.coordenadas }},red&amp;key=ABQIAAAAqQJ-gFBKUbBLaFN1HQF4KBQ_k2Fxd8XZtbWUsvz5Vrarxzf2SRSh7DRXLQmAZ-6XwtrmMhkINGT27A&amp;sensor=false"
@@ -117,8 +115,6 @@
                 <p>
                     <br/>
                     <a data-toggle="modal" href="#mapModal">Agrandar Mapa</a><br/>
-                    {#                    <a data-toggle="modal" href="#streetModal">Street view</a><br/>#}
-                    {#                <a href="compare.html">Compare this property with others</a>#}
                 </p>
                 <hr/>
             </div>
@@ -142,7 +138,7 @@
                     {% csrf_token %}
                     <fieldset>
                         {% for field in form %}
-                            <div class="control-group{% if field.errors %} error{% endif %}">
+                            <div class="form-group{% if field.errors %} error{% endif %}">
                                 <div class="controls">
                                     {{ field|widget_with_placeholder:field.name }}
                                     {% if field.errors %}

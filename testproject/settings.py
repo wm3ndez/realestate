@@ -80,8 +80,6 @@ TEMPLATE_LOADERS = (
 ROOT_URLCONF = 'testproject.urls'
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_ROOT, 'templates'),
-    os.path.abspath(PROJECT_ROOT + '/../realestate/templates'),
-
 )
 
 # Python dotted path to the WSGI application used by Django's runserver.
