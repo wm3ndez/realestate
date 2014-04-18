@@ -69,7 +69,6 @@ def alquiler(request, tipo=None):
 
 def search(request):
     res = Propiedad.objects.activas()
-    #    import ipdb; ipdb.set_trace()
     if request.POST:
         form = SearchForm(request.POST)
         if form.is_valid():

@@ -71,7 +71,7 @@ VALIDATIONS = [
 
 class CiudadManager(models.Manager):
     def containing_properties(self, **kwargs):
-        return self.filter(ciudad__sector__isnull=False, **kwargs)
+        return self.filter(sector__propiedad__isnull=False, **kwargs)
 
 
 class Ciudad(models.Model):
