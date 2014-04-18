@@ -69,9 +69,16 @@ VALIDATIONS = [
 ]
 
 
+class CiudadManager(models.Manager):
+    def containing_properties(self, **kwargs):
+        return self.filter(ciudad__sector__isnull=False, **kwargs)
+
+
 class Ciudad(models.Model):
     nombre = models.CharField(max_length=45)
     provincia = models.CharField(max_length=45, choices=PROVINCIAS)
+
+    objects = CiudadManager()
 
     def __unicode__(self):
         return self.nombre
@@ -81,9 +88,16 @@ class Ciudad(models.Model):
         verbose_name_plural = 'Ciudades'
 
 
+class SectorManager(models.Manager):
+    def containing_properties(self, **kwargs):
+        return self.filter(propiedad__isnull=False, **kwargs)
+
+
 class Sector(models.Model):
     nombre = models.CharField(max_length=45)
     ciudad = models.ForeignKey(Ciudad)
+
+    objects = SectorManager()
 
     def __unicode__(self):
         return self.nombre

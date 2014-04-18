@@ -9,12 +9,6 @@
             {{ form.id }}
         </div>
 
-        <label>T&iacute;tulo de la Propiedad:</label>
-
-        <div class="row-input">
-            {{ form.titulo }}
-        </div>
-
         <label>Agente:</label>
 
         <div class="row-input">
@@ -27,29 +21,11 @@
             {{ form.tipo }}
         </div>
 
-        <label>Rango de Precio</label>
-
-        <div class="row-table">
-            <div class="row-table-1 fleft">
-                <label>Desde</label>
-
-                <div class="row-input">
-                    {{ form.precio_min }}
-                </div>
-            </div>
-            <div class="row-table-2 fleft">
-                <label>Hasta</label>
-
-                <div class="row-input">
-                    {{ form.precio_max }}
-                </div>
-            </div>
-        </div>
 
         <label>Localidad</label>
 
         <div class="row-input">
-            {{ form.provincia }}
+            {{ form.location }}
         </div>
 
         <label>Oferta</label>
@@ -58,7 +34,7 @@
             {{ form.oferta }}
         </div>
         <div class="clear indent-button">
-            <a href="#" class="link" onClick="document.getElementById('FormContent').submit()"> Buscar Propiedad</a>
+            <button class="btn btn-info">Buscar Propiedad</button>
         </div>
         <div class="clear">
             <div class="form-text fright">
