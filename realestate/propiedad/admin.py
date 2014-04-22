@@ -56,7 +56,8 @@ class PropiedadAdmin(admin.ModelAdmin):
         ("Descripcion de la Propiedad",
          {
              'fields': [
-                 'titulo', 'descripcion', 'precio', 'sector', 'tipo', 'oferta', 'estado', 'featured', 'frontpage',
+                 'titulo', 'descripcion', 'precio', ( 'banos', 'dormitorios', 'tamano'), 'sector', 'tipo', 'oferta',
+                 'estado', 'featured', 'frontpage',
              ]
          }),
         ('Detalles',
