@@ -110,8 +110,8 @@ class Sector(models.Model):
 class Agente(models.Model):
     telefono = models.CharField(max_length=15, verbose_name=_(u'Teléfono'))
     celular = models.CharField(max_length=15, verbose_name=_(u'Celular'))
-    ciudad = models.ForeignKey(Ciudad, verbose_name=_(u'Ciudad'))
-    direccion = models.CharField(max_length=200, verbose_name=_(u'Dirección'))
+    ciudad = models.ForeignKey(Ciudad, verbose_name=_(u'Ciudad'), null=True, blank=True)
+    direccion = models.CharField(max_length=200, verbose_name=_(u'Dirección'), null=True, blank=True)
     fotografia = ImageField(upload_to='agentes/', default='', verbose_name=_(u'Fotografía'))
     user = models.OneToOneField(User, verbose_name=_(u'Usuario'))
 
@@ -154,14 +154,17 @@ class Propiedad(models.Model):
     tipo = models.CharField(max_length=30, choices=TIPO_PROPIEDADES, verbose_name=_(u'Tipo de Inmueble'))
     oferta = models.CharField(max_length=10, choices=OFERTAS, verbose_name=_(u'Oferta'))
     estado = models.CharField(max_length=10, choices=ESTADO_PROPIEDAD, verbose_name=_(u'Estado'))
-    agente = models.ForeignKey(Agente)
-    contacto = models.ForeignKey(Contacto, null=True, blank=True)
-    creacion = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Creación'))
-    notas = models.TextField(max_length=500, verbose_name=_(u'Notas privadas.'), null=True, blank=True)
-    coordenadas = models.CharField(max_length=255, default='19.000000,-70.400000', verbose_name=_(u'Coordenadas'))
     featured = models.BooleanField(default=False, verbose_name=_(u'Propiedad Destacada?'))
     frontpage = models.BooleanField(default=False, verbose_name=_(u'Mostrar en Frontpage?'))
-    vistas = models.IntegerField(verbose_name=_(u'Vistas'), null=True)
+    banos = models.PositiveIntegerField(default=0, null=True, blank=True)
+    dormitorios = models.PositiveIntegerField(default=0, null=True, blank=True)
+    tamano = models.PositiveIntegerField(default=0, null=True, blank=True)
+    coordenadas = models.CharField(max_length=255, default='19.000000,-70.400000', verbose_name=_(u'Coordenadas'))
+    agente = models.ForeignKey(Agente)
+    contacto = models.ForeignKey(Contacto, null=True, blank=True)
+    notas = models.TextField(max_length=500, verbose_name=_(u'Notas privadas.'), null=True, blank=True)
+    creacion = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Creación'))
+    ultima_modificacion = models.DateTimeField(auto_now=True, verbose_name=_(u'Última Modificación'))
 
     objects = PropiedadManager()
 
@@ -174,7 +177,7 @@ class Propiedad(models.Model):
 
     def get_address(self):
         if self.sector is None:
-            return 'No provista'
+            return u'Ubicación no provista'
         return '%s, %s, %s' % (self.sector, self.sector.ciudad, self.sector.ciudad.provincia)
 
     def __unicode__(self):

@@ -1,1 +1,82 @@
-[{"pk": 1, "model": "propiedad.atributo", "fields": {"nombre": "Ba\u00f1os", "validacion": "realestate.propiedad.utils.validation_integer"}}, {"pk": 2, "model": "propiedad.atributo", "fields": {"nombre": "Niveles", "validacion": "realestate.propiedad.utils.validation_integer"}}, {"pk": 3, "model": "propiedad.atributo", "fields": {"nombre": "Dormitorios", "validacion": "realestate.propiedad.utils.validation_integer"}}, {"pk": 4, "model": "propiedad.atributo", "fields": {"nombre": "Cuarto de Servicio", "validacion": "realestate.propiedad.utils.validation_yesno"}}, {"pk": 5, "model": "propiedad.atributo", "fields": {"nombre": "Parqueo(s)", "validacion": "realestate.propiedad.utils.validation_integer"}}, {"pk": 6, "model": "propiedad.atributo", "fields": {"nombre": "Cocina", "validacion": "realestate.propiedad.utils.validation_yesno"}}, {"pk": 7, "model": "propiedad.atributo", "fields": {"nombre": "Parqueo techado", "validacion": "realestate.propiedad.utils.validation_yesno"}}, {"pk": 8, "model": "propiedad.atributo", "fields": {"nombre": "Comedor", "validacion": "realestate.propiedad.utils.validation_yesno"}}, {"pk": 9, "model": "propiedad.atributo", "fields": {"nombre": "Amueblada", "validacion": "realestate.propiedad.utils.validation_yesno"}}, {"pk": 10, "model": "propiedad.atributo", "fields": {"nombre": "Piscina", "validacion": "realestate.propiedad.utils.validation_yesno"}}, {"pk": 11, "model": "propiedad.atributo", "fields": {"nombre": "Balc\u00f3n", "validacion": "realestate.propiedad.utils.validation_yesno"}}, {"pk": 12, "model": "propiedad.atributo", "fields": {"nombre": "Intercom", "validacion": "realestate.propiedad.utils.validation_yesno"}}]
+[
+    {
+        "pk": 2,
+        "model": "propiedad.atributo",
+        "fields": {
+            "nombre": "Niveles",
+            "validacion": "realestate.propiedad.utils.validation_integer"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "propiedad.atributo",
+        "fields": {
+            "nombre": "Cuarto de Servicio",
+            "validacion": "realestate.propiedad.utils.validation_yesno"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "propiedad.atributo",
+        "fields": {
+            "nombre": "Parqueo(s)",
+            "validacion": "realestate.propiedad.utils.validation_integer"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "propiedad.atributo",
+        "fields": {
+            "nombre": "Cocina",
+            "validacion": "realestate.propiedad.utils.validation_yesno"
+        }
+    },
+    {
+        "pk": 7,
+        "model": "propiedad.atributo",
+        "fields": {
+            "nombre": "Parqueo techado",
+            "validacion": "realestate.propiedad.utils.validation_yesno"
+        }
+    },
+    {
+        "pk": 8,
+        "model": "propiedad.atributo",
+        "fields": {
+            "nombre": "Comedor",
+            "validacion": "realestate.propiedad.utils.validation_yesno"
+        }
+    },
+    {
+        "pk": 9,
+        "model": "propiedad.atributo",
+        "fields": {
+            "nombre": "Amueblada",
+            "validacion": "realestate.propiedad.utils.validation_yesno"
+        }
+    },
+    {
+        "pk": 10,
+        "model": "propiedad.atributo",
+        "fields": {
+            "nombre": "Piscina",
+            "validacion": "realestate.propiedad.utils.validation_yesno"
+        }
+    },
+    {
+        "pk": 11,
+        "model": "propiedad.atributo",
+        "fields": {
+            "nombre": "Balc\u00f3n",
+            "validacion": "realestate.propiedad.utils.validation_yesno"
+        }
+    },
+    {
+        "pk": 12,
+        "model": "propiedad.atributo",
+        "fields": {
+            "nombre": "Intercom",
+            "validacion": "realestate.propiedad.utils.validation_yesno"
+        }
+    }
+]
