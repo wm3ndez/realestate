@@ -114,6 +114,7 @@ class Agente(models.Model):
     direccion = models.CharField(max_length=200, verbose_name=_(u'Dirección'), null=True, blank=True)
     fotografia = ImageField(upload_to='agentes/', default='', verbose_name=_(u'Fotografía'))
     user = models.OneToOneField(User, verbose_name=_(u'Usuario'))
+    activo = models.BooleanField(default=False, verbose_name=_('Activo'))
 
     def __unicode__(self):
         if (self.user.first_name or self.user.last_name):
@@ -160,7 +161,7 @@ class Propiedad(models.Model):
     dormitorios = models.PositiveIntegerField(_(u'Dormitorios'), default=0, null=True, blank=True)
     tamano = models.PositiveIntegerField(_(u'Metros cuadrados(m2)'), default=0, null=True, blank=True)
     coordenadas = models.CharField(max_length=255, default='19.000000,-70.400000', verbose_name=_(u'Coordenadas'))
-    agente = models.ForeignKey(Agente)
+    agente = models.ForeignKey(Agente, null=True, blank=True)
     contacto = models.ForeignKey(Contacto, null=True, blank=True)
     notas = models.TextField(max_length=500, verbose_name=_(u'Notas privadas.'), null=True, blank=True)
     creacion = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Creación'))
