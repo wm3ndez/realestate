@@ -8,7 +8,7 @@
                          title="{{ propiedad.titulo }}"/>
                 {% endthumbnail %}
                 <a href="{{ propiedad.get_absolute_url }}" title="{{ propiedad.titulo }}">{{ propiedad.titulo }}</a>
-                <label>Price: <span>{{ propiedad.precio|currency }}</span></label>
+                <label>Price: <span>{{ propiedad.price|currency }}</span></label>
                 <p>{{ propiedad.descripcion|safe|truncatewords_html:25 }}</p>
             </li>
         {% endfor %}

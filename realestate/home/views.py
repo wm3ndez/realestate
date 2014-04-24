@@ -1,11 +1,11 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from realestate.propiedad.models import Propiedad
+from realestate.property.models import Property
 from realestate.home.forms import SearchForm
 
 
 def index(request):
-    recentp = Propiedad.objects.all().order_by('-creacion')[:5]
+    recentp = Property.objects.all().order_by('-created_at')[:5]
     form = SearchForm()
     data = {
         'recent': recentp,

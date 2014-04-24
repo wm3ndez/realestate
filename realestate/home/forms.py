@@ -1,4 +1,4 @@
-from realestate.propiedad.models import PROVINCIAS, OFERTAS, TIPO_PROPIEDADES, Agente, Sector
+from realestate.property.models import PROVINCIAS, OFERTAS, TYPES, Agent, Sector
 from django import forms
 
 BATHROOMS_RANGE = (
@@ -30,12 +30,12 @@ BEDROOMS_RANGE = (
 )
 
 PROVINCIAS_CHOICES = (('', 'Todas'),) + PROVINCIAS
-TIPO_PROPIEDADES_CHOICES = (('', 'Todos'),) + TIPO_PROPIEDADES
+TIPO_PROPIEDADES_CHOICES = (('', 'Todos'),) + TYPES
 
 
 class SearchForm(forms.Form):
     id = forms.CharField(required=False)
-    agente = forms.ModelChoiceField(queryset=Agente.objects.all(), required=False)
+    agente = forms.ModelChoiceField(queryset=Agent.objects.all(), required=False)
     location = forms.ChoiceField(choices=PROVINCIAS_CHOICES, required=False)
     sector = forms.ModelChoiceField(queryset=Sector.objects.containing_properties(), required=False)
     tipo = forms.ChoiceField(choices=TIPO_PROPIEDADES_CHOICES, required=False)

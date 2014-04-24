@@ -1,5 +1,5 @@
 from django import template
-from realestate.propiedad.models import TIPO_PROPIEDADES, PROVINCIAS, OFERTAS
+from realestate.property.models import TYPES, PROVINCIAS, OFERTAS
 from django.template.loader import get_template
 from django.template import Context, TemplateDoesNotExist
 
@@ -23,8 +23,8 @@ def _render_drop_down(field_id, field_name, options):
 
 @register.simple_tag
 def render_property_type_select():
-    options = [{'name': name, 'value': value} for value, name in TIPO_PROPIEDADES]
-    field_id = field_name = 'tipo'
+    options = [{'name': name, 'value': value} for value, name in TYPES]
+    field_id = field_name = 'type'
     return _render_drop_down(field_id, field_name, options)
 
 
@@ -43,7 +43,7 @@ def render_location_select():
 @register.simple_tag
 def render_offer_select():
     options = [{'name': name, 'value': value} for value, name in OFERTAS]
-    return _render_drop_down('oferta', 'oferta', options)
+    return _render_drop_down('offer', 'offer', options)
 
 
 @register.inclusion_tag('forms/search.html', takes_context=True)

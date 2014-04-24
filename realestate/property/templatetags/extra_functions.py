@@ -7,7 +7,10 @@ register = template.Library()
 #register.filter('currency', currency)
 @register.filter
 def currency(dollars):
-    dollars = float(dollars)
+    try:
+        dollars = float(dollars)
+    except ValueError:
+        return '$0'
     #return "$%s%s" % (intcomma(int(dollars)), ("%0.2f" % dollars)[-3:])
     return "$%s" % intcomma(int(dollars), False)
 

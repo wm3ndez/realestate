@@ -10,7 +10,7 @@ from sorl.thumbnail import ImageField
 from django.utils.translation import ugettext as _
 from realestate.home.models import Contacto
 
-TIPO_PROPIEDADES = (
+TYPES = (
     ('casa', 'Casas'),
     ('apartamento', 'Apartamentos'),
     ('local_comercial', 'Locales Comerciales'),
@@ -62,16 +62,16 @@ ESTADO_PROPIEDAD = (('activa', 'Activa'), ('inactiva', 'Inactiva'), ('vendida', 
 ESTADO_ESPECIAL = (('activa', 'Activa'), ('inactiva', 'Inactiva'),)
 
 VALIDATIONS = [
-    ('realestate.propiedad.utils.validation_simple', _(u'Uno o más caracteres')),
-    ('realestate.propiedad.utils.validation_integer', _(u'Número entero')),
-    ('realestate.propiedad.utils.validation_yesno', _(u'Si o No')),
-    ('realestate.propiedad.utils.validation_decimal', _(u'Número decimal')),
+    ('realestate.property.utils.validation_simple', _(u'Uno o más caracteres')),
+    ('realestate.property.utils.validation_integer', _(u'Número entero')),
+    ('realestate.property.utils.validation_yesno', _(u'Si o No')),
+    ('realestate.property.utils.validation_decimal', _(u'Número decimal')),
 ]
 
 
 class CiudadManager(models.Manager):
     def containing_properties(self, **kwargs):
-        return self.filter(sector__propiedad__isnull=False, **kwargs)
+        return self.filter(sector__property__isnull=False, **kwargs)
 
 
 class Ciudad(models.Model):
@@ -90,36 +90,40 @@ class Ciudad(models.Model):
 
 class SectorManager(models.Manager):
     def containing_properties(self, **kwargs):
-        return self.filter(propiedad__isnull=False, **kwargs)
+        return self.filter(property__isnull=False, **kwargs)
 
 
 class Sector(models.Model):
-    nombre = models.CharField(max_length=45)
+    name = models.CharField(max_length=45)
     ciudad = models.ForeignKey(Ciudad)
 
     objects = SectorManager()
 
     def __unicode__(self):
-        return self.nombre
+        return self.name
 
     class Meta:
         verbose_name = 'Sector'
         verbose_name_plural = 'Sectores'
 
 
-class Agente(models.Model):
+class Agent(models.Model):
     telefono = models.CharField(max_length=15, verbose_name=_(u'Teléfono'))
     celular = models.CharField(max_length=15, verbose_name=_(u'Celular'))
     ciudad = models.ForeignKey(Ciudad, verbose_name=_(u'Ciudad'), null=True, blank=True)
     direccion = models.CharField(max_length=200, verbose_name=_(u'Dirección'), null=True, blank=True)
-    fotografia = ImageField(upload_to='agentes/', default='', verbose_name=_(u'Fotografía'))
+    image = ImageField(upload_to='agentes/', default='', verbose_name=_(u'Fotografía'))
     user = models.OneToOneField(User, verbose_name=_(u'Usuario'))
     activo = models.BooleanField(default=False, verbose_name=_('Activo'))
 
-    def __unicode__(self):
+    @property
+    def name(self):
         if (self.user.first_name or self.user.last_name):
             return '%s %s' % (self.user.first_name, self.user.last_name)
         return self.user.username
+
+    def __unicode__(self):
+        return self.name
 
     class Meta:
         verbose_name = 'Agente'
@@ -128,49 +132,50 @@ class Agente(models.Model):
 
 class PropiedadManager(models.Manager):
     def activas(self, **kwargs):
-        return self.filter(estado='activa', **kwargs)
+        return self.filter(status='activa', **kwargs)
 
     def casas(self, **kwargs):
-        return self.activas().filter(tipo='casa')
+        return self.activas().filter(type='casa')
 
     def apartamentos(self, **kwargs):
-        return self.activas().filter(tipo='apartamento')
+        return self.activas().filter(type='apartamento')
 
     def featured(self, **kwargs):
         return self.activas().filter(featured=True)
 
     def alquiler(self, **kwargs):
-        return self.activas().filter(oferta__in=('venta_alq', 'alquiler'))
+        return self.activas().filter(offer__in=('venta_alq', 'alquiler'))
 
     def venta(self, **kwargs):
-        return self.activas().filter(oferta__in=('venta_alq', 'venta'))
+        return self.activas().filter(offer__in=('venta_alq', 'venta'))
 
 
-class Propiedad(models.Model):
-    titulo = models.CharField(max_length=100, verbose_name=_(u'Título de la Propiedad'))
+class Property(models.Model):
+    title = models.CharField(max_length=100, verbose_name=_(u'Título de la Propiedad'))
     slug = models.SlugField(max_length=100, unique=True, blank=False, verbose_name=_(u'Slug'))
-    descripcion = models.TextField(verbose_name=_(u'Descripción'), null=True, blank=True)
-    precio = models.FloatField(default=0.0, verbose_name=_(u'Precio'))
+    description = models.TextField(verbose_name=_(u'Descripción'), null=True, blank=True)
+    price = models.FloatField(default=0.0, verbose_name=_(u'Precio'))
     sector = models.ForeignKey(Sector, null=True, blank=True)
-    tipo = models.CharField(max_length=30, choices=TIPO_PROPIEDADES, verbose_name=_(u'Tipo de Inmueble'))
-    oferta = models.CharField(max_length=10, choices=OFERTAS, verbose_name=_(u'Oferta'))
-    estado = models.CharField(max_length=10, choices=ESTADO_PROPIEDAD, verbose_name=_(u'Estado'))
+    type = models.CharField(max_length=30, choices=TYPES, verbose_name=_(u'Tipo de Inmueble'))
+    offer = models.CharField(max_length=10, choices=OFERTAS, verbose_name=_(u'Oferta'))
+    status = models.CharField(max_length=10, choices=ESTADO_PROPIEDAD, verbose_name=_(u'Estado'))
     featured = models.BooleanField(default=False, verbose_name=_(u'Propiedad Destacada?'))
     frontpage = models.BooleanField(default=False, verbose_name=_(u'Mostrar en Frontpage?'))
-    banos = models.PositiveIntegerField(_(u'Baños'), default=0, null=True, blank=True)
-    dormitorios = models.PositiveIntegerField(_(u'Dormitorios'), default=0, null=True, blank=True)
-    tamano = models.PositiveIntegerField(_(u'Metros cuadrados(m2)'), default=0, null=True, blank=True)
-    coordenadas = models.CharField(max_length=255, default='19.000000,-70.400000', verbose_name=_(u'Coordenadas'))
-    agente = models.ForeignKey(Agente, null=True, blank=True)
-    contacto = models.ForeignKey(Contacto, null=True, blank=True)
-    notas = models.TextField(max_length=500, verbose_name=_(u'Notas privadas.'), null=True, blank=True)
-    creacion = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Creación'))
-    ultima_modificacion = models.DateTimeField(auto_now=True, verbose_name=_(u'Última Modificación'))
+    baths = models.PositiveIntegerField(_(u'Baños'), default=0, null=True, blank=True)
+    beds = models.PositiveIntegerField(_(u'Dormitorios'), default=0, null=True, blank=True)
+    size = models.PositiveIntegerField(_(u'Metros cuadrados(m2)'), default=0, null=True, blank=True)
+    coords = models.CharField(max_length=255, default='19.000000,-70.400000', verbose_name=_(u'Coordenadas'), null=True,
+                              blank=True)
+    agent = models.ForeignKey(Agent, null=True, blank=True)
+    contact = models.ForeignKey(Contacto, null=True, blank=True)
+    notes = models.TextField(max_length=500, verbose_name=_(u'Notas privadas.'), null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Creación'))
+    last_modified = models.DateTimeField(auto_now=True, verbose_name=_(u'Última Modificación'))
 
     objects = PropiedadManager()
 
     @property
-    def imagen_principal(self):
+    def main_image(self):
         im = self.images.all()
         if im.count():
             return im[0]
@@ -179,7 +184,7 @@ class Propiedad(models.Model):
 
     @property
     def image_list(self):
-        return [{'title': image.titulo, 'url': image.absolute_url, 'order': image.orden} for image in self.images.all()]
+        return [{'title': image.name, 'url': image.absolute_url, 'order': image.order} for image in self.images.all()]
 
 
     @property
@@ -192,7 +197,7 @@ class Propiedad(models.Model):
         return '%s, %s, %s' % (self.sector, self.sector.ciudad, self.sector.ciudad.provincia)
 
     def __unicode__(self):
-        return self.titulo
+        return self.title
 
     class Meta:
         verbose_name = 'Propiedad'
@@ -200,12 +205,12 @@ class Propiedad(models.Model):
 
     def save(self, **kwargs):
         self._generate_valid_slug()
-        super(Propiedad, self).save(**kwargs)
+        super(Property, self).save(**kwargs)
 
     def _generate_valid_slug(self):
         if not self.is_valid_slug():
-            slug = slugify(self.titulo)
-            while Propiedad.objects.filter(slug=slug).exclude(id=self.id).exists():
+            slug = slugify(self.title)
+            while Property.objects.filter(slug=slug).exclude(id=self.id).exists():
                 slug = '%s-1' % slug
             self.slug = slug
 
@@ -222,87 +227,87 @@ class Propiedad(models.Model):
         return self.get_absolute_url()
 
     def get_absolute_url(self):
-        return reverse('propiedad_details', args=[self.slug])
+        return reverse('property_details', args=[self.slug])
 
     def get_features(self):
-        atributos = []
-        for atributo in self.atributopropiedad_set.all():
-            if atributo.atributo.validacion == 'realestate.propiedad.utils.validation_simple':
-                atributos.append(u'%s: %s' % (atributo.atributo.nombre, atributo.valor))
-            elif atributo.atributo.validacion == 'realestate.propiedad.utils.validation_yesno':
-                atributos.append(u'%s' % atributo.valor)
+        attributes = []
+        for attribute in self.atributopropiedad_set.all():
+            if attribute.attribute.validation == 'realestate.property.utils.validation_simple':
+                attributes.append(u'%s: %s' % (attribute.attribute.nombre, attribute.value))
+            elif attribute.attribute.validation == 'realestate.property.utils.validation_yesno':
+                attributes.append(u'%s' % attribute.value)
             else:
-                if atributo.atributo.validacion == 'realestate.propiedad.utils.validation_integer':
-                    atributos.append(u'%s %s' % (atributo.valor, atributo.atributo.nombre))
+                if attribute.attribute.validation == 'realestate.property.utils.validation_integer':
+                    attributes.append(u'%s %s' % (attribute.value, attribute.attribute.nombre))
                 else:
-                    atributos.append(u'%.2f %s' % (atributo.valor, atributo.atributo.nombre))
+                    attributes.append(u'%.2f %s' % (attribute.value, attribute.attribute.nombre))
 
-        return atributos
+        return attributes
 
     def propiedades_en_el_area(self):
-        return Propiedad.objects.filter(sector=self.sector).order_by('?')[:4]
+        return Property.objects.filter(sector=self.sector).order_by('?')[:4]
 
 
-class Atributo(models.Model):
-    nombre = models.CharField(u'Atributo', max_length=100)
-    validacion = models.CharField(u'Tipo de valor', choices=VALIDATIONS, max_length=100)
+class Attribute(models.Model):
+    name = models.CharField(u'Atributo', max_length=100)
+    validation = models.CharField(u'Tipo de valor', choices=VALIDATIONS, max_length=100)
 
     class Meta:
-        ordering = ('nombre',)
+        ordering = ('name',)
         verbose_name = 'Atributo'
         verbose_name_plural = 'Atributos'
 
     def __unicode__(self):
-        return self.nombre
+        return self.name
 
 
-class AtributoPropiedad(models.Model):
-    propiedad = models.ForeignKey(Propiedad)
-    atributo = models.ForeignKey(Atributo)
-    valor = models.CharField(u'Valor', max_length=255)
-    # orden = models.SmallIntegerField(u'Orden', default=99)
+class AttributeProperty(models.Model):
+    property = models.ForeignKey(Property)
+    attribute = models.ForeignKey(Attribute)
+    value = models.CharField(u'Valor', max_length=255)
+    # order = models.SmallIntegerField(u'Orden', default=99)
 
     class Meta:
         verbose_name = 'Atributo de Propiedad'
         verbose_name_plural = 'Atributos de Propiedad'
-        # ordering = ['orden', ]
+        # ordering = ['order', ]
 
     def __unicode__(self):
-        return '%s: %s' % (self.atributo.nombre, self.valor)
+        return '%s: %s' % (self.attribute.name, self.value)
 
 
-class ImagenPropiedad(models.Model):
-    propiedad = models.ForeignKey(Propiedad, related_name='images')
-    titulo = models.CharField(max_length=60)
-    imagen = ImageField(upload_to='propiedades/')
-    agregada = models.DateTimeField(auto_now_add=True)
-    orden = models.IntegerField(max_length=2, default=99, null=True)
+class PropertyImage(models.Model):
+    property_item = models.ForeignKey(Property, related_name='images')
+    name = models.CharField(max_length=60)
+    image = ImageField(upload_to='propiedades/')
+    added = models.DateTimeField(auto_now_add=True)
+    order = models.IntegerField(max_length=2, default=99, null=True)
 
-    ordering = ['orden']
+    ordering = ['order']
 
     @property
     def absolute_url(self):
-        return self.imagen.url
+        return self.image.url
 
     def get_filename(self):
-        return os.path.basename(self.imagen.path)
+        return os.path.basename(self.image.path)
 
     def __unicode__(self):
-        return self.titulo
+        return self.name
 
     class Meta:
         verbose_name = 'Fotografia'
         verbose_name_plural = 'Fotografias'
 
 
-class Especial(models.Model):
-    propiedad = models.ForeignKey(Propiedad)
-    estado = models.CharField(choices=ESTADO_ESPECIAL, max_length=12)
-    inicio = models.DateTimeField(verbose_name=u'Fecha de Activacion de la oferta')
-    final = models.DateTimeField(verbose_name=u'Fecha de Desactivacion de la oferta')
+class OnSale(models.Model):
+    property = models.ForeignKey(Property)
+    status = models.CharField(choices=ESTADO_ESPECIAL, max_length=12)
+    start_date = models.DateTimeField(verbose_name=u'Fecha de Activacion de la offer')
+    end_date = models.DateTimeField(verbose_name=u'Fecha de Desactivacion de la offer')
 
     def __unicode__(self):
-        return '%s - %s' % (self.propiedad.titulo, self.propiedad.sector.nombre)
+        return '%s - %s' % (self.property.title, self.property.sector.name)
 
     class Meta:
         verbose_name = 'Propiedad en Oferta'

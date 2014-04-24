@@ -19,7 +19,7 @@
         {% comment %}
         <div class="modal-body">
             <iframe width="620" height="414"
-                    src="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q={{ propiedad.coordenadas }}&amp;aq=&amp;sll={{ propiedad.coordenadas }}&amp;sspn=0.009692,0.027874&amp;ie=UTF8&amp;t=m&amp;layer=c&amp;cbll={{ propiedad.coordenadas }}&amp;panoid=RxBbTTBT6Uh_6ze7kq0kJQ&amp;cbp=13,70.35,,0,9.98&amp;ll={{ propiedad.coordenadas }}&amp;spn=0.022145,0.053215&amp;z=14&amp;output=svembed"></iframe>
+                    src="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q={{ property.coords }}&amp;aq=&amp;sll={{ property.coords }}&amp;sspn=0.009692,0.027874&amp;ie=UTF8&amp;t=m&amp;layer=c&amp;cbll={{ property.coords }}&amp;panoid=RxBbTTBT6Uh_6ze7kq0kJQ&amp;cbp=13,70.35,,0,9.98&amp;ll={{ property.coords }}&amp;spn=0.022145,0.053215&amp;z=14&amp;output=svembed"></iframe>
         </div>
         {% endcomment %}
     </div>
@@ -34,7 +34,7 @@
                     <h6>{{ propiedad.get_address }}</h6>
                 </div>
                 <div class="col-md-4 text-right">
-                    <h2>{{ propiedad.precio|currency }}</h2>
+                    <h2>{{ propiedad.price|currency }}</h2>
                 </div>
             </div>
 
@@ -91,7 +91,7 @@
                                         <img src="{{ image.url }}" alt="{{ en_area.titulo }}">
                                     {% endthumbnail %}
                                 </a>
-                                <h5>Precio : {{ en_area.precio|currency }}</h5>
+                                <h5>Precio : {{ en_area.price|currency }}</h5>
 
                                 <p><a href="{{ en_area.get_absolute_url }}">{{ en_area.titulo }}</a><br/>
                                     {{ en_area.get_address }}

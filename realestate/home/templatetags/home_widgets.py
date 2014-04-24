@@ -1,6 +1,6 @@
 from realestate.home.models import News, Links
 from django import template
-from realestate.propiedad.models import Especial
+from realestate.property.models import OnSale
 
 register = template.Library()
 
@@ -19,5 +19,5 @@ def links_widget():
 
 @register.inclusion_tag('widgets/deals.html')
 def deals_widget():
-    deals = Especial.objects.filter(estado='activa')[:2]
+    deals = OnSale.objects.filter(status='activa')[:2]
     return {'deals': deals}

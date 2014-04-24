@@ -1,8 +1,9 @@
 from django import template
-from realestate.propiedad.models import Propiedad
+from realestate.property.models import Property
 
 
 register = template.Library()
+
 
 @register.simple_tag
 def listado_features(propiedad):
@@ -14,12 +15,12 @@ def listado_features(propiedad):
         html += '<li>%s</li>' % features[index]
 
     html += '</ul></div>'
-    return  html
+    return html
 
 
 @register.inclusion_tag('home/carousel.html')
 def frontpage_carousel():
-    propiedades = Propiedad.objects.activas().order_by('-id')[:4]
+    propiedades = Property.objects.activas().order_by('-id')[:4]
     return {
         'propiedades': propiedades
     }

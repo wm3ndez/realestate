@@ -1,23 +1,29 @@
 {% extends 'base_theme.html' %}
 {% load re_paginator render_form %}
+{% comment %}
+{% extends "property/search.html" %}
+{% block page_title %}Propiedades en venta{% endblock %}
+{% endcomment %}
+
 {% block content %}
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
             {% get_secondary_search_form %}
         </div>
 
-        <div class="col-md-9">
+        <div class="col-md-8">
+
 
             <div class="row">
-                <div class="col-md-6 select_height"> Mostrando {{ resultado.start_index }} - {{ resultado.end_index }}
+                <div class="col-md-4 select_height"> Mostrando {{ resultado.start_index }} - {{ resultado.end_index }}
                     de {{ resultado.paginator.count }} resultados
                 </div>
                 <div class="pull-right">
-                    <form action="{% url 'properties_for_rent' %}" id="form-sort">
+                    <form action="{% url 'properties_for_sale' %}" id="form-sort">
                         Ordenar por :
                         <select id="sort" name="sort" class="col-md-3">
                             <option value="precio">Precio: Ascendente</option>
-                            <option value="-precio"{% if request.GET.sort == '-precio' %}
+                            <option value="-precio"{% if request.GET.sort == '-price' %}
                                     selected="selected"{% endif %}>
                                 Precio: Descendente
                             </option>

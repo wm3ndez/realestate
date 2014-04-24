@@ -100,7 +100,7 @@ INSTALLED_APPS = (
     'south',
     'sorl.thumbnail',
     'realestate',
-    'realestate.propiedad',
+    'realestate.property',
     'realestate.home',
     'testproject',
     'testproject.localsite',
