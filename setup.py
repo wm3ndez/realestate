@@ -152,5 +152,8 @@ setup(
         'six==1.3.0',
         'sorl-thumbnail',
         'wsgiref',
+        'djangorestframework',
+        'markdown',
+        'django-filter',
     ],
 )

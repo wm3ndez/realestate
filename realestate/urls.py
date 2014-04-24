@@ -22,10 +22,13 @@ urlpatterns = patterns(
     url(r'^escribenos/$', 'realestate.home.views.escribenos', name='home_escribenos'),
 
 
-    url(r'^listado_propiedades/$', 'realestate.propiedad.views.get_mapa_propiedades', name='mapa-propiedades'), # Ajax
-    (r'^admin/', include(admin.site.urls)), # Enabling Admin
+    url(r'^listado_propiedades/$', 'realestate.propiedad.views.get_mapa_propiedades', name='mapa-propiedades'),  # Ajax
+    (r'^admin/', include(admin.site.urls)),  # Enabling Admin
     (r'^i18n/', include('django.conf.urls.i18n')),
     (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': {'blog': sitemap.PropiedadSitemap}}),
+
+    # API
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 )
 
 if settings.DEBUG:
