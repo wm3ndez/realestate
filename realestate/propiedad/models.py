@@ -171,10 +171,20 @@ class Propiedad(models.Model):
 
     @property
     def imagen_principal(self):
-        im = self.imagenpropiedad_set.all()
+        im = self.images.all()
         if im.count():
             return im[0]
         return None
+
+
+    @property
+    def image_list(self):
+        return [{'title': image.titulo, 'url': image.absolute_url, 'order': image.orden} for image in self.images.all()]
+
+
+    @property
+    def address(self):
+        return self.get_address()
 
     def get_address(self):
         if self.sector is None:
@@ -206,6 +216,10 @@ class Propiedad(models.Model):
         if not match:
             return False
         return self.slug == slugify(self.slug)
+
+    @property
+    def absolute_url(self):
+        return self.get_absolute_url()
 
     def get_absolute_url(self):
         return reverse('propiedad_details', args=[self.slug])
@@ -258,13 +272,17 @@ class AtributoPropiedad(models.Model):
 
 
 class ImagenPropiedad(models.Model):
+    propiedad = models.ForeignKey(Propiedad, related_name='images')
     titulo = models.CharField(max_length=60)
     imagen = ImageField(upload_to='propiedades/')
-    propiedad = models.ForeignKey(Propiedad)
     agregada = models.DateTimeField(auto_now_add=True)
     orden = models.IntegerField(max_length=2, default=99, null=True)
 
     ordering = ['orden']
+
+    @property
+    def absolute_url(self):
+        return self.imagen.url
 
     def get_filename(self):
         return os.path.basename(self.imagen.path)
