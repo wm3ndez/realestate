@@ -18,8 +18,8 @@ else:
 
 
 def _render_search_page(queryset, request, template='listing/search.html'):
-    resultado = paginate(request, queryset, PROPERTIES_PER_PAGE)
-    return render_to_response(template, {'resultado': resultado},
+    results = paginate(request, queryset, PROPERTIES_PER_PAGE)
+    return render_to_response(template, {'results': results},
                               context_instance=RequestContext(request))
 
 
@@ -56,15 +56,15 @@ def _venta_alquiler(tipo, request, oferta='venta', template='listing/search.html
 
 def properties(request):
     listing = Listing.objects.active().order_by('-id')
-    return _render_search_page(listing, request, template='listing/listing.html')
+    return _render_search_page(listing, request, template='listing/results.html')
 
 
 def sale(request, tipo=None):
-    return _venta_alquiler(tipo, request, template='listing/venta.html')
+    return _venta_alquiler(tipo, request, template='listing/sale.html')
 
 
 def rent(request, tipo=None):
-    return _venta_alquiler(tipo, request, 'alquiler', template='listing/alquiler.html')
+    return _venta_alquiler(tipo, request, 'alquiler', template='listing/rent.html')
 
 
 def search(request):
@@ -98,7 +98,7 @@ def details(request, slug):
 
     recentp = Listing.objects.all().order_by('-created_at')[:5]
     data = {'listing': listing, 'recent': recentp, 'form': form}
-    return render_to_response("listing/propiedad.html", data, context_instance=RequestContext(request))
+    return render_to_response("listing/listing.html", data, context_instance=RequestContext(request))
 
 
 @ajax_required

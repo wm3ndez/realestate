@@ -231,7 +231,7 @@ class Listing(models.Model):
 
     def get_features(self):
         attributes = []
-        for attribute in self.atributopropiedad_set.all():
+        for attribute in self.attributelisting_set.all():
             if attribute.attribute.validation == 'realestate.listing.utils.validation_simple':
                 attributes.append(u'%s: %s' % (attribute.attribute.nombre, attribute.value))
             elif attribute.attribute.validation == 'realestate.listing.utils.validation_yesno':

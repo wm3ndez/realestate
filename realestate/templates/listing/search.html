@@ -2,15 +2,15 @@
 {% load static re_paginator %}
 {% block content %}
     <div class="row">
-        <div class="col-md-4 select_height"> Mostrando {{ resultado.start_index }} - {{ resultado.end_index }}
+        <div class="col-md-4 select_height"> Mostrando {{ results.start_index }} - {{ results.end_index }}
             de {{ resultado.paginator.count }} resultados
         </div>
         <div class="pull-right">
             <form action="{% url 'search' %}" id="form-sort">
                 Ordenar por :
                 <select id="sort" name="sort" class="col-md-3">
-                    <option value="precio">Precio: Ascendente</option>
-                    <option value="-precio"{% if request.GET.sort == '-price' %} selected="selected"{% endif %}>Precio:
+                    <option value="price">Precio: Ascendente</option>
+                    <option value="-price"{% if request.GET.sort == '-price' %} selected="selected"{% endif %}>Precio:
                         Descendente
                     </option>
                 </select>
@@ -19,12 +19,12 @@
     </div>
 
 
-    {% include 'includes/listado_propiedades.html' %}
+    {% include 'includes/listing_list.html' %}
 
 
     {# pagination #}
     <div class="pagination pagination-centered">
-        {% pagination_url resultado %}
+        {% pagination_url results %}
     </div>
     {# pagination #}
 
