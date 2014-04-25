@@ -141,10 +141,7 @@ setup(
         'Pillow',
         'South',
         'Werkzeug',
-        'coverage',
         'decorator==3.4.0',
-        'django-admin-tools',
-        'django-coverage',
         'django-extensions',
         'django-localeurl',
         'django-seo',
@@ -155,5 +152,6 @@ setup(
         'djangorestframework',
         'markdown',
         'django-filter',
+        'django-braces==1.4.0',
     ],
 )
