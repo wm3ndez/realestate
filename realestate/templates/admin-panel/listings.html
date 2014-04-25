@@ -1,0 +1,87 @@
+{% extends 'admin-panel/base.html' %}
+{% load i18n %}
+{% block content-header %}
+    <h1>Listings</h1>
+{% endblock %}
+{% block content %}
+
+    <a href="{% url 'add-listing' %}" class="btn btn-info btn-flat">{% trans "Add New" %}</a>
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">{% trans "Listings" %}</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body table-responsive">
+            <div id="example2_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                <div class="row">
+                    <div class="col-xs-6"></div>
+                    <div class="col-xs-6"></div>
+                </div>
+                <table id="example2" class="table table-bordered table-hover dataTable"
+                       aria-describedby="example2_info">
+                    <thead>
+                    <tr role="row">
+                        <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1"
+                            colspan="1" aria-sort="ascending"
+                            aria-label="Rendering engine: activate to sort column descending"> ID
+                        </th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1"
+                            colspan="1" aria-label="Browser: activate to sort column ascending">Title
+                        </th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1"
+                            colspan="1" aria-label="Platform(s): activate to sort column ascending">Price
+                        </th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1"
+                            colspan="1" aria-label="Engine version: activate to sort column ascending">Type
+                        </th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1"
+                            colspan="1" aria-label="CSS grade: activate to sort column ascending">Image
+                        </th>
+                    </tr>
+                    </thead>
+
+                    <tfoot>
+                    <tr>
+                        <th rowspan="1" colspan="1">ID</th>
+                        <th rowspan="1" colspan="1">Title</th>
+                        <th rowspan="1" colspan="1">Price</th>
+                        <th rowspan="1" colspan="1">Type</th>
+                        <th rowspan="1" colspan="1">Image</th>
+                    </tr>
+                    </tfoot>
+                    <tbody role="alert" aria-live="polite" aria-relevant="all">
+                    {% for listing in object_list %}
+                        <tr class="{% cycle 'even' 'odd' %}">
+                            <td class=" sorting_1">{{ listing.id }}</td>
+                            <td class=" ">{{ listing.title }}</td>
+                            <td class=" ">{{ listing.price }}</td>
+                            <td class=" ">{{ listing.type }}</td>
+                            <td class=" ">{{ listing.main_image }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="dataTables_info" id="example2_info">Showing x to y of z entries</div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="dataTables_paginate paging_bootstrap">
+                            <ul class="pagination">
+                                <li class="prev disabled"><a href="#">← Previous</a></li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li class="next"><a href="#">Next → </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+
+{% endblock %}
