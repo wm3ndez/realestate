@@ -2,6 +2,7 @@ from django.conf.urls import *
 from django.conf import settings
 
 from django.contrib import admin
+from django.views.generic import TemplateView
 from realestate.listing import sitemap
 
 admin.autodiscover()
@@ -16,19 +17,22 @@ urlpatterns = patterns(
     url(r'^rent/(?P<type>\w+)/$', 'realestate.listing.views.rent', name='properties_for_rent'),
     url(r'^search/', 'realestate.listing.views.search', name='search'),
     url(r'^listing/(?P<slug>[\w-]+)/', 'realestate.listing.views.details', name='property_details'),
-    url(r'^about-us/$', 'realestate.home.views.about_us', name='home_aboutus'),
-    url(r'^contact/$', 'realestate.home.views.contact', name='home_contact'),
-    url(r'^services/$', 'realestate.home.views.services', name='home_services'),
-    url(r'^write-us/$', 'realestate.home.views.write_us', name='home_write_us'),
+    url(r'^get_map/$', 'realestate.listing.views.get_map', name='mapa-propiedades'),  # Ajax
 
-
-    url(r'^listado_propiedades/$', 'realestate.listing.views.get_map', name='mapa-propiedades'),  # Ajax
-    (r'^admin/', include(admin.site.urls)),  # Enabling Admin
-    (r'^i18n/', include('django.conf.urls.i18n')),
-    (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': {'blog': sitemap.ListingSitemap}}),
+    # Static Pages
+    url(r'^about-us/$', TemplateView.as_view(template_name='home/about-us.html'), name='home_aboutus'),
+    url(r'^contact/$', TemplateView.as_view(template_name='home/contact-us.html'), name='home_contact'),
+    url(r'^services/$', TemplateView.as_view(template_name='home/services.html'), name='home_services'),
 
     # API
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+
+    # Sitemaps
+    (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': {'blog': sitemap.ListingSitemap}}),
+
+    # Django apps
+    (r'^admin2/', include(admin.site.urls)),  # Enabling Admin
+    (r'^i18n/', include('django.conf.urls.i18n')),
 )
 
 if settings.DEBUG:
