@@ -2,7 +2,7 @@
 
 
 <ul class="thumbnails">
-    {% for propiedad in results.object_list %}
+    {% for listing in results.object_list %}
         <li class="col-md-2">
             <div class="thumbnail mini_property">
                 <a href="{{ listing.get_absolute_url }}">
@@ -14,7 +14,7 @@
                 <h5>Price : {{ listing.price|currency }}</h5>
 
                 <p>
-                    <a href="{{ listing.get_absolute_url }}">{{ listing.title }}</a><br>{{ listing.get_address }}
+                    <a href="{{ listing.get_absolute_url }}">{{ listing.title }}</a><br>{{ listing.address }}
                 </p>
             </div>
         </li>

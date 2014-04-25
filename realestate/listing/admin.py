@@ -86,10 +86,10 @@ class ListingAdmin(admin.ModelAdmin):
     list_filter = ['created_at', 'agent', 'title', 'status', ]
     date_hierarchy = 'created_at'
 
-    def city(self, propiedad):
-        if propiedad.sector is None:
+    def city(self, listing):
+        if listing.sector is None:
             return u'(No seleccionada)'
-        return '%s, %s' % (propiedad.sector.city, propiedad.sector.city.province)
+        return '%s, %s' % (listing.sector.city, listing.sector.city.province)
 
     def imagen_miniatura(self, obj):
         imageobj = obj.main_image

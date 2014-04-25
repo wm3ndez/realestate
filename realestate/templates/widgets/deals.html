@@ -1,24 +1,25 @@
 {% load i18n thumbnail %}
 {% if deals %}
-<h1>{% trans "De Oportunidad" %}</h1>
-<table style="padding-left:15px;">
-    <tbody>
-    {% for deal in deals %}
-        <tr>
-            <td>
-                <b>{{ deal.listing.title }}</b><br>
-                {% thumbnail deal.propiedad.imagen_principal.imagen "100x75" as image %}
-                    <a href="{{ deal.propiedad.get_absolute_url }}">
-                        <img align="middle" src="{{ image.url }}" width="{{ image.width }}" height="{{ image.height }}"
-                             alt="{{ deal.listing.title }}" title="{{ deal.listing.title }}"/>
-                    </a><br>
-                {% endthumbnail %}
-                <b>Inmueble: </b><i>{{ deal.propiedad.tipo }}</i><br>
-                <b>Provincia: </b><i>{{ deal.propiedad.sector.ciudad.provincia }}</i><br>
-                <a href="{{ deal.propiedad.get_absolute_url }}">Ver Más</a><br>
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
+    <h1>{% trans "De Oportunidad" %}</h1>
+    <table style="padding-left:15px;">
+        <tbody>
+        {% for deal in deals %}
+            <tr>
+                <td>
+                    <b>{{ deal.listing.title }}</b><br>
+                    {% thumbnail deal.listing.main_image.image "100x75" as image %}
+                        <a href="{{ deal.listing.get_absolute_url }}">
+                            <img align="middle" src="{{ image.url }}" width="{{ image.width }}"
+                                 height="{{ image.height }}"
+                                 alt="{{ deal.listing.title }}" title="{{ deal.listing.title }}"/>
+                        </a><br>
+                    {% endthumbnail %}
+                    <b>Inmueble: </b><i>{{ deal.listing.type }}</i><br>
+                    <b>Provincia: </b><i>{{ deal.listing.sector.city.province }}</i><br>
+                    <a href="{{ deal.listing.get_absolute_url }}">Ver Más</a><br>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endif %}
