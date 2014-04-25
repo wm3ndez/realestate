@@ -1,17 +1,10 @@
 from django.conf.urls import *
 from django.conf import settings
-from rest_framework import routers
-from realestate.api import PropiedadViewSet
-from realestate.urls import urlpatterns as realestate_patterns
-
-
-router = routers.DefaultRouter()
-router.register(r'propiedades', PropiedadViewSet)
 
 urlpatterns = patterns(
     '',
-    url('^api/', include(router.urls)),
-) + realestate_patterns
+    url('^', include('realestate.urls'))
+)
 
 if settings.DEBUG:
     urlpatterns += patterns(
