@@ -1,5 +1,5 @@
 from django.template.defaultfilters import slugify
-from realestate.property.models import Property, Sector, Ciudad, Agent, PropertyImage
+from realestate.listing.models import Listing, Sector, City, Agent, ListingImage
 import os
 from django.core.management.base import BaseCommand
 from django.conf import settings
@@ -15,15 +15,15 @@ class Command(BaseCommand):
             titulo = propiedad[0]
             slug = slugify(titulo)
             try:
-                prop = Property.objects.get(slug=slug)
-            except Property.DoesNotExist:
-                prop = Property(titulo=titulo, slug=slug)
+                prop = Listing.objects.get(slug=slug)
+            except Listing.DoesNotExist:
+                prop = Listing(titulo=titulo, slug=slug)
                 prop.price = propiedad[1]
                 prop.description = propiedad[2]
                 try:
                     sector = Sector.objects.get(nombre=propiedad[3].capitalize())
                 except Sector.DoesNotExist:
-                    ciudad = Ciudad.objects.get_or_create(nombre='Santiago', provincia='Santiago')[0]
+                    ciudad = City.objects.get_or_create(nombre='Santiago', provincia='Santiago')[0]
                     ciudad.save()
                     sector = Sector(nombre=propiedad[3].capitalize(), ciudad=ciudad)
                     sector.save()
@@ -40,7 +40,7 @@ class Command(BaseCommand):
                 prop.status = 'activa'
                 prop.save()
 
-            imagen = PropertyImage(titulo='', propiedad=prop)
+            imagen = ListingImage(titulo='', propiedad=prop)
             imagen.image.name = 'propiedades/' + propiedad[6]
             if not os.path.isfile(imagen.image.path): continue
             if int(propiedad[7]):

@@ -100,7 +100,7 @@ INSTALLED_APPS = (
     'south',
     'sorl.thumbnail',
     'realestate',
-    'realestate.property',
+    'realestate.listing',
     'realestate.home',
     'testproject',
     'testproject.localsite',
@@ -131,8 +131,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 
-#Propiedades
-PROPIEDADES_POR_PAGINA = 16
+#properties per page
+PROPERTIES_PER_PAGE = 16
 
 LOGGING = {
     'version': 1,

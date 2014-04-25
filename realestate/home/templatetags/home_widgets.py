@@ -1,6 +1,6 @@
 from realestate.home.models import News, Links
 from django import template
-from realestate.property.models import OnSale
+from realestate.listing.models import OnSale
 
 register = template.Library()
 

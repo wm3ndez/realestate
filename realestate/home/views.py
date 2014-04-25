@@ -1,11 +1,11 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from realestate.property.models import Property
+from realestate.listing.models import Listing
 from realestate.home.forms import SearchForm
 
 
 def index(request):
-    recentp = Property.objects.all().order_by('-created_at')[:5]
+    recentp = Listing.objects.all().order_by('-created_at')[:5]
     form = SearchForm()
     data = {
         'recent': recentp,
@@ -15,21 +15,21 @@ def index(request):
                               context_instance=RequestContext(request))
 
 
-def escribenos(request):
+def write_us(request):
     return render_to_response('home/escribenos.html', {},
                               context_instance=RequestContext(request))
 
 
-def nosotros(request):
+def about_us(request):
     return render_to_response('home/nosotros.html', {},
                               context_instance=RequestContext(request))
 
 
-def contacto(request):
+def contact(request):
     return render_to_response('home/contacto.html', {},
                               context_instance=RequestContext(request))
 
 
-def servicios(request):
+def services(request):
     return render_to_response('home/servicios.html', {},
                               context_instance=RequestContext(request))

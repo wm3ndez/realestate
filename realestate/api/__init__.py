@@ -1,10 +1,10 @@
 from rest_framework import viewsets, serializers
 from django.forms import widgets
-from realestate.property.models import Property
+from realestate.listing.models import Listing
 
 
 class PropertySerializer(serializers.Serializer):
-    pk = serializers.Field()
+    id = serializers.Field()
     title = serializers.CharField(required=False, max_length=100)
     description = serializers.CharField(widget=widgets.Textarea, max_length=1000)
     absolute_url = serializers.URLField(required=False)
@@ -27,11 +27,11 @@ class PropertySerializer(serializers.Serializer):
 
 
 class PropiedadViewSet(viewsets.ReadOnlyModelViewSet):
-    model = Property
+    model = Listing
     serializer_class = PropertySerializer
 
     def get_queryset(self):
-        queryset = Property.objects.all()
+        queryset = Listing.objects.all()
 
         last_modified = self.request.QUERY_PARAMS.get('modified_from')
         if last_modified is not None:

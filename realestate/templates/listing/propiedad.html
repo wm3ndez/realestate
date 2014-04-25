@@ -1,6 +1,6 @@
 {% extends 'base_theme.html' %}
 {% load extra_functions thumbnail i18n realestate_utils realestateforms %}
-{% block title %}{{ propiedad.titulo }} | WILLIAMSMENDEZ.COM{% endblock %}
+{% block title %}{{ listing.title }} | WILLIAMSMENDEZ.COM{% endblock %}
 {% block content %}
 
     <div class="modal hide" id="mapModal">
@@ -9,7 +9,7 @@
         </div>
         <div class="modal-body">
             <iframe width="620" height="414"
-                    src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q={{ propiedad.coordenadas }}&amp;aq=&amp;sll={{ propiedad.coordenadas }}&amp;sspn={{ propiedad.coordenadas }}&amp;ie=UTF8&amp;t=m&amp;ll={{ propiedad.coordenadas }}&amp;spn={{ propiedad.coordenadas }}&amp;z=14&amp;output=embed"></iframe>
+                    src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q={{ listing.coordenadas }}&amp;aq=&amp;sll={{ listing.coordenadas }}&amp;sspn={{ listing.coordenadas }}&amp;ie=UTF8&amp;t=m&amp;ll={{ listing.coordenadas }}&amp;spn={{ listing.coordenadas }}&amp;z=14&amp;output=embed"></iframe>
         </div>
     </div>
     <div class="modal hide" id="streetModal">
@@ -19,7 +19,7 @@
         {% comment %}
         <div class="modal-body">
             <iframe width="620" height="414"
-                    src="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q={{ property.coords }}&amp;aq=&amp;sll={{ property.coords }}&amp;sspn=0.009692,0.027874&amp;ie=UTF8&amp;t=m&amp;layer=c&amp;cbll={{ property.coords }}&amp;panoid=RxBbTTBT6Uh_6ze7kq0kJQ&amp;cbp=13,70.35,,0,9.98&amp;ll={{ property.coords }}&amp;spn=0.022145,0.053215&amp;z=14&amp;output=svembed"></iframe>
+                    src="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q={{ listing.coords }}&amp;aq=&amp;sll={{ listing.coords }}&amp;sspn=0.009692,0.027874&amp;ie=UTF8&amp;t=m&amp;layer=c&amp;cbll={{ listing.coords }}&amp;panoid=RxBbTTBT6Uh_6ze7kq0kJQ&amp;cbp=13,70.35,,0,9.98&amp;ll={{ listing.coords }}&amp;spn=0.022145,0.053215&amp;z=14&amp;output=svembed"></iframe>
         </div>
         {% endcomment %}
     </div>
@@ -30,11 +30,11 @@
         <div class="col-md-9">
             <div class="row">
                 <div class="col-md-8">
-                    <h3>{{ propiedad.titulo }}</h3>
-                    <h6>{{ propiedad.get_address }}</h6>
+                    <h3>{{ listing.title }}</h3>
+                    <h6>{{ listing.get_address }}</h6>
                 </div>
                 <div class="col-md-4 text-right">
-                    <h2>{{ propiedad.price|currency }}</h2>
+                    <h2>{{ listing.price|currency }}</h2>
                 </div>
             </div>
 
@@ -45,7 +45,7 @@
                     <!-- Start slideshow-carousel -->
                     <div id="showcase-loader"></div>
                     <div id="showcase" class="showcase">
-                        {% for imagen in propiedad.imagenpropiedad_set.all %}
+                        {% for imagen in listing.imagenpropiedad_set.all %}
                             {% thumbnail imagen.imagen "620x410" crop="center" as bigimage %}
                                 {% thumbnail imagen.imagen "116x90" crop="center" as thumb %}
 
@@ -74,17 +74,17 @@
                     <h4>Características</h4>
 
                     <div class="row">
-                        {% listado_features propiedad %}
+                        {% feature_list propiedad %}
                     </div>
 
                     <h4>Descripción</h4>
 
-                    <p>{{ propiedad.descripcion }}</p>
+                    <p>{{ listing.descripcion }}</p>
                     <br/>
 
                     <h4>Otras propiedades en esta área</h4>
                     <ul class="thumbnails">
-                        {% for en_area in propiedad.propiedades_en_el_area %}
+                        {% for en_area in listing.propiedades_en_el_area %}
                             <li class="col-md-3 list-group-item">
                                 <a href="{{ en_area.get_absolute_url }}">
                                     {% thumbnail en_area.imagen_principal.imagen "130x87" crop="center" as image %}
@@ -108,7 +108,7 @@
         <div class="col-md-3 pull-right" id="portamento_container">
             <div id="property_map" class="center">
                 <a href="#mapModal">
-                    <img src="http://maps.google.com/staticmap?center={{ propiedad.coordenadas }}&amp;zoom=14&amp;size=250x250&amp;maptype=mobile&amp;markers={{ propiedad.coordenadas }},red&amp;key=ABQIAAAAqQJ-gFBKUbBLaFN1HQF4KBQ_k2Fxd8XZtbWUsvz5Vrarxzf2SRSh7DRXLQmAZ-6XwtrmMhkINGT27A&amp;sensor=false"
+                    <img src="http://maps.google.com/staticmap?center={{ listing.coordenadas }}&amp;zoom=14&amp;size=250x250&amp;maptype=mobile&amp;markers={{ listing.coordenadas }},red&amp;key=ABQIAAAAqQJ-gFBKUbBLaFN1HQF4KBQ_k2Fxd8XZtbWUsvz5Vrarxzf2SRSh7DRXLQmAZ-6XwtrmMhkINGT27A&amp;sensor=false"
                          alt=""/>
                 </a>
 
@@ -121,15 +121,15 @@
             <div id="contact_agent" class="center">
 
                 <a href="#">
-                    {% thumbnail propiedad.agente.fotografia "108x108" crop="center" as imagen_agente %}
-                        <img src="{{ imagen_agente.url }}" alt="{{ propiedad.agente }}"/>
+                    {% thumbnail listing.agente.fotografia "108x108" crop="center" as imagen_agente %}
+                        <img src="{{ imagen_agente.url }}" alt="{{ listing.agente }}"/>
                     {% endthumbnail %}
                 </a>
 
-                <p>{{ propiedad.agente }}<br/>
-                    {{ propiedad.agente.user.email }}
-                    {% if propiedad.agente.telefono %}<br/>Tel. {{ propiedad.agente.telefono }}{% endif %}
-                    {% if propiedad.agente.celular %}<br/>Móvil. {{ propiedad.agente.celular }}{% endif %}
+                <p>{{ listing.agente }}<br/>
+                    {{ listing.agente.user.email }}
+                    {% if listing.agente.telefono %}<br/>Tel. {{ listing.agente.telefono }}{% endif %}
+                    {% if listing.agente.celular %}<br/>Móvil. {{ listing.agente.celular }}{% endif %}
                 </p>
 
                 <h4>Contactar este agente</h4>

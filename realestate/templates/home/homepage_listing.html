@@ -3,13 +3,13 @@
     <ul class="listings clear">
         {% for propiedad in propiedades %}
             <li{% if forloop.first %} class="first"{% endif %}>
-                {% thumbnail propiedad.imagen_principal.imagen "210x129" crop="center" as image %}
-                    <img align="middle" src="{{ image.url }}" alt="{{ propiedad.titulo }}"
-                         title="{{ propiedad.titulo }}"/>
+                {% thumbnail listing.imagen_principal.imagen "210x129" crop="center" as image %}
+                    <img align="middle" src="{{ image.url }}" alt="{{ listing.title }}"
+                         title="{{ listing.title }}"/>
                 {% endthumbnail %}
-                <a href="{{ propiedad.get_absolute_url }}" title="{{ propiedad.titulo }}">{{ propiedad.titulo }}</a>
-                <label>Price: <span>{{ propiedad.price|currency }}</span></label>
-                <p>{{ propiedad.descripcion|safe|truncatewords_html:25 }}</p>
+                <a href="{{ listing.get_absolute_url }}" title="{{ listing.title }}">{{ listing.title }}</a>
+                <label>Price: <span>{{ listing.price|currency }}</span></label>
+                <p>{{ listing.descripcion|safe|truncatewords_html:25 }}</p>
             </li>
         {% endfor %}
     </ul>

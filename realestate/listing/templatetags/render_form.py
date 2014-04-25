@@ -1,5 +1,5 @@
 from django import template
-from realestate.property.models import TYPES, PROVINCIAS, OFERTAS
+from realestate.listing.models import TYPES, DOMINICAN_PROVINCES, OFFERS
 from django.template.loader import get_template
 from django.template import Context, TemplateDoesNotExist
 
@@ -36,13 +36,13 @@ def render_bath_qty_select():
 
 @register.simple_tag
 def render_location_select():
-    options = [{'name': name, 'value': value} for value, name in PROVINCIAS]
-    return _render_drop_down('provincia', 'provincia', options)
+    options = [{'name': name, 'value': value} for value, name in DOMINICAN_PROVINCES]
+    return _render_drop_down('province', 'province', options)
 
 
 @register.simple_tag
 def render_offer_select():
-    options = [{'name': name, 'value': value} for value, name in OFERTAS]
+    options = [{'name': name, 'value': value} for value, name in OFFERS]
     return _render_drop_down('offer', 'offer', options)
 
 

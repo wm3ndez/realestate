@@ -1,4 +1,4 @@
-from realestate.property.models import PROVINCIAS, OFERTAS, TYPES, Agent, Sector
+from realestate.listing.models import DOMINICAN_PROVINCES, OFFERS, TYPES, Agent, Sector
 from django import forms
 
 BATHROOMS_RANGE = (
@@ -29,7 +29,7 @@ BEDROOMS_RANGE = (
     ('10', '10+'),
 )
 
-PROVINCIAS_CHOICES = (('', 'Todas'),) + PROVINCIAS
+PROVINCIAS_CHOICES = (('', 'Todas'),) + DOMINICAN_PROVINCES
 TIPO_PROPIEDADES_CHOICES = (('', 'Todos'),) + TYPES
 
 
@@ -39,7 +39,7 @@ class SearchForm(forms.Form):
     location = forms.ChoiceField(choices=PROVINCIAS_CHOICES, required=False)
     sector = forms.ModelChoiceField(queryset=Sector.objects.containing_properties(), required=False)
     tipo = forms.ChoiceField(choices=TIPO_PROPIEDADES_CHOICES, required=False)
-    oferta = forms.ChoiceField(choices=OFERTAS, required=False)
+    oferta = forms.ChoiceField(choices=OFFERS, required=False)
     beds = forms.ChoiceField(choices=BEDROOMS_RANGE, required=False)
     baths = forms.ChoiceField(choices=BATHROOMS_RANGE, required=False)
 

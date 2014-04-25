@@ -6,11 +6,11 @@
     {% for deal in deals %}
         <tr>
             <td>
-                <b>{{ deal.propiedad.titulo }}</b><br>
+                <b>{{ deal.listing.title }}</b><br>
                 {% thumbnail deal.propiedad.imagen_principal.imagen "100x75" as image %}
                     <a href="{{ deal.propiedad.get_absolute_url }}">
                         <img align="middle" src="{{ image.url }}" width="{{ image.width }}" height="{{ image.height }}"
-                             alt="{{ deal.propiedad.titulo }}" title="{{ deal.propiedad.titulo }}"/>
+                             alt="{{ deal.listing.title }}" title="{{ deal.listing.title }}"/>
                     </a><br>
                 {% endthumbnail %}
                 <b>Inmueble: </b><i>{{ deal.propiedad.tipo }}</i><br>

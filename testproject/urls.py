@@ -6,11 +6,11 @@ from realestate.urls import urlpatterns as realestate_patterns
 
 
 router = routers.DefaultRouter()
-router.register(r'api/propiedades', PropiedadViewSet)
+router.register(r'propiedades', PropiedadViewSet)
 
 urlpatterns = patterns(
     '',
-    url('^', include(router.urls)),
+    url('^api/', include(router.urls)),
 ) + realestate_patterns
 
 if settings.DEBUG:

@@ -1,0 +1,82 @@
+[
+    {
+        "pk": 2,
+        "model": "listing.attribute",
+        "fields": {
+            "name": "Niveles",
+            "validation": "realestate.listing.utils.validation_integer"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "listing.attribute",
+        "fields": {
+            "name": "Cuarto de Servicio",
+            "validation": "realestate.listing.utils.validation_yesno"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "listing.attribute",
+        "fields": {
+            "name": "Parqueo(s)",
+            "validation": "realestate.listing.utils.validation_integer"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "listing.attribute",
+        "fields": {
+            "name": "Cocina",
+            "validation": "realestate.listing.utils.validation_yesno"
+        }
+    },
+    {
+        "pk": 7,
+        "model": "listing.attribute",
+        "fields": {
+            "name": "Parqueo techado",
+            "validation": "realestate.listing.utils.validation_yesno"
+        }
+    },
+    {
+        "pk": 8,
+        "model": "listing.attribute",
+        "fields": {
+            "name": "Comedor",
+            "validation": "realestate.listing.utils.validation_yesno"
+        }
+    },
+    {
+        "pk": 9,
+        "model": "listing.attribute",
+        "fields": {
+            "name": "Amueblada",
+            "validation": "realestate.listing.utils.validation_yesno"
+        }
+    },
+    {
+        "pk": 10,
+        "model": "listing.attribute",
+        "fields": {
+            "name": "Piscina",
+            "validation": "realestate.listing.utils.validation_yesno"
+        }
+    },
+    {
+        "pk": 11,
+        "model": "listing.attribute",
+        "fields": {
+            "name": "Balc\u00f3n",
+            "validation": "realestate.listing.utils.validation_yesno"
+        }
+    },
+    {
+        "pk": 12,
+        "model": "listing.attribute",
+        "fields": {
+            "name": "Intercom",
+            "validation": "realestate.listing.utils.validation_yesno"
+        }
+    }
+]

@@ -1,12 +1,12 @@
 from django.forms import ValidationError
 from django.forms.models import ModelForm
-from realestate.property.models import PropertyImage, AttributeProperty, Property, Sector, Ciudad, Agent, OnSale, \
+from realestate.listing.models import ListingImage, AttributeListing, Listing, Sector, City, Agent, OnSale, \
     Attribute
 from django.contrib import admin
 from sorl.thumbnail import get_thumbnail
 from sorl.thumbnail.admin import AdminImageMixin
-from realestate.property.templatetags.extra_functions import currency
-from realestate.property.utils import import_validator, validate_attribute_value
+from realestate.listing.templatetags.extra_functions import currency
+from realestate.listing.utils import import_validator, validate_attribute_value
 
 
 class ImagenAdmin(admin.ModelAdmin):
@@ -21,15 +21,15 @@ class ImagenAdmin(admin.ModelAdmin):
     imagen_miniatura.allow_tags = True
     titulo_Friendly.short_description = "Titulo de la Imagen"
 
-    list_display = ('property_item', 'imagen_miniatura', 'titulo_Friendly', 'order')
-    search_fields = ['property_item', 'title']
+    list_display = ('listing', 'imagen_miniatura', 'titulo_Friendly', 'order')
+    search_fields = ['listing', 'title']
     date_hierarchy = 'added'
 
 
 def clean_attribute_value(cleaned_data):
     value = cleaned_data['value']
     attribute = cleaned_data['attribute']
-    obj = cleaned_data['property']
+    obj = cleaned_data['listing']
     success, valid_value, error_message = validate_attribute_value(attribute, value, obj)
 
     if not success:
@@ -38,7 +38,7 @@ def clean_attribute_value(cleaned_data):
 
 
 class ImagenPropiedadInline(AdminImageMixin, admin.TabularInline):
-    model = PropertyImage
+    model = ListingImage
 
 
 class AtributosPropiedadInlineForm(ModelForm):
@@ -47,12 +47,12 @@ class AtributosPropiedadInlineForm(ModelForm):
 
 
 class AtributosPropiedadInline(admin.TabularInline):
-    model = AttributeProperty
+    model = AttributeListing
     form = AtributosPropiedadInlineForm
 
 
-class PropiedadAdmin(admin.ModelAdmin):
-    change_form_template = "admin/realestate/property/change_form.html"
+class ListingAdmin(admin.ModelAdmin):
+    change_form_template = "admin/realestate/listing/change_form.html"
     fieldsets = [
         ("Descripcion de la Propiedad",
          {
@@ -72,12 +72,12 @@ class PropiedadAdmin(admin.ModelAdmin):
     inlines = [AtributosPropiedadInline, ImagenPropiedadInline, ]
 
     list_display = (
-        'id', 'title', 'slug', 'currency_price', 'status', 'type', 'ciudad', 'sector', 'agent', 'created_at',
+        'id', 'title', 'slug', 'currency_price', 'status', 'type', 'city', 'sector', 'agent', 'created_at',
         'featured', 'imagen_miniatura'
     )
 
-    def currency_price(self, property):
-        return currency(property.price)
+    def currency_price(self, listing):
+        return currency(listing.price)
 
     currency_price.short_description = u'Precio'
 
@@ -86,10 +86,10 @@ class PropiedadAdmin(admin.ModelAdmin):
     list_filter = ['created_at', 'agent', 'title', 'status', ]
     date_hierarchy = 'created_at'
 
-    def ciudad(self, propiedad):
+    def city(self, propiedad):
         if propiedad.sector is None:
             return u'(No seleccionada)'
-        return '%s, %s' % (propiedad.sector.ciudad, propiedad.sector.ciudad.provincia)
+        return '%s, %s' % (propiedad.sector.city, propiedad.sector.city.province)
 
     def imagen_miniatura(self, obj):
         imageobj = obj.main_image
@@ -97,7 +97,7 @@ class PropiedadAdmin(admin.ModelAdmin):
             image = get_thumbnail(imageobj.image, '75x50', quality=99)
             return '<img src="%s" />' % image.url
         else:
-            return u'Esta property no contiene imagenes'
+            return u'Esta listing no contiene imagenes'
 
     imagen_miniatura.short_description = "Imagen"
     imagen_miniatura.allow_tags = True
@@ -111,7 +111,7 @@ class EspecialAdmin(admin.ModelAdmin):
 
 
 class AgentAdmin(admin.ModelAdmin):
-    list_display = ('name', 'telefono', 'celular', 'image')
+    list_display = ('name', 'phone', 'mobile', 'image')
 
     def agente(self, agente):
         return agente.__unicode__()
@@ -144,10 +144,10 @@ class AttributesAdmin(admin.ModelAdmin):
     form = AtributosForm
 
 
-admin.site.register(Property, PropiedadAdmin)
+admin.site.register(Listing, ListingAdmin)
 admin.site.register(Sector)
-admin.site.register(Ciudad)
+admin.site.register(City)
 admin.site.register(Agent, AgentAdmin)
-admin.site.register(PropertyImage, ImagenAdmin)
+admin.site.register(ListingImage, ImagenAdmin)
 admin.site.register(OnSale)
 admin.site.register(Attribute, AttributesAdmin)

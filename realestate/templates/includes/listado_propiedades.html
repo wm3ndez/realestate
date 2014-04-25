@@ -6,23 +6,23 @@
         <div class="col-md-2">
             <a href="{{ propiedad.get_absolute_url }}" class="thumbnail">
                 {% thumbnail propiedad.imagen_principal.imagen "135x90" crop="center" as image %}
-                    <img align="middle" src="{{ image.url }}" alt="{{ propiedad.titulo }}"
-                         title="{{ propiedad.titulo }}"/>
+                    <img align="middle" src="{{ image.url }}" alt="{{ listing.title }}"
+                         title="{{ listing.title }}"/>
                 {% endthumbnail %}
             </a>
-            <h5>Precio: {{ propiedad.precio|currency }}</h5>
+            <h5>Precio: {{ listing.price|currency }}</h5>
             <h6>Dormitorios: {{ propiedad.dormitorios }}</h6>
 {#            <h6>Days on site: 4</h6>#}
             <h6>Área Const.: {{ propiedad.tamano_construccion }} mt&sup2;</h6>
         </div>
 
         <div class="col-md-6">
-            <a href="{{ propiedad.get_absolute_url }}"><h3>{{ propiedad.titulo }}</h3></a>
+            <a href="{{ propiedad.get_absolute_url }}"><h3>{{ listing.title }}</h3></a>
 
             <p>{{ propiedad.descripcion }}</p>
 
             <p><a href="{{ propiedad.get_absolute_url }}">Más detalles, {{ propiedad.imagenpropiedad.set.count }} fotos, etc</a>
-{#                | <a href="#">Save property</a> | <a href="#">Contact agent</a> | <a href="#">Upgrade listing</a>#}
+{#                | <a href="#">Save listing</a> | <a href="#">Contact agent</a> | <a href="#">Upgrade listing</a>#}
             </p>
 
 {#            <p>Marketed by Knight Frank, Richmond. Telephone: 0843 314 8224 <a href="#">BT 4p/min</a></p>#}

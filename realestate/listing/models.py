@@ -19,7 +19,7 @@ TYPES = (
     ('oficina', 'Oficina'),
     ('finca', 'Finca'),
 )
-PROVINCIAS = (
+DOMINICAN_PROVINCES = (
     ('Azua', 'Azua'),
     ('Bahoruco', 'Bahoruco'),
     ('Barahona', 'Barahona'),
@@ -57,45 +57,45 @@ PROVINCIAS = (
     ('Valverde', 'Valverde'),
 )
 
-OFERTAS = (('venta', 'Venta'), ('alquiler', 'Alquiler'), ('venta_alq', 'Venta y/o Alquiler'))
-ESTADO_PROPIEDAD = (('activa', 'Activa'), ('inactiva', 'Inactiva'), ('vendida', 'Vendida'))
-ESTADO_ESPECIAL = (('activa', 'Activa'), ('inactiva', 'Inactiva'),)
+OFFERS = (('venta', 'Venta'), ('alquiler', 'Alquiler'), ('venta_alq', 'Venta y/o Alquiler'))
+LISTING_STATUS = (('activa', 'Activa'), ('inactiva', 'Inactiva'), ('vendida', 'Vendida'))
+SALE_STATUS = (('activa', 'Activa'), ('inactiva', 'Inactiva'),)
 
 VALIDATIONS = [
-    ('realestate.property.utils.validation_simple', _(u'Uno o más caracteres')),
-    ('realestate.property.utils.validation_integer', _(u'Número entero')),
-    ('realestate.property.utils.validation_yesno', _(u'Si o No')),
-    ('realestate.property.utils.validation_decimal', _(u'Número decimal')),
+    ('realestate.listing.utils.validation_simple', _(u'Uno o más caracteres')),
+    ('realestate.listing.utils.validation_integer', _(u'Número entero')),
+    ('realestate.listing.utils.validation_yesno', _(u'Si o No')),
+    ('realestate.listing.utils.validation_decimal', _(u'Número decimal')),
 ]
 
 
-class CiudadManager(models.Manager):
+class CityManager(models.Manager):
     def containing_properties(self, **kwargs):
-        return self.filter(sector__property__isnull=False, **kwargs)
+        return self.filter(sector__listing__isnull=False, **kwargs)
 
 
-class Ciudad(models.Model):
-    nombre = models.CharField(max_length=45)
-    provincia = models.CharField(max_length=45, choices=PROVINCIAS)
+class City(models.Model):
+    name = models.CharField(max_length=45)
+    province = models.CharField(max_length=45, choices=DOMINICAN_PROVINCES)
 
-    objects = CiudadManager()
+    objects = CityManager()
 
     def __unicode__(self):
-        return self.nombre
+        return self.name
 
     class Meta:
-        verbose_name = 'Ciudad'
+        verbose_name = 'City'
         verbose_name_plural = 'Ciudades'
 
 
 class SectorManager(models.Manager):
     def containing_properties(self, **kwargs):
-        return self.filter(property__isnull=False, **kwargs)
+        return self.filter(listing__isnull=False, **kwargs)
 
 
 class Sector(models.Model):
     name = models.CharField(max_length=45)
-    ciudad = models.ForeignKey(Ciudad)
+    city = models.ForeignKey(City)
 
     objects = SectorManager()
 
@@ -108,13 +108,13 @@ class Sector(models.Model):
 
 
 class Agent(models.Model):
-    telefono = models.CharField(max_length=15, verbose_name=_(u'Teléfono'))
-    celular = models.CharField(max_length=15, verbose_name=_(u'Celular'))
-    ciudad = models.ForeignKey(Ciudad, verbose_name=_(u'Ciudad'), null=True, blank=True)
+    phone = models.CharField(max_length=15, verbose_name=_(u'Teléfono'), null=True, blank=True)
+    mobile = models.CharField(max_length=15, verbose_name=_(u'Celular'), null=True, blank=True)
+    city = models.ForeignKey(City, verbose_name=_(u'City'), null=True, blank=True)
     direccion = models.CharField(max_length=200, verbose_name=_(u'Dirección'), null=True, blank=True)
-    image = ImageField(upload_to='agentes/', default='', verbose_name=_(u'Fotografía'))
+    image = ImageField(upload_to='agentes/', default='', verbose_name=_(u'Fotografía'), null=True, blank=True)
     user = models.OneToOneField(User, verbose_name=_(u'Usuario'))
-    activo = models.BooleanField(default=False, verbose_name=_('Activo'))
+    active = models.BooleanField(default=False, verbose_name=_('Activo'))
 
     @property
     def name(self):
@@ -130,35 +130,35 @@ class Agent(models.Model):
         verbose_name_plural = 'Agentes'
 
 
-class PropiedadManager(models.Manager):
-    def activas(self, **kwargs):
+class ListingManager(models.Manager):
+    def active(self, **kwargs):
         return self.filter(status='activa', **kwargs)
 
     def casas(self, **kwargs):
-        return self.activas().filter(type='casa')
+        return self.active().filter(type='casa')
 
     def apartamentos(self, **kwargs):
-        return self.activas().filter(type='apartamento')
+        return self.active().filter(type='apartamento')
 
     def featured(self, **kwargs):
-        return self.activas().filter(featured=True)
+        return self.active().filter(featured=True)
 
-    def alquiler(self, **kwargs):
-        return self.activas().filter(offer__in=('venta_alq', 'alquiler'))
+    def rent(self, **kwargs):
+        return self.active().filter(offer__in=('venta_alq', 'alquiler'))
 
-    def venta(self, **kwargs):
-        return self.activas().filter(offer__in=('venta_alq', 'venta'))
+    def sale(self, **kwargs):
+        return self.active().filter(offer__in=('venta_alq', 'venta'))
 
 
-class Property(models.Model):
+class Listing(models.Model):
     title = models.CharField(max_length=100, verbose_name=_(u'Título de la Propiedad'))
     slug = models.SlugField(max_length=100, unique=True, blank=False, verbose_name=_(u'Slug'))
     description = models.TextField(verbose_name=_(u'Descripción'), null=True, blank=True)
     price = models.FloatField(default=0.0, verbose_name=_(u'Precio'))
     sector = models.ForeignKey(Sector, null=True, blank=True)
     type = models.CharField(max_length=30, choices=TYPES, verbose_name=_(u'Tipo de Inmueble'))
-    offer = models.CharField(max_length=10, choices=OFERTAS, verbose_name=_(u'Oferta'))
-    status = models.CharField(max_length=10, choices=ESTADO_PROPIEDAD, verbose_name=_(u'Estado'))
+    offer = models.CharField(max_length=10, choices=OFFERS, verbose_name=_(u'Oferta'))
+    status = models.CharField(max_length=10, choices=LISTING_STATUS, verbose_name=_(u'Estado'))
     featured = models.BooleanField(default=False, verbose_name=_(u'Propiedad Destacada?'))
     frontpage = models.BooleanField(default=False, verbose_name=_(u'Mostrar en Frontpage?'))
     baths = models.PositiveIntegerField(_(u'Baños'), default=0, null=True, blank=True)
@@ -172,7 +172,7 @@ class Property(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Creación'))
     last_modified = models.DateTimeField(auto_now=True, verbose_name=_(u'Última Modificación'))
 
-    objects = PropiedadManager()
+    objects = ListingManager()
 
     @property
     def main_image(self):
@@ -194,7 +194,7 @@ class Property(models.Model):
     def get_address(self):
         if self.sector is None:
             return u'Ubicación no provista'
-        return '%s, %s, %s' % (self.sector, self.sector.ciudad, self.sector.ciudad.provincia)
+        return '%s, %s, %s' % (self.sector, self.sector.city, self.sector.city.province)
 
     def __unicode__(self):
         return self.title
@@ -205,12 +205,12 @@ class Property(models.Model):
 
     def save(self, **kwargs):
         self._generate_valid_slug()
-        super(Property, self).save(**kwargs)
+        super(Listing, self).save(**kwargs)
 
     def _generate_valid_slug(self):
         if not self.is_valid_slug():
             slug = slugify(self.title)
-            while Property.objects.filter(slug=slug).exclude(id=self.id).exists():
+            while Listing.objects.filter(slug=slug).exclude(id=self.id).exists():
                 slug = '%s-1' % slug
             self.slug = slug
 
@@ -232,20 +232,20 @@ class Property(models.Model):
     def get_features(self):
         attributes = []
         for attribute in self.atributopropiedad_set.all():
-            if attribute.attribute.validation == 'realestate.property.utils.validation_simple':
+            if attribute.attribute.validation == 'realestate.listing.utils.validation_simple':
                 attributes.append(u'%s: %s' % (attribute.attribute.nombre, attribute.value))
-            elif attribute.attribute.validation == 'realestate.property.utils.validation_yesno':
+            elif attribute.attribute.validation == 'realestate.listing.utils.validation_yesno':
                 attributes.append(u'%s' % attribute.value)
             else:
-                if attribute.attribute.validation == 'realestate.property.utils.validation_integer':
+                if attribute.attribute.validation == 'realestate.listing.utils.validation_integer':
                     attributes.append(u'%s %s' % (attribute.value, attribute.attribute.nombre))
                 else:
                     attributes.append(u'%.2f %s' % (attribute.value, attribute.attribute.nombre))
 
         return attributes
 
-    def propiedades_en_el_area(self):
-        return Property.objects.filter(sector=self.sector).order_by('?')[:4]
+    def nearby(self):
+        return Listing.objects.filter(sector=self.sector).order_by('?')[:4]
 
 
 class Attribute(models.Model):
@@ -261,8 +261,8 @@ class Attribute(models.Model):
         return self.name
 
 
-class AttributeProperty(models.Model):
-    property = models.ForeignKey(Property)
+class AttributeListing(models.Model):
+    listing = models.ForeignKey(Listing)
     attribute = models.ForeignKey(Attribute)
     value = models.CharField(u'Valor', max_length=255)
     # order = models.SmallIntegerField(u'Orden', default=99)
@@ -276,8 +276,8 @@ class AttributeProperty(models.Model):
         return '%s: %s' % (self.attribute.name, self.value)
 
 
-class PropertyImage(models.Model):
-    property_item = models.ForeignKey(Property, related_name='images')
+class ListingImage(models.Model):
+    listing = models.ForeignKey(Listing, related_name='images')
     name = models.CharField(max_length=60)
     image = ImageField(upload_to='propiedades/')
     added = models.DateTimeField(auto_now_add=True)
@@ -301,13 +301,13 @@ class PropertyImage(models.Model):
 
 
 class OnSale(models.Model):
-    property = models.ForeignKey(Property)
-    status = models.CharField(choices=ESTADO_ESPECIAL, max_length=12)
+    listing = models.ForeignKey(Listing)
+    status = models.CharField(choices=SALE_STATUS, max_length=12)
     start_date = models.DateTimeField(verbose_name=u'Fecha de Activacion de la offer')
     end_date = models.DateTimeField(verbose_name=u'Fecha de Desactivacion de la offer')
 
     def __unicode__(self):
-        return '%s - %s' % (self.property.title, self.property.sector.name)
+        return '%s - %s' % (self.listing.title, self.listing.sector.name)
 
     class Meta:
         verbose_name = 'Propiedad en Oferta'

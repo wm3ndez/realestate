@@ -23,6 +23,7 @@ def pagination_url(context, paginator):
         if current > 5 and (paginator.paginator.num_pages - current ) < 6:
             pagination_range = range(paginator.paginator.num_pages - 9, paginator.paginator.num_pages + 1)
         elif current > 5:
+
             pagination_range = range(current - 4, current + 6)
         else:
             pagination_range = range(1, 11)
