@@ -2,6 +2,8 @@
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 from django.db import models
+from djmoney.models.fields import MoneyField
+from moneyed import USD, Money
 
 from django.contrib.auth.models import User
 import os
@@ -154,7 +156,7 @@ class Listing(models.Model):
     title = models.CharField(max_length=100, verbose_name=_(u'Título de la Propiedad'))
     slug = models.SlugField(max_length=100, unique=True, blank=False, verbose_name=_(u'Slug'))
     description = models.TextField(verbose_name=_(u'Descripción'), null=True, blank=True)
-    price = models.FloatField(default=0.0, verbose_name=_(u'Precio'))
+    price = MoneyField(default=Money(0, USD), max_digits=12, decimal_places=2, verbose_name=_(u'Precio'))
     sector = models.ForeignKey(Sector, null=True, blank=True)
     type = models.CharField(max_length=30, choices=TYPES, verbose_name=_(u'Tipo de Inmueble'))
     offer = models.CharField(max_length=10, choices=OFFERS, verbose_name=_(u'Oferta'))

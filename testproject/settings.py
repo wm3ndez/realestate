@@ -74,7 +74,7 @@ SECRET_KEY = 'lkvn#jzxj1jz8hk#y+74*)u8d#!0s@alaz(ytc6q=3@lgt$h-k'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-    #     'django.template.loaders.eggs.Loader',
+    # 'django.template.loaders.eggs.Loader',
 )
 
 ROOT_URLCONF = 'testproject.urls'
@@ -131,7 +131,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 
-#properties per page
+# properties per page
 PROPERTIES_PER_PAGE = 16
 
 LOGGING = {
@@ -150,3 +150,5 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
+
+CURRENCIES = ('USD', 'EUR', 'CNY', 'DOP',)

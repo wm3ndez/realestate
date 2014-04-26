@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+# !/usr/bin/env python
 from distutils.core import setup
 from distutils.util import convert_path
 from realestate import __version__, __maintainer__, __email__
@@ -153,5 +153,6 @@ setup(
         'markdown',
         'django-filter',
         'django-braces==1.4.0',
+        'django-money==0.4.1',
     ],
 )
