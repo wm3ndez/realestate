@@ -1,12 +1,11 @@
 {% load extra_functions thumbnail %}
 
-
 <ul class="thumbnails">
     {% for listing in results.object_list %}
         <li class="col-md-2">
             <div class="thumbnail mini_property">
                 <a href="{{ listing.get_absolute_url }}">
-                    {% thumbnail listing.imagen_principal.imagen "135x90" crop="center" as image %}
+                    {% thumbnail listing.main_image.image "135x90" crop="center" as image %}
                         <img align="middle" src="{{ image.url }}" alt="{{ listing.title }}"
                              title="{{ listing.title }}"/>
                     {% endthumbnail %}
@@ -14,7 +13,7 @@
                 <h5>Price : {{ listing.price|currency }}</h5>
 
                 <p>
-                    <a href="{{ listing.get_absolute_url }}">{{ listing.title }}</a><br>{{ listing.address }}
+                    <a href="{{ listing.absolute_url }}">{{ listing.title }}</a><br>{{ listing.address }}
                 </p>
             </div>
         </li>

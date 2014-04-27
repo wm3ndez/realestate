@@ -1,0 +1,24 @@
+{% extends 'base_theme.html' %}
+{% load thumbnail %}
+{% block content %}
+    {% for agent in agents %}
+        <div class="col-md-12">
+            <div class="thumbnail col-md-1">
+                {% thumbnail agent.image "75x75" crop="center" as image %}
+                    <a href="{% url 'agent-listings' agent.id %}">
+                        <img align="middle" src="{{ image.url }}" alt="{{ agent.name }}" title="{{ agent.name }}"/>
+                    </a>
+                {% endthumbnail %}
+            </div>
+            <div class="col-md-11">
+                <strong>{{ agent }}</strong><br/>
+                Tel.: {{ agent.phone }}<br/>
+                Cell: {{ agent.cellphone }}<br/>
+                Email: <a href="mailto:{{ agent.user.email }}">{{ agent.user.email }}</a>
+            </div>
+        </div>
+        {% if not forloop.last %}
+            <hr/>
+        {% endif %}
+    {% endfor %}
+{% endblock %}

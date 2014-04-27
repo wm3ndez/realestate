@@ -109,6 +109,14 @@ class Sector(models.Model):
         verbose_name_plural = 'Sectores'
 
 
+class AgentManager(models.Manager):
+    def active(self, **kwargs):
+        return self.filter(active=True, **kwargs)
+
+    def with_listings(self, **kwargs):
+        return self.active(listing__isnull=False, **kwargs)
+
+
 class Agent(models.Model):
     phone = models.CharField(max_length=15, verbose_name=_(u'Teléfono'), null=True, blank=True)
     mobile = models.CharField(max_length=15, verbose_name=_(u'Celular'), null=True, blank=True)
@@ -117,6 +125,8 @@ class Agent(models.Model):
     image = ImageField(upload_to='agentes/', default='', verbose_name=_(u'Fotografía'), null=True, blank=True)
     user = models.OneToOneField(User, verbose_name=_(u'Usuario'))
     active = models.BooleanField(default=False, verbose_name=_('Activo'))
+
+    objects = AgentManager()
 
     @property
     def name(self):

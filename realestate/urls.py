@@ -22,6 +22,8 @@ urlpatterns = patterns(
     url(r'^rent/(?P<type>\w+)/$', 'realestate.listing.views.rent', name='properties_for_rent'),
     url(r'^search/', 'realestate.listing.views.search', name='search'),
     url(r'^listing/(?P<slug>[\w-]+)/', 'realestate.listing.views.details', name='property_details'),
+    url(r'^agents/$', 'realestate.listing.views.agents', name='agents'),
+    url(r'^agents/listing/(?P<agent>[\d]+)/$', 'realestate.listing.views.agent_listings', name='agent-listings'),
     url(r'^get_map/$', 'realestate.listing.views.get_map', name='mapa-propiedades'),  # Ajax
 
     # Static Pages

@@ -1,0 +1,9 @@
+{% extends "base_theme.html" %}
+{% load re_paginator render_form %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            {% include 'includes/listing_grid.html' %}
+        </div>
+    </div>
+{% endblock %}

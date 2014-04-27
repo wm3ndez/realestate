@@ -4,9 +4,10 @@ from django.db.models.query_utils import Q
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponse
+import listing
 from realestate.home.forms import SearchForm
 from realestate.listing.forms import ListingContactForm
-from realestate.listing.models import Listing
+from realestate.listing.models import Listing, Agent
 from realestate.utils import paginate
 from realestate.utils.decorators import ajax_required
 from sorl.thumbnail.shortcuts import get_thumbnail
@@ -26,8 +27,8 @@ def _render_search_page(queryset, request, template='listing/search.html'):
 def _apply_search_filters(data, listings):
     if data.get('location'):
         listings = listings.filter(Q(sector__nombre__icontains=data.get('location')) |
-                                       Q(sector__ciudad__nombre__icontains=data.get('location')) |
-                                       Q(sector__ciudad__provincia__icontains=data.get('location')))
+                                   Q(sector__ciudad__nombre__icontains=data.get('location')) |
+                                   Q(sector__ciudad__provincia__icontains=data.get('location')))
     if data.get('precio_max'):
         listings = listings.filter(precio__lte=data.get('precio_max'))
     if data.get('precio_min'):
@@ -92,7 +93,7 @@ def details(request, slug):
         if form.is_valid():
             _send_contact_form(form, listing)
             form = ListingContactForm()
-            #TODO: Redirect to a thank you page
+            # TODO: Redirect to a thank you page
     else:
         form = ListingContactForm()
 
@@ -142,3 +143,14 @@ def _send_contact_form(form, prop):
     reply = form.cleaned_data.get('email')
     email = EmailMessage(asunto, mensaje, _from, to, headers={'Reply-To': reply})
     email.send(fail_silently=False)
+
+
+def agents(request):
+    agent_list = Agent.objects.active()
+    data = {'agents': agent_list, }
+    return render_to_response("listing/agents.html", data, context_instance=RequestContext(request))
+
+
+def agent_listings(request, agent):
+    listing = Listing.objects.active(agent=Agent.objects.get(id=agent)).order_by('-id')
+    return _render_search_page(listing, request, template='listing/agent-listings.html')
