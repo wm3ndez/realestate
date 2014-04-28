@@ -7,6 +7,7 @@ from sorl.thumbnail import get_thumbnail
 from sorl.thumbnail.admin import AdminImageMixin
 from realestate.listing.templatetags.extra_functions import currency
 from realestate.listing.utils import import_validator, validate_attribute_value
+from django.utils.translation import ugettext as _
 
 
 class ImagenAdmin(admin.ModelAdmin):
@@ -58,10 +59,10 @@ class ListingAdmin(admin.ModelAdmin):
          {
              'fields': [
                  'title', 'description', 'price', ( 'baths', 'beds', 'size'), 'sector', 'type', 'offer',
-                 'status', 'featured', 'frontpage',
+                 'active', 'featured',
              ]
          }),
-        ('Detalles',
+        (_('Contact Info'),
          {
              'fields': [
                  'agent', 'contact', 'notes', 'coords',
@@ -72,7 +73,7 @@ class ListingAdmin(admin.ModelAdmin):
     inlines = [AtributosPropiedadInline, ImagenPropiedadInline, ]
 
     list_display = (
-        'id', 'title', 'slug', 'currency_price', 'status', 'type', 'city', 'sector', 'agent', 'created_at',
+        'id', 'title', 'slug', 'currency_price', 'active', 'type', 'city', 'sector', 'agent', 'created_at',
         'featured', 'imagen_miniatura'
     )
 
@@ -83,7 +84,7 @@ class ListingAdmin(admin.ModelAdmin):
 
     list_display_links = ('id', 'title')
     search_fields = ['title', 'sector__ciudad']
-    list_filter = ['created_at', 'agent', 'title', 'status', ]
+    list_filter = ['created_at', 'agent', 'title', 'active', ]
     date_hierarchy = 'created_at'
 
     def city(self, listing):
@@ -106,17 +107,12 @@ class ListingAdmin(admin.ModelAdmin):
         js = ('js/admin/propiedades.js',)
 
 
-class EspecialAdmin(admin.ModelAdmin):
+class OnSaleAdmin(admin.ModelAdmin):
     list_display = ('prodiedad', 'status')
 
 
 class AgentAdmin(admin.ModelAdmin):
     list_display = ('name', 'phone', 'mobile', 'image')
-
-    def agente(self, agente):
-        return agente.__unicode__()
-
-    agente.short_description = u'Agente Vendedor'
 
     def imagen(self, obj):
         imageobj = obj.fotografia

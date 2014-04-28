@@ -13,13 +13,14 @@ from django.utils.translation import ugettext as _
 from realestate.home.models import Contacto
 
 TYPES = (
-    ('casa', 'Casas'),
-    ('apartamento', 'Apartamentos'),
-    ('local_comercial', 'Locales Comerciales'),
-    ('solar', 'Solares'),
-    ('penthouse', 'Penthouses'),
-    ('oficina', 'Oficina'),
-    ('finca', 'Finca'),
+    ('apartment', _('Apartment')),
+    ('condo', _('Condo')),
+    ('cottage', _('Cottage')),
+    ('farm-ranch', _('Farm/Ranch')),
+    ('house', _('House')),
+    ('land', _('Land')),
+    ('office', _('Office')),
+    ('townhouse', _('Town House')),
 )
 DOMINICAN_PROVINCES = (
     ('Azua', 'Azua'),
@@ -59,9 +60,7 @@ DOMINICAN_PROVINCES = (
     ('Valverde', 'Valverde'),
 )
 
-OFFERS = (('venta', 'Venta'), ('alquiler', 'Alquiler'), ('venta_alq', 'Venta y/o Alquiler'))
-LISTING_STATUS = (('activa', 'Activa'), ('inactiva', 'Inactiva'), ('vendida', 'Vendida'))
-SALE_STATUS = (('activa', 'Activa'), ('inactiva', 'Inactiva'),)
+OFFERS = (('buy', _('For Sale')), ('rent', _('For Rent')), ('buy-rent', _('For Sale/For Rent')))
 
 VALIDATIONS = [
     ('realestate.listing.utils.validation_simple', _(u'Uno o más caracteres')),
@@ -144,22 +143,16 @@ class Agent(models.Model):
 
 class ListingManager(models.Manager):
     def active(self, **kwargs):
-        return self.filter(status='activa', **kwargs)
-
-    def casas(self, **kwargs):
-        return self.active().filter(type='casa')
-
-    def apartamentos(self, **kwargs):
-        return self.active().filter(type='apartamento')
+        return self.filter(active=True, **kwargs)
 
     def featured(self, **kwargs):
         return self.active().filter(featured=True)
 
     def rent(self, **kwargs):
-        return self.active().filter(offer__in=('venta_alq', 'alquiler'))
+        return self.active().filter(offer__in=('buy-rent', 'rent'))
 
     def sale(self, **kwargs):
-        return self.active().filter(offer__in=('venta_alq', 'venta'))
+        return self.active().filter(offer__in=('buy-rent', 'buy'))
 
 
 class Listing(models.Model):
@@ -168,9 +161,9 @@ class Listing(models.Model):
     description = models.TextField(verbose_name=_(u'Descripción'), null=True, blank=True)
     price = MoneyField(default=Money(0, USD), max_digits=12, decimal_places=2, verbose_name=_(u'Precio'))
     sector = models.ForeignKey(Sector, null=True, blank=True)
-    type = models.CharField(max_length=30, choices=TYPES, verbose_name=_(u'Tipo de Inmueble'))
+    type = models.CharField(_(u'Listing Type'), max_length=30, choices=TYPES)
     offer = models.CharField(max_length=10, choices=OFFERS, verbose_name=_(u'Oferta'))
-    status = models.CharField(max_length=10, choices=LISTING_STATUS, verbose_name=_(u'Estado'))
+    active = models.BooleanField(_('Active'), default=False)
     featured = models.BooleanField(default=False, verbose_name=_(u'Propiedad Destacada?'))
     baths = models.PositiveIntegerField(_(u'Baños'), default=0, null=True, blank=True)
     beds = models.PositiveIntegerField(_(u'Dormitorios'), default=0, null=True, blank=True)
@@ -275,12 +268,12 @@ class Attribute(models.Model):
 class AttributeListing(models.Model):
     listing = models.ForeignKey(Listing)
     attribute = models.ForeignKey(Attribute)
-    value = models.CharField(u'Valor', max_length=255)
+    value = models.CharField(_(u'Value'), max_length=255)
     # order = models.SmallIntegerField(u'Orden', default=99)
 
     class Meta:
-        verbose_name = 'Atributo de Propiedad'
-        verbose_name_plural = 'Atributos de Propiedad'
+        verbose_name = _(u'Listing attribute')
+        verbose_name_plural = _(u'Listing attributes')
         # ordering = ['order', ]
 
     def __unicode__(self):
@@ -290,7 +283,7 @@ class AttributeListing(models.Model):
 class ListingImage(models.Model):
     listing = models.ForeignKey(Listing, related_name='images')
     name = models.CharField(max_length=60)
-    image = ImageField(upload_to='propiedades/')
+    image = ImageField(upload_to='listing/')
     added = models.DateTimeField(auto_now_add=True)
     order = models.IntegerField(max_length=2, default=99, null=True)
 
@@ -307,19 +300,19 @@ class ListingImage(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = 'Fotografia'
-        verbose_name_plural = 'Fotografias'
+        verbose_name = 'Picture'
+        verbose_name_plural = 'Pictures'
 
 
 class OnSale(models.Model):
     listing = models.ForeignKey(Listing)
-    status = models.CharField(choices=SALE_STATUS, max_length=12)
-    start_date = models.DateTimeField(verbose_name=u'Fecha de Activacion de la offer')
-    end_date = models.DateTimeField(verbose_name=u'Fecha de Desactivacion de la offer')
+    active = models.BooleanField(default=False)
+    start_date = models.DateTimeField(verbose_name=_(u'Activation date'))
+    end_date = models.DateTimeField(verbose_name=_(u'Deactivation date'))
 
     def __unicode__(self):
         return '%s - %s' % (self.listing.title, self.listing.sector.name)
 
     class Meta:
-        verbose_name = 'Propiedad en Oferta'
-        verbose_name_plural = 'Propiedades en Oferta'
+        verbose_name = _(u'Properties on Sale')
+        verbose_name_plural = _(u'Property on Sale')
