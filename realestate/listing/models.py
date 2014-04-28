@@ -172,7 +172,6 @@ class Listing(models.Model):
     offer = models.CharField(max_length=10, choices=OFFERS, verbose_name=_(u'Oferta'))
     status = models.CharField(max_length=10, choices=LISTING_STATUS, verbose_name=_(u'Estado'))
     featured = models.BooleanField(default=False, verbose_name=_(u'Propiedad Destacada?'))
-    frontpage = models.BooleanField(default=False, verbose_name=_(u'Mostrar en Frontpage?'))
     baths = models.PositiveIntegerField(_(u'Baños'), default=0, null=True, blank=True)
     beds = models.PositiveIntegerField(_(u'Dormitorios'), default=0, null=True, blank=True)
     size = models.PositiveIntegerField(_(u'Metros cuadrados(m2)'), default=0, null=True, blank=True)
