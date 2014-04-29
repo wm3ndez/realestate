@@ -6,6 +6,7 @@ build/*
 *.pyc
 *.db
 *.mo
+.coverage
 
 testproject/media/*
 testproject/static/admin/*

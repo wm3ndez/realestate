@@ -107,6 +107,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'gunicorn',
     'rest_framework',
+    'discoverage'
 
 )
 
@@ -152,3 +153,16 @@ REST_FRAMEWORK = {
 }
 
 CURRENCIES = ('USD', 'EUR', 'CNY', 'DOP',)
+
+# Test Settings
+SKIP_SOUTH_TESTS = True
+SOUTH_TESTS_MIGRATE = False
+TEST_RUNNER = 'discoverage.DiscoverageRunner'
+
+import sys
+
+if 'test' in sys.argv:
+    # Speed up Tests by changing the default Password Hasher
+    PASSWORD_HASHERS = (
+        'django.contrib.auth.hashers.MD5PasswordHasher',
+    )
