@@ -4,7 +4,6 @@ from django.db.models.query_utils import Q
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponse
-import listing
 from realestate.home.forms import SearchForm
 from realestate.listing.forms import ListingContactForm
 from realestate.listing.models import Listing, Agent
