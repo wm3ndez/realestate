@@ -10,7 +10,7 @@ import os
 import re
 from sorl.thumbnail import ImageField
 from django.utils.translation import ugettext as _
-from realestate.home.models import Contacto
+from realestate.home.models import Contact
 
 TYPES = (
     ('apartment', _('Apartment')),
@@ -63,10 +63,10 @@ DOMINICAN_PROVINCES = (
 OFFERS = (('buy', _('For Sale')), ('rent', _('For Rent')), ('buy-rent', _('For Sale/For Rent')))
 
 VALIDATIONS = [
-    ('realestate.listing.utils.validation_simple', _(u'Uno o más caracteres')),
-    ('realestate.listing.utils.validation_integer', _(u'Número entero')),
-    ('realestate.listing.utils.validation_yesno', _(u'Si o No')),
-    ('realestate.listing.utils.validation_decimal', _(u'Número decimal')),
+    ('realestate.listing.utils.validation_simple', _(u'One or more characters')),
+    ('realestate.listing.utils.validation_integer', _(u'Integer')),
+    ('realestate.listing.utils.validation_yesno', _(u'Yes/No')),
+    ('realestate.listing.utils.validation_decimal', _(u'Decimal')),
 ]
 
 
@@ -85,8 +85,8 @@ class City(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = 'City'
-        verbose_name_plural = 'Ciudades'
+        verbose_name = _('City')
+        verbose_name_plural = _('Cities')
 
 
 class SectorManager(models.Manager):
@@ -104,8 +104,8 @@ class Sector(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = 'Sector'
-        verbose_name_plural = 'Sectores'
+        verbose_name = _('Sector')
+        verbose_name_plural = _('Sectors')
 
 
 class AgentManager(models.Manager):
@@ -117,13 +117,13 @@ class AgentManager(models.Manager):
 
 
 class Agent(models.Model):
-    phone = models.CharField(max_length=15, verbose_name=_(u'Teléfono'), null=True, blank=True)
-    mobile = models.CharField(max_length=15, verbose_name=_(u'Celular'), null=True, blank=True)
+    phone = models.CharField(max_length=15, verbose_name=_(u'Phone'), null=True, blank=True)
+    mobile = models.CharField(max_length=15, verbose_name=_(u'Cellphone'), null=True, blank=True)
     city = models.ForeignKey(City, verbose_name=_(u'City'), null=True, blank=True)
-    direccion = models.CharField(max_length=200, verbose_name=_(u'Dirección'), null=True, blank=True)
-    image = ImageField(upload_to='agentes/', default='', verbose_name=_(u'Fotografía'), null=True, blank=True)
-    user = models.OneToOneField(User, verbose_name=_(u'Usuario'))
-    active = models.BooleanField(default=False, verbose_name=_('Activo'))
+    direccion = models.CharField(max_length=200, verbose_name=_(u'Address'), null=True, blank=True)
+    image = ImageField(upload_to='agentes/', default='', verbose_name=_(u'Picture'), null=True, blank=True)
+    user = models.OneToOneField(User, verbose_name=_(u'User'))
+    active = models.BooleanField(default=False, verbose_name=_('Active'))
 
     objects = AgentManager()
 
@@ -137,8 +137,8 @@ class Agent(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = 'Agente'
-        verbose_name_plural = 'Agentes'
+        verbose_name = _('Agent')
+        verbose_name_plural = _('Agents')
 
 
 class ListingManager(models.Manager):
@@ -156,25 +156,25 @@ class ListingManager(models.Manager):
 
 
 class Listing(models.Model):
-    title = models.CharField(max_length=100, verbose_name=_(u'Título de la Propiedad'))
+    title = models.CharField(max_length=100, verbose_name=_(u'Title'))
     slug = models.SlugField(max_length=100, unique=True, blank=False, verbose_name=_(u'Slug'))
-    description = models.TextField(verbose_name=_(u'Descripción'), null=True, blank=True)
-    price = MoneyField(default=Money(0, USD), max_digits=12, decimal_places=2, verbose_name=_(u'Precio'))
+    description = models.TextField(verbose_name=_(u'Description'), null=True, blank=True)
+    price = MoneyField(default=Money(0, USD), max_digits=12, decimal_places=2, verbose_name=_(u'Price'))
     sector = models.ForeignKey(Sector, null=True, blank=True)
     type = models.CharField(_(u'Listing Type'), max_length=30, choices=TYPES)
-    offer = models.CharField(max_length=10, choices=OFFERS, verbose_name=_(u'Oferta'))
+    offer = models.CharField(max_length=10, choices=OFFERS, verbose_name=_(u'Offer'))
     active = models.BooleanField(_('Active'), default=False)
-    featured = models.BooleanField(default=False, verbose_name=_(u'Propiedad Destacada?'))
-    baths = models.PositiveIntegerField(_(u'Baños'), default=0, null=True, blank=True)
-    beds = models.PositiveIntegerField(_(u'Dormitorios'), default=0, null=True, blank=True)
-    size = models.PositiveIntegerField(_(u'Metros cuadrados(m2)'), default=0, null=True, blank=True)
-    coords = models.CharField(max_length=255, default='19.000000,-70.400000', verbose_name=_(u'Coordenadas'), null=True,
+    featured = models.BooleanField(default=False, verbose_name=_(u'Featured'))
+    baths = models.PositiveIntegerField(_(u'Bathrooms'), default=0, null=True, blank=True)
+    beds = models.PositiveIntegerField(_(u'Bedrooms'), default=0, null=True, blank=True)
+    size = models.PositiveIntegerField(_(u'Size(m2)'), default=0, null=True, blank=True)
+    coords = models.CharField(max_length=255, default='19.000000,-70.400000', verbose_name=_(u'Coords'), null=True,
                               blank=True)
     agent = models.ForeignKey(Agent, null=True, blank=True)
-    contact = models.ForeignKey(Contacto, null=True, blank=True)
-    notes = models.TextField(max_length=500, verbose_name=_(u'Notas privadas.'), null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Creación'))
-    last_modified = models.DateTimeField(auto_now=True, verbose_name=_(u'Última Modificación'))
+    contact = models.ForeignKey(Contact, null=True, blank=True)
+    notes = models.TextField(max_length=500, verbose_name=_(u'Private Notes'), null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Created'))
+    last_modified = models.DateTimeField(auto_now=True, verbose_name=_(u'Last Modified'))
 
     objects = ListingManager()
 
@@ -197,15 +197,15 @@ class Listing(models.Model):
 
     def get_address(self):
         if self.sector is None:
-            return u'Ubicación no provista'
+            return _(u'No location provided')
         return '%s, %s, %s' % (self.sector, self.sector.city, self.sector.city.province)
 
     def __unicode__(self):
         return self.title
 
     class Meta:
-        verbose_name = 'Propiedad'
-        verbose_name_plural = 'Propiedades'
+        verbose_name = _(u'Listing')
+        verbose_name_plural = _(u'Listings')
 
     def save(self, **kwargs):
         self._generate_valid_slug()
@@ -253,13 +253,13 @@ class Listing(models.Model):
 
 
 class Attribute(models.Model):
-    name = models.CharField(u'Atributo', max_length=100)
-    validation = models.CharField(u'Tipo de valor', choices=VALIDATIONS, max_length=100)
+    name = models.CharField(_(u'Attribute'), max_length=100)
+    validation = models.CharField(_(u'Value type'), choices=VALIDATIONS, max_length=100)
 
     class Meta:
         ordering = ('name',)
-        verbose_name = 'Atributo'
-        verbose_name_plural = 'Atributos'
+        verbose_name = _(u'Attribute')
+        verbose_name_plural = _(u'Attributes')
 
     def __unicode__(self):
         return self.name
@@ -311,7 +311,9 @@ class OnSale(models.Model):
     end_date = models.DateTimeField(verbose_name=_(u'Deactivation date'))
 
     def __unicode__(self):
-        return '%s - %s' % (self.listing.title, self.listing.sector.name)
+        if self.listing.sector is not None:
+            return '%s - %s' % (self.listing.title, self.listing.sector.name)
+        return self.listing.title
 
     class Meta:
         verbose_name = _(u'Properties on Sale')

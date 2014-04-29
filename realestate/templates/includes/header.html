@@ -12,9 +12,9 @@
     </div>
     <div class="col-md-4 customer_service pull-right text-right">
         <br/>
-        <h4>Contáctanos: 000-000-0000</h4>
+        <h4>Contact Us: 000-000-0000</h4>
         <h4>
-            <small>24 horas al día, 7 días a la semana</small>
+            <small>24/7</small>
         </h4>
     </div>
 </div>
@@ -38,24 +38,26 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li><a href="/" class="first">{% trans "Inicio" %}</a></li>
-                        <li><a href="{% url 'properties_for_sale' %}">{% trans "Venta" %}</a></li>
-                        <li><a href="{% url 'properties_for_rent' %}">{% trans "Renta" %}</a></li>
+                        <li><a href="{% url 'properties_for_sale' %}">{% trans "For Sale" %}</a></li>
+                        <li><a href="{% url 'properties_for_rent' %}">{% trans "For Rent" %}</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                Propiedades <b class="caret"></b>
+                                {% trans "Listings" %} <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="{% url 'all_properties' %}">Propiedades</a></li>
+                                <li>
+                                    <a href="{% url 'all_properties' %}"> {% trans "Listings" %} </a>
+                                </li>
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                Otras páginas <b class="caret"></b>
+                                {% trans "Other pages" %} <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="{% url 'home_aboutus' %}">{% trans "Nosotros" %}</a></li>
-                                <li><a href="{% url 'home_services' %}">{% trans "Servicios" %}</a></li>
-                                <li><a href="{% url 'home_contact' %}">{% trans "Contacto" %}</a></li>
+                                <li><a href="{% url 'home_aboutus' %}">{% trans "About Us" %}</a></li>
+                                <li><a href="{% url 'home_services' %}">{% trans "Services" %}</a></li>
+                                <li><a href="{% url 'home_contact' %}">{% trans "Contact" %}</a></li>
                             </ul>
                         </li>
 

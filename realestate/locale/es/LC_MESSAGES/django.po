@@ -1,0 +1,381 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-04-28 22:52-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: home/forms.py:33 home/forms.py:34
+msgid "All"
+msgstr "Todos"
+
+#: home/forms.py:39 listing/models.py:140
+#, fuzzy
+msgid "Agent"
+msgstr "Agentes Vendedores"
+
+#: home/forms.py:40
+msgid "Location"
+msgstr "Ubicación"
+
+#: home/forms.py:41 listing/models.py:107
+msgid "Sector"
+msgstr "Sector"
+
+#: home/forms.py:42
+msgid "Type"
+msgstr "Tipo"
+
+#: home/forms.py:43 listing/models.py:165
+msgid "Offer"
+msgstr "Oferta"
+
+#: home/forms.py:44 listing/models.py:169
+msgid "Bedrooms"
+msgstr "Habitaciones"
+
+#: home/forms.py:45 listing/models.py:168
+msgid "Bathrooms"
+msgstr "Baños"
+
+#: home/models.py:6
+msgid "Name"
+msgstr "Nombre"
+
+#: home/models.py:7 listing/models.py:120
+msgid "Phone"
+msgstr "Teléfono"
+
+#: home/models.py:8 listing/models.py:121
+msgid "Cellphone"
+msgstr "Celular"
+
+#: home/models.py:9
+msgid "Email"
+msgstr "Email"
+
+#: home/models.py:10
+msgid "Info"
+msgstr "Info"
+
+#: home/models.py:11
+msgid "Date Added"
+msgstr "Agregado en"
+
+#: home/models.py:14 templates/includes/header.html:60
+msgid "Contact"
+msgstr "Contactos"
+
+#: home/models.py:15 templates/admin-panel/includes/sidebar.html:50
+msgid "Contacts"
+msgstr "Contactos"
+
+#: listing/AdminImageWidget.py:17 templates/widget/image.html:4
+msgid "Change:"
+msgstr "Cambiar:"
+
+#: listing/admin.py:21 listing/admin.py:103 listing/admin.py:125
+msgid "Image"
+msgstr "Imagen"
+
+#: listing/admin.py:23
+msgid "Image title"
+msgstr "Título de la imagen"
+
+#: listing/admin.py:58
+msgid "Listing Description"
+msgstr "Descripción"
+
+#: listing/admin.py:65
+msgid "Contact Info"
+msgstr "Información de Contacto"
+
+#: listing/admin.py:83 listing/models.py:162
+msgid "Price"
+msgstr "Precio"
+
+#: listing/admin.py:92
+msgid "(No selection)"
+msgstr "(No seleccionada)"
+
+#: listing/admin.py:101
+msgid "No image"
+msgstr "Sin imagen"
+
+#: listing/admin.py:123
+msgid "Please, add an image"
+msgstr "Agregue una imagen"
+
+#: listing/admin.py:135
+msgid "Invalid validation function specifed!"
+msgstr "Función de validación inválida."
+
+#: listing/models.py:16
+msgid "Apartment"
+msgstr "Apartamento"
+
+#: listing/models.py:17
+msgid "Condo"
+msgstr "Condominio"
+
+#: listing/models.py:18
+msgid "Cottage"
+msgstr "Casa de Campo"
+
+#: listing/models.py:19
+msgid "Farm/Ranch"
+msgstr "Granja"
+
+#: listing/models.py:20
+msgid "House"
+msgstr "Casa"
+
+#: listing/models.py:21
+msgid "Land"
+msgstr "Terreno"
+
+#: listing/models.py:22
+msgid "Office"
+msgstr "Oficina"
+
+#: listing/models.py:23
+msgid "Town House"
+msgstr "Casa de Pueblo"
+
+#: listing/models.py:63 templates/includes/header.html:41
+msgid "For Sale"
+msgstr "En Venta"
+
+#: listing/models.py:63 templates/includes/header.html:42
+msgid "For Rent"
+msgstr "En Renta"
+
+#: listing/models.py:63
+msgid "For Sale/For Rent"
+msgstr "En Venta/En Renta"
+
+#: listing/models.py:66
+msgid "One or more characters"
+msgstr "Uno o más caracteres"
+
+#: listing/models.py:67
+msgid "Integer"
+msgstr "Número entero"
+
+#: listing/models.py:68
+msgid "Yes/No"
+msgstr "Sí/No"
+
+#: listing/models.py:69
+msgid "Decimal"
+msgstr "Decimal"
+
+#: listing/models.py:88 listing/models.py:122
+msgid "City"
+msgstr "Ciudad"
+
+#: listing/models.py:89
+msgid "Cities"
+msgstr "Ciudades"
+
+#: listing/models.py:108
+msgid "Sectors"
+msgstr "Sectores"
+
+#: listing/models.py:123
+msgid "Address"
+msgstr "Dirección"
+
+#: listing/models.py:124
+msgid "Picture"
+msgstr "Fotografía"
+
+#: listing/models.py:125
+#, fuzzy
+msgid "User"
+msgstr "Usuarios"
+
+#: listing/models.py:126 listing/models.py:166
+msgid "Active"
+msgstr "Activo"
+
+#: listing/models.py:141 templates/admin-panel/includes/sidebar.html:45
+msgid "Agents"
+msgstr "Agentes Vendedores"
+
+#: listing/models.py:159
+msgid "Title"
+msgstr "Título"
+
+#: listing/models.py:160
+msgid "Slug"
+msgstr "Slug"
+
+#: listing/models.py:161
+msgid "Description"
+msgstr "Descripción"
+
+#: listing/models.py:164
+msgid "Listing Type"
+msgstr "Tipo de Propiedad"
+
+#: listing/models.py:167
+msgid "Featured"
+msgstr "Destacada"
+
+#: listing/models.py:170
+msgid "Size(m2)"
+msgstr "Tamaño(m2)"
+
+#: listing/models.py:171
+msgid "Coords"
+msgstr "Coordenadas"
+
+#: listing/models.py:175
+msgid "Private Notes"
+msgstr "Notas Privadas"
+
+#: listing/models.py:176
+msgid "Created"
+msgstr "Creado en"
+
+#: listing/models.py:177
+msgid "Last Modified"
+msgstr "Última modificación"
+
+#: listing/models.py:200
+msgid "No location provided"
+msgstr "Ubicación no disponible"
+
+#: listing/models.py:207
+msgid "Listing"
+msgstr "Propiedad"
+
+#: listing/models.py:208 templates/admin-panel/listings.html:11
+#: templates/admin-panel/includes/sidebar.html:39
+#: templates/includes/header.html:45 templates/includes/header.html.py:49
+msgid "Listings"
+msgstr "Propiedades"
+
+#: listing/models.py:256 listing/models.py:261
+#, fuzzy
+msgid "Attribute"
+msgstr "Atributo"
+
+#: listing/models.py:257
+msgid "Value type"
+msgstr "Tipo de valor"
+
+#: listing/models.py:262
+#, fuzzy
+msgid "Attributes"
+msgstr "Atributos"
+
+#: listing/models.py:271
+msgid "Value"
+msgstr "Valor"
+
+#: listing/models.py:275
+msgid "Listing attribute"
+msgstr "Atributo"
+
+#: listing/models.py:276
+msgid "Listing attributes"
+msgstr "Atributos"
+
+#: listing/models.py:310
+msgid "Activation date"
+msgstr "Fecha de activación"
+
+#: listing/models.py:311
+msgid "Deactivation date"
+msgstr "Fecha de desactivación"
+
+#: listing/models.py:319
+msgid "Properties on Sale"
+msgstr "Propiedades en Oferta"
+
+#: listing/models.py:320
+msgid "Property on Sale"
+msgstr "Propiedad en Oferta"
+
+#: templates/admin/base_site.html:7
+msgid "Real Estate Admin Site"
+msgstr "Administración - Bienes Raíces"
+
+#: templates/admin-panel/create-listing.html:7
+msgid "Create Listing"
+msgstr "Crear Propiedad"
+
+#: templates/admin-panel/listings.html:8
+msgid "Add New"
+msgstr "Agregar Nuevo"
+
+#: templates/admin-panel/includes/header.html:29
+msgid "Profile"
+msgstr "Perfil"
+
+#: templates/admin-panel/includes/header.html:32
+msgid "Sign out"
+msgstr "Cerrar sesión"
+
+#: templates/admin-panel/includes/sidebar.html:32
+msgid "Dashboard"
+msgstr "Panel principal"
+
+#: templates/admin-panel/includes/sidebar.html:55
+msgid "Users"
+msgstr "Usuarios"
+
+#: templates/includes/header.html:40
+msgid "Inicio"
+msgstr ""
+
+#: templates/includes/header.html:55
+msgid "Other pages"
+msgstr "Otras páginas"
+
+#: templates/includes/header.html:58
+msgid "About Us"
+msgstr "Nosotros"
+
+#: templates/includes/header.html:59
+msgid "Services"
+msgstr "Servicios"
+
+#: templates/widget/image.html:2
+msgid "Currently:"
+msgstr "Actualmente:"
+
+#: templates/widgets/deals.html:3
+msgid "De Oportunidad"
+msgstr ""
+
+#: templates/widgets/links.html:3
+msgid "Enlaces"
+msgstr ""
+
+#: templates/widgets/links.html:9
+msgid "No hay enlaces para mostrar."
+msgstr ""
+
+#: templates/widgets/news.html:3
+msgid "Noticias"
+msgstr ""
+
+#: templates/widgets/news.html:12
+msgid "No hay noticias recientes."
+msgstr ""

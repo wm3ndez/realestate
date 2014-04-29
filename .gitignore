@@ -5,6 +5,7 @@ build/*
 
 *.pyc
 *.db
+*.mo
 
 testproject/media/*
 testproject/static/admin/*

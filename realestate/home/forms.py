@@ -1,5 +1,6 @@
 from realestate.listing.models import DOMINICAN_PROVINCES, OFFERS, TYPES, Agent, Sector
 from django import forms
+from django.utils.translation import ugettext as _
 
 BATHROOMS_RANGE = (
     ('', '--'),
@@ -29,19 +30,19 @@ BEDROOMS_RANGE = (
     ('10', '10+'),
 )
 
-PROVINCIAS_CHOICES = (('', 'Todas'),) + DOMINICAN_PROVINCES
-TIPO_PROPIEDADES_CHOICES = (('', 'Todos'),) + TYPES
+PROVINCIAS_CHOICES = (('', _('All')),) + DOMINICAN_PROVINCES
+TIPO_PROPIEDADES_CHOICES = (('', _('All')),) + TYPES
 
 
 class SearchForm(forms.Form):
     id = forms.CharField(required=False)
-    agente = forms.ModelChoiceField(queryset=Agent.objects.all(), required=False)
-    location = forms.ChoiceField(choices=PROVINCIAS_CHOICES, required=False)
-    sector = forms.ModelChoiceField(queryset=Sector.objects.containing_properties(), required=False)
-    tipo = forms.ChoiceField(choices=TIPO_PROPIEDADES_CHOICES, required=False)
-    oferta = forms.ChoiceField(choices=OFFERS, required=False)
-    beds = forms.ChoiceField(choices=BEDROOMS_RANGE, required=False)
-    baths = forms.ChoiceField(choices=BATHROOMS_RANGE, required=False)
+    agente = forms.ModelChoiceField(label=_('Agent'), queryset=Agent.objects.all(), required=False)
+    location = forms.ChoiceField(label=_('Location'), choices=PROVINCIAS_CHOICES, required=False)
+    sector = forms.ModelChoiceField(label=_('Sector'), queryset=Sector.objects.containing_properties(), required=False)
+    tipo = forms.ChoiceField(label=_('Type'), choices=TIPO_PROPIEDADES_CHOICES, required=False)
+    oferta = forms.ChoiceField(label=_('Offer'), choices=OFFERS, required=False)
+    beds = forms.ChoiceField(label=_('Bedrooms'), choices=BEDROOMS_RANGE, required=False)
+    baths = forms.ChoiceField(label=_('Bathrooms'), choices=BATHROOMS_RANGE, required=False)
 
 
 class ContactForm(forms.Form):

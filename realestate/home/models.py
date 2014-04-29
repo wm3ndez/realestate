@@ -1,47 +1,28 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.utils.translation import ugettext as _
 
 
-class News(models.Model):
-    title = models.CharField(max_length=100)
-    slug = models.CharField(max_length=100)
-    content = models.TextField()
-    author = models.ForeignKey(User)
-    date_added = models.DateTimeField(auto_now_add=True)
-    date_published = models.DateTimeField()
-    active = models.BooleanField(default=False)
-    tags = models.CharField(max_length=255)
-    featured = models.BooleanField(default=False)
+class Contact(models.Model):
+    name = models.CharField(_('Name'), max_length=60)
+    phone = models.CharField(_('Phone'), max_length=20, null=True, blank=True)
+    cellphone = models.CharField(_('Cellphone'), max_length=20, null=True, blank=True)
+    email = models.EmailField(_('Email'), null=True, blank=True)
+    info = models.TextField(_('Info'), null=True, blank=True)
+    date_added = models.DateTimeField(_('Date Added'), auto_now_add=True)
 
     class Meta:
-        verbose_name = 'Articule'
-        verbose_name_plural = 'News'
+        verbose_name = _('Contact')
+        verbose_name_plural = _('Contacts')
 
     def __unicode__(self):
-        return self.title
-
-
-class Contacto(models.Model):
-    nombre = models.CharField(max_length=60)
-    telefono = models.CharField(max_length=20, null=True, blank=True)
-    celular = models.CharField(max_length=20, null=True, blank=True)
-    email = models.EmailField(null=True, blank=True)
-    info = models.TextField(null=True, blank=True)
-    date_added = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        verbose_name = 'Contacto'
-        verbose_name_plural = 'Contactos'
-
-    def __unicode__(self):
-        return self.nombre
+        return self.name
 
 
 class Links(models.Model):
     name = models.CharField(max_length=32)
     link = models.URLField(max_length=255)
     description = models.CharField(max_length=150)
-    contacto = models.OneToOneField(Contacto)
+    contact = models.OneToOneField(Contact)
     active = models.BooleanField(default=False)
 
     def get_url(self):
