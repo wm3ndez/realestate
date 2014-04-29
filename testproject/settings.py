@@ -96,6 +96,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.sites',
     'django.contrib.humanize',
+    'django.contrib.staticfiles',
+
     'django_extensions',
     'south',
     'sorl.thumbnail',
@@ -104,8 +106,6 @@ INSTALLED_APPS = (
     'realestate.home',
     'testproject',
     'testproject.localsite',
-    'django.contrib.staticfiles',
-    'gunicorn',
     'rest_framework',
     'discoverage'
 
