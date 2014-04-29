@@ -4,4 +4,4 @@ python:
 
 install: pip install -r requirements.txt --use-mirrors
 
-script:  fab test_app
+script:  python testproject/manage.py test
