@@ -249,7 +249,7 @@ class Listing(models.Model):
         return attributes
 
     def nearby(self):
-        return Listing.objects.filter(sector=self.sector).order_by('?')[:4]
+        return Listing.objects.filter(sector=self.sector).exclude(id=self.id).order_by('?')[:4]
 
 
 class Attribute(models.Model):
