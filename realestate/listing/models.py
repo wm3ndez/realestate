@@ -239,7 +239,7 @@ class Listing(models.Model):
             if attribute.attribute.validation == 'realestate.listing.utils.validation_simple':
                 attributes.append(u'%s: %s' % (attribute.attribute.name, attribute.value))
             elif attribute.attribute.validation == 'realestate.listing.utils.validation_yesno':
-                attributes.append(u'%s' % attribute.value)
+                attributes.append(u'%s' % attribute.attribute.name)
             else:
                 if attribute.attribute.validation == 'realestate.listing.utils.validation_integer':
                     attributes.append(u'%s %s' % (attribute.value, attribute.attribute.name))
@@ -250,6 +250,14 @@ class Listing(models.Model):
 
     def nearby(self):
         return Listing.objects.filter(sector=self.sector).exclude(id=self.id).order_by('?')[:4]
+
+    @property
+    def should_have_beds(self):
+        return self.type not in ('office', 'land')
+
+    @property
+    def should_have_baths(self):
+        return self.type not in ('land')
 
 
 class Attribute(models.Model):
