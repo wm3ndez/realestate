@@ -237,14 +237,14 @@ class Listing(models.Model):
         attributes = []
         for attribute in self.attributelisting_set.all():
             if attribute.attribute.validation == 'realestate.listing.utils.validation_simple':
-                attributes.append(u'%s: %s' % (attribute.attribute.nombre, attribute.value))
+                attributes.append(u'%s: %s' % (attribute.attribute.name, attribute.value))
             elif attribute.attribute.validation == 'realestate.listing.utils.validation_yesno':
                 attributes.append(u'%s' % attribute.value)
             else:
                 if attribute.attribute.validation == 'realestate.listing.utils.validation_integer':
-                    attributes.append(u'%s %s' % (attribute.value, attribute.attribute.nombre))
+                    attributes.append(u'%s %s' % (attribute.value, attribute.attribute.name))
                 else:
-                    attributes.append(u'%.2f %s' % (attribute.value, attribute.attribute.nombre))
+                    attributes.append(u'%.2f %s' % (attribute.value, attribute.attribute.name))
 
         return attributes
 

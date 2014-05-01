@@ -31,10 +31,10 @@ def validation_yesno(value, obj=None):
     Validates that yes or no is entered.
     Converts the yes or no to capitalized version
     """
-    if string.upper(value) in ["SI", "NO"]:
+    if string.upper(value) in ["YES", "NO"]:
         return True, string.capitalize(value), ''
     else:
-        return False, value, u'El valor digitado debe ser SI o NO'
+        return False, value, u'El valor digitado debe ser YES o NO'
 
 
 def validation_decimal(value, obj=None):
@@ -42,7 +42,7 @@ def validation_decimal(value, obj=None):
     Validates that the number can be converted to a decimal
     """
     try:
-        check = Decimal(value)
+        Decimal(value)
         return True, value, ''
     except:
         return False, value, u'El valor digitado debe ser un número decimal'
