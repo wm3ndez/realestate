@@ -36,12 +36,12 @@
 <body class="skin-blue">
 <!-- header logo: style can be found in header.less -->
 {% block header %}
-    {% include 'admin-panel/includes/header.html' %}
+    {% include 'dashboard/includes/header.html' %}
 {% endblock %}
 <div class="wrapper row-offcanvas row-offcanvas-left">
     <!-- Left side column. contains the logo and sidebar -->
     {% block sidebar %}
-        {% include 'admin-panel/includes/sidebar.html' %}
+        {% include 'dashboard/includes/sidebar.html' %}
     {% endblock %}
 
     <!-- Right side column. Contains the navbar and content of the page -->
@@ -51,7 +51,7 @@
             <h1>
                 {% block content-header %}{% endblock %}
             </h1>
-            {% include 'admin-panel/includes/breadcrumb.html' %}
+            {% include 'dashboard/includes/breadcrumb.html' %}
         </section>
 
         <!-- Main content -->
