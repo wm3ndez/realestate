@@ -39,9 +39,9 @@ urlpatterns = patterns(
     (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': {'blog': sitemap.ListingSitemap}}),
 
     # Django apps
-    (r'^admin/', include('realestate.admin.urls')),  # Custom Admin Site
+    (r'^dashboard/', include('realestate.admin.urls')),  # Custom Admin Site
 
-    (r'^admin2/', include(admin.site.urls)),  # Enabling Admin
+    (r'^admin/', include(admin.site.urls)),  # Enabling Admin
     (r'^i18n/', include('django.conf.urls.i18n')),
 )
 
