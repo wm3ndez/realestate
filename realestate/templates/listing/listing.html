@@ -5,7 +5,7 @@
 
     <div class="modal hide" id="mapModal">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">Close</button>
+            <button type="button" class="close" data-dismiss="modal">{% trans "Close" %}</button>
         </div>
         <div class="modal-body">
             <iframe width="620" height="414"
@@ -14,7 +14,7 @@
     </div>
     <div class="modal hide" id="streetModal">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">Close</button>
+            <button type="button" class="close" data-dismiss="modal">{% trans "Close" %}</button>
         </div>
         {% comment %}
         <div class="modal-body">
@@ -45,16 +45,16 @@
                     <!-- Start slideshow-carousel -->
                     <div id="showcase-loader"></div>
                     <div id="showcase" class="showcase">
-                        {% for imagen in listing.imagenpropiedad_set.all %}
-                            {% thumbnail imagen.imagen "620x410" crop="center" as bigimage %}
-                                {% thumbnail imagen.imagen "116x90" crop="center" as thumb %}
+                        {% for imagen in listing.images.all %}
+                            {% thumbnail imagen.image "620x410" crop="center" as bigimage %}
+                                {% thumbnail imagen.image "116x90" crop="center" as thumb %}
 
                                     <div class="showcase-slide">
                                         <div class="showcase-content">
-                                            <img src="{{ bigimage.url }}" alt="{{ bigimage.titulo }}"/>
+                                            <img src="{{ bigimage.url }}" alt="{{ bigimage.title }}"/>
                                         </div>
                                         <div class="showcase-thumbnail">
-                                            <img src="{{ thumb.url }}" alt="{{ thumb.titulo }}"/>
+                                            <img src="{{ thumb.url }}" alt="{{ thumb.title }}"/>
 
                                             <div class="showcase-thumbnail-cover"></div>
                                         </div>
@@ -74,31 +74,31 @@
                     <h4>Características</h4>
 
                     <div class="row">
-                        {% feature_list propiedad %}
+                        {% feature_list listing %}
                     </div>
 
-                    <h4>Descripción</h4>
+                    <h4>{% trans "Description" %}</h4>
 
-                    <p>{{ listing.descripcion }}</p>
+                    <p>{{ listing.description }}</p>
                     <br/>
 
-                    <h4>Otras propiedades en esta área</h4>
+                    <h4>{% trans "More properties on this area" %}</h4>
                     <ul class="thumbnails">
-                        {% for en_area in listing.propiedades_en_el_area %}
+                        {% for en_area in listing.nearby %}
                             <li class="col-md-3 list-group-item">
-                                <a href="{{ en_area.get_absolute_url }}">
-                                    {% thumbnail en_area.imagen_principal.imagen "130x87" crop="center" as image %}
-                                        <img src="{{ image.url }}" alt="{{ en_area.titulo }}">
+                                <a href="{{ en_area.absolute_url }}">
+                                    {% thumbnail en_area.main_image.image "130x87" crop="center" as image %}
+                                        <img src="{{ image.url }}" alt="{{ en_area.title }}">
                                     {% endthumbnail %}
                                 </a>
                                 <h5>Precio : {{ en_area.price|currency }}</h5>
 
-                                <p><a href="{{ en_area.get_absolute_url }}">{{ en_area.titulo }}</a><br/>
-                                    {{ en_area.get_address }}
+                                <p><a href="{{ en_area.absolute_url }}">{{ en_area.title }}</a><br/>
+                                    {{ en_area.address }}
                                 </p>
                             </li>
                         {% empty %}
-                            No hay más propiedades en esta área.
+                            {% trans "0 properties near by." %}
                         {% endfor %}
                     </ul>
                 </div>
@@ -114,25 +114,25 @@
 
                 <p>
                     <br/>
-                    <a data-toggle="modal" href="#mapModal">Agrandar Mapa</a><br/>
+                    <a data-toggle="modal" href="#mapModal">{% trans "Zoom in Map" %}</a><br/>
                 </p>
                 <hr/>
             </div>
             <div id="contact_agent" class="center">
 
                 <a href="#">
-                    {% thumbnail listing.agente.fotografia "108x108" crop="center" as imagen_agente %}
-                        <img src="{{ imagen_agente.url }}" alt="{{ listing.agente }}"/>
+                    {% thumbnail listing.agent.image "108x108" crop="center" as imagen_agente %}
+                        <img src="{{ imagen_agente.url }}" alt="{{ listing.agent }}"/>
                     {% endthumbnail %}
                 </a>
 
-                <p>{{ listing.agente }}<br/>
-                    {{ listing.agente.user.email }}
-                    {% if listing.agente.telefono %}<br/>Tel. {{ listing.agente.telefono }}{% endif %}
-                    {% if listing.agente.celular %}<br/>Móvil. {{ listing.agente.celular }}{% endif %}
+                <p>{{ listing.agent }}<br/>
+                    {{ listing.agent.user.email }}
+                    {% if listing.agent.phone %}<br/>{% trans "Phone" %}. {{ listing.agente.telefono }}{% endif %}
+                    {% if listing.agent.cellphone %}<br/>{% trans "Mobile" %}. {{ listing.agent.cellphone }}{% endif %}
                 </p>
 
-                <h4>Contactar este agente</h4>
+                <h4>{% trans "Contact agent" %}</h4>
 
                 <form class="form-inline" method="post" action="">
                     {% csrf_token %}
@@ -149,7 +149,7 @@
 
                         {% endfor %}
                         <div class="form-actions">
-                            <button type="submit" class="btn btn-primary btn-large">Contactar agente</button>
+                            <button type="submit" class="btn btn-primary btn-large">{% trans "Contact agent" %}</button>
                         </div>
                     </fieldset>
                 </form>

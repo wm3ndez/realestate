@@ -1,4 +1,4 @@
-{% load extra_functions thumbnail %}
+{% load i18n extra_functions thumbnail %}
 
 <ul class="thumbnails">
     {% for listing in results.object_list %}
@@ -10,7 +10,7 @@
                              title="{{ listing.title }}"/>
                     {% endthumbnail %}
                 </a>
-                <h5>Price : {{ listing.price|currency }}</h5>
+                <h5>{% trans "Price" %} : {{ listing.price|currency }}</h5>
 
                 <p>
                     <a href="{{ listing.absolute_url }}">{{ listing.title }}</a><br>{{ listing.address }}

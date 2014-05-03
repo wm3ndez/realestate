@@ -1,36 +1,32 @@
-{% load extra_functions thumbnail %}
-
+{% load i18n extra_functions thumbnail %}
 
 {% for listing in results.object_list %}
     <div class="row ">
         <div class="col-md-2">
-            <a href="{{ listing.get_absolute_url }}" class="thumbnail">
-                {% thumbnail listing.imagen_principal.imagen "135x90" crop="center" as image %}
+            <a href="{{ listing.absolute_url }}" class="thumbnail">
+                {% thumbnail listing.main_image.image "135x90" crop="center" as image %}
                     <img align="middle" src="{{ image.url }}" alt="{{ listing.title }}"
                          title="{{ listing.title }}"/>
                 {% endthumbnail %}
             </a>
-            <h5>Precio: {{ listing.price|currency }}</h5>
-            <h6>Dormitorios: {{ listing.dormitorios }}</h6>
-            {#            <h6>Days on site: 4</h6>#}
-            <h6>Área Const.: {{ listing.tamano_construccion }} mt&sup2;</h6>
+            <h5>{% trans "Price" %}: {{ listing.price|currency }}</h5>
+            <h6>{% trans "Bedrooms" %}: {{ listing.beds }}</h6>
+            <h6>{% trans "Size" %}: {{ listing.size }} mt&sup2;</h6>
         </div>
 
         <div class="col-md-6">
             <a href="{{ listing.get_absolute_url }}"><h3>{{ listing.title }}</h3></a>
 
-            <p>{{ listing.descripcion }}</p>
+            <p>{{ listing.description }}</p>
 
-            <p><a href="{{ listing.get_absolute_url }}">Más detalles, {{ listing.images.count }} fotos,
-                etc</a>
-                {#                | <a href="#">Save listing</a> | <a href="#">Contact agent</a> | <a href="#">Upgrade listing</a>#}
+            <p>
+                <a href="{{ listing.absolute_url }}">{% trans "More details" %}, {{ listing.images.count }} {% trans "pictures" %},
+                    etc</a>
             </p>
-
-            {#            <p>Marketed by Knight Frank, Richmond. Telephone: 0843 314 8224 <a href="#">BT 4p/min</a></p>#}
         </div>
     </div>
     <hr/>
 {% empty %}
-    <h4>No hay propiedades a mostrar.</h4>
+    <h4>{% trans "0 properties to show." %}</h4>
 {% endfor %}
 

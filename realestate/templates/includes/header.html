@@ -12,7 +12,7 @@
     </div>
     <div class="col-md-4 customer_service pull-right text-right">
         <br/>
-        <h4>Contact Us: 000-000-0000</h4>
+        <h4>{% trans "Contact Us" %}: 000-000-0000</h4>
         <h4>
             <small>24/7</small>
         </h4>
@@ -27,7 +27,7 @@
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse"
                             data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
+                        <span class="sr-only">{% trans "Toggle navigation" %}</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -37,7 +37,7 @@
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a href="/" class="first">{% trans "Inicio" %}</a></li>
+                        <li><a href="/" class="first">{% trans "Home" %}</a></li>
                         <li><a href="{% url 'properties_for_sale' %}">{% trans "For Sale" %}</a></li>
                         <li><a href="{% url 'properties_for_rent' %}">{% trans "For Rent" %}</a></li>
                         <li class="dropdown">
