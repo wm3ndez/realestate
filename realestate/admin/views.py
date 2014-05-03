@@ -7,11 +7,11 @@ from realestate.listing.models import Listing, Agent
 from realestate.admin.forms import ListingForm, ListingImageFormSet, AttributeListingFormSet
 
 
-class Dashboard(TemplateView, StaffuserRequiredMixin):
+class Dashboard(LoginRequiredMixin, StaffuserRequiredMixin, TemplateView):
     template_name = 'dashboard/dashboard.html'
 
 
-class CreateListing(CreateView, StaffuserRequiredMixin):
+class CreateListing(LoginRequiredMixin, StaffuserRequiredMixin, CreateView):
     template_name = 'dashboard/create-listing.html'
     model = Listing
     form_class = ListingForm
@@ -45,7 +45,7 @@ class CreateListing(CreateView, StaffuserRequiredMixin):
         return self.render_to_response(self.get_context_data(form=form))
 
 
-class Listings(ListView, StaffuserRequiredMixin):
+class Listings(LoginRequiredMixin, StaffuserRequiredMixin, ListView):
     template_name = 'dashboard/listings.html'
     model = Listing
 
@@ -57,7 +57,7 @@ class Agents(LoginRequiredMixin, StaffuserRequiredMixin, OrderableListMixin, Lis
     orderable_columns_default = 'id'
 
 
-class CreateAgent(CreateView, LoginRequiredMixin, StaffuserRequiredMixin):
+class CreateAgent(LoginRequiredMixin, StaffuserRequiredMixin, CreateView):
     template_name = 'dashboard/create-agent.html'
     model = Agent
     success_url = reverse_lazy('admin-list-agents')
@@ -70,7 +70,7 @@ class Contacts(LoginRequiredMixin, StaffuserRequiredMixin, OrderableListMixin, L
     orderable_columns_default = 'id'
 
 
-class CreateContact(CreateView, LoginRequiredMixin, StaffuserRequiredMixin):
+class CreateContact(LoginRequiredMixin, StaffuserRequiredMixin, CreateView):
     template_name = 'dashboard/create-contact.html'
     model = Contact
     success_url = reverse_lazy('admin-list-contacts')
