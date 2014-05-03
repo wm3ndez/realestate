@@ -1,7 +1,7 @@
-from braces.views import StaffuserRequiredMixin, LoginRequiredMixin, SelectRelatedMixin, OrderableListMixin
+from braces.views import StaffuserRequiredMixin, LoginRequiredMixin, OrderableListMixin
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import TemplateView, CreateView, ListView
-from home.models import Contact
+from realestate.home.models import Contact
 from realestate.listing.models import Listing, Agent
 from realestate.admin.forms import ListingForm
 
