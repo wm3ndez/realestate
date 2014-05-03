@@ -24,6 +24,15 @@
     <div class="header">{% trans "Sign In" %}</div>
     <form action="" method="post">{% csrf_token %}
         <div class="body bg-gray">
+            {% if form.errors %}
+                <ul>
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
             <div class="form-group">
                 {{ form.username|widget_attrs:"class:form-control"|widget_with_placeholder:form.username.label }}
             </div>
@@ -35,7 +44,6 @@
             <button type="submit" class="btn bg-olive btn-block">{% trans "Sign In" %}</button>
         </div>
     </form>
-    {% if form.errors %}{{ form.errors }}{% endif %}
 
 </div>
 
