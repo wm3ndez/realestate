@@ -379,6 +379,15 @@ msgstr "Contactos"
 msgid "Create Listing"
 msgstr "Crear Propiedad"
 
+msgid "Listing Information"
+msgstr "Datos de la propiedad"
+
+msgid "Listing Images"
+msgstr "Imágenes de la propiedad"
+
+msgid "Listing Features"
+msgstr "Atributos de la propiedad"
+
 #: templates/dashboard/includes/header.html:29
 msgid "Profile"
 msgstr "Perfil"
