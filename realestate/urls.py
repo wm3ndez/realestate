@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.views.generic import TemplateView
 from rest_framework import routers
+from home.views import ContactView
 from realestate.api import PropiedadViewSet
 from realestate.listing import sitemap
 
@@ -25,11 +26,12 @@ urlpatterns = patterns(
     url(r'^agents/$', 'realestate.listing.views.agents', name='agents'),
     url(r'^agents/listing/(?P<agent>[\d]+)/$', 'realestate.listing.views.agent_listings', name='agent-listings'),
     url(r'^get_map/$', 'realestate.listing.views.get_map', name='mapa-propiedades'),  # Ajax
+    url(r'^contact/$', ContactView.as_view(), name='home_contact'),
 
     # Static Pages
     url(r'^about-us/$', TemplateView.as_view(template_name='home/about-us.html'), name='home_aboutus'),
-    url(r'^contact/$', TemplateView.as_view(template_name='home/contact-us.html'), name='home_contact'),
     url(r'^services/$', TemplateView.as_view(template_name='home/services.html'), name='home_services'),
+    url(r'^thank-you/$', TemplateView.as_view(template_name='home/thank-you.html'), name='thank-you'),
 
     # API
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),

@@ -1,6 +1,8 @@
 from realestate.listing.models import DOMINICAN_PROVINCES, OFFERS, TYPES, Agent, Sector
 from django import forms
 from django.utils.translation import ugettext as _
+from django.conf import settings
+from django.core.mail import send_mail
 
 BATHROOMS_RANGE = (
     ('', '--'),
@@ -46,6 +48,18 @@ class SearchForm(forms.Form):
 
 
 class ContactForm(forms.Form):
+    name = forms.CharField(max_length=60, required=True)
     subject = forms.CharField(max_length=60, required=True)
     email = forms.EmailField(required=True)
-    message = forms.CharField(widget=forms.Textarea)
+    message = forms.CharField(widget=forms.Textarea, required=True)
+
+    from_email = settings.DEFAULT_FROM_EMAIL
+
+    recipient_list = [mail_tuple[1] for mail_tuple in settings.MANAGERS]
+
+    def send_email(self):
+        from_email = self.cleaned_data['email']
+        from_name = '%s<%s>' % (self.cleaned_data['name'], from_email)
+        subject = self.cleaned_data['subject']
+        message = self.cleaned_data['message']
+        send_mail(subject, message, from_name, self.recipient_list)

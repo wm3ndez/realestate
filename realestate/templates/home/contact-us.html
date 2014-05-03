@@ -1,1 +1,44 @@
 {% extends "base_theme.html" %}
+{% load i18n realestateforms %}
+{% block content %}
+    <form action="{% url 'home_contact' %}" method="post" class="form-horizontal" role="form">
+        {% csrf_token %}
+        <div class="form-group{% if form.name.errors %} has-error{% endif %}">
+            <label for="name_id" class="col-sm-2 control-label">
+                {{ form.name.label }}
+            </label>
+
+            <div class="col-sm-6">
+                {{ form.name|widget_attrs:"class:form-control" }}
+            </div>
+        </div>
+        <div class="form-group{% if form.email.errors %} has-error{% endif %}">
+            <label for="email_id" class="col-sm-2 control-label">
+                {{ form.email.label }}
+            </label>
+
+            <div class="col-sm-6">
+                {{ form.email|widget_attrs:"class:form-control" }}
+            </div>
+        </div>
+        <div class="form-group{% if form.subject.errors %} has-error{% endif %}">
+            <label for="subject_id" class="col-sm-2 control-label">{{ form.subject.label }}</label>
+
+            <div class="col-sm-6">
+                {{ form.subject|widget_attrs:"class:form-control" }}
+            </div>
+        </div>
+        <div class="form-group{% if form.message.errors %} has-error{% endif %}">
+            <label for="message_id" class="col-sm-2 control-label">{{ form.message.label }}</label>
+
+            <div class="col-sm-6">
+                {{ form.message|widget_attrs:"class:form-control" }}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">{% trans "Send" %}</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
