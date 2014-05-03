@@ -34,7 +34,7 @@ class CreateListing(CreateView, StaffuserRequiredMixin):
         if listing_images_form.is_valid() and form.is_valid() and listing_attributes_form.is_valid():
             self.object = form.save()  # saves Father and Children
             listing_images_form.instance = self.object
-            listing_images_form.instance.save()
+            listing_images_form.save()
             listing_attributes_form.instance = self.object
             listing_attributes_form.save()
             return HttpResponseRedirect(self.get_success_url())
