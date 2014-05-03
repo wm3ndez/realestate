@@ -170,7 +170,7 @@ class Listing(models.Model):
     size = models.PositiveIntegerField(_(u'Size(m2)'), default=0, null=True, blank=True)
     coords = models.CharField(max_length=255, default='19.000000,-70.400000', verbose_name=_(u'Coords'), null=True,
                               blank=True)
-    agent = models.ForeignKey(Agent, null=True, blank=True)
+    agent = models.ForeignKey(Agent, null=True, blank=True, verbose_name=_('Agent'))
     contact = models.ForeignKey(Contact, null=True, blank=True)
     notes = models.TextField(max_length=500, verbose_name=_(u'Private Notes'), null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Created'))
@@ -289,11 +289,11 @@ class AttributeListing(models.Model):
 
 
 class ListingImage(models.Model):
-    listing = models.ForeignKey(Listing, related_name='images')
-    name = models.CharField(max_length=60)
-    image = ImageField(upload_to='listing/')
-    added = models.DateTimeField(auto_now_add=True)
-    order = models.IntegerField(max_length=2, default=99, null=True)
+    listing = models.ForeignKey(Listing, related_name='images', verbose_name=_('Listing'))
+    name = models.CharField(_('Name'), max_length=60)
+    image = ImageField(_('Image'), upload_to='listing/')
+    added = models.DateTimeField(_('Added'), auto_now_add=True)
+    order = models.IntegerField(_('Order'), max_length=2, default=99, null=True)
 
     ordering = ['order']
 
@@ -308,13 +308,13 @@ class ListingImage(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = 'Picture'
-        verbose_name_plural = 'Pictures'
+        verbose_name = _('Picture')
+        verbose_name_plural = _('Pictures')
 
 
 class OnSale(models.Model):
-    listing = models.ForeignKey(Listing)
-    active = models.BooleanField(default=False)
+    listing = models.ForeignKey(Listing, verbose_name=_('Listing'))
+    active = models.BooleanField(_('Active'), default=False)
     start_date = models.DateTimeField(verbose_name=_(u'Activation date'))
     end_date = models.DateTimeField(verbose_name=_(u'Deactivation date'))
 

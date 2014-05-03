@@ -33,7 +33,6 @@ class VardumpRenderer(template.Node):
 
 
 def render(self, context):
-    var = self.var
     try:
         var = template.resolve_variable(self.var, context)
         t = type(var)

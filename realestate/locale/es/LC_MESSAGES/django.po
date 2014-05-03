@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-03 02:01-0400\n"
+"POT-Creation-Date: 2014-05-03 02:19-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,8 +22,7 @@ msgstr ""
 msgid "All"
 msgstr "Todos"
 
-#: home/forms.py:41 listing/models.py:140
-#, fuzzy
+#: home/forms.py:41 listing/models.py:140 listing/models.py:173
 msgid "Agent"
 msgstr "Agentes Vendedores"
 
@@ -52,7 +51,7 @@ msgstr "Habitaciones"
 msgid "Bathrooms"
 msgstr "Baños"
 
-#: home/models.py:6 templates/dashboard/agents.html:29
+#: home/models.py:6 listing/models.py:293 templates/dashboard/agents.html:29
 #: templates/dashboard/agents.html.py:51 templates/dashboard/contacts.html:29
 #: templates/dashboard/contacts.html:51
 msgid "Name"
@@ -93,11 +92,8 @@ msgstr "Contactos"
 msgid "Contacts"
 msgstr "Contactos"
 
-#: listing/AdminImageWidget.py:17 templates/widget/image.html:4
-msgid "Change:"
-msgstr "Cambiar:"
-
 #: listing/admin.py:21 listing/admin.py:103 listing/admin.py:125
+#: listing/models.py:294
 msgid "Image"
 msgstr "Imagen"
 
@@ -214,8 +210,8 @@ msgstr "Sectores"
 msgid "Address"
 msgstr "Dirección"
 
-#: listing/models.py:124 templates/dashboard/agents.html:43
-#: templates/dashboard/agents.html.py:55
+#: listing/models.py:124 listing/models.py:311
+#: templates/dashboard/agents.html:43 templates/dashboard/agents.html.py:55
 msgid "Picture"
 msgstr "Fotografía"
 
@@ -224,7 +220,7 @@ msgstr "Fotografía"
 msgid "User"
 msgstr "Usuarios"
 
-#: listing/models.py:126 listing/models.py:166
+#: listing/models.py:126 listing/models.py:166 listing/models.py:317
 msgid "Active"
 msgstr "Activo"
 
@@ -279,7 +275,7 @@ msgstr "Última modificación"
 msgid "No location provided"
 msgstr "Ubicación no disponible"
 
-#: listing/models.py:207
+#: listing/models.py:207 listing/models.py:292 listing/models.py:316
 msgid "Listing"
 msgstr "Propiedad"
 
@@ -315,6 +311,19 @@ msgstr "Atributo"
 #: listing/models.py:284
 msgid "Listing attributes"
 msgstr "Atributos"
+
+#: listing/models.py:295
+msgid "Added"
+msgstr "Agregado en"
+
+#: listing/models.py:296
+msgid "Order"
+msgstr "Orden"
+
+#: listing/models.py:312
+#, fuzzy
+msgid "Pictures"
+msgstr "Fotografía"
 
 #: listing/models.py:318
 msgid "Activation date"
@@ -509,6 +518,10 @@ msgstr "Contactar agente"
 #: templates/widget/image.html:2
 msgid "Currently:"
 msgstr "Actualmente:"
+
+#: templates/widget/image.html:4
+msgid "Change:"
+msgstr "Cambiar:"
 
 #: templates/widgets/deals.html:3
 msgid "De Oportunidad"
