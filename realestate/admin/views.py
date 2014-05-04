@@ -1,6 +1,6 @@
 from braces.views import StaffuserRequiredMixin, LoginRequiredMixin, OrderableListMixin
 from django.core.urlresolvers import reverse_lazy
-from django.views.generic import TemplateView, CreateView, ListView
+from django.views.generic import TemplateView, CreateView, ListView, UpdateView
 from django.http import HttpResponseRedirect
 from realestate.home.models import Contact
 from realestate.listing.models import Listing, Agent
@@ -63,6 +63,12 @@ class CreateAgent(LoginRequiredMixin, StaffuserRequiredMixin, CreateView):
     success_url = reverse_lazy('admin-list-agents')
 
 
+class UpdateAgent(LoginRequiredMixin, StaffuserRequiredMixin, UpdateView):
+    template_name = 'dashboard/create-agent.html'
+    model = Agent
+    success_url = reverse_lazy('admin-list-agents')
+
+
 class Contacts(LoginRequiredMixin, StaffuserRequiredMixin, OrderableListMixin, ListView):
     template_name = 'dashboard/contacts.html'
     model = Contact
@@ -71,6 +77,12 @@ class Contacts(LoginRequiredMixin, StaffuserRequiredMixin, OrderableListMixin, L
 
 
 class CreateContact(LoginRequiredMixin, StaffuserRequiredMixin, CreateView):
+    template_name = 'dashboard/create-contact.html'
+    model = Contact
+    success_url = reverse_lazy('admin-list-contacts')
+
+
+class UpdateContact(LoginRequiredMixin, StaffuserRequiredMixin, UpdateView):
     template_name = 'dashboard/create-contact.html'
     model = Contact
     success_url = reverse_lazy('admin-list-contacts')

@@ -58,12 +58,12 @@
                     <tbody role="alert" aria-live="polite" aria-relevant="all">
                     {% for contact in object_list %}
                         <tr class="{% cycle 'even' 'odd' %}">
-                            <td class=" sorting_1">{{ contact.id }}</td>
-                            <td class=" ">{{ contact.name }}</td>
-                            <td class=" ">{{ contact.email }}</td>
-                            <td class=" ">{{ contact.phone }}</td>
-                            <td class=" ">{{ contact.cellphone }}</td>
-                            <td class=" ">{{ contact.info }}</td>
+                            <td class="sorting_1"><a href="{% url 'update-contact' contact.id %}">{{ contact.id }}</a></td>
+                            <td><a href="{% url 'update-contact' contact.id %}">{{ contact.name }}</a></td>
+                            <td>{{ contact.email }}</td>
+                            <td>{{ contact.phone }}</td>
+                            <td>{{ contact.cellphone }}</td>
+                            <td>{{ contact.info }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>
