@@ -52,8 +52,8 @@
                     <tbody role="alert" aria-live="polite" aria-relevant="all">
                     {% for listing in object_list %}
                         <tr class="{% cycle 'even' 'odd' %}">
-                            <td class=" sorting_1">{{ listing.id }}</td>
-                            <td class=" ">{{ listing.title }}</td>
+                            <td class=" sorting_1"><a href="{% url 'update-listing' listing.id %}">{{ listing.id }}</a></td>
+                            <td class=" "><a href="{% url 'update-listing' listing.id %}">{{ listing.title }}</a></td>
                             <td class=" ">{{ listing.price }}</td>
                             <td class=" ">{{ listing.type }}</td>
                             <td class=" ">{{ listing.main_image }}</td>

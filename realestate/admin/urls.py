@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url
-from realestate.admin.views import Dashboard, CreateListing, Listings, CreateAgent, Agents, Contacts, CreateContact, \
+from realestate.admin.views import Dashboard, CreateListing, UpdateListing, Listings, CreateAgent, Agents, Contacts, CreateContact, \
     UpdateAgent, UpdateContact, Cities, CreateCity, UpdateCity, Sectors, CreateSector, UpdateSector
 
 urlpatterns = patterns(
@@ -8,6 +8,7 @@ urlpatterns = patterns(
 
     url('^listing/', Listings.as_view(), name='admin-list-listing'),
     url('^new-listing/', CreateListing.as_view(), name='add-listing'),
+    url('^update-listing/(?P<pk>\d+)$', UpdateListing.as_view(), name='update-listing'),
     url('^agents/', Agents.as_view(), name='admin-list-agents'),
     url('^new-agent/', CreateAgent.as_view(), name='add-agent'),
     url('^update-agent/(?P<pk>\d+)$', UpdateAgent.as_view(), name='update-agent'),
