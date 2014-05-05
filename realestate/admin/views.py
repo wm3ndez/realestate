@@ -2,9 +2,14 @@ from braces.views import StaffuserRequiredMixin, LoginRequiredMixin, OrderableLi
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import TemplateView, CreateView, ListView, UpdateView
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 from realestate.home.models import Contact
 from realestate.listing.models import Listing, Agent, City, Sector
 from realestate.admin.forms import ListingForm, ListingImageFormSet, AttributeListingFormSet
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}
 
 
 class Dashboard(LoginRequiredMixin, StaffuserRequiredMixin, TemplateView):
@@ -38,6 +43,9 @@ class CreateListing(LoginRequiredMixin, StaffuserRequiredMixin, CreateView):
             listing_images_form.save()
             listing_attributes_form.instance = self.object
             listing_attributes_form.save()
+
+            messages.success(self.request, 'Listing created successfully.')
+
             return HttpResponseRedirect(self.get_success_url())
         else:
             return self.form_invalid(form)
@@ -73,6 +81,9 @@ class UpdateListing(LoginRequiredMixin, StaffuserRequiredMixin, UpdateView):
             form.save()  # saves Father and Children
             listing_images_form.save()
             listing_attributes_form.save()
+
+            messages.success(self.request, 'Listing updated successfully.')
+
             return HttpResponseRedirect(self.get_success_url())
         else:
             return self.form_invalid(form)
