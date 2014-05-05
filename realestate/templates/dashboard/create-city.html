@@ -1,0 +1,37 @@
+{% extends "dashboard/base.html" %}
+{% load i18n static %}
+{% block extra_css %}
+    <link href="{% static 'admin/css/editForms.css" rel="stylesheet" type="text/css' %}"/>
+{% endblock %}
+{% block content-header %}
+    <h1>{% trans "Create City" %} </h1>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <!-- general form elements disabled -->
+            <div class="box box-primary">
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <form role="form" action="" method="post">
+                        {% csrf_token %}
+
+                        {% for field in form %}
+                            <div class="form-group {% if field.errors %}has-error{% endif %}">
+                                {{ field.errors }}
+                                {{ field.label_tag }} {{ field }}
+                            </div>
+                        {% endfor %}
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+                        </div>
+
+                    </form>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
+{% endblock %}

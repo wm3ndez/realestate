@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.views.generic import TemplateView, CreateView, ListView, UpdateView
 from django.http import HttpResponseRedirect
 from realestate.home.models import Contact
-from realestate.listing.models import Listing, Agent
+from realestate.listing.models import Listing, Agent, City, Sector
 from realestate.admin.forms import ListingForm, ListingImageFormSet, AttributeListingFormSet
 
 
@@ -86,3 +86,39 @@ class UpdateContact(LoginRequiredMixin, StaffuserRequiredMixin, UpdateView):
     template_name = 'dashboard/create-contact.html'
     model = Contact
     success_url = reverse_lazy('admin-list-contacts')
+
+class Cities(LoginRequiredMixin, StaffuserRequiredMixin, OrderableListMixin, ListView):
+    template_name = 'dashboard/cities.html'
+    model = City
+    orderable_columns = ('id', 'name',)
+    orderable_columns_default = 'id'
+
+
+class CreateCity(LoginRequiredMixin, StaffuserRequiredMixin, CreateView):
+    template_name = 'dashboard/create-city.html'
+    model = City
+    success_url = reverse_lazy('admin-list-cities')
+
+
+class UpdateCity(LoginRequiredMixin, StaffuserRequiredMixin, UpdateView):
+    template_name = 'dashboard/create-city.html'
+    model = City
+    success_url = reverse_lazy('admin-list-cities')
+
+class Sectors(LoginRequiredMixin, StaffuserRequiredMixin, OrderableListMixin, ListView):
+    template_name = 'dashboard/sectors.html'
+    model = Sector
+    orderable_columns = ('id', 'name',)
+    orderable_columns_default = 'id'
+
+
+class CreateSector(LoginRequiredMixin, StaffuserRequiredMixin, CreateView):
+    template_name = 'dashboard/create-sector.html'
+    model = Sector
+    success_url = reverse_lazy('admin-list-sectors')
+
+
+class UpdateSector(LoginRequiredMixin, StaffuserRequiredMixin, UpdateView):
+    template_name = 'dashboard/create-sector.html'
+    model = Sector
+    success_url = reverse_lazy('admin-list-sectors')
