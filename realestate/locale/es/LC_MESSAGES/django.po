@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-03 02:19-0400\n"
+"POT-Creation-Date: 2014-05-05 00:38-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -52,8 +52,10 @@ msgid "Bathrooms"
 msgstr "Baños"
 
 #: home/models.py:6 listing/models.py:293 templates/dashboard/agents.html:29
-#: templates/dashboard/agents.html.py:51 templates/dashboard/contacts.html:29
-#: templates/dashboard/contacts.html:51
+#: templates/dashboard/agents.html.py:51 templates/dashboard/cities.html:29
+#: templates/dashboard/cities.html.py:41 templates/dashboard/contacts.html:29
+#: templates/dashboard/contacts.html:51 templates/dashboard/sectors.html:29
+#: templates/dashboard/sectors.html:40
 msgid "Name"
 msgstr "Nombre"
 
@@ -88,7 +90,7 @@ msgstr "Contactos"
 
 #: home/models.py:15 templates/dashboard/contacts.html:4
 #: templates/dashboard/contacts.html:11
-#: templates/dashboard/includes/sidebar.html:50
+#: templates/dashboard/includes/sidebar.html:62
 msgid "Contacts"
 msgstr "Contactos"
 
@@ -195,14 +197,19 @@ msgid "Decimal"
 msgstr "Decimal"
 
 #: listing/models.py:88 listing/models.py:122
+#: templates/dashboard/sectors.html:32 templates/dashboard/sectors.html:41
 msgid "City"
 msgstr "Ciudad"
 
-#: listing/models.py:89
+#: listing/models.py:89 templates/dashboard/cities.html:4
+#: templates/dashboard/cities.html.py:11
+#: templates/dashboard/includes/sidebar.html:45
 msgid "Cities"
 msgstr "Ciudades"
 
-#: listing/models.py:108
+#: listing/models.py:108 templates/dashboard/sectors.html:4
+#: templates/dashboard/sectors.html:11
+#: templates/dashboard/includes/sidebar.html:51
 msgid "Sectors"
 msgstr "Sectores"
 
@@ -226,7 +233,7 @@ msgstr "Activo"
 
 #: listing/models.py:141 templates/dashboard/agents.html:4
 #: templates/dashboard/agents.html.py:11
-#: templates/dashboard/includes/sidebar.html:45
+#: templates/dashboard/includes/sidebar.html:57
 msgid "Agents"
 msgstr "Agentes Vendedores"
 
@@ -345,13 +352,16 @@ msgstr "Propiedad en Oferta"
 msgid "Real Estate Admin Site"
 msgstr "Administración - Bienes Raíces"
 
-#: templates/dashboard/agents.html:8 templates/dashboard/contacts.html:8
-#: templates/dashboard/listings.html:8
+#: templates/dashboard/agents.html:8 templates/dashboard/cities.html:8
+#: templates/dashboard/contacts.html:8 templates/dashboard/listings.html:8
+#: templates/dashboard/sectors.html:8
 msgid "Add New"
 msgstr "Agregar Nuevo"
 
 #: templates/dashboard/agents.html:26 templates/dashboard/agents.html.py:50
+#: templates/dashboard/cities.html:26 templates/dashboard/cities.html.py:40
 #: templates/dashboard/contacts.html:26 templates/dashboard/contacts.html:50
+#: templates/dashboard/sectors.html:26 templates/dashboard/sectors.html:39
 msgid "ID"
 msgstr "ID"
 
@@ -360,15 +370,25 @@ msgstr "ID"
 msgid "E-mail"
 msgstr "E-mail"
 
+#: templates/dashboard/cities.html:33 templates/dashboard/cities.html.py:42
+msgid "Province"
+msgstr "Provincia/Estado"
+
 #: templates/dashboard/create-agent.html:7
 msgid "Create Agent"
 msgstr "Creado en"
 
 #: templates/dashboard/create-agent.html:27
+#: templates/dashboard/create-city.html:27
 #: templates/dashboard/create-contact.html:27
-#: templates/dashboard/create-listing.html:27
+#: templates/dashboard/create-listing.html:103
+#: templates/dashboard/create-sector.html:27
 msgid "Save"
 msgstr "Guardar"
+
+#: templates/dashboard/create-city.html:7
+msgid "Create City"
+msgstr "Crear Ciudad"
 
 #: templates/dashboard/create-contact.html:7
 #, fuzzy
@@ -379,14 +399,21 @@ msgstr "Contactos"
 msgid "Create Listing"
 msgstr "Crear Propiedad"
 
+#: templates/dashboard/create-listing.html:18
 msgid "Listing Information"
 msgstr "Datos de la propiedad"
 
+#: templates/dashboard/create-listing.html:37
 msgid "Listing Images"
 msgstr "Imágenes de la propiedad"
 
+#: templates/dashboard/create-listing.html:69
 msgid "Listing Features"
 msgstr "Atributos de la propiedad"
+
+#: templates/dashboard/create-sector.html:7
+msgid "Create Sector"
+msgstr "Crear Sector"
 
 #: templates/dashboard/includes/header.html:29
 msgid "Profile"
@@ -400,7 +427,7 @@ msgstr "Cerrar sesión"
 msgid "Dashboard"
 msgstr "Panel principal"
 
-#: templates/dashboard/includes/sidebar.html:55
+#: templates/dashboard/includes/sidebar.html:67
 msgid "Users"
 msgstr "Usuarios"
 
@@ -523,6 +550,10 @@ msgstr "Móvil"
 #: templates/listing/listing.html:136 templates/listing/listing.html.py:153
 msgid "Contact agent"
 msgstr "Contactar agente"
+
+#: templates/registration/login.html:24 templates/registration/login.html:44
+msgid "Sign In"
+msgstr "Iniciar sesión"
 
 #: templates/widget/image.html:2
 msgid "Currently:"
