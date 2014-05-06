@@ -1,9 +1,8 @@
 from django import template
-from realestate.listing.models import TYPES, DOMINICAN_PROVINCES, OFFERS
 from django.template.loader import get_template
 from django.template import Context, TemplateDoesNotExist
-
-from realestate.home.forms import SearchForm
+from realestate.listing.models import TYPES, DOMINICAN_PROVINCES, OFFERS
+from realestate.listing.forms import SearchForm
 
 register = template.Library()
 
@@ -48,11 +47,5 @@ def render_offer_select():
 
 @register.inclusion_tag('forms/search.html', takes_context=True)
 def get_search_form(context):
-    form = SearchForm(context['request'].GET)
-    return {'form': form}
-
-
-@register.inclusion_tag('forms/secondary_search.html', takes_context=True)
-def get_secondary_search_form(context):
     form = SearchForm(context['request'].GET)
     return {'form': form}

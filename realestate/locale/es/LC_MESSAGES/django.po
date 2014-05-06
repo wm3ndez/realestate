@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-05 00:38-0400\n"
+"POT-Creation-Date: 2014-05-06 11:56-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,39 +17,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: home/forms.py:35 home/forms.py:36
-msgid "All"
-msgstr "Todos"
-
-#: home/forms.py:41 listing/models.py:140 listing/models.py:173
-msgid "Agent"
-msgstr "Agentes Vendedores"
-
-#: home/forms.py:42 templates/home/featured.html:8
-msgid "Location"
-msgstr "Ubicación"
-
-#: home/forms.py:43 listing/models.py:107
-msgid "Sector"
-msgstr "Sector"
-
-#: home/forms.py:44
-msgid "Type"
-msgstr "Tipo"
-
-#: home/forms.py:45 listing/models.py:165
-msgid "Offer"
-msgstr "Oferta"
-
-#: home/forms.py:46 listing/models.py:169
-#: templates/includes/listing_list.html:13
-msgid "Bedrooms"
-msgstr "Habitaciones"
-
-#: home/forms.py:47 listing/models.py:168
-msgid "Bathrooms"
-msgstr "Baños"
 
 #: home/models.py:6 listing/models.py:293 templates/dashboard/agents.html:29
 #: templates/dashboard/agents.html.py:51 templates/dashboard/cities.html:29
@@ -133,6 +100,41 @@ msgstr "Agregue una imagen"
 #: listing/admin.py:135
 msgid "Invalid validation function specifed!"
 msgstr "Función de validación inválida."
+
+#: listing/forms.py:49 listing/forms.py:50
+msgid "All"
+msgstr "Todos"
+
+#: listing/forms.py:55 listing/models.py:140 listing/models.py:173
+#: templates/forms/search.html:12
+msgid "Agent"
+msgstr "Agentes Vendedores"
+
+#: listing/forms.py:56 templates/forms/search.html:25
+#: templates/home/featured.html:8
+msgid "Location"
+msgstr "Ubicación"
+
+#: listing/forms.py:57 listing/models.py:107
+msgid "Sector"
+msgstr "Sector"
+
+#: listing/forms.py:58 templates/forms/search.html:18
+msgid "Type"
+msgstr "Tipo"
+
+#: listing/forms.py:59 listing/models.py:165 templates/forms/search.html:31
+msgid "Offer"
+msgstr "Oferta"
+
+#: listing/forms.py:60 listing/models.py:169
+#: templates/includes/listing_list.html:13
+msgid "Bedrooms"
+msgstr "Habitaciones"
+
+#: listing/forms.py:61 listing/models.py:168
+msgid "Bathrooms"
+msgstr "Baños"
 
 #: listing/models.py:16
 msgid "Apartment"
@@ -286,7 +288,7 @@ msgstr "Ubicación no disponible"
 msgid "Listing"
 msgstr "Propiedad"
 
-#: listing/models.py:208 templates/dashboard/listings.html:11
+#: listing/models.py:208 templates/dashboard/listings.html:21
 #: templates/dashboard/includes/sidebar.html:39
 #: templates/includes/header.html:45 templates/includes/header.html.py:49
 #: templates/includes/menu.html:15
@@ -348,12 +350,20 @@ msgstr "Propiedades en Oferta"
 msgid "Property on Sale"
 msgstr "Propiedad en Oferta"
 
+#: listing/views.py:124
+msgid "Customer interested in:"
+msgstr "Cliente interesado en:"
+
+#: templates/404.html:4
+msgid "Oh oh! This page doesn't exist :(."
+msgstr "Oh oh! Esta página no existe :(."
+
 #: templates/admin/base_site.html:7
 msgid "Real Estate Admin Site"
 msgstr "Administración - Bienes Raíces"
 
 #: templates/dashboard/agents.html:8 templates/dashboard/cities.html:8
-#: templates/dashboard/contacts.html:8 templates/dashboard/listings.html:8
+#: templates/dashboard/contacts.html:8 templates/dashboard/listings.html:17
 #: templates/dashboard/sectors.html:8
 msgid "Add New"
 msgstr "Agregar Nuevo"
@@ -431,6 +441,14 @@ msgstr "Panel principal"
 msgid "Users"
 msgstr "Usuarios"
 
+#: templates/forms/search.html:2
+msgid "Find Your Home"
+msgstr "Encuentre Su Casa"
+
+#: templates/forms/search.html:37 templates/includes/left-col.html:4
+msgid "Search"
+msgstr "Búsqueda"
+
 #: templates/home/contact-us.html:40
 msgid "Send"
 msgstr "Enviar"
@@ -482,10 +500,6 @@ msgstr "Otras páginas"
 #: templates/includes/header.html:58 templates/includes/menu.html:9
 msgid "About Us"
 msgstr "Nosotros"
-
-#: templates/includes/left-col.html:4
-msgid "Search"
-msgstr "Búsqueda"
 
 #: templates/includes/listing_list.html:14
 msgid "Size"
@@ -564,21 +578,13 @@ msgid "Change:"
 msgstr "Cambiar:"
 
 #: templates/widgets/deals.html:3
-msgid "De Oportunidad"
-msgstr ""
+msgid "Deals"
+msgstr "De Oportunidad"
 
 #: templates/widgets/links.html:3
-msgid "Enlaces"
-msgstr ""
+msgid "Links"
+msgstr "Enlaces"
 
 #: templates/widgets/links.html:9
-msgid "No hay enlaces para mostrar."
-msgstr ""
-
-#: templates/widgets/news.html:3
-msgid "Noticias"
-msgstr ""
-
-#: templates/widgets/news.html:12
-msgid "No hay noticias recientes."
-msgstr ""
+msgid "0 items to show."
+msgstr "0 propiedades que mostrar"

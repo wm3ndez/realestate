@@ -16,23 +16,3 @@ class Contact(models.Model):
 
     def __unicode__(self):
         return self.name
-
-
-class Links(models.Model):
-    name = models.CharField(max_length=32)
-    link = models.URLField(max_length=255)
-    description = models.CharField(max_length=150)
-    contact = models.OneToOneField(Contact)
-    active = models.BooleanField(default=False)
-
-    def get_url(self):
-        if self.link.startswith('http'):
-            return self.link
-        return 'http://%s' % self.link
-
-    class Meta:
-        verbose_name = 'Link'
-        verbose_name_plural = 'Links'
-
-    def __unicode__(self):
-        return self.name

@@ -1,12 +1,12 @@
 {% load i18n %}
 {% if links %}
-<h1>{% trans "Enlaces" %}</h1>
+<h1>{% trans "Links" %}</h1>
 <div>
   <ul>
   {% for link in links %}
   <li><a href="{{ link.get_url|safe }}" title="{{ link.description }}" target="_blank">{{ link.name }}</a></li>
   {% empty %}
-    {% trans "No hay enlaces para mostrar." %}
+    {% trans "0 items to show." %}
   {% endfor %}
   </ul>
 </div>

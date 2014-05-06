@@ -4,26 +4,42 @@
     <div id="carousel-loader">
 
     </div>
-    <div id="carousel" class="showcase">
-        {% for listing in propiedades %}
-            <div class="showcase-slide">
-                <div class="showcase-content">
-                    <a href="{{ listing.get_absolute_url }}">
-                        {% thumbnail listing.main_image.image "590x326" crop="center" as image %}
+    <div id="carousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            {% for listing in listings %}
+                <li data-target="#carousel" data-slide-to="{{ forloop.counter0 }}" class="active"></li>
+            {% endfor %}
+        </ol>
+        <!-- Wrapper for slides -->
+
+        {% for listing in listings %}
+            <div class="carousel-inner">
+                <div class="item{% if forloop.first %} active{% endif %}">
+                    <a href="{{ listing.absolute_url }}">
+                        {% thumbnail listing.main_image.image "850" crop="center" as image %}
                             <img src="{{ image.url }}" alt="{{ listing.title }}">
                         {% endthumbnail %}
                     </a>
+
+                    <div class="carousel-caption">
+
+                            <h3>{{ listing.title }}</h3>
+
+                            <p>{{ listing.description|truncatewords_html:"20" }}</p>
+                    </div>
                 </div>
 
-                <div class="showcase-caption carousel-caption">
-                    <a href="{{ listing.get_absolute_url }}">
-                        <h4>{{ listing.title }}</h4>
-
-                        <p>{{ listing.description|truncatewords_html:"20" }}</p>
-                    </a>
-                </div>
             </div>
         {% endfor %}
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </a>
+        <a class="right carousel-control" href="#carousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
 
     </div>
     <!-- // end of slideshow-carousel -->

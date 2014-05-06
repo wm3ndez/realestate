@@ -168,3 +168,8 @@ if 'test' in sys.argv:
     PASSWORD_HASHERS = (
         'django.contrib.auth.hashers.MD5PasswordHasher',
     )
+
+try:
+    from settings_local import *
+except ImportError:
+    pass

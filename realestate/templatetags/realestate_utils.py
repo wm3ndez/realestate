@@ -23,7 +23,7 @@ def feature_list(listing):
 
 @register.inclusion_tag('home/carousel.html')
 def frontpage_carousel():
-    propiedades = Listing.objects.active().order_by('-id')[:4]
+    listings = Listing.objects.active().order_by('-id')[:4]
     return {
-        'propiedades': propiedades
+        'listings': listings
     }

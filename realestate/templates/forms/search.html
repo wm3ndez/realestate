@@ -1,40 +1,40 @@
-<h3>Buscar Propiedad</h3>
+{% load i18n %}
+<h3>{% trans "Find Your Home" %}</h3>
 <!--Buscador de Propiedades-->
-<form id="FormContent" action="{% url 'search' %}" method="post">
-    {% csrf_token %}
+<form id="FormContent" action="{% url 'search' %}">
     <div class="box-search">
-        <label>ID de la Propiedad:</label>
+        <label>ID:</label>
 
         <div class="row-input">
             {{ form.id }}
         </div>
 
-        <label>Agente:</label>
+        <label>{% trans "Agent" %}:</label>
 
         <div class="row-input">
-            {{ form.agente }}
+            {{ form.agent }}
         </div>
 
-        <label>Tipo</label>
+        <label>{% trans "Type" %}</label>
 
         <div class="row-input">
-            {{ form.tipo }}
+            {{ form.type }}
         </div>
 
 
-        <label>Localidad</label>
+        <label>{% trans "Location" %}</label>
 
         <div class="row-input">
             {{ form.location }}
         </div>
 
-        <label>Oferta</label>
+        <label>{% trans "Offer" %}</label>
 
         <div class="row-input">
-            {{ form.oferta }}
+            {{ form.offer }}
         </div>
         <div class="clear indent-button">
-            <button class="btn btn-info">Buscar Propiedad</button>
+            <button class="btn btn-info">{% trans "Search" %}</button>
         </div>
         <div class="clear">
             <div class="form-text fright">

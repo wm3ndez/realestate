@@ -1,5 +1,4 @@
 from django.contrib import admin
-from realestate.home.models import Contact, Links
+from realestate.home.models import Contact
 
 admin.site.register(Contact)
-admin.site.register(Links)

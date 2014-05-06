@@ -11,3 +11,5 @@ build/*
 testproject/media/*
 testproject/static/admin/*
 testproject/static/bootstrap
+
+settings_local.py

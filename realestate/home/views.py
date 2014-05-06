@@ -3,8 +3,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.views.generic.edit import FormView
 from realestate.listing.models import Listing
-from realestate.home.forms import SearchForm
-from realestate.home.forms import ContactForm
+from realestate.listing.forms import SearchForm, ContactForm
 
 
 def index(request):

@@ -1,15 +1,14 @@
 from django.conf import settings
 from django.core.mail.message import EmailMessage
 from django.db.models.query_utils import Q
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
-from django.http import HttpResponse
-from realestate.home.forms import SearchForm
-from realestate.listing.forms import ListingContactForm
+from realestate.listing.forms import ListingContactForm, SearchForm
 from realestate.listing.models import Listing, Agent
 from realestate.utils import paginate
 from realestate.utils.decorators import ajax_required
 from sorl.thumbnail.shortcuts import get_thumbnail
+from django.utils.translation import ugettext as _
 
 if settings.PROPERTIES_PER_PAGE:
     PROPERTIES_PER_PAGE = settings.PROPERTIES_PER_PAGE
@@ -25,31 +24,26 @@ def _render_search_page(queryset, request, template='listing/search.html'):
 
 def _apply_search_filters(data, listings):
     if data.get('location'):
-        listings = listings.filter(Q(sector__nombre__icontains=data.get('location')) |
-                                   Q(sector__ciudad__nombre__icontains=data.get('location')) |
-                                   Q(sector__ciudad__provincia__icontains=data.get('location')))
-    if data.get('precio_max'):
-        listings = listings.filter(precio__lte=data.get('precio_max'))
-    if data.get('precio_min'):
-        listings = listings.filter(precio__gte=data.get('precio_min'))
+        listings = listings.filter(Q(sector__name__icontains=data.get('location')) |
+                                   Q(sector__city__name__icontains=data.get('location')) |
+                                   Q(sector__city__province__icontains=data.get('location')))
+
     if data.get('type'):
-        listings = listings.filter(tipo=data.get('type'))
+        listings = listings.filter(type=data.get('type'))
     if data.get('offer'):
-        listings = listings.filter(oferta=data.get('offer'))
+        listings = listings.filter(offer=data.get('offer'))
     return listings
 
 
-def _venta_alquiler(tipo, request, oferta='venta', template='listing/search.html'):
-    if oferta == 'venta':
+def _sale_rent(type, request, offer='sale', template='listing/search.html'):
+    if offer == 'sale':
         listing = Listing.objects.sale()
     else:
         listing = Listing.objects.rent()
-    if tipo is not None:
-        listing = listing.filter(tipo=tipo)
-    if request.GET.get('sort') == '-price':
-        listing = listing.order_by('-price')
-    else:
-        listing = listing.order_by('price')
+    if type is not None:
+        listing = listing.filter(type=type)
+    if request.GET.get('sort'):
+        listing = listing.order_by(request.GET.get('sort'))
 
     return _render_search_page(listing, request, template)
 
@@ -60,32 +54,25 @@ def properties(request):
 
 
 def sale(request, tipo=None):
-    return _venta_alquiler(tipo, request, template='listing/sale.html')
+    return _sale_rent(tipo, request, template='listing/sale.html')
 
 
 def rent(request, tipo=None):
-    return _venta_alquiler(tipo, request, 'alquiler', template='listing/rent.html')
+    return _sale_rent(tipo, request, 'rent', template='listing/rent.html')
 
 
 def search(request):
     res = Listing.objects.active()
-    if request.POST:
-        form = SearchForm(request.POST)
-        if form.is_valid():
-            res = _apply_search_filters(form.cleaned_data, res)
-    else:
-        form = SearchForm(request.GET)
-        if form.is_valid():
-            res = _apply_search_filters(form.cleaned_data, res)
+
+    form = SearchForm(request.GET)
+    if form.is_valid():
+        res = _apply_search_filters(form.cleaned_data, res)
 
     return _render_search_page(res, request)
 
 
 def details(request, slug):
-    try:
-        listing = Listing.objects.get(slug=slug)
-    except Listing.DoesNotExist:
-        return HttpResponse("Esta listing no existe.")
+    listing = get_object_or_404(Listing, slug=slug)
 
     if request.POST:
         form = ListingContactForm(request.POST)
@@ -134,7 +121,7 @@ def get_map(request):
 
 
 def _send_contact_form(form, prop):
-    asunto = '%s %s' % ('Cliente Interesado en la listing:', prop.titulo)
+    asunto = '%s %s' % (_('Customer interested in:'), prop.title)
     mensaje = "El cliente %s esta interesado en esta listing y le ha dejado el siguiente mensaje:\n\n%s\n\nTelefono: %s" % (
         form.cleaned_data.get('nombre'), form.cleaned_data.get('mensaje'), form.cleaned_data.get('phone'))
     _from = settings.DEFAULT_FROM_EMAIL
