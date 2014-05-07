@@ -1,10 +1,11 @@
 {% extends "dashboard/base.html" %}
-{% load i18n static %}
-{% block extra_css %}
-    <link href="{% static 'admin/css/editForms.css" rel="stylesheet" type="text/css' %}"/>
-{% endblock %}
+{% load i18n static realestateforms %}
 {% block content-header %}
     <h1>{% trans "Create Listing" %} </h1>
+{% endblock %}
+{% block extra_metadata %}
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+    <script src="{% static 'admin/js/listing-map.js' %}" type="text/javascript"></script>
 {% endblock %}
 {% block content %}
     <form role="form" action="" method="post" enctype="multipart/form-data">
@@ -19,12 +20,73 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        {% for field in form %}
-                            <div class="form-group {% if field.errors %}has-error{% endif %}">
-                                {{ field.errors }}
-                                {{ field.label_tag }} {{ field }}
-                            </div>
-                        {% endfor %}
+                        <div class="form-group {% if form.title.errors %}has-error{% endif %}">
+                            {{ form.title.errors }}
+                            {{ form.title.label_tag }} {{ form.title|widget_attrs:"class:form-control" }}
+                        </div>
+                        <div class="form-group {% if form.slug.errors %}has-error{% endif %}">
+                            {{ form.slug.errors }}
+                            {{ form.slug.label_tag }} {{ form.slug|widget_attrs:"class:form-control" }}
+                        </div>
+                        <div class="form-group {% if form.description.errors %}has-error{% endif %}">
+                            {{ form.description.errors }}
+                            {{ form.description.label_tag }} {{ form.description|widget_attrs:"class:form-control" }}
+                        </div>
+                        <div class="form-group {% if form.price.errors %}has-error{% endif %}">
+                            {{ form.price.errors }}
+                            {{ form.price.label_tag }} {{ form.price|widget_attrs:"class:form-control" }}
+                        </div>
+                        <div class="form-group {% if form.sector.errors %}has-error{% endif %}">
+                            {{ form.sector.errors }}
+                            {{ form.sector.label_tag }} {{ form.sector|widget_attrs:"class:form-control" }}
+                        </div>
+                        <div class="form-group {% if form.type.errors %}has-error{% endif %}">
+                            {{ form.type.errors }}
+                            {{ form.type.label_tag }} {{ form.type|widget_attrs:"class:form-control" }}
+                        </div>
+                        <div class="form-group {% if form.offer.errors %}has-error{% endif %}">
+                            {{ form.offer.errors }}
+                            {{ form.offer.label_tag }} {{ form.offer|widget_attrs:"class:form-control" }}
+                        </div>
+                        <div class="form-group {% if form.active.errors %}has-error{% endif %}">
+                            {{ form.active.errors }}
+                            {{ form.active.label_tag }} {{ form.active|widget_attrs:"class:form-control" }}
+                        </div>
+                        <div class="form-group {% if form.featured.errors %}has-error{% endif %}">
+                            {{ form.featured.errors }}
+                            {{ form.featured.label_tag }} {{ form.featured|widget_attrs:"class:form-control" }}
+                        </div>
+                        <div class="form-group {% if form.baths.errors %}has-error{% endif %}">
+                            {{ form.baths.errors }}
+                            {{ form.baths.label_tag }} {{ form.baths|widget_attrs:"class:form-control" }}
+                        </div>
+                        <div class="form-group {% if form.beds.errors %}has-error{% endif %}">
+                            {{ form.beds.errors }}
+                            {{ form.beds.label_tag }} {{ form.beds|widget_attrs:"class:form-control" }}
+                        </div>
+                        <div class="form-group {% if form.size.errors %}has-error{% endif %}">
+                            {{ form.size.errors }}
+                            {{ form.size.label_tag }} {{ form.size|widget_attrs:"class:form-control" }}
+                        </div>
+                        <div class="form-group {% if form.coords.errors %}has-error{% endif %}">
+                            {{ form.coords.errors }}
+                            {{ form.coords.label_tag }} {{ form.coords|widget_attrs:"class:form-control" }}
+                        </div>
+                        <div class="row">
+                            <div id="map-canvas" class="col-xs-12" style="height: 300px;"></div>
+                        </div>
+                        <div class="form-group {% if form.agent.errors %}has-error{% endif %}">
+                            {{ form.agent.errors }}
+                            {{ form.agent.label_tag }} {{ form.agent|widget_attrs:"class:form-control" }}
+                        </div>
+                        <div class="form-group {% if form.contact.errors %}has-error{% endif %}">
+                            {{ form.contact.errors }}
+                            {{ form.contact.label_tag }} {{ form.contact|widget_attrs:"class:form-control" }}
+                        </div>
+                        <div class="form-group {% if form.notes.errors %}has-error{% endif %}">
+                            {{ form.notes.errors }}
+                            {{ form.notes.label_tag }} {{ form.notes|widget_attrs:"class:form-control" }}
+                        </div>
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -43,21 +105,21 @@
 
                         {% for form in listing_images_form %}
                             {{ form.id }}
-                            <div class="inline {{ listing_images_form.prefix }}">
-                                <div class="form-group {% if form.name.errors %}has-error{% endif %}">
+                            <div class="inline row {{ listing_images_form.prefix }}">
+                                <div class="col-xs-3 {% if form.name.errors %}has-error{% endif %}">
                                     {{ form.name.errors }}
-                                    {{ form.name.label_tag }} {{ form.name }}
+                                    {{ form.name.label_tag }} {{ form.name|widget_attrs:"class:form-control" }}
                                 </div>
-                                <div class="form-group {% if form.image.errors %}has-error{% endif %}">
+                                <div class="col-xs-6 {% if form.image.errors %}has-error{% endif %}">
                                     {{ form.image.errors }}
                                     {{ form.image.label_tag }} {{ form.image }}
                                 </div>
-                                <div class="form-group {% if form.order.errors %}has-error{% endif %}">
+                                <div class="col-xs-3 {% if form.order.errors %}has-error{% endif %}">
                                     {{ form.order.errors }}
-                                    {{ form.order.label_tag }} {{ form.order }}
+                                    {{ form.order.label_tag }} {{ form.order|widget_attrs:"class:form-control" }}
                                 </div>
-                                <hr/>
                             </div>
+                            <hr/>
                         {% endfor %}
                     </div>
                     <!-- /.box-body -->
@@ -75,17 +137,17 @@
 
                         {% for form in listing_attributes_form %}
                             {{ form.id }}
-                            <div class="inline {{ listing_attributes_form.prefix }}">
-                                <div class="form-group {% if form.attribute.errors %}has-error{% endif %}">
+                            <div class="inline row {{ listing_attributes_form.prefix }}">
+                                <div class="col-xs-7 {% if form.attribute.errors %}has-error{% endif %}">
                                     {{ form.attribute.errors }}
-                                    {{ form.attribute.label_tag }} {{ form.attribute }}
+                                    {{ form.attribute.label_tag }} {{ form.attribute|widget_attrs:"class:form-control" }}
                                 </div>
-                                <div class="form-group {% if form.value.errors %}has-error{% endif %}">
+                                <div class="col-xs-4 {% if form.value.errors %}has-error{% endif %}">
                                     {{ form.value.errors }}
-                                    {{ form.value.label_tag }} {{ form.value }}
+                                    {{ form.value.label_tag }} {{ form.value|widget_attrs:"class:form-control" }}
                                 </div>
-                                <hr/>
                             </div>
+                            <hr/>
                         {% endfor %}
                     </div>
                     <!-- /.box-body -->
