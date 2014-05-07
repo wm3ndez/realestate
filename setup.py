@@ -95,8 +95,7 @@ def find_package_data(where='.', package='', exclude=standard_exclude,
     return out
 
 
-excluded_directories = standard_exclude_directories + ['./requirements',
-                                                       './scripts']
+excluded_directories = standard_exclude_directories + ['./requirements', './scripts']
 package_data = find_package_data(exclude_directories=excluded_directories)
 license_text = open('LICENSE.txt').read()
 long_description = open('README.rst').read()
@@ -104,19 +103,18 @@ long_description = open('README.rst').read()
 CLASSIFIERS = [
     'Development Status :: 5 - Production/Stable',
     'Intended Audience :: Developers',
-    # 'License :: OSI Approved :: GNU General Public License (GPL)',
+    'License :: OSI Approved :: BSD License',
     'Natural Language :: English',
     'Operating System :: OS Independent',
     'Programming Language :: Python',
-    #    'Topic :: Scientific/Engineering :: Mathematics',
-    'Topic :: Software Development :: Libraries :: Python Modules',
+    'Topic :: Office/Business',
     'Framework :: Django'
 ]
 
-DESCRIPTION = """Real Estate Built on Django FW by Williams Mendez"""
+DESCRIPTION = """Real Estate app built on Django"""
 
 setup(
-    name='realestate',
+    name='django-realestate',
     version=__version__,
     url='https://github.com/wm3ndez/realestate',
     author=__maintainer__,
@@ -124,18 +122,11 @@ setup(
     license=license_text,
     packages=find_packages(),
     package_data=package_data,
-    # data_files=[('', ['LICENSE.txt',
-    #                      'README.rst'])],
     description=DESCRIPTION,
     long_description=long_description,
     classifiers=CLASSIFIERS,
-    #    tests_require=[
-    #        'django',
-    #    ],
-    #    test_suite='django_facebook.runtests.runtests',
     install_requires=[
         'Django>=1.5.1',
-        'Fabric',
         'MySQL-python',
         'Pillow',
         'South',
@@ -144,7 +135,7 @@ setup(
         'django-extensions',
         'django-localeurl',
         'python-twitter',
-        'six==1.3.0',
+        'six',
         'sorl-thumbnail',
         'djangorestframework',
         'django-filter',
