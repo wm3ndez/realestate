@@ -2,6 +2,8 @@
 venv/*
 venv
 build/*
+docs/_build/
+dist/*
 
 *.pyc
 *.db
