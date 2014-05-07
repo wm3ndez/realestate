@@ -99,7 +99,7 @@ excluded_directories = standard_exclude_directories + ['./requirements',
                                                        './scripts']
 package_data = find_package_data(exclude_directories=excluded_directories)
 license_text = open('LICENSE.txt').read()
-long_description = open('README.rest').read()
+long_description = open('README.rst').read()
 
 CLASSIFIERS = [
     'Development Status :: 5 - Production/Stable',
@@ -125,7 +125,7 @@ setup(
     packages=find_packages(),
     package_data=package_data,
     # data_files=[('', ['LICENSE.txt',
-    #                      'README.rest'])],
+    #                      'README.rst'])],
     description=DESCRIPTION,
     long_description=long_description,
     classifiers=CLASSIFIERS,
