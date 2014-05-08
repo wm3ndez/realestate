@@ -3,9 +3,35 @@
 {% block content-header %}
     <h1>{% trans "Create Listing" %} </h1>
 {% endblock %}
+{% block extra_css %}
+    <style>
+        .empty-form {
+            display: none
+        }
+    </style>
+{% endblock %}
 {% block extra_metadata %}
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script src="{% static 'admin/js/listing-map.js' %}" type="text/javascript"></script>
+{% endblock %}
+{% block extra_js %}
+    <script src="{% static 'admin/js/django-superformset.js' %}" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var formsetOptions = {
+                prefix: 'images',
+                containerSel: 'form',
+                rowSel: '.inline',
+                formTemplate: '.images-inline .inline',
+                addTrigger: '<a href="#" class="add-row" title="add">{% trans 'add new' %}</a>'
+            };
+            $('.formlistImages').superformset(formsetOptions);
+            $('.formlistAttributes').superformset($.extend(formsetOptions, {
+                prefix: 'attributelisting_set',
+                formTemplate: '.attributes-inline .inline'
+            }));
+        });
+    </script>
 {% endblock %}
 {% block content %}
     <form role="form" action="" method="post" enctype="multipart/form-data">
@@ -100,27 +126,53 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
+                        <fieldset class="formlistImages">
                         {{ listing_images_form.management_form }}
                         {{ listing_images_form.non_form_errors }}
 
                         {% for form in listing_images_form %}
                             {{ form.id }}
-                            <div class="inline row {{ listing_images_form.prefix }}">
-                                <div class="col-xs-3 {% if form.name.errors %}has-error{% endif %}">
-                                    {{ form.name.errors }}
-                                    {{ form.name.label_tag }} {{ form.name|widget_attrs:"class:form-control" }}
+                            <div class="inline">
+                                <div class="row {{ listing_images_form.prefix }}">
+                                    <div class="col-xs-3 {% if form.name.errors %}has-error{% endif %}">
+                                        {{ form.name.errors }}
+                                        {{ form.name.label_tag }} {{ form.name|widget_attrs:"class:form-control" }}
+                                    </div>
+                                    <div class="col-xs-6 {% if form.image.errors %}has-error{% endif %}">
+                                        {{ form.image.errors }}
+                                        {{ form.image.label_tag }} {{ form.image }}
+                                    </div>
+                                    <div class="col-xs-3 {% if form.order.errors %}has-error{% endif %}">
+                                        {{ form.order.errors }}
+                                        {{ form.order.label_tag }} {{ form.order|widget_attrs:"class:form-control" }}
+                                    </div>
                                 </div>
-                                <div class="col-xs-6 {% if form.image.errors %}has-error{% endif %}">
-                                    {{ form.image.errors }}
-                                    {{ form.image.label_tag }} {{ form.image }}
-                                </div>
-                                <div class="col-xs-3 {% if form.order.errors %}has-error{% endif %}">
-                                    {{ form.order.errors }}
-                                    {{ form.order.label_tag }} {{ form.order|widget_attrs:"class:form-control" }}
-                                </div>
+                                <hr/>
                             </div>
-                            <hr/>
                         {% endfor %}
+                        </fieldset>
+                        <div class="empty-form images-inline">
+                            <div class="inline">
+                                <div class="row" data-empty-permitted="true">
+                                    <div class="col-xs-3 ">
+                                        <label for="id_images-__prefix__-name">Nombre:</label>
+                                        <input class=" form-control" id="id_images-__prefix__-name" maxlength="60"
+                                               name="images-__prefix__-name" type="text">
+                                    </div>
+                                    <div class="col-xs-6 ">
+                                        <label for="id_images-__prefix__-image">Imagen:</label>
+                                        <input id="id_images-__prefix__-image" name="images-__prefix__-image"
+                                               type="file">
+                                    </div>
+                                    <div class="col-xs-3 ">
+                                        <label for="id_images-__prefix__-order">Orden:</label>
+                                        <input class=" form-control" id="id_images-__prefix__-order"
+                                               name="images-__prefix__-order" type="number" value="99">
+                                    </div>
+                                </div>
+                                <hr/>
+                            </div>
+                        </div>
                     </div>
                     <!-- /.box-body -->
                 </div>
@@ -132,23 +184,48 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
+                        <fieldset class="formlistAttributes">
                         {{ listing_attributes_form.management_form }}
                         {{ listing_attributes_form.non_form_errors }}
 
                         {% for form in listing_attributes_form %}
                             {{ form.id }}
-                            <div class="inline row {{ listing_attributes_form.prefix }}">
-                                <div class="col-xs-7 {% if form.attribute.errors %}has-error{% endif %}">
-                                    {{ form.attribute.errors }}
-                                    {{ form.attribute.label_tag }} {{ form.attribute|widget_attrs:"class:form-control" }}
+                            <div class="inline">
+                                <div class="row {{ listing_attributes_form.prefix }}">
+                                    <div class="col-xs-7 {% if form.attribute.errors %}has-error{% endif %}">
+                                        {{ form.attribute.errors }}
+                                        {{ form.attribute.label_tag }} {{ form.attribute|widget_attrs:"class:form-control" }}
+                                    </div>
+                                    <div class="col-xs-4 {% if form.value.errors %}has-error{% endif %}">
+                                        {{ form.value.errors }}
+                                        {{ form.value.label_tag }} {{ form.value|widget_attrs:"class:form-control" }}
+                                    </div>
                                 </div>
-                                <div class="col-xs-4 {% if form.value.errors %}has-error{% endif %}">
-                                    {{ form.value.errors }}
-                                    {{ form.value.label_tag }} {{ form.value|widget_attrs:"class:form-control" }}
-                                </div>
+                                <hr/>
                             </div>
-                            <hr/>
                         {% endfor %}
+                        </fieldset>
+                        <!-- todo: this empty template should be dynamic and not static-->
+                        <div class="empty-form attributes-inline">
+                            <div class="inline">
+                                <div class="row" data-empty-permitted="true">
+                                    <div class="col-xs-7 ">
+                                        <label for="id_attributelisting_set-__prefix__-attribute">Attribute:</label>
+                                        <select class=" form-control" id="id_attributelisting_set-__prefix__-attribute"
+                                            name="attributelisting_set-__prefix__-attribute">
+                                        <option value="">---------</option>
+                                        <option value="1">Piscina</option>
+                                    </select>
+                                    </div>
+                                    <div class="col-xs-4 ">
+                                        <label for="id_attributelisting_set-__prefix__-value">Value:</label>
+                                        <input class=" form-control" id="id_attributelisting_set-__prefix__-value" maxlength="255"
+                                               name="attributelisting_set-__prefix__-value" type="text">
+                                    </div>
+                                </div>
+                                <hr/>
+                            </div>
+                        </div>
                     </div>
                     <!-- /.box-body -->
                 </div>
