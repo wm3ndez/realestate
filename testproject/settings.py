@@ -98,6 +98,9 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'django.contrib.staticfiles',
 
+    'constance',
+    'constance.backends.database',
+
     'django_extensions',
     'south',
     'sorl.thumbnail',
@@ -131,13 +134,17 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.messages.context_processors.messages",
 )
 
-
-# properties per page
-PROPERTIES_PER_PAGE = 16
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
+}
+
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+
+CONSTANCE_CONFIG = {
+    'PROPERTIES_PER_PAGE': (16, _('Properties per page')),
+    'RECENTLY_ADDED': (6, _('Recently Added')),
+
 }
 
 REST_FRAMEWORK = {

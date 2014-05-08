@@ -1,23 +1,20 @@
 from django.conf import settings
 from django.core.mail.message import EmailMessage
 from django.db.models.query_utils import Q
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
 from realestate.listing.forms import ListingContactForm, SearchForm
 from realestate.listing.models import Listing, Agent
 from realestate.utils import paginate
 from realestate.utils.decorators import ajax_required
+from rest_framework.reverse import reverse_lazy
 from sorl.thumbnail.shortcuts import get_thumbnail
 from django.utils.translation import ugettext as _
-
-if settings.PROPERTIES_PER_PAGE:
-    PROPERTIES_PER_PAGE = settings.PROPERTIES_PER_PAGE
-else:
-    PROPERTIES_PER_PAGE = 15
+from constance import config
 
 
 def _render_search_page(queryset, request, template='listing/search.html'):
-    results = paginate(request, queryset, PROPERTIES_PER_PAGE)
+    results = paginate(request, queryset, config.PROPERTIES_PER_PAGE)
     return render_to_response(template, {'results': results},
                               context_instance=RequestContext(request))
 

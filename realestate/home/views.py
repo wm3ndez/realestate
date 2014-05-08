@@ -4,10 +4,10 @@ from django.template import RequestContext
 from django.views.generic.edit import FormView
 from realestate.listing.models import Listing
 from realestate.listing.forms import SearchForm, ContactForm
-
+from constance import config
 
 def index(request):
-    recentp = Listing.objects.all().order_by('-created_at')[:5]
+    recentp = Listing.objects.all().order_by('-created_at')[:config.RECENTLY_ADDED]
     form = SearchForm()
     data = {
         'recent': recentp,
