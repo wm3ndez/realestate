@@ -13,7 +13,6 @@ class ConstanceForm(forms.Form):
             field_class, kwargs = FIELDS[type(default)]
             self.fields[name] = field_class(label=help_text, initial=default, **kwargs)
 
-
     def save(self):
         for name in self.cleaned_data:
             setattr(config, name, self.cleaned_data[name])
@@ -24,5 +23,5 @@ class ListingForm(forms.ModelForm):
         model = Listing
 
 
-ListingImageFormSet = inlineformset_factory(Listing, ListingImage)
-AttributeListingFormSet = inlineformset_factory(Listing, AttributeListing)
+ListingImageFormSet = inlineformset_factory(Listing, ListingImage, can_delete=True)
+AttributeListingFormSet = inlineformset_factory(Listing, AttributeListing, can_delete=True)

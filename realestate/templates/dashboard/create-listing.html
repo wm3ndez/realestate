@@ -138,14 +138,21 @@
                                         {{ form.name.errors }}
                                         {{ form.name.label_tag }} {{ form.name|widget_attrs:"class:form-control" }}
                                     </div>
-                                    <div class="col-xs-6 {% if form.image.errors %}has-error{% endif %}">
+                                    <div class="col-xs-5 {% if form.image.errors %}has-error{% endif %}">
                                         {{ form.image.errors }}
                                         {{ form.image.label_tag }} {{ form.image }}
                                     </div>
-                                    <div class="col-xs-3 {% if form.order.errors %}has-error{% endif %}">
+                                    <div class="col-xs-2 {% if form.order.errors %}has-error{% endif %}">
                                         {{ form.order.errors }}
                                         {{ form.order.label_tag }} {{ form.order|widget_attrs:"class:form-control" }}
                                     </div>
+
+                                    {% if listing_images_form.can_delete %}
+                                        <div class="col-xs-1">
+                                            {{ form.DELETE.label_tag }}
+                                            {{ form.DELETE }}
+                                        </div>
+                                    {% endif %}
                                 </div>
                                 <hr/>
                             </div>
@@ -168,6 +175,10 @@
                                         <label for="id_images-__prefix__-order">Orden:</label>
                                         <input class=" form-control" id="id_images-__prefix__-order"
                                                name="images-__prefix__-order" type="number" value="99">
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <label for="id_images-__prefix__-DELETE">{% trans 'Delete' %}:</label>
+                                        <input id="id_images-__prefix__-DELETE" name="images-__prefix__-DELETE" type="checkbox">
                                     </div>
                                 </div>
                                 <hr/>
@@ -192,7 +203,7 @@
                             {{ form.id }}
                             <div class="inline">
                                 <div class="row {{ listing_attributes_form.prefix }}">
-                                    <div class="col-xs-7 {% if form.attribute.errors %}has-error{% endif %}">
+                                    <div class="col-xs-5 {% if form.attribute.errors %}has-error{% endif %}">
                                         {{ form.attribute.errors }}
                                         {{ form.attribute.label_tag }} {{ form.attribute|widget_attrs:"class:form-control" }}
                                     </div>
@@ -200,6 +211,12 @@
                                         {{ form.value.errors }}
                                         {{ form.value.label_tag }} {{ form.value|widget_attrs:"class:form-control" }}
                                     </div>
+                                    {% if listing_attributes_form.can_delete %}
+                                        <div class="col-xs-2">
+                                            {{ form.DELETE.label_tag }}
+                                            {{ form.DELETE }}
+                                        </div>
+                                    {% endif %}
                                 </div>
                                 <hr/>
                             </div>
@@ -209,7 +226,7 @@
                         <div class="empty-form attributes-inline">
                             <div class="inline">
                                 <div class="row" data-empty-permitted="true">
-                                    <div class="col-xs-7 ">
+                                    <div class="col-xs-5">
                                         <label for="id_attributelisting_set-__prefix__-attribute">Attribute:</label>
                                         <select class=" form-control" id="id_attributelisting_set-__prefix__-attribute"
                                             name="attributelisting_set-__prefix__-attribute">
@@ -221,6 +238,11 @@
                                         <label for="id_attributelisting_set-__prefix__-value">Value:</label>
                                         <input class=" form-control" id="id_attributelisting_set-__prefix__-value" maxlength="255"
                                                name="attributelisting_set-__prefix__-value" type="text">
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <label for="id_attributelisting_set-__prefix__-DELETE">{% trans 'Delete' %}:</label>
+                                        <input id="id_attributelisting_set-__prefix__-DELETE"
+                                               name="attributelisting_set-__prefix__-DELETE" type="checkbox">
                                     </div>
                                 </div>
                                 <hr/>
