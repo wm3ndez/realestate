@@ -409,6 +409,10 @@ msgstr "Contactos"
 msgid "Create Listing"
 msgstr "Crear Propiedad"
 
+#: templates/dashboard/create-listing.html:26
+msgid "add new"
+msgstr "agregar"
+
 #: templates/dashboard/create-listing.html:18
 msgid "Listing Information"
 msgstr "Datos de la propiedad"
