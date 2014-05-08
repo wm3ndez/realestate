@@ -131,8 +131,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.messages.context_processors.messages",
 )
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
 
 # properties per page
 PROPERTIES_PER_PAGE = 16
