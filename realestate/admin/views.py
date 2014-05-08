@@ -1,11 +1,11 @@
-from braces.views import StaffuserRequiredMixin, LoginRequiredMixin, OrderableListMixin
+from braces.views import StaffuserRequiredMixin, LoginRequiredMixin, OrderableListMixin, SuperuserRequiredMixin
 from django.core.urlresolvers import reverse_lazy
-from django.views.generic import TemplateView, CreateView, ListView, UpdateView
+from django.views.generic import TemplateView, CreateView, ListView, UpdateView, FormView
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from realestate.home.models import Contact
 from realestate.listing.models import Listing, Agent, City, Sector
-from realestate.admin.forms import ListingForm, ListingImageFormSet, AttributeListingFormSet
+from realestate.admin.forms import ListingForm, ListingImageFormSet, AttributeListingFormSet, ConstanceForm
 
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
@@ -171,3 +171,13 @@ class UpdateSector(LoginRequiredMixin, StaffuserRequiredMixin, UpdateView):
     template_name = 'dashboard/create-sector.html'
     model = Sector
     success_url = reverse_lazy('admin-list-sectors')
+
+
+class Settings(LoginRequiredMixin, SuperuserRequiredMixin, FormView):
+    template_name = 'dashboard/settings.html'
+    form_class = ConstanceForm
+    success_url = reverse_lazy('dashboard-settings')
+
+    def form_valid(self, form):
+        form.save()
+        return HttpResponseRedirect(self.get_success_url())

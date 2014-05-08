@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 from realestate.admin.views import Dashboard, CreateListing, UpdateListing, Listings, CreateAgent, Agents, Contacts, CreateContact, \
-    UpdateAgent, UpdateContact, Cities, CreateCity, UpdateCity, Sectors, CreateSector, UpdateSector
+    UpdateAgent, UpdateContact, Cities, CreateCity, UpdateCity, Sectors, CreateSector, UpdateSector, Settings
 
 urlpatterns = patterns(
     'realestate.admin.views',
@@ -22,4 +22,5 @@ urlpatterns = patterns(
     url('^new-sector/', CreateSector.as_view(), name='add-sector'),
     url('^update-sector/(?P<pk>\d+)$', UpdateSector.as_view(), name='update-sector'),
 
+    url('^config/$', Settings.as_view(), name='dashboard-settings'),
 )
