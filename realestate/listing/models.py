@@ -206,6 +206,7 @@ class Listing(models.Model):
     class Meta:
         verbose_name = _(u'Listing')
         verbose_name_plural = _(u'Listings')
+        ordering = ['-pk', ]
 
     def save(self, **kwargs):
         self._generate_valid_slug()

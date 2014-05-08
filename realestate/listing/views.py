@@ -46,7 +46,7 @@ def _sale_rent(type, request, offer='sale', template='listing/search.html'):
 
 
 def properties(request):
-    listing = Listing.objects.active().order_by('-id')
+    listing = Listing.objects.active()
     return _render_search_page(listing, request, template='listing/results.html')
 
 
