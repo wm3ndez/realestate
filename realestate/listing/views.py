@@ -75,8 +75,7 @@ def details(request, slug):
         form = ListingContactForm(request.POST)
         if form.is_valid():
             _send_contact_form(form, listing)
-            form = ListingContactForm()
-            # TODO: Redirect to a thank you page
+            return redirect(reverse_lazy('thank-you'))
     else:
         form = ListingContactForm()
 
