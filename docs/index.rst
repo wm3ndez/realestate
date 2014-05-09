@@ -12,7 +12,7 @@ Add the need apps to INSTALLED_APPS::
 
 
         INSTALLED_APPS =(
-            ...
+            # other apps
 
             'realestate',
             'realestate.listing',
@@ -20,7 +20,8 @@ Add the need apps to INSTALLED_APPS::
 
             #django-constance
             'constance',
-            'constance.backends.database', # see django-constance documentation
+            # see django-constance documentation
+            'constance.backends.database',
 
         )
 
