@@ -95,6 +95,7 @@ class UpdateListing(LoginRequiredMixin, StaffuserRequiredMixin, UpdateView):
 class Listings(LoginRequiredMixin, StaffuserRequiredMixin, ListView):
     template_name = 'dashboard/listings.html'
     model = Listing
+    paginate_by = 15
 
 
 class Agents(LoginRequiredMixin, StaffuserRequiredMixin, OrderableListMixin, ListView):
