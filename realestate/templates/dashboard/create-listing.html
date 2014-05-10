@@ -76,10 +76,6 @@
                             {{ form.title.errors }}
                             {{ form.title.label_tag }} {{ form.title|widget_attrs:"class:form-control" }}
                         </div>
-                        <div class="form-group {% if form.slug.errors %}has-error{% endif %}">
-                            {{ form.slug.errors }}
-                            {{ form.slug.label_tag }} {{ form.slug|widget_attrs:"class:form-control" }}
-                        </div>
                         <div class="form-group {% if form.description.errors %}has-error{% endif %}">
                             {{ form.description.errors }}
                             {{ form.description.label_tag }} {{ form.description|widget_attrs:"class:form-control" }}
