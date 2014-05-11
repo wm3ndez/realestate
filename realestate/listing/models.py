@@ -22,6 +22,8 @@ TYPES = (
     ('office', _('Office')),
     ('townhouse', _('Town House')),
 )
+
+#TODO: Change this to states
 DOMINICAN_PROVINCES = (
     ('Azua', 'Azua'),
     ('Bahoruco', 'Bahoruco'),

@@ -4,7 +4,7 @@ from django.views.generic import TemplateView, CreateView, ListView, UpdateView,
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from realestate.home.models import Contact
-from realestate.listing.models import Listing, Agent, City, Sector
+from realestate.listing.models import Listing, Agent, City, Sector, DOMINICAN_PROVINCES
 from realestate.admin.forms import ListingForm, ListingImageFormSet, AttributeListingFormSet, ConstanceForm
 
 MESSAGE_TAGS = {
@@ -24,6 +24,7 @@ class CreateListing(LoginRequiredMixin, StaffuserRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(CreateListing, self).get_context_data(**kwargs)
+        context['states'] = DOMINICAN_PROVINCES
         if self.request.POST:
             context['listing_images_form'] = ListingImageFormSet(self.request.POST, self.request.FILES)
             context['listing_attributes_form'] = AttributeListingFormSet(self.request.POST, self.request.FILES)
