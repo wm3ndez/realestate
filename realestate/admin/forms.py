@@ -21,6 +21,7 @@ class ConstanceForm(forms.Form):
 class ListingForm(forms.ModelForm):
     class Meta:
         model = Listing
+        exclude = ('slug',)
 
 
 ListingImageFormSet = inlineformset_factory(Listing, ListingImage, can_delete=True)
