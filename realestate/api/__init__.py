@@ -12,7 +12,7 @@ class PropertySerializer(serializers.Serializer):
     address = serializers.CharField(required=False, max_length=255)
     type = serializers.CharField(required=False, max_length=30)
     offer = serializers.CharField(required=False, max_length=10)
-    status = serializers.SerializerMethodField('get_status')
+    active = serializers.BooleanField(required=False)
     baths = serializers.IntegerField(required=False)
     beds = serializers.IntegerField(required=False)
     size = serializers.FloatField(required=False)
@@ -24,12 +24,6 @@ class PropertySerializer(serializers.Serializer):
 
     def get_images(self, obj):
         return obj.image_list
-
-    def get_status(self, obj):
-        if obj.active:
-            return 'active'
-        else:
-            return 'inactive'
 
 
 class PropiedadViewSet(viewsets.ReadOnlyModelViewSet):
