@@ -157,25 +157,24 @@
                         <div class="empty-form images-inline">
                             <div class="inline">
                                 <div class="row" data-empty-permitted="true">
-                                    <div class="col-xs-3 ">
-                                        <label for="id_images-__prefix__-name">Nombre:</label>
-                                        <input class=" form-control" id="id_images-__prefix__-name" maxlength="60"
-                                               name="images-__prefix__-name" type="text">
+                                    <div class="col-xs-3">
+                                        {{ listing_images_form.empty_form.name.label_tag }}
+                                        {{ listing_images_form.empty_form.name|widget_attrs:"class:form-control" }}
                                     </div>
-                                    <div class="col-xs-6 ">
-                                        <label for="id_images-__prefix__-image">Imagen:</label>
-                                        <input id="id_images-__prefix__-image" name="images-__prefix__-image"
-                                               type="file">
+                                    <div class="col-xs-5">
+                                        {{ listing_images_form.empty_form.image.label_tag }}
+                                        {{ listing_images_form.empty_form.image }}
                                     </div>
-                                    <div class="col-xs-3 ">
-                                        <label for="id_images-__prefix__-order">Orden:</label>
-                                        <input class=" form-control" id="id_images-__prefix__-order"
-                                               name="images-__prefix__-order" type="number" value="99">
+                                    <div class="col-xs-2">
+                                        {{ listing_images_form.empty_form.order.label_tag }}
+                                        {{ listing_images_form.empty_form.order|widget_attrs:"class:form-control" }}
                                     </div>
-                                    <div class="col-xs-1">
-                                        <label for="id_images-__prefix__-DELETE">{% trans 'Delete' %}:</label>
-                                        <input id="id_images-__prefix__-DELETE" name="images-__prefix__-DELETE" type="checkbox">
-                                    </div>
+                                    {% if listing_images_form.can_delete %}
+                                        <div class="col-xs-1">
+                                            {{ listing_images_form.empty_form.DELETE.label_tag }}
+                                            {{ listing_images_form.empty_form.DELETE }}
+                                        </div>
+                                    {% endif %}
                                 </div>
                                 <hr/>
                             </div>
@@ -218,28 +217,23 @@
                             </div>
                         {% endfor %}
                         </fieldset>
-                        <!-- todo: this empty template should be dynamic and not static-->
                         <div class="empty-form attributes-inline">
                             <div class="inline">
                                 <div class="row" data-empty-permitted="true">
                                     <div class="col-xs-5">
-                                        <label for="id_attributelisting_set-__prefix__-attribute">Attribute:</label>
-                                        <select class=" form-control" id="id_attributelisting_set-__prefix__-attribute"
-                                            name="attributelisting_set-__prefix__-attribute">
-                                        <option value="">---------</option>
-                                        <option value="1">Piscina</option>
-                                    </select>
+                                        {{ listing_attributes_form.empty_form.attribute.label_tag }}
+                                        {{ listing_attributes_form.empty_form.attribute|widget_attrs:"class:form-control" }}
                                     </div>
-                                    <div class="col-xs-4 ">
-                                        <label for="id_attributelisting_set-__prefix__-value">Value:</label>
-                                        <input class=" form-control" id="id_attributelisting_set-__prefix__-value" maxlength="255"
-                                               name="attributelisting_set-__prefix__-value" type="text">
+                                    <div class="col-xs-4">
+                                        {{ listing_attributes_form.empty_form.value.label_tag }}
+                                        {{ listing_attributes_form.empty_form.value|widget_attrs:"class:form-control" }}
                                     </div>
-                                    <div class="col-xs-2">
-                                        <label for="id_attributelisting_set-__prefix__-DELETE">{% trans 'Delete' %}:</label>
-                                        <input id="id_attributelisting_set-__prefix__-DELETE"
-                                               name="attributelisting_set-__prefix__-DELETE" type="checkbox">
-                                    </div>
+                                    {% if listing_attributes_form.can_delete %}
+                                        <div class="col-xs-2">
+                                            {{ listing_attributes_form.empty_form.DELETE.label_tag }}
+                                            {{ listing_attributes_form.empty_form.DELETE }}
+                                        </div>
+                                    {% endif %}
                                 </div>
                                 <hr/>
                             </div>
