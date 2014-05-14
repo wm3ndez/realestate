@@ -1,11 +1,14 @@
 from braces.views import StaffuserRequiredMixin, LoginRequiredMixin, OrderableListMixin, SuperuserRequiredMixin
-from django.core.urlresolvers import reverse_lazy
+from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse_lazy, reverse
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView, CreateView, ListView, UpdateView, FormView
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from realestate.home.models import Contact
 from realestate.listing.models import Listing, Agent, City, Sector, DOMINICAN_PROVINCES
-from realestate.admin.forms import ListingForm, ListingImageFormSet, AttributeListingFormSet, ConstanceForm
+from realestate.admin.forms import ListingForm, ListingImageFormSet, AttributeListingFormSet, ConstanceForm, UserForm, \
+    SetPasswordForm
 
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
@@ -39,7 +42,7 @@ class CreateListing(LoginRequiredMixin, StaffuserRequiredMixin, CreateView):
         listing_attributes_form = context['listing_attributes_form']
 
         if listing_images_form.is_valid() and form.is_valid() and listing_attributes_form.is_valid():
-            self.object = form.save()  # saves Father and Children
+            self.object = form.save()  # saves parent and children
             listing_images_form.instance = self.object
             listing_images_form.save()
             listing_attributes_form.instance = self.object
@@ -79,7 +82,7 @@ class UpdateListing(LoginRequiredMixin, StaffuserRequiredMixin, UpdateView):
         listing_attributes_form = context['listing_attributes_form']
 
         if listing_images_form.is_valid() and form.is_valid() and listing_attributes_form.is_valid():
-            form.save()  # saves Father and Children
+            form.save()  # saves parent and Children
             listing_images_form.save()
             listing_attributes_form.save()
 
@@ -173,6 +176,41 @@ class UpdateSector(LoginRequiredMixin, StaffuserRequiredMixin, UpdateView):
     template_name = 'dashboard/create-sector.html'
     model = Sector
     success_url = reverse_lazy('admin-list-sectors')
+
+
+class Users(LoginRequiredMixin, SuperuserRequiredMixin, OrderableListMixin, ListView):
+    template_name = 'dashboard/users.html'
+    model = User
+    orderable_columns = ('id', 'first_name', 'last_name',)
+    orderable_columns_default = 'id'
+
+
+class CreateUser(LoginRequiredMixin, SuperuserRequiredMixin, CreateView):
+    template_name = 'dashboard/create-user.html'
+    model = User
+    form_class = UserForm
+
+    def get_success_url(self):
+        return reverse('set-user-password', args=(self.object.id,))
+
+
+class UpdateUser(LoginRequiredMixin, SuperuserRequiredMixin, UpdateView):
+    template_name = 'dashboard/create-user.html'
+    model = User
+    form_class = UserForm
+    success_url = reverse_lazy('admin-list-users')
+
+
+class SetUserPassword(LoginRequiredMixin, SuperuserRequiredMixin, FormView):
+    template_name = 'dashboard/password_reset.html'
+    form_class = SetPasswordForm
+    success_url = reverse_lazy('admin-list-users')
+
+    def form_valid(self, form):
+        u = User.objects.get(id=self.kwargs['user_id'])
+        u.set_password(form.cleaned_data['new_password'])
+        u.save()
+        return super(SetUserPassword, self).form_valid(form)
 
 
 class Settings(LoginRequiredMixin, SuperuserRequiredMixin, FormView):

@@ -1,0 +1,82 @@
+{% extends 'dashboard/base.html' %}
+{% load i18n %}
+{% block content-header %}
+    <h1>{% trans "Users" %}</h1>
+{% endblock %}
+{% block content %}
+
+    <a href="{% url 'add-user' %}" class="btn btn-info btn-flat">{% trans "Add New" %}</a>
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">{% trans "Users" %}</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body table-responsive">
+            <div id="users_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                <div class="row">
+                    <div class="col-xs-6"></div>
+                    <div class="col-xs-6"></div>
+                </div>
+                <table id="users" class="table table-bordered table-hover dataTable"
+                       aria-describedby="users_info">
+                    <thead>
+                    <tr role="row">
+                        <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="users" rowspan="1"
+                            colspan="1" aria-sort="ascending"
+                            aria-label="ID"> {% trans "ID" %}
+                        </th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="users" rowspan="1"
+                            colspan="1" aria-label="Name">{% trans "Username" %}
+                        </th>
+                         <th class="sorting" role="columnheader" tabindex="0" aria-controls="users" rowspan="1"
+                            colspan="1" aria-label="Name">{% trans "Name" %}
+                        </th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="users" rowspan="1"
+                            colspan="1" aria-label="E-Mail">{% trans "E-mail" %}
+                        </th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="users" rowspan="1"
+                            colspan="1"
+                            aria-label="Group">{% trans "Group" %}
+                        </th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="users" rowspan="1"
+                            colspan="1"
+                            aria-label="Actions">{% trans "Actions" %}
+                        </th>
+
+
+                    </tr>
+                    </thead>
+
+                    <tfoot>
+                    <tr>
+                        <th rowspan="1" colspan="1">{% trans "ID" %}</th>
+                        <th rowspan="1" colspan="1">{% trans "Username" %}</th>
+                        <th rowspan="1" colspan="1">{% trans "Name" %}</th>
+                        <th rowspan="1" colspan="1">{% trans "E-mail" %}</th>
+                        <th rowspan="1" colspan="1">{% trans "Groups" %}</th>
+                        <th rowspan="1" colspan="1">{% trans "Actions" %}</th>
+                    </tr>
+                    </tfoot>
+                    <tbody role="alert" aria-live="polite" aria-relevant="all">
+                    {% for user in object_list %}
+                        <tr class="{% cycle 'even' 'odd' %}">
+                            <td class="sorting_1"><a href="{% url 'update-user' user.id %}">{{ user.id }}</a></td>
+                            <td><a href="{% url 'update-user' user.id %}">{{ user.username }}</a></td>
+                            <td><a href="{% url 'update-user' user.id %}">{{ user.get_full_name }}</a></td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.groups.all|join:"," }}</td>
+                            <td>
+                                <a href="{% url 'set-user-password' user.id %}" class="btn btn-google-plus">
+                                    <i class="fa fa-pencil"></i> {% trans "Change Password" %}
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+
+{% endblock %}
