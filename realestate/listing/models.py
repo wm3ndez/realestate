@@ -23,7 +23,7 @@ TYPES = (
     ('townhouse', _('Town House')),
 )
 
-#TODO: Change this to states
+# TODO: Change this to states
 DOMINICAN_PROVINCES = (
     ('Azua', 'Azua'),
     ('Bahoruco', 'Bahoruco'),
@@ -252,7 +252,23 @@ class Listing(models.Model):
         return attributes
 
     def nearby(self):
-        return Listing.objects.filter(sector=self.sector).exclude(id=self.id).order_by('?')[:4]
+        return Listing.objects.active(sector=self.sector).exclude(id=self.id).order_by('?')[:4]
+
+    @property
+    def suggested(self):
+        qs = Listing.objects.active(type=self.type)
+
+        if self.should_have_baths:
+            qs = qs.filter(baths=self.baths)
+        if self.should_have_beds:
+            qs = qs.filter(beds=self.beds)
+
+        if qs.count() == 0:
+            price = self.price
+            lh = price * .90
+            rh = price * 1.10
+            qs = Listing.objects.active(type=self.type, price__range=(lh, rh))
+        return qs
 
     @property
     def should_have_beds(self):
