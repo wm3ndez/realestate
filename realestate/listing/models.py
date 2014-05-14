@@ -252,23 +252,32 @@ class Listing(models.Model):
         return attributes
 
     def nearby(self):
-        return Listing.objects.active(sector=self.sector).exclude(id=self.id).order_by('?')[:4]
+        return Listing.objects.active(sector=self.sector).exclude(id=self.id).order_by('?')
+
+    @property
+    def has_baths_or_beds(self):
+        return self.should_have_beds or self.should_have_baths
 
     @property
     def suggested(self):
         qs = Listing.objects.active(type=self.type)
 
-        if self.should_have_baths:
-            qs = qs.filter(baths=self.baths)
-        if self.should_have_beds:
-            qs = qs.filter(beds=self.beds)
+        price = self.price
+        lh = price * .90
+        rh = price * 1.10
 
-        if qs.count() == 0:
-            price = self.price
-            lh = price * .90
-            rh = price * 1.10
-            qs = Listing.objects.active(type=self.type, price__range=(lh, rh))
-        return qs
+        if self.has_baths_or_beds:
+            if self.should_have_baths:
+                qs = qs.filter(baths=self.baths)
+            if self.should_have_beds:
+                qs = qs.filter(beds=self.beds)
+
+            if qs.count() == 0:
+                qs = Listing.objects.active(type=self.type, price__range=(lh, rh))
+        else:
+                qs = qs.filter(price__range=(lh, rh))
+
+        return qs.order_by('?')
 
     @property
     def should_have_beds(self):
