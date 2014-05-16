@@ -73,4 +73,4 @@ def validate_attribute_value(attribute, value, obj):
     Helper function for forms that wish to validation a value for an
     AttributeOption.
     """
-    return import_validator(attribute.validacion)(value, obj)
+    return import_validator(attribute.validation)(value, obj)
