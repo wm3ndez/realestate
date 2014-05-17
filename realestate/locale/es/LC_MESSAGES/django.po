@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-14 18:28-0400\n"
+"POT-Creation-Date: 2014-05-17 16:35-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,12 +30,12 @@ msgstr "Contraseña(de nuevo)"
 msgid "Passwords don't match"
 msgstr "Las contraseñas no concuerdan"
 
-#: home/models.py:6 listing/models.py:321 templates/dashboard/agents.html:29
-#: templates/dashboard/agents.html.py:51 templates/dashboard/cities.html:29
-#: templates/dashboard/cities.html.py:41 templates/dashboard/contacts.html:29
-#: templates/dashboard/contacts.html:51 templates/dashboard/sectors.html:29
-#: templates/dashboard/sectors.html:40 templates/dashboard/users.html:32
-#: templates/dashboard/users.html.py:54
+#: home/models.py:6 listing/forms.py:66 listing/models.py:321
+#: templates/dashboard/agents.html:29 templates/dashboard/agents.html.py:51
+#: templates/dashboard/cities.html:29 templates/dashboard/cities.html.py:41
+#: templates/dashboard/contacts.html:29 templates/dashboard/contacts.html:51
+#: templates/dashboard/sectors.html:29 templates/dashboard/sectors.html:40
+#: templates/dashboard/users.html:32 templates/dashboard/users.html.py:54
 msgid "Name"
 msgstr "Nombre"
 
@@ -51,7 +51,7 @@ msgstr "Teléfono"
 msgid "Cellphone"
 msgstr "Celular"
 
-#: home/models.py:9
+#: home/models.py:9 listing/forms.py:68
 msgid "Email"
 msgstr "Email"
 
@@ -115,41 +115,49 @@ msgstr "Agregue una imagen"
 msgid "Invalid validation function specifed!"
 msgstr "Función de validación inválida."
 
-#: listing/forms.py:49 listing/forms.py:50
+#: listing/forms.py:50 listing/forms.py:51
 msgid "All"
 msgstr "Todos"
 
-#: listing/forms.py:55 listing/models.py:142 listing/models.py:175
+#: listing/forms.py:56 listing/models.py:142 listing/models.py:175
 #: templates/forms/search.html:12
 msgid "Agent"
 msgstr "Agentes Vendedores"
 
-#: listing/forms.py:56 templates/forms/search.html:25
+#: listing/forms.py:57 templates/forms/search.html:25
 #: templates/home/featured.html:8
 msgid "Location"
 msgstr "Ubicación"
 
-#: listing/forms.py:57 listing/models.py:109
+#: listing/forms.py:58 listing/models.py:109
 msgid "Sector"
 msgstr "Sector"
 
-#: listing/forms.py:58 templates/dashboard/listings.html:58
+#: listing/forms.py:59 templates/dashboard/listings.html:58
 #: templates/forms/search.html:18
 msgid "Type"
 msgstr "Tipo"
 
-#: listing/forms.py:59 listing/models.py:167 templates/forms/search.html:31
+#: listing/forms.py:60 listing/models.py:167 templates/forms/search.html:31
 msgid "Offer"
 msgstr "Oferta"
 
-#: listing/forms.py:60 listing/models.py:171
+#: listing/forms.py:61 listing/models.py:171
 #: templates/includes/listing_list.html:13
 msgid "Bedrooms"
 msgstr "Habitaciones"
 
-#: listing/forms.py:61 listing/models.py:170
+#: listing/forms.py:62 listing/models.py:170
 msgid "Bathrooms"
 msgstr "Baños"
+
+#: listing/forms.py:67
+msgid "Subject"
+msgstr "Asunto"
+
+#: listing/forms.py:69
+msgid "Message"
+msgstr "Mensaje"
 
 #: listing/models.py:16
 msgid "Apartment"
@@ -400,12 +408,12 @@ msgstr "Provincia/Estado"
 
 #: templates/dashboard/create-agent.html:7
 msgid "Create Agent"
-msgstr "Creado en"
+msgstr "Creado Agente"
 
 #: templates/dashboard/create-agent.html:27
 #: templates/dashboard/create-city.html:27
 #: templates/dashboard/create-contact.html:27
-#: templates/dashboard/create-listing.html:254
+#: templates/dashboard/create-listing.html:311
 #: templates/dashboard/create-sector.html:27
 #: templates/dashboard/create-user.html:27
 #: templates/dashboard/password_reset.html:28
@@ -426,19 +434,19 @@ msgstr "Contactos"
 msgid "Create Listing"
 msgstr "Crear Propiedad"
 
-#: templates/dashboard/create-listing.html:26
+#: templates/dashboard/create-listing.html:38
 msgid "add new"
 msgstr "agregar"
 
-#: templates/dashboard/create-listing.html:45
+#: templates/dashboard/create-listing.html:75
 msgid "Listing Information"
 msgstr "Datos de la propiedad"
 
-#: templates/dashboard/create-listing.html:121
+#: templates/dashboard/create-listing.html:178
 msgid "Listing Images"
 msgstr "Imágenes de la propiedad"
 
-#: templates/dashboard/create-listing.html:189
+#: templates/dashboard/create-listing.html:246
 msgid "Listing Features"
 msgstr "Atributos de la propiedad"
 

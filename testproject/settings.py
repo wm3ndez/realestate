@@ -144,7 +144,7 @@ CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 CONSTANCE_CONFIG = {
     'PROPERTIES_PER_PAGE': (16, _('Properties per page')),
     'RECENTLY_ADDED': (6, _('Recently Added')),
-
+    'CONTACT_DEFAULT_EMAIL': (ADMINS[0][0], _('Contact form email'))
 }
 
 REST_FRAMEWORK = {

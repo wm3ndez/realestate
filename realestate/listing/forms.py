@@ -3,6 +3,7 @@ from django import forms
 from django.utils.translation import ugettext as _
 from django.conf import settings
 from django.core.mail import send_mail
+from constance import config
 
 
 class ListingContactForm(forms.Form):
@@ -62,14 +63,12 @@ class SearchForm(forms.Form):
 
 
 class ContactForm(forms.Form):
-    name = forms.CharField(max_length=60, required=True)
-    subject = forms.CharField(max_length=60, required=True)
-    email = forms.EmailField(required=True)
-    message = forms.CharField(widget=forms.Textarea, required=True)
+    name = forms.CharField(label=_('Name'), max_length=60, required=True)
+    subject = forms.CharField(label=_('Subject'), max_length=60, required=True)
+    email = forms.EmailField(label=_('Email'), required=True)
+    message = forms.CharField(label=_('Message'), widget=forms.Textarea, required=True)
 
-    from_email = settings.DEFAULT_FROM_EMAIL
-
-    recipient_list = [mail_tuple[1] for mail_tuple in settings.MANAGERS]
+    recipient_list = [config.CONTACT_DEFAULT_EMAIL]
 
     def send_email(self):
         from_email = self.cleaned_data['email']
