@@ -13,14 +13,17 @@ from django.utils.translation import ugettext as _
 from realestate.home.models import Contact
 
 TYPES = (
-    ('apartment', _('Apartment')),
-    ('condo', _('Condo')),
-    ('cottage', _('Cottage')),
-    ('farm-ranch', _('Farm/Ranch')),
-    ('house', _('House')),
-    ('land', _('Land')),
-    ('office', _('Office')),
-    ('townhouse', _('Town House')),
+    ('house', _('Houses')),
+    ('villa', _('Villas')),
+    ('penthouse', _('Penthouses')),
+    ('apartment', _('Apartments')),
+    ('residencial-land', _('Residential Land')),
+    ('corporate-office', _('Corporate Offices')),
+    ('commercial-office', _('Commercial Offices')),
+    ('commercial-space', _('Commercial Space')),
+    ('industrial-building', _('Industrial Buildings')),
+    ('commercial-warehouses', _('Commercial Warehouses')),
+    ('commercial-land', _('Commercial Land')),
 )
 
 # TODO: Change this to states
@@ -275,17 +278,17 @@ class Listing(models.Model):
             if qs.count() == 0:
                 qs = Listing.objects.active(type=self.type, price__range=(lh, rh))
         else:
-                qs = qs.filter(price__range=(lh, rh))
+            qs = qs.filter(price__range=(lh, rh))
 
         return qs.order_by('?')
 
     @property
     def should_have_beds(self):
-        return self.type not in ('office', 'land')
+        return self.type in ('house', 'penthouse', 'apartment', 'villa',)
 
     @property
     def should_have_baths(self):
-        return self.type not in ('land')
+        return 'land' not in self.type
 
 
 class Attribute(models.Model):
