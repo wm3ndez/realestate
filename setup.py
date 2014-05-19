@@ -143,7 +143,7 @@ setup(
         'django-discover-runner==1.0',
         'django-discoverage==1.0.0',
         'django-constance',
+        'django-picklefield',
     ],
     test_suite='tests.runtests.main',
-    tests_require=['requests', ],
 )
