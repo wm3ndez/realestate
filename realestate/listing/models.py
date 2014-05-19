@@ -345,6 +345,7 @@ class ListingImage(models.Model):
 
 class OnSale(models.Model):
     listing = models.ForeignKey(Listing, verbose_name=_('Listing'))
+    price = MoneyField(_('Sale Price'), default=Money(0, USD), max_digits=12, decimal_places=2)
     active = models.BooleanField(_('Active'), default=False)
     start_date = models.DateTimeField(verbose_name=_(u'Activation date'))
     end_date = models.DateTimeField(verbose_name=_(u'Deactivation date'))
