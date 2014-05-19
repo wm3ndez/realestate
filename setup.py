@@ -134,7 +134,6 @@ setup(
         'decorator==3.4.0',
         'django-extensions',
         'django-localeurl',
-        'python-twitter',
         'six',
         'sorl-thumbnail',
         'djangorestframework',
@@ -143,7 +142,7 @@ setup(
         'django-money==0.4.1',
         'django-discover-runner==1.0',
         'django-discoverage==1.0.0',
-        'django-constance'
+        'django-constance',
     ],
     test_suite='tests.runtests.main',
     tests_require=['requests', ],

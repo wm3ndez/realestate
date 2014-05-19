@@ -7,8 +7,6 @@ Werkzeug
 decorator==3.4.0
 django-extensions
 django-localeurl
-django-seo
-python-twitter
 six==1.3.0
 sorl-thumbnail
 djangorestframework
