@@ -146,4 +146,5 @@ setup(
         'django-constance'
     ],
     test_suite='tests.runtests.main',
+    tests_require=['requests', ],
 )
