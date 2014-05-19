@@ -145,4 +145,5 @@ setup(
         'django-discoverage==1.0.0',
         'django-constance'
     ],
+    test_suite='tests.runtests.main',
 )
