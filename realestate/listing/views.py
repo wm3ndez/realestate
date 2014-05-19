@@ -118,6 +118,7 @@ def get_map(request):
 
 def _send_contact_form(form, prop):
     asunto = '%s %s' % (_('Customer interested in:'), prop.title)
+    # TODO: Translate
     mensaje = "El cliente %s esta interesado en esta listing y le ha dejado el siguiente mensaje:\n\n%s\n\nTelefono: %s" % (
         form.cleaned_data.get('nombre'), form.cleaned_data.get('mensaje'), form.cleaned_data.get('phone'))
     _from = settings.DEFAULT_FROM_EMAIL

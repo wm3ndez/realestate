@@ -1,7 +1,6 @@
 from braces.views import StaffuserRequiredMixin, LoginRequiredMixin, OrderableListMixin, SuperuserRequiredMixin
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy, reverse
-from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView, CreateView, ListView, UpdateView, FormView
 from django.http import HttpResponseRedirect
 from django.contrib import messages

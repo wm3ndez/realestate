@@ -11,6 +11,7 @@ def validation_simple(value, obj=None):
     if len(value) >= 1:
         return True, value, ''
     else:
+        # TODO: Translate
         return False, value, u'El valor digitado debe tener uno o más caracteres'
 
 
@@ -20,9 +21,10 @@ def validation_integer(value, obj=None):
    No change is made to the value
     """
     try:
-        check = int(value)
+        int(value)
         return True, value, ''
     except:
+        # TODO: Translate
         return False, value, u'El valor digitado no es un número entero'
 
 
@@ -34,6 +36,7 @@ def validation_yesno(value, obj=None):
     if string.upper(value) in ["YES", "NO"]:
         return True, string.capitalize(value), ''
     else:
+        # TODO: Translate
         return False, value, u'El valor digitado debe ser YES o NO'
 
 
@@ -45,6 +48,7 @@ def validation_decimal(value, obj=None):
         Decimal(value)
         return True, value, ''
     except:
+        # TODO: Translate
         return False, value, u'El valor digitado debe ser un número decimal'
 
 
@@ -61,7 +65,7 @@ def import_validator(validator):
     else:
         # The below __import__() call is from python docs, and is equivalent to:
         #
-        #   from import_name import function_name
+        # from import_name import function_name
         #
         import_module = __import__(import_name, globals(), locals(), [function_name])
 

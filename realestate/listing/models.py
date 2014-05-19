@@ -280,7 +280,7 @@ class Listing(models.Model):
         else:
             qs = qs.filter(price__range=(lh, rh))
 
-        return qs.order_by('?')
+        return qs.exclude(id=self.id).order_by('?')
 
     @property
     def should_have_beds(self):
