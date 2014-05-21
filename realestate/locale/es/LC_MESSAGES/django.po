@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-19 09:47-0400\n"
+"POT-Creation-Date: 2014-05-21 19:45-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,24 +30,27 @@ msgstr "Contraseña(de nuevo)"
 msgid "Passwords don't match"
 msgstr "Las contraseñas no concuerdan"
 
-#: home/models.py:6 listing/forms.py:66 listing/models.py:324
+#: home/models.py:6 listing/forms.py:66 listing/models.py:330
 #: templates/dashboard/agents.html:29 templates/dashboard/agents.html.py:51
 #: templates/dashboard/cities.html:29 templates/dashboard/cities.html.py:41
 #: templates/dashboard/contacts.html:29 templates/dashboard/contacts.html:51
+#: templates/dashboard/deals.html:29 templates/dashboard/deals.html.py:51
 #: templates/dashboard/sectors.html:29 templates/dashboard/sectors.html:40
 #: templates/dashboard/users.html:32 templates/dashboard/users.html.py:54
 msgid "Name"
 msgstr "Nombre"
 
-#: home/models.py:7 listing/models.py:125 templates/dashboard/agents.html:36
+#: home/models.py:7 listing/models.py:126 templates/dashboard/agents.html:36
 #: templates/dashboard/agents.html.py:53 templates/dashboard/contacts.html:36
-#: templates/dashboard/contacts.html:53 templates/listing/listing.html:132
+#: templates/dashboard/contacts.html:53 templates/dashboard/deals.html:36
+#: templates/dashboard/deals.html.py:53 templates/listing/listing.html:132
 msgid "Phone"
 msgstr "Teléfono"
 
-#: home/models.py:8 listing/models.py:126 templates/dashboard/agents.html:40
+#: home/models.py:8 listing/models.py:127 templates/dashboard/agents.html:40
 #: templates/dashboard/agents.html.py:54 templates/dashboard/contacts.html:40
-#: templates/dashboard/contacts.html:54
+#: templates/dashboard/contacts.html:54 templates/dashboard/deals.html:40
+#: templates/dashboard/deals.html.py:54
 msgid "Cellphone"
 msgstr "Celular"
 
@@ -70,12 +73,12 @@ msgstr "Contactos"
 
 #: home/models.py:15 templates/dashboard/contacts.html:4
 #: templates/dashboard/contacts.html:11
-#: templates/dashboard/includes/sidebar.html:62
+#: templates/dashboard/includes/sidebar.html:68
 msgid "Contacts"
 msgstr "Contactos"
 
 #: listing/admin.py:21 listing/admin.py:103 listing/admin.py:125
-#: listing/models.py:325 templates/dashboard/listings.html:59
+#: listing/models.py:331 templates/dashboard/listings.html:59
 msgid "Image"
 msgstr "Imagen"
 
@@ -91,7 +94,7 @@ msgstr "Descripción"
 msgid "Contact Info"
 msgstr "Información de Contacto"
 
-#: listing/admin.py:83 listing/models.py:167
+#: listing/admin.py:83 listing/models.py:168
 #: templates/dashboard/listings.html:57 templates/home/featured.html:9
 #: templates/home/homepage_listing.html:11
 #: templates/includes/listing_grid.html:13
@@ -104,6 +107,7 @@ msgid "(No selection)"
 msgstr "(No seleccionada)"
 
 #: listing/admin.py:101 templates/dashboard/agents.html:70
+#: templates/dashboard/deals.html:70
 msgid "No image"
 msgstr "Sin imagen"
 
@@ -119,7 +123,7 @@ msgstr "Función de validación inválida."
 msgid "All"
 msgstr "Todos"
 
-#: listing/forms.py:56 listing/models.py:145 listing/models.py:178
+#: listing/forms.py:56 listing/models.py:146 listing/models.py:179
 #: templates/forms/search.html:12
 msgid "Agent"
 msgstr "Agentes Vendedores"
@@ -129,7 +133,7 @@ msgstr "Agentes Vendedores"
 msgid "Location"
 msgstr "Ubicación"
 
-#: listing/forms.py:58 listing/models.py:112
+#: listing/forms.py:58 listing/models.py:113
 msgid "Sector"
 msgstr "Sector"
 
@@ -138,16 +142,16 @@ msgstr "Sector"
 msgid "Type"
 msgstr "Tipo"
 
-#: listing/forms.py:60 listing/models.py:170 templates/forms/search.html:31
+#: listing/forms.py:60 listing/models.py:171 templates/forms/search.html:31
 msgid "Offer"
 msgstr "Oferta"
 
-#: listing/forms.py:61 listing/models.py:174
+#: listing/forms.py:61 listing/models.py:175
 #: templates/includes/listing_list.html:13
 msgid "Bedrooms"
 msgstr "Habitaciones"
 
-#: listing/forms.py:62 listing/models.py:173
+#: listing/forms.py:62 listing/models.py:174
 msgid "Bathrooms"
 msgstr "Baños"
 
@@ -159,229 +163,236 @@ msgstr "Asunto"
 msgid "Message"
 msgstr "Mensaje"
 
-#: listing/models.py:16 templates/includes/menu.html:21
+#: listing/models.py:17 templates/includes/menu.html:21
 #: templates/includes/menu.html.py:30
 msgid "Houses"
 msgstr "Casas"
 
-#: listing/models.py:17
+#: listing/models.py:18
 msgid "Villas"
 msgstr "Villas"
 
-#: listing/models.py:18
+#: listing/models.py:19
 msgid "Penthouses"
 msgstr "Penthouses"
 
-#: listing/models.py:19 templates/includes/menu.html:20
+#: listing/models.py:20 templates/includes/menu.html:20
 #: templates/includes/menu.html.py:29
 msgid "Apartments"
 msgstr "Apartamentos"
 
-#: listing/models.py:20
+#: listing/models.py:21
 msgid "Residential Land"
 msgstr "Terrenos Residenciales"
 
-#: listing/models.py:21
+#: listing/models.py:22
 msgid "Corporate Offices"
 msgstr "Oficinas Corporativas"
 
-#: listing/models.py:22
+#: listing/models.py:23
 msgid "Commercial Offices"
 msgstr "Oficinas Comerciales"
 
-#: listing/models.py:23
+#: listing/models.py:24
 msgid "Commercial Space"
 msgstr "Locales Comerciales"
 
-#: listing/models.py:24
+#: listing/models.py:25
 msgid "Industrial Buildings"
 msgstr "Naves Industriales"
 
-#: listing/models.py:25
+#: listing/models.py:26
 msgid "Commercial Warehouses"
 msgstr "Almacenes Comerciales"
 
-#: listing/models.py:26
+#: listing/models.py:27
 msgid "Commercial Land"
 msgstr "Terrenos Comerciales"
 
-#: listing/models.py:68 templates/includes/header.html:41
+#: listing/models.py:69 templates/includes/header.html:41
 #: templates/includes/menu.html:18
 msgid "For Sale"
 msgstr "En Venta"
 
-#: listing/models.py:68 templates/includes/header.html:42
+#: listing/models.py:69 templates/includes/header.html:42
 #: templates/includes/menu.html:27
 msgid "For Rent"
 msgstr "En Renta"
 
-#: listing/models.py:68
+#: listing/models.py:69
 msgid "For Sale/For Rent"
 msgstr "En Venta/En Renta"
 
-#: listing/models.py:71
+#: listing/models.py:72
 msgid "One or more characters"
 msgstr "Uno o más caracteres"
 
-#: listing/models.py:72
+#: listing/models.py:73
 msgid "Integer"
 msgstr "Número entero"
 
-#: listing/models.py:73
+#: listing/models.py:74
 msgid "Yes/No"
 msgstr "Sí/No"
 
-#: listing/models.py:74
+#: listing/models.py:75
 msgid "Decimal"
 msgstr "Decimal"
 
-#: listing/models.py:93 listing/models.py:127
+#: listing/models.py:94 listing/models.py:128
 #: templates/dashboard/sectors.html:32 templates/dashboard/sectors.html:41
 msgid "City"
 msgstr "Ciudad"
 
-#: listing/models.py:94 templates/dashboard/cities.html:4
+#: listing/models.py:95 templates/dashboard/cities.html:4
 #: templates/dashboard/cities.html.py:11
-#: templates/dashboard/includes/sidebar.html:45
+#: templates/dashboard/includes/sidebar.html:51
 msgid "Cities"
 msgstr "Ciudades"
 
-#: listing/models.py:113 templates/dashboard/sectors.html:4
+#: listing/models.py:114 templates/dashboard/sectors.html:4
 #: templates/dashboard/sectors.html:11
-#: templates/dashboard/includes/sidebar.html:51
+#: templates/dashboard/includes/sidebar.html:57
 msgid "Sectors"
 msgstr "Sectores"
 
-#: listing/models.py:128
+#: listing/models.py:129
 msgid "Address"
 msgstr "Dirección"
 
-#: listing/models.py:129 listing/models.py:342
+#: listing/models.py:130 listing/models.py:348
 #: templates/dashboard/agents.html:43 templates/dashboard/agents.html.py:55
+#: templates/dashboard/deals.html:43 templates/dashboard/deals.html.py:55
 msgid "Picture"
 msgstr "Fotografía"
 
-#: listing/models.py:130
+#: listing/models.py:131
 msgid "User"
 msgstr "Usuario"
 
-#: listing/models.py:131 listing/models.py:171 listing/models.py:348
+#: listing/models.py:132 listing/models.py:172 listing/models.py:364
 msgid "Active"
 msgstr "Activo"
 
-#: listing/models.py:146 templates/dashboard/agents.html:4
+#: listing/models.py:147 templates/dashboard/agents.html:4
 #: templates/dashboard/agents.html.py:11
-#: templates/dashboard/includes/sidebar.html:57
+#: templates/dashboard/includes/sidebar.html:63
 msgid "Agents"
 msgstr "Agentes Vendedores"
 
-#: listing/models.py:164 templates/dashboard/listings.html:56
+#: listing/models.py:165 templates/dashboard/listings.html:56
 msgid "Title"
 msgstr "Título"
 
-#: listing/models.py:165
+#: listing/models.py:166
 msgid "Slug"
 msgstr "Slug"
 
-#: listing/models.py:166 templates/home/featured.html:7
+#: listing/models.py:167 templates/home/featured.html:7
 #: templates/listing/listing.html:81
 msgid "Description"
 msgstr "Descripción"
 
-#: listing/models.py:169
+#: listing/models.py:170
 msgid "Listing Type"
 msgstr "Tipo de Propiedad"
 
-#: listing/models.py:172
+#: listing/models.py:173
 msgid "Featured"
 msgstr "Destacada"
 
-#: listing/models.py:175
+#: listing/models.py:176
 msgid "Size(m2)"
 msgstr "Tamaño(m2)"
 
-#: listing/models.py:176
+#: listing/models.py:177
 msgid "Coords"
 msgstr "Coordenadas"
 
-#: listing/models.py:180
+#: listing/models.py:181
 msgid "Private Notes"
 msgstr "Notas Privadas"
 
-#: listing/models.py:181
+#: listing/models.py:182
 msgid "Created"
 msgstr "Creado en"
 
-#: listing/models.py:182
+#: listing/models.py:183
 msgid "Last Modified"
 msgstr "Última modificación"
 
-#: listing/models.py:205
+#: listing/models.py:206
 msgid "No location provided"
 msgstr "Ubicación no disponible"
 
-#: listing/models.py:212 listing/models.py:323 listing/models.py:347
+#: listing/models.py:213 listing/models.py:329 listing/models.py:362
 msgid "Listing"
 msgstr "Propiedad"
 
-#: listing/models.py:213 templates/dashboard/listings.html:21
+#: listing/models.py:214 templates/dashboard/listings.html:21
 #: templates/dashboard/includes/sidebar.html:39
 #: templates/includes/header.html:45 templates/includes/header.html.py:49
 #: templates/includes/menu.html:15
 msgid "Listings"
 msgstr "Propiedades"
 
-#: listing/models.py:295 listing/models.py:300
+#: listing/models.py:301 listing/models.py:306
 msgid "Attribute"
 msgstr "Atributo"
 
-#: listing/models.py:296
+#: listing/models.py:302
 msgid "Value type"
 msgstr "Tipo de valor"
 
-#: listing/models.py:301
+#: listing/models.py:307
 msgid "Attributes"
 msgstr "Atributos"
 
-#: listing/models.py:310
+#: listing/models.py:316
 msgid "Value"
 msgstr "Valor"
 
-#: listing/models.py:314
+#: listing/models.py:320
 msgid "Listing attribute"
 msgstr "Atributo"
 
-#: listing/models.py:315
+#: listing/models.py:321
 msgid "Listing attributes"
 msgstr "Atributos"
 
-#: listing/models.py:326
+#: listing/models.py:332
 msgid "Added"
 msgstr "Agregado en"
 
-#: listing/models.py:327
+#: listing/models.py:333
 msgid "Order"
 msgstr "Orden"
 
-#: listing/models.py:343
+#: listing/models.py:349
 msgid "Pictures"
 msgstr "Fotografías"
 
-#: listing/models.py:349
+#: listing/models.py:363
+msgid "Sale Price"
+msgstr "Precio de Oferta"
+
+#: listing/models.py:365
 msgid "Activation date"
 msgstr "Fecha de activación"
 
-#: listing/models.py:350
+#: listing/models.py:366
 msgid "Deactivation date"
 msgstr "Fecha de desactivación"
 
-#: listing/models.py:358
-msgid "Properties on Sale"
-msgstr "Propiedades en Oferta"
+#: listing/models.py:376
+msgid "Deal"
+msgstr "De Oportunidad"
 
-#: listing/models.py:359
-msgid "Property on Sale"
-msgstr "Propiedad en Oferta"
+#: listing/models.py:377 templates/dashboard/deals.html:4
+#: templates/dashboard/deals.html.py:11
+#: templates/dashboard/includes/sidebar.html:45 templates/widgets/deals.html:3
+msgid "Deals"
+msgstr "De Oportunidad"
 
 #: listing/views.py:120
 msgid "Customer interested in:"
@@ -396,14 +407,16 @@ msgid "Real Estate Admin Site"
 msgstr "Administración - Bienes Raíces"
 
 #: templates/dashboard/agents.html:8 templates/dashboard/cities.html:8
-#: templates/dashboard/contacts.html:8 templates/dashboard/listings.html:17
-#: templates/dashboard/sectors.html:8 templates/dashboard/users.html:8
+#: templates/dashboard/contacts.html:8 templates/dashboard/deals.html:8
+#: templates/dashboard/listings.html:17 templates/dashboard/sectors.html:8
+#: templates/dashboard/users.html:8
 msgid "Add New"
 msgstr "Agregar Nuevo"
 
 #: templates/dashboard/agents.html:26 templates/dashboard/agents.html.py:50
 #: templates/dashboard/cities.html:26 templates/dashboard/cities.html.py:40
 #: templates/dashboard/contacts.html:26 templates/dashboard/contacts.html:50
+#: templates/dashboard/deals.html:26 templates/dashboard/deals.html.py:50
 #: templates/dashboard/sectors.html:26 templates/dashboard/sectors.html:39
 #: templates/dashboard/users.html:26 templates/dashboard/users.html.py:52
 msgid "ID"
@@ -411,6 +424,7 @@ msgstr "ID"
 
 #: templates/dashboard/agents.html:32 templates/dashboard/agents.html.py:52
 #: templates/dashboard/contacts.html:32 templates/dashboard/contacts.html:52
+#: templates/dashboard/deals.html:32 templates/dashboard/deals.html.py:52
 #: templates/dashboard/users.html:35 templates/dashboard/users.html.py:55
 msgid "E-mail"
 msgstr "E-mail"
@@ -426,6 +440,7 @@ msgstr "Creado Agente"
 #: templates/dashboard/create-agent.html:27
 #: templates/dashboard/create-city.html:27
 #: templates/dashboard/create-contact.html:27
+#: templates/dashboard/create-deal.html:27
 #: templates/dashboard/create-listing.html:311
 #: templates/dashboard/create-sector.html:27
 #: templates/dashboard/create-user.html:27
@@ -441,6 +456,10 @@ msgstr "Crear Ciudad"
 #: templates/dashboard/create-contact.html:7
 msgid "Create Contact"
 msgstr "Crear Contacto"
+
+#: templates/dashboard/create-deal.html:7
+msgid "Add Deal"
+msgstr "Agregar Nuevo"
 
 #: templates/dashboard/create-listing.html:4
 msgid "Create Listing"
@@ -475,12 +494,12 @@ msgid "Change Password"
 msgstr "Cambiar Contraseña"
 
 #: templates/dashboard/settings.html:7
-#: templates/dashboard/includes/sidebar.html:72
+#: templates/dashboard/includes/sidebar.html:78
 msgid "Settings"
 msgstr "Ajustes"
 
 #: templates/dashboard/users.html:4 templates/dashboard/users.html.py:11
-#: templates/dashboard/includes/sidebar.html:67
+#: templates/dashboard/includes/sidebar.html:73
 msgid "Users"
 msgstr "Usuarios"
 
@@ -633,10 +652,6 @@ msgstr "Actualmente:"
 #: templates/widget/image.html:4
 msgid "Change:"
 msgstr "Cambiar:"
-
-#: templates/widgets/deals.html:3
-msgid "Deals"
-msgstr "De Oportunidad"
 
 #: templates/widgets/links.html:3
 msgid "Links"

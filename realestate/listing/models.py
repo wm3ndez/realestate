@@ -2,6 +2,7 @@
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import slugify
 from django.db import models
+from django.utils import timezone
 from djmoney.models.fields import MoneyField
 from moneyed import USD, Money
 
@@ -291,6 +292,10 @@ class Listing(models.Model):
     def should_have_baths(self):
         return 'land' not in self.type
 
+    @property
+    def on_sale(self):
+        return OnSale.objects.on_sale(listing__in=(self,)).exists()
+
 
 class Attribute(models.Model):
     name = models.CharField(_(u'Attribute'), max_length=100)
@@ -344,6 +349,15 @@ class ListingImage(models.Model):
         verbose_name_plural = _('Pictures')
 
 
+class OnSaleManager(models.Manager):
+    def active(self, **kwargs):
+        return self.filter(active=True, **kwargs)
+
+    def on_sale(self, **kwargs):
+        now = timezone.now()
+        return self.active(start_date__lte=now, end_date__gte=now, **kwargs)
+
+
 class OnSale(models.Model):
     listing = models.ForeignKey(Listing, verbose_name=_('Listing'))
     price = MoneyField(_('Sale Price'), default=Money(0, USD), max_digits=12, decimal_places=2)
@@ -351,11 +365,13 @@ class OnSale(models.Model):
     start_date = models.DateTimeField(verbose_name=_(u'Activation date'))
     end_date = models.DateTimeField(verbose_name=_(u'Deactivation date'))
 
+    objects = OnSaleManager()
+
     def __unicode__(self):
         if self.listing.sector is not None:
             return '%s - %s' % (self.listing.title, self.listing.sector.name)
         return self.listing.title
 
     class Meta:
-        verbose_name = _(u'Properties on Sale')
-        verbose_name_plural = _(u'Property on Sale')
+        verbose_name = _(u'Deal')
+        verbose_name_plural = _(u'Deals')

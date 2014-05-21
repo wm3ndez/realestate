@@ -3,7 +3,7 @@ from django.contrib.auth.views import password_change
 from realestate.admin.views import Dashboard, CreateListing, UpdateListing, Listings, CreateAgent, Agents, Contacts, \
     CreateContact, \
     UpdateAgent, UpdateContact, Cities, CreateCity, UpdateCity, Sectors, CreateSector, UpdateSector, Settings, Users, \
-    CreateUser, UpdateUser, SetUserPassword
+    CreateUser, UpdateUser, SetUserPassword, Deals, CreateDeal, UpdateDeal
 
 urlpatterns = patterns(
     'realestate.admin.views',
@@ -30,6 +30,9 @@ urlpatterns = patterns(
     url('^set-user-password/(?P<user_id>\d+)$', SetUserPassword.as_view(), name='set-user-password'),
     (r'password_change/$', password_change,
      {'template_name': 'dashboard/password_reset.html', 'post_change_redirect': 'admin-list-users'}),
+    url('^deals/', Deals.as_view(), name='admin-list-deals'),
+    url('^new-deal/', CreateDeal.as_view(), name='add-deal'),
+    url('^update-deal/(?P<pk>\d+)$', UpdateDeal.as_view(), name='update-deal'),
 
 
     url('^config/$', Settings.as_view(), name='dashboard-settings'),

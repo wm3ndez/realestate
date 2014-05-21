@@ -108,7 +108,7 @@ class ListingAdmin(admin.ModelAdmin):
 
 
 class OnSaleAdmin(admin.ModelAdmin):
-    list_display = ('listing', 'active')
+    list_display = ('listing', 'active', 'price', 'start_date', 'end_date')
 
 
 class AgentAdmin(admin.ModelAdmin):
@@ -145,5 +145,5 @@ admin.site.register(Sector)
 admin.site.register(City)
 admin.site.register(Agent, AgentAdmin)
 admin.site.register(ListingImage, ImageAdmin)
-admin.site.register(OnSale)
+admin.site.register(OnSale, OnSaleAdmin)
 admin.site.register(Attribute, AttributesAdmin)

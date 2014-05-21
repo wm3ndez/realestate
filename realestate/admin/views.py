@@ -5,7 +5,7 @@ from django.views.generic import TemplateView, CreateView, ListView, UpdateView,
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from realestate.home.models import Contact
-from realestate.listing.models import Listing, Agent, City, Sector, DOMINICAN_PROVINCES
+from realestate.listing.models import Listing, Agent, City, Sector, DOMINICAN_PROVINCES, OnSale
 from realestate.admin.forms import ListingForm, ListingImageFormSet, AttributeListingFormSet, ConstanceForm, UserForm, \
     SetPasswordForm
 
@@ -198,6 +198,25 @@ class UpdateUser(LoginRequiredMixin, SuperuserRequiredMixin, UpdateView):
     model = User
     form_class = UserForm
     success_url = reverse_lazy('admin-list-users')
+
+
+class Deals(LoginRequiredMixin, StaffuserRequiredMixin, OrderableListMixin, ListView):
+    template_name = 'dashboard/deals.html'
+    model = OnSale
+    orderable_columns = ('id', 'first_name', 'last_name',)
+    orderable_columns_default = 'id'
+
+
+class CreateDeal(LoginRequiredMixin, SuperuserRequiredMixin, CreateView):
+    template_name = 'dashboard/create-deal.html'
+    model = OnSale
+    success_url = reverse_lazy('admin-list-sale')
+
+
+class UpdateDeal(LoginRequiredMixin, SuperuserRequiredMixin, UpdateView):
+    template_name = 'dashboard/create-deal.html'
+    model = OnSale
+    success_url = reverse_lazy('admin-list-sale')
 
 
 class SetUserPassword(LoginRequiredMixin, SuperuserRequiredMixin, FormView):
