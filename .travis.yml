@@ -8,5 +8,8 @@ env:
 install:
   - pip install Django==$DJANGO_VERSION
   - python setup.py install
+  - pip install coveralls
 
 script: python setup.py test
+after_success:
+  - coveralls
