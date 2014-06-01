@@ -19,4 +19,4 @@ def get_ultimos_apartamentos(limit=4):
 @register.inclusion_tag('home/featured.html')
 def get_featured(limit=5):
     properties = Listing.objects.featured()[:limit]
-    return {'properties': properties}
+    return {'listings': properties}
