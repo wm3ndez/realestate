@@ -3,6 +3,7 @@ from django.core.mail.message import EmailMessage
 from django.db.models.query_utils import Q
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 from django.template import RequestContext
+from django.views.generic import ListView, FormView, TemplateView, DetailView
 from realestate.listing.forms import ListingContactForm, SearchForm
 from realestate.listing.models import Listing, Agent
 from realestate.utils import paginate
@@ -45,17 +46,25 @@ def _sale_rent(type, request, offer='sale', template='listing/search.html'):
     return _render_search_page(listing, request, template)
 
 
-def properties(request):
-    listing = Listing.objects.active()
-    return _render_search_page(listing, request, template='listing/results.html')
+class ListingList(ListView):
+    template_name = 'listing/results.html'
+    model = Listing
+    queryset = Listing.objects.active()
+    paginate_by = config.PROPERTIES_PER_PAGE
 
 
-def sale(request, tipo=None):
-    return _sale_rent(tipo, request, template='listing/sale.html')
+class ListingForSaleList(ListView):
+    template_name = 'listing/results.html'
+    model = Listing
+    queryset = Listing.objects.sale()
+    paginate_by = config.PROPERTIES_PER_PAGE
 
 
-def rent(request, tipo=None):
-    return _sale_rent(tipo, request, 'rent', template='listing/rent.html')
+class ListingForRentList(ListView):
+    template_name = 'listing/results.html'
+    model = Listing
+    queryset = Listing.objects.rent()
+    paginate_by = config.PROPERTIES_PER_PAGE
 
 
 def search(request):
@@ -68,20 +77,14 @@ def search(request):
     return _render_search_page(res, request)
 
 
-def details(request, slug):
-    listing = get_object_or_404(Listing, slug=slug)
+class ListingView(DetailView, FormView):
+    template_name = 'listing/listing.html'
+    model = Listing
+    form_class = ListingContactForm
+    success_url = reverse_lazy('thank-you')
 
-    if request.POST:
-        form = ListingContactForm(request.POST)
-        if form.is_valid():
-            _send_contact_form(form, listing)
-            return redirect(reverse_lazy('thank-you'))
-    else:
-        form = ListingContactForm()
-
-    recentp = Listing.objects.all().order_by('-created_at')[:5]
-    data = {'listing': listing, 'recent': recentp, 'form': form}
-    return render_to_response("listing/listing.html", data, context_instance=RequestContext(request))
+    def form_valid(self, form):
+        _send_contact_form(form, self.object)
 
 
 @ajax_required

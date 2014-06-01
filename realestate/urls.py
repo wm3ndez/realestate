@@ -3,8 +3,9 @@ from django.conf import settings
 
 from django.contrib import admin
 from django.views.generic import TemplateView
+from realestate.listing.views import ListingList, ListingForSaleList, ListingForRentList, ListingView
 from rest_framework import routers
-from home.views import ContactView
+from home.views import ContactView, IndexView
 from realestate.api import PropiedadViewSet
 from realestate.listing import sitemap
 
@@ -15,14 +16,12 @@ router.register(r'propiedades', PropiedadViewSet)
 
 urlpatterns = patterns(
     '',
-    url(r'^$', 'realestate.home.views.index', name='index'),
-    url(r'^properties/$', 'realestate.listing.views.properties', name='all_properties'),
-    url(r'^sale/$', 'realestate.listing.views.sale', name='properties_for_sale'),
-    url(r'^sale/(?P<type>\w+)/$', 'realestate.listing.views.sale', name='properties_for_sale'),
-    url(r'^rent/$', 'realestate.listing.views.rent', name='properties_for_rent'),
-    url(r'^rent/(?P<type>\w+)/$', 'realestate.listing.views.rent', name='properties_for_rent'),
+    url(r'^$', IndexView.as_view(), name='index'),
+    url(r'^properties/$', ListingList.as_view(), name='all_properties'),
+    url(r'^sale/$', ListingForSaleList.as_view(), name='properties_for_sale'),
+    url(r'^rent/$', ListingForRentList.as_view(), name='properties_for_rent'),
     url(r'^search/', 'realestate.listing.views.search', name='search'),
-    url(r'^listing/(?P<slug>[\w-]+)/', 'realestate.listing.views.details', name='property_details'),
+    url(r'^listing/(?P<slug>[\w-]+)/', ListingView.as_view(), name='property_details'),
     url(r'^agents/$', 'realestate.listing.views.agents', name='agents'),
     url(r'^agents/listing/(?P<agent>[\d]+)/$', 'realestate.listing.views.agent_listings', name='agent-listings'),
     url(r'^get_map/$', 'realestate.listing.views.get_map', name='mapa-propiedades'),  # Ajax
