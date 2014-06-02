@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import string
 from decimal import Decimal
+from django.db.models import AutoField
 
 
 def validation_simple(value, obj=None):
@@ -78,3 +79,14 @@ def validate_attribute_value(attribute, value, obj):
     AttributeOption.
     """
     return import_validator(attribute.validation)(value, obj)
+
+
+def copy_model_instance(obj):
+    """
+    Taken from https://djangosnippets.org/snippets/1040/
+    """
+    initial = dict([
+        (f.name, getattr(obj, f.name)) for f in obj._meta.fields if
+        not isinstance(f, AutoField) and not f in obj._meta.parents.values()
+    ])
+    return obj.__class__(**initial)

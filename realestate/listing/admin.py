@@ -6,7 +6,7 @@ from django.contrib import admin
 from sorl.thumbnail import get_thumbnail
 from sorl.thumbnail.admin import AdminImageMixin
 from realestate.listing.templatetags.extra_functions import currency
-from realestate.listing.utils import import_validator, validate_attribute_value
+from realestate.listing.utils import import_validator, validate_attribute_value, copy_model_instance
 from django.utils.translation import ugettext as _
 
 
@@ -77,6 +77,8 @@ class ListingAdmin(admin.ModelAdmin):
         'featured', 'thumb_nail'
     )
 
+    actions = ['duplicate_listing', ]
+
     def currency_price(self, listing):
         return currency(listing.price)
 
@@ -102,6 +104,20 @@ class ListingAdmin(admin.ModelAdmin):
 
     thumb_nail.short_description = _(u'Image')
     thumb_nail.allow_tags = True
+
+
+    def duplicate_listing(self, request, queryset):
+        for listing in queryset:
+            new_listing = copy_model_instance(listing)
+            new_listing.save()
+            for attr in listing.attributelisting_set.all():
+                new_attr = copy_model_instance(attr)
+                new_attr.listing = new_listing
+                new_attr.save()
+            for image in listing.images.all():
+                new_image = copy_model_instance(image)
+                new_image.listing = new_listing
+                new_image.save()
 
     class Media:
         js = ('js/admin/propiedades.js',)
