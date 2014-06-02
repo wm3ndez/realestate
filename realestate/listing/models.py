@@ -78,7 +78,7 @@ VALIDATIONS = [
 
 class CityManager(models.Manager):
     def containing_properties(self, **kwargs):
-        return self.filter(sector__listing__isnull=False, **kwargs)
+        return self.filter(sector__listing__isnull=False, **kwargs).distinct()
 
 
 class City(models.Model):
@@ -97,7 +97,7 @@ class City(models.Model):
 
 class SectorManager(models.Manager):
     def containing_properties(self, **kwargs):
-        return self.filter(listing__isnull=False, **kwargs)
+        return self.filter(listing__isnull=False, **kwargs).distinct()
 
 
 class Sector(models.Model):
