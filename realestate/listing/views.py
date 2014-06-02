@@ -62,6 +62,11 @@ class ListingForSaleList(ListView):
         ordering = self.kwargs.get('order_by', 'pk')
         return Listing.objects.sale().order_by(ordering)
 
+    def get_context_data(self, **kwargs):
+        ctx = super(ListingForSaleList, self).get_context_data(**kwargs)
+        ctx['sort'] = self.kwargs.get('order_by', 'pk')
+        return ctx
+
 
 class ListingForRentList(ListView):
     template_name = 'listing/results.html'
@@ -71,6 +76,11 @@ class ListingForRentList(ListView):
     def get_queryset(self):
         ordering = self.kwargs.get('order_by', 'pk')
         return Listing.objects.rent().order_by(ordering)
+
+    def get_context_data(self, **kwargs):
+        ctx = super(ListingForRentList, self).get_context_data(**kwargs)
+        ctx['sort'] = self.kwargs.get('order_by', 'pk')
+        return ctx
 
 
 class SearchView(ListView):
