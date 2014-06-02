@@ -1,7 +1,6 @@
-from realestate.listing.models import DOMINICAN_PROVINCES, OFFERS, TYPES, Agent, Sector
+from realestate.listing.models import OFFERS, TYPES, Agent, Location
 from django import forms
 from django.utils.translation import ugettext as _
-from django.conf import settings
 from django.core.mail import send_mail
 from constance import config
 
@@ -47,15 +46,14 @@ BEDROOMS_RANGE = (
     ('10', '10+'),
 )
 
-PROVINCIAS_CHOICES = (('', _('All')),) + DOMINICAN_PROVINCES
 TIPO_PROPIEDADES_CHOICES = (('', _('All')),) + TYPES
 
 
 class SearchForm(forms.Form):
     id = forms.CharField(required=False)
     agent = forms.ModelChoiceField(label=_('Agent'), queryset=Agent.objects.all(), required=False)
-    location = forms.ChoiceField(label=_('Location'), choices=PROVINCIAS_CHOICES, required=False)
-    sector = forms.ModelChoiceField(label=_('Sector'), queryset=Sector.objects.containing_properties(), required=False)
+    location = forms.ModelChoiceField(label=_('Location'), queryset=Location.objects.states(), required=False)
+    sector = forms.ModelChoiceField(label=_('Sector'), queryset=Location.objects.sectors(), required=False)
     type = forms.ChoiceField(label=_('Type'), choices=TIPO_PROPIEDADES_CHOICES, required=False)
     offer = forms.ChoiceField(label=_('Offer'), choices=OFFERS, required=False)
     beds = forms.ChoiceField(label=_('Bedrooms'), choices=BEDROOMS_RANGE, required=False)

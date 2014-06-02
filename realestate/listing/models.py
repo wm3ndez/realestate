@@ -27,43 +27,16 @@ TYPES = (
     ('commercial-land', _('Commercial Land')),
 )
 
-# TODO: Change this to states
-DOMINICAN_PROVINCES = (
-    ('Azua', 'Azua'),
-    ('Bahoruco', 'Bahoruco'),
-    ('Barahona', 'Barahona'),
-    ('Bavaro', 'Bavaro'),
-    ('Dajabon', 'Dajabon'),
-    ('Duarte', 'Duarte'),
-    ('El Seibo', 'El Seibo'),
-    ('Elias Pina', 'Elias Pina'),
-    ('Espaillat', 'Espaillat'),
-    ('Gaspar Hernandez', 'Gaspar Hernandez'),
-    ('Hato Mayor', 'Hato Mayor'),
-    ('Independencia', 'Independencia'),
-    ('La Altagracia', 'La Altagracia'),
-    ('La Romana', 'La Romana'),
-    ('La Vega', 'La Vega'),
-    ('Maria Trinidad Sanchez', 'Maria Trinidad Sanchez'),
-    ('Monsenor Nouel', 'Monsenor Nouel'),
-    ('Monte Plata', 'Monte Plata'),
-    ('Montecristi', 'Montecristi'),
-    ('Nagua', 'Nagua'),
-    ('Ocoa', 'Ocoa'),
-    ('Pedernales', 'Pedernales'),
-    ('Peravia', 'Peravia'),
-    ('Puerto Plata', 'Puerto Plata'),
-    ('Salcedo', 'Salcedo'),
-    ('Samana', 'Samana'),
-    ('San Cristobal', 'San Cristobal'),
-    ('San Francisco de Macoris', 'San Francisco de Macoris'),
-    ('San Juan', 'San Juan'),
-    ('San Pedro De Macoris', 'San Pedro De Macoris'),
-    ('Sanchez Ramirez', 'Sanchez Ramirez'),
-    ('Santiago', 'Santiago'),
-    ('Santiago Rodriguez', 'Santiago Rodriguez'),
-    ('Santo Domingo', 'Santo Domingo'),
-    ('Valverde', 'Valverde'),
+LOCATION_STREET = 'street'
+LOCATION_SECTOR = 'sector'
+LOCATION_CITY = 'city'
+LOCATION_STATE = 'state'
+
+LOCATION_TYPES = (
+    (LOCATION_STREET, _('Street')),
+    (LOCATION_SECTOR, _('Sector')),
+    (LOCATION_CITY, _('City')),
+    (LOCATION_STATE, _('State/Province')),
 )
 
 OFFERS = (('buy', _('For Sale')), ('rent', _('For Rent')), ('buy-rent', _('For Sale/For Rent')))
@@ -76,42 +49,36 @@ VALIDATIONS = [
 ]
 
 
-class CityManager(models.Manager):
-    def containing_properties(self, **kwargs):
-        return self.filter(sector__listing__isnull=False, **kwargs).distinct()
+class LocationManager(models.Manager):
+    def states(self, **kwargs):
+        return self.filter(location_type=LOCATION_STATE, **kwargs)
+
+    def cities(self, **kwargs):
+        return self.filter(location_type=LOCATION_CITY, **kwargs)
+
+    def sectors(self, **kwargs):
+        return self.filter(location_type=LOCATION_SECTOR, **kwargs)
+
+    def streets(self, **kwargs):
+        return self.filter(location_type=LOCATION_STREET, **kwargs)
 
 
-class City(models.Model):
-    name = models.CharField(max_length=45)
-    province = models.CharField(max_length=45, choices=DOMINICAN_PROVINCES)
+class Location(models.Model):
+    parent = models.ForeignKey('self', verbose_name=_('Location'), null=True, blank=True)
+    name = models.CharField(_('Name'), max_length=60)
+    location_type = models.CharField(_('Location Type'), choices=LOCATION_TYPES, default=LOCATION_SECTOR, max_length=20)
 
-    objects = CityManager()
-
-    def __unicode__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = _('City')
-        verbose_name_plural = _('Cities')
-
-
-class SectorManager(models.Manager):
-    def containing_properties(self, **kwargs):
-        return self.filter(listing__isnull=False, **kwargs).distinct()
-
-
-class Sector(models.Model):
-    name = models.CharField(max_length=45)
-    city = models.ForeignKey(City)
-
-    objects = SectorManager()
+    objects = LocationManager()
 
     def __unicode__(self):
-        return self.name
+        location_tree = self.get_parent_name(self, [])
+        return ', '.join(location_tree)
 
-    class Meta:
-        verbose_name = _('Sector')
-        verbose_name_plural = _('Sectors')
+    def get_parent_name(self, location, names):
+        names.append(location.name)
+        if location.parent is None:
+            return names
+        return self.get_parent_name(location.parent, names)
 
 
 class AgentManager(models.Manager):
@@ -125,8 +92,8 @@ class AgentManager(models.Manager):
 class Agent(models.Model):
     phone = models.CharField(max_length=15, verbose_name=_(u'Phone'), null=True, blank=True)
     mobile = models.CharField(max_length=15, verbose_name=_(u'Cellphone'), null=True, blank=True)
-    city = models.ForeignKey(City, verbose_name=_(u'City'), null=True, blank=True)
-    direccion = models.CharField(max_length=200, verbose_name=_(u'Address'), null=True, blank=True)
+    location = models.ForeignKey(Location, verbose_name=_(u'Location'), null=True, blank=True)
+    address = models.CharField(max_length=200, verbose_name=_(u'Address'), null=True, blank=True)
     image = ImageField(upload_to='agentes/', default='', verbose_name=_(u'Picture'), null=True, blank=True)
     user = models.OneToOneField(User, verbose_name=_(u'User'))
     active = models.BooleanField(default=False, verbose_name=_('Active'))
@@ -166,7 +133,7 @@ class Listing(models.Model):
     slug = models.SlugField(max_length=100, unique=True, blank=False, verbose_name=_(u'Slug'))
     description = models.TextField(verbose_name=_(u'Description'), null=True, blank=True)
     price = MoneyField(default=Money(0, USD), max_digits=12, decimal_places=2, verbose_name=_(u'Price'))
-    sector = models.ForeignKey(Sector, null=True, blank=True)
+    location = models.ForeignKey(Location, null=True, blank=True)
     type = models.CharField(_(u'Listing Type'), max_length=30, choices=TYPES)
     offer = models.CharField(max_length=10, choices=OFFERS, verbose_name=_(u'Offer'))
     active = models.BooleanField(_('Active'), default=False)
@@ -202,9 +169,9 @@ class Listing(models.Model):
         return self.get_address()
 
     def get_address(self):
-        if self.sector is None:
+        if self.location is None:
             return _(u'No location provided')
-        return '%s, %s, %s' % (self.sector, self.sector.city, self.sector.city.province)
+        return self.location
 
     def __unicode__(self):
         return self.title
@@ -257,7 +224,7 @@ class Listing(models.Model):
         return attributes
 
     def nearby(self):
-        return Listing.objects.active(sector=self.sector).exclude(id=self.id).order_by('?')
+        return Listing.objects.active(location=self.location).exclude(id=self.id).order_by('?')
 
     @property
     def has_baths_or_beds(self):
@@ -294,7 +261,7 @@ class Listing(models.Model):
 
     @property
     def on_sale(self):
-        return OnSale.objects.on_sale(listing__in=(self,)).exists()
+        return Deal.objects.on_sale(listing__in=(self,)).exists()
 
 
 class Attribute(models.Model):
@@ -349,7 +316,7 @@ class ListingImage(models.Model):
         verbose_name_plural = _('Pictures')
 
 
-class OnSaleManager(models.Manager):
+class DealManager(models.Manager):
     def active(self, **kwargs):
         return self.filter(active=True, **kwargs)
 
@@ -358,18 +325,18 @@ class OnSaleManager(models.Manager):
         return self.active(start_date__lte=now, end_date__gte=now, **kwargs)
 
 
-class OnSale(models.Model):
+class Deal(models.Model):
     listing = models.ForeignKey(Listing, verbose_name=_('Listing'))
     price = MoneyField(_('Sale Price'), default=Money(0, USD), max_digits=12, decimal_places=2)
     active = models.BooleanField(_('Active'), default=False)
     start_date = models.DateTimeField(verbose_name=_(u'Activation date'))
     end_date = models.DateTimeField(verbose_name=_(u'Deactivation date'))
 
-    objects = OnSaleManager()
+    objects = DealManager()
 
     def __unicode__(self):
-        if self.listing.sector is not None:
-            return '%s - %s' % (self.listing.title, self.listing.sector.name)
+        if self.listing.location is not None:
+            return '%s - %s' % (self.listing.title, self.listing.location.name)
         return self.listing.title
 
     class Meta:

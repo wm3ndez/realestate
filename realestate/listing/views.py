@@ -22,9 +22,7 @@ def _render_search_page(queryset, request, template='listing/search.html'):
 
 def _apply_search_filters(data, listings):
     if data.get('location'):
-        listings = listings.filter(Q(sector__name__icontains=data.get('location')) |
-                                   Q(sector__city__name__icontains=data.get('location')) |
-                                   Q(sector__city__province__icontains=data.get('location')))
+        listings = listings.filter(Q(location__icontains=data.get('location')))
 
     if data.get('type'):
         listings = listings.filter(type=data.get('type'))

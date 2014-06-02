@@ -15,7 +15,7 @@
                         </a><br>
                     {% endthumbnail %}
                     <b>Inmueble: </b><i>{{ deal.listing.type }}</i><br>
-                    <b>Provincia: </b><i>{{ deal.listing.sector.city.province }}</i><br>
+                    <b>Provincia: </b><i>{{ deal.listing.location }}</i><br>
                     <a href="{{ deal.listing.get_absolute_url }}">Ver Más</a><br>
                 </td>
             </tr>

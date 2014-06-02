@@ -5,7 +5,7 @@
 {% endblock %}
 {% block content %}
 
-    <a href="{% url 'add-city' %}" class="btn btn-info btn-flat">{% trans "Add New" %}</a>
+    <a href="{% url 'add-location' %}" class="btn btn-info btn-flat">{% trans "Add New" %}</a>
     <div class="box">
         <div class="box-header">
             <h3 class="box-title">{% trans "Cities" %}</h3>
@@ -45,8 +45,8 @@
                     <tbody role="alert" aria-live="polite" aria-relevant="all">
                     {% for city in object_list %}
                         <tr class="{% cycle 'even' 'odd' %}">
-                            <td class="sorting_1"><a href="{% url 'update-city' city.id %}">{{ city.id }}</a></td>
-                            <td><a href="{% url 'update-city' city.id %}">{{ city.name }}</a></td>
+                            <td class="sorting_1"><a href="{% url 'update-location' city.id %}">{{ city.id }}</a></td>
+                            <td><a href="{% url 'update-location' city.id %}">{{ city.name }}</a></td>
                             <td>{{ city.province }}</td>
                         </tr>
                     {% endfor %}

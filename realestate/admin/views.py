@@ -5,7 +5,7 @@ from django.views.generic import TemplateView, CreateView, ListView, UpdateView,
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from realestate.home.models import Contact
-from realestate.listing.models import Listing, Agent, City, Sector, DOMINICAN_PROVINCES, OnSale
+from realestate.listing.models import Listing, Agent, Deal, Location
 from realestate.admin.forms import ListingForm, ListingImageFormSet, AttributeListingFormSet, ConstanceForm, UserForm, \
     SetPasswordForm
 
@@ -26,7 +26,7 @@ class CreateListing(LoginRequiredMixin, StaffuserRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super(CreateListing, self).get_context_data(**kwargs)
-        context['states'] = DOMINICAN_PROVINCES
+        context['states'] = Location.objects.states()
         if self.request.POST:
             context['listing_images_form'] = ListingImageFormSet(self.request.POST, self.request.FILES)
             context['listing_attributes_form'] = AttributeListingFormSet(self.request.POST, self.request.FILES)
@@ -139,41 +139,22 @@ class UpdateContact(LoginRequiredMixin, StaffuserRequiredMixin, UpdateView):
     success_url = reverse_lazy('admin-list-contacts')
 
 
-class Cities(LoginRequiredMixin, StaffuserRequiredMixin, OrderableListMixin, ListView):
-    template_name = 'dashboard/cities.html'
-    model = City
-    orderable_columns = ('id', 'name',)
+class Locations(LoginRequiredMixin, StaffuserRequiredMixin, OrderableListMixin, ListView):
+    template_name = 'dashboard/locations.html'
+    model = Location
+    orderable_columns = ('id', 'name', 'parent')
     orderable_columns_default = 'id'
 
 
-class CreateCity(LoginRequiredMixin, StaffuserRequiredMixin, CreateView):
-    template_name = 'dashboard/create-city.html'
-    model = City
-    success_url = reverse_lazy('admin-list-cities')
-
-
-class UpdateCity(LoginRequiredMixin, StaffuserRequiredMixin, UpdateView):
-    template_name = 'dashboard/create-city.html'
-    model = City
-    success_url = reverse_lazy('admin-list-cities')
-
-
-class Sectors(LoginRequiredMixin, StaffuserRequiredMixin, OrderableListMixin, ListView):
-    template_name = 'dashboard/sectors.html'
-    model = Sector
-    orderable_columns = ('id', 'name',)
-    orderable_columns_default = 'id'
-
-
-class CreateSector(LoginRequiredMixin, StaffuserRequiredMixin, CreateView):
-    template_name = 'dashboard/create-sector.html'
-    model = Sector
+class CreateLocation(LoginRequiredMixin, StaffuserRequiredMixin, CreateView):
+    template_name = 'dashboard/create-location.html'
+    model = Location
     success_url = reverse_lazy('admin-list-sectors')
 
 
-class UpdateSector(LoginRequiredMixin, StaffuserRequiredMixin, UpdateView):
-    template_name = 'dashboard/create-sector.html'
-    model = Sector
+class UpdateLocation(LoginRequiredMixin, StaffuserRequiredMixin, UpdateView):
+    template_name = 'dashboard/create-location.html'
+    model = Location
     success_url = reverse_lazy('admin-list-sectors')
 
 
@@ -202,20 +183,20 @@ class UpdateUser(LoginRequiredMixin, SuperuserRequiredMixin, UpdateView):
 
 class Deals(LoginRequiredMixin, StaffuserRequiredMixin, OrderableListMixin, ListView):
     template_name = 'dashboard/deals.html'
-    model = OnSale
+    model = Deal
     orderable_columns = ('id', 'first_name', 'last_name',)
     orderable_columns_default = 'id'
 
 
 class CreateDeal(LoginRequiredMixin, SuperuserRequiredMixin, CreateView):
     template_name = 'dashboard/create-deal.html'
-    model = OnSale
+    model = Deal
     success_url = reverse_lazy('admin-list-sale')
 
 
 class UpdateDeal(LoginRequiredMixin, SuperuserRequiredMixin, UpdateView):
     template_name = 'dashboard/create-deal.html'
-    model = OnSale
+    model = Deal
     success_url = reverse_lazy('admin-list-sale')
 
 

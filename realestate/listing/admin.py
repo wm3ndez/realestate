@@ -1,7 +1,6 @@
 from django.forms import ValidationError
 from django.forms.models import ModelForm
-from realestate.listing.models import ListingImage, AttributeListing, Listing, Sector, City, Agent, OnSale, \
-    Attribute
+from realestate.listing.models import ListingImage, AttributeListing, Listing, Location, Agent, Deal, Attribute
 from django.contrib import admin
 from sorl.thumbnail import get_thumbnail
 from sorl.thumbnail.admin import AdminImageMixin
@@ -58,7 +57,7 @@ class ListingAdmin(admin.ModelAdmin):
         (_(u'Listing Description'),
          {
              'fields': [
-                 'title', 'description', 'price', ( 'baths', 'beds', 'size'), 'sector', 'type', 'offer',
+                 'title', 'description', 'price', ( 'baths', 'beds', 'size'), 'location', 'type', 'offer',
                  'active', 'featured',
              ]
          }),
@@ -73,7 +72,7 @@ class ListingAdmin(admin.ModelAdmin):
     inlines = [AttributeListingInline, ImageListingInline, ]
 
     list_display = (
-        'id', 'title', 'slug', 'currency_price', 'active', 'type', 'city', 'sector', 'agent', 'created_at',
+        'id', 'title', 'slug', 'currency_price', 'active', 'type', 'location', 'location', 'agent', 'created_at',
         'featured', 'thumb_nail'
     )
 
@@ -85,14 +84,10 @@ class ListingAdmin(admin.ModelAdmin):
     currency_price.short_description = _(u'Price')
 
     list_display_links = ('id', 'title')
-    search_fields = ['title', 'sector__city']
+    search_fields = ['title', 'location']
     list_filter = ['created_at', 'agent', 'title', 'active', ]
     date_hierarchy = 'created_at'
 
-    def city(self, listing):
-        if listing.sector is None:
-            return _(u'(No selection)')
-        return '%s, %s' % (listing.sector.city, listing.sector.city.province)
 
     def thumb_nail(self, obj):
         imageobj = obj.main_image
@@ -123,7 +118,7 @@ class ListingAdmin(admin.ModelAdmin):
         js = ('js/admin/propiedades.js',)
 
 
-class OnSaleAdmin(admin.ModelAdmin):
+class DealsAdmin(admin.ModelAdmin):
     list_display = ('listing', 'active', 'price', 'start_date', 'end_date')
 
 
@@ -157,9 +152,8 @@ class AttributesAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Listing, ListingAdmin)
-admin.site.register(Sector)
-admin.site.register(City)
+admin.site.register(Location)
 admin.site.register(Agent, AgentAdmin)
 admin.site.register(ListingImage, ImageAdmin)
-admin.site.register(OnSale, OnSaleAdmin)
+admin.site.register(Deal, DealsAdmin)
 admin.site.register(Attribute, AttributesAdmin)

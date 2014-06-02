@@ -8,23 +8,84 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'OnSale.price_currency'
-        db.add_column(u'listing_onsale', 'price_currency',
-                      self.gf('djmoney.models.fields.CurrencyField')(),
+        # Deleting model 'Sector'
+        db.delete_table(u'listing_sector')
+
+        # Adding model 'Location'
+        db.create_table(u'listing_location', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('parent', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['listing.Location'])),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=60)),
+            ('location_type', self.gf('django.db.models.fields.CharField')(default='sector', max_length=20)),
+        ))
+        db.send_create_signal(u'listing', ['Location'])
+
+        # Adding model 'Deal'
+        db.create_table(u'listing_deal', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('listing', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['listing.Listing'])),
+            ('price_currency', self.gf('djmoney.models.fields.CurrencyField')()),
+            ('price', self.gf('djmoney.models.fields.MoneyField')(max_digits=12, decimal_places=2, default_currency='XYZ')),
+            ('active', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('start_date', self.gf('django.db.models.fields.DateTimeField')()),
+            ('end_date', self.gf('django.db.models.fields.DateTimeField')()),
+        ))
+        db.send_create_signal(u'listing', ['Deal'])
+
+        # Deleting field 'Listing.sector'
+        db.delete_column(u'listing_listing', 'sector_id')
+
+        # Adding field 'Listing.location'
+        db.add_column(u'listing_listing', 'location',
+                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['listing.Location'], null=True, blank=True),
                       keep_default=False)
 
-        # Adding field 'OnSale.price'
-        db.add_column(u'listing_onsale', 'price',
-                      self.gf('djmoney.models.fields.MoneyField')(max_digits=12, decimal_places=2, default_currency='XYZ'),
+        # Deleting field 'Agent.direccion'
+        db.delete_column(u'listing_agent', 'direccion')
+
+        # Adding field 'Agent.location'
+        db.add_column(u'listing_agent', 'location',
+                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['listing.Location'], null=True, blank=True),
+                      keep_default=False)
+
+        # Adding field 'Agent.address'
+        db.add_column(u'listing_agent', 'address',
+                      self.gf('django.db.models.fields.CharField')(max_length=200, null=True, blank=True),
                       keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting field 'OnSale.price_currency'
-        db.delete_column(u'listing_onsale', 'price_currency')
+        # Adding model 'Sector'
+        db.create_table(u'listing_sector', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=45)),
+        ))
+        db.send_create_signal(u'listing', ['Sector'])
 
-        # Deleting field 'OnSale.price'
-        db.delete_column(u'listing_onsale', 'price')
+        # Deleting model 'Location'
+        db.delete_table(u'listing_location')
+
+        # Deleting model 'Deal'
+        db.delete_table(u'listing_deal')
+
+        # Adding field 'Listing.sector'
+        db.add_column(u'listing_listing', 'sector',
+                      self.gf('django.db.models.fields.related.ForeignKey')(to=orm['listing.Sector'], null=True, blank=True),
+                      keep_default=False)
+
+        # Deleting field 'Listing.location'
+        db.delete_column(u'listing_listing', 'location_id')
+
+        # Adding field 'Agent.direccion'
+        db.add_column(u'listing_agent', 'direccion',
+                      self.gf('django.db.models.fields.CharField')(max_length=200, null=True, blank=True),
+                      keep_default=False)
+
+        # Deleting field 'Agent.location'
+        db.delete_column(u'listing_agent', 'location_id')
+
+        # Deleting field 'Agent.address'
+        db.delete_column(u'listing_agent', 'address')
 
 
     models = {
@@ -77,9 +138,10 @@ class Migration(SchemaMigration):
         u'listing.agent': {
             'Meta': {'object_name': 'Agent'},
             'active': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'direccion': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
+            'address': ('django.db.models.fields.CharField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'image': ('sorl.thumbnail.fields.ImageField', [], {'default': "''", 'max_length': '100', 'null': 'True', 'blank': 'True'}),
+            'location': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['listing.Location']", 'null': 'True', 'blank': 'True'}),
             'mobile': ('django.db.models.fields.CharField', [], {'max_length': '15', 'null': 'True', 'blank': 'True'}),
             'phone': ('django.db.models.fields.CharField', [], {'max_length': '15', 'null': 'True', 'blank': 'True'}),
             'user': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['auth.User']", 'unique': 'True'})
@@ -97,6 +159,16 @@ class Migration(SchemaMigration):
             'listing': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['listing.Listing']"}),
             'value': ('django.db.models.fields.CharField', [], {'max_length': '255'})
         },
+        u'listing.deal': {
+            'Meta': {'object_name': 'Deal'},
+            'active': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'end_date': ('django.db.models.fields.DateTimeField', [], {}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'listing': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['listing.Listing']"}),
+            'price': ('djmoney.models.fields.MoneyField', [], {'max_digits': '12', 'decimal_places': '2', 'default_currency': u"'XYZ'"}),
+            'price_currency': ('djmoney.models.fields.CurrencyField', [], {}),
+            'start_date': ('django.db.models.fields.DateTimeField', [], {})
+        },
         u'listing.listing': {
             'Meta': {'ordering': "['-pk']", 'object_name': 'Listing'},
             'active': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
@@ -110,11 +182,11 @@ class Migration(SchemaMigration):
             'featured': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'last_modified': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'location': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['listing.Location']", 'null': 'True', 'blank': 'True'}),
             'notes': ('django.db.models.fields.TextField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'}),
             'offer': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
             'price': ('djmoney.models.fields.MoneyField', [], {'max_digits': '12', 'decimal_places': '2', 'default_currency': u"'XYZ'"}),
             'price_currency': ('djmoney.models.fields.CurrencyField', [], {}),
-            'sector': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['listing.Sector']", 'null': 'True', 'blank': 'True'}),
             'size': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0', 'null': 'True', 'blank': 'True'}),
             'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '100'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
@@ -129,10 +201,12 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '60'}),
             'order': ('django.db.models.fields.IntegerField', [], {'default': '99', 'max_length': '2', 'null': 'True'})
         },
-        u'listing.sector': {
-            'Meta': {'object_name': 'Sector'},
+        u'listing.location': {
+            'Meta': {'object_name': 'Location'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '45'})
+            'location_type': ('django.db.models.fields.CharField', [], {'default': "'sector'", 'max_length': '20'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '60'}),
+            'parent': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['listing.Location']"})
         }
     }
 

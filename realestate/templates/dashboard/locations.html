@@ -1,14 +1,14 @@
 {% extends 'dashboard/base.html' %}
 {% load i18n %}
 {% block content-header %}
-    <h1>{% trans "Sectors" %}</h1>
+    <h1>{% trans "Locations" %}</h1>
 {% endblock %}
 {% block content %}
 
     <a href="{% url 'add-sector' %}" class="btn btn-info btn-flat">{% trans "Add New" %}</a>
     <div class="box">
         <div class="box-header">
-            <h3 class="box-title">{% trans "Sectors" %}</h3>
+            <h3 class="box-title">{% trans "Locations" %}</h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body table-responsive">
