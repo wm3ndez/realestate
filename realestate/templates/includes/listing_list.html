@@ -1,6 +1,6 @@
-{% load i18n extra_functions thumbnail %}
+{% load i18n  thumbnail %}
 
-{% for listing in results.object_list %}
+{% for listing in page_obj.object_list %}
     <div class="row ">
         <div class="col-md-2">
             <a href="{{ listing.absolute_url }}" class="thumbnail">
@@ -9,7 +9,7 @@
                          title="{{ listing.title }}"/>
                 {% endthumbnail %}
             </a>
-            <h5>{% trans "Price" %}: {{ listing.price|currency }}</h5>
+            <h5>{% trans "Price" %}: {{ listing.price }}</h5>
             <h6>{% trans "Bedrooms" %}: {{ listing.beds }}</h6>
             <h6>{% trans "Size" %}: {{ listing.size }} mt&sup2;</h6>
         </div>

@@ -56,25 +56,34 @@ class ListingList(ListView):
 class ListingForSaleList(ListView):
     template_name = 'listing/results.html'
     model = Listing
-    queryset = Listing.objects.sale()
     paginate_by = config.PROPERTIES_PER_PAGE
+
+    def get_queryset(self):
+        ordering = self.kwargs.get('order_by', 'pk')
+        return Listing.objects.sale().order_by(ordering)
 
 
 class ListingForRentList(ListView):
     template_name = 'listing/results.html'
     model = Listing
-    queryset = Listing.objects.rent()
     paginate_by = config.PROPERTIES_PER_PAGE
 
+    def get_queryset(self):
+        ordering = self.kwargs.get('order_by', 'pk')
+        return Listing.objects.rent().order_by(ordering)
 
-def search(request):
-    res = Listing.objects.active()
 
-    form = SearchForm(request.GET)
-    if form.is_valid():
-        res = _apply_search_filters(form.cleaned_data, res)
+class SearchView(ListView):
+    template_name = 'listing/search.html'
+    paginate_by = config.PROPERTIES_PER_PAGE
 
-    return _render_search_page(res, request)
+    def get_queryset(self):
+        queryset = Listing.objects.active()
+        form = SearchForm(self.request.GET)
+        if form.is_valid():
+            queryset = _apply_search_filters(form.cleaned_data, queryset)
+
+        return queryset
 
 
 class ListingView(DetailView, FormView):

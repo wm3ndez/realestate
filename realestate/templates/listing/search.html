@@ -2,8 +2,8 @@
 {% load static re_paginator %}
 {% block content %}
     <div class="row">
-        <div class="col-md-4 select_height"> Mostrando {{ results.start_index }} - {{ results.end_index }}
-            de {{ resultado.paginator.count }} resultados
+        <div class="col-md-4 select_height"> Mostrando {{ page_obj.start_index }} - {{ page_obj.end_index }}
+            de {{ page_obj.paginator.count }} resultados
         </div>
         <div class="pull-right">
             <form action="{% url 'search' %}" id="form-sort">
@@ -24,7 +24,7 @@
 
     {# pagination #}
     <div class="pagination pagination-centered">
-        {% pagination_url results %}
+        {% pagination_url page_obj %}
     </div>
     {# pagination #}
 
