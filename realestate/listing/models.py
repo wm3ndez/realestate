@@ -90,21 +90,21 @@ class AgentManager(models.Manager):
 
 
 class Agent(models.Model):
+    first_name = models.CharField(max_length=30, verbose_name=_('First name'))
+    last_name = models.CharField(max_length=30, verbose_name=_('Last name'))
     phone = models.CharField(max_length=15, verbose_name=_('Phone'), null=True, blank=True)
     mobile = models.CharField(max_length=15, verbose_name=_('Cellphone'), null=True, blank=True)
     location = models.ForeignKey(Location, verbose_name=_('Location'), null=True, blank=True)
     address = models.CharField(max_length=200, verbose_name=_('Address'), null=True, blank=True)
-    image = ImageField(upload_to='agentes/', default='', verbose_name=_('Picture'), null=True, blank=True)
-    user = models.OneToOneField(User, verbose_name=_('User'))
+    image = ImageField(upload_to='agents/', default='', verbose_name=_('Picture'), null=True, blank=True)
+    user = models.OneToOneField(User, verbose_name=_('User'), null=True, blank=True)
     active = models.BooleanField(default=False, verbose_name=_('Active'))
 
     objects = AgentManager()
 
     @property
     def name(self):
-        if (self.user.first_name or self.user.last_name):
-            return '%s %s' % (self.user.first_name, self.user.last_name)
-        return self.user.username
+        return '%s %s' % (self.first_name, self.last_name)
 
     def __unicode__(self):
         return self.name
