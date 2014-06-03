@@ -42,10 +42,10 @@ LOCATION_TYPES = (
 OFFERS = (('buy', _('For Sale')), ('rent', _('For Rent')), ('buy-rent', _('For Sale/For Rent')))
 
 VALIDATIONS = [
-    ('realestate.listing.utils.validation_simple', _(u'One or more characters')),
-    ('realestate.listing.utils.validation_integer', _(u'Integer')),
-    ('realestate.listing.utils.validation_yesno', _(u'Yes/No')),
-    ('realestate.listing.utils.validation_decimal', _(u'Decimal')),
+    ('realestate.listing.utils.validation_simple', _('One or more characters')),
+    ('realestate.listing.utils.validation_integer', _('Integer')),
+    ('realestate.listing.utils.validation_yesno', _('Yes/No')),
+    ('realestate.listing.utils.validation_decimal', _('Decimal')),
 ]
 
 
@@ -90,12 +90,12 @@ class AgentManager(models.Manager):
 
 
 class Agent(models.Model):
-    phone = models.CharField(max_length=15, verbose_name=_(u'Phone'), null=True, blank=True)
-    mobile = models.CharField(max_length=15, verbose_name=_(u'Cellphone'), null=True, blank=True)
-    location = models.ForeignKey(Location, verbose_name=_(u'Location'), null=True, blank=True)
-    address = models.CharField(max_length=200, verbose_name=_(u'Address'), null=True, blank=True)
-    image = ImageField(upload_to='agentes/', default='', verbose_name=_(u'Picture'), null=True, blank=True)
-    user = models.OneToOneField(User, verbose_name=_(u'User'))
+    phone = models.CharField(max_length=15, verbose_name=_('Phone'), null=True, blank=True)
+    mobile = models.CharField(max_length=15, verbose_name=_('Cellphone'), null=True, blank=True)
+    location = models.ForeignKey(Location, verbose_name=_('Location'), null=True, blank=True)
+    address = models.CharField(max_length=200, verbose_name=_('Address'), null=True, blank=True)
+    image = ImageField(upload_to='agentes/', default='', verbose_name=_('Picture'), null=True, blank=True)
+    user = models.OneToOneField(User, verbose_name=_('User'))
     active = models.BooleanField(default=False, verbose_name=_('Active'))
 
     objects = AgentManager()
@@ -129,25 +129,25 @@ class ListingManager(models.Manager):
 
 
 class Listing(models.Model):
-    title = models.CharField(max_length=100, verbose_name=_(u'Title'))
-    slug = models.SlugField(max_length=100, unique=True, blank=False, verbose_name=_(u'Slug'))
-    description = models.TextField(verbose_name=_(u'Description'), null=True, blank=True)
-    price = MoneyField(default=Money(0, USD), max_digits=12, decimal_places=2, verbose_name=_(u'Price'))
+    title = models.CharField(max_length=100, verbose_name=_('Title'))
+    slug = models.SlugField(max_length=100, unique=True, blank=False, verbose_name=_('Slug'))
+    description = models.TextField(verbose_name=_('Description'), null=True, blank=True)
+    price = MoneyField(default=Money(0, USD), max_digits=12, decimal_places=2, verbose_name=_('Price'))
     location = models.ForeignKey(Location, null=True, blank=True)
-    type = models.CharField(_(u'Listing Type'), max_length=30, choices=TYPES)
-    offer = models.CharField(max_length=10, choices=OFFERS, verbose_name=_(u'Offer'))
+    type = models.CharField(_('Listing Type'), max_length=30, choices=TYPES)
+    offer = models.CharField(max_length=10, choices=OFFERS, verbose_name=_('Offer'))
     active = models.BooleanField(_('Active'), default=False)
-    featured = models.BooleanField(default=False, verbose_name=_(u'Featured'))
-    baths = models.PositiveIntegerField(_(u'Bathrooms'), default=0, null=True, blank=True)
-    beds = models.PositiveIntegerField(_(u'Bedrooms'), default=0, null=True, blank=True)
-    size = models.PositiveIntegerField(_(u'Size(m2)'), default=0, null=True, blank=True)
-    coords = models.CharField(max_length=255, default='19.000000,-70.400000', verbose_name=_(u'Coords'), null=True,
+    featured = models.BooleanField(default=False, verbose_name=_('Featured'))
+    baths = models.PositiveIntegerField(_('Bathrooms'), default=0, null=True, blank=True)
+    beds = models.PositiveIntegerField(_('Bedrooms'), default=0, null=True, blank=True)
+    size = models.PositiveIntegerField(_('Size(m2)'), default=0, null=True, blank=True)
+    coords = models.CharField(max_length=255, default='19.000000,-70.400000', verbose_name=_('Coords'), null=True,
                               blank=True)
     agent = models.ForeignKey(Agent, null=True, blank=True, verbose_name=_('Agent'))
     contact = models.ForeignKey(Contact, null=True, blank=True)
-    notes = models.TextField(max_length=500, verbose_name=_(u'Private Notes'), null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_(u'Created'))
-    last_modified = models.DateTimeField(auto_now=True, verbose_name=_(u'Last Modified'))
+    notes = models.TextField(max_length=500, verbose_name=_('Private Notes'), null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('Created'))
+    last_modified = models.DateTimeField(auto_now=True, verbose_name=_('Last Modified'))
 
     objects = ListingManager()
 
@@ -170,15 +170,15 @@ class Listing(models.Model):
 
     def get_address(self):
         if self.location is None:
-            return _(u'No location provided')
+            return _('No location provided')
         return self.location
 
     def __unicode__(self):
         return self.title
 
     class Meta:
-        verbose_name = _(u'Listing')
-        verbose_name_plural = _(u'Listings')
+        verbose_name = _('Listing')
+        verbose_name_plural = _('Listings')
         ordering = ['-pk', ]
 
     def save(self, **kwargs):
@@ -212,14 +212,14 @@ class Listing(models.Model):
         for attribute in self.attributelisting_set.all():
             attribute_name = _(attribute.attribute.name)
             if attribute.attribute.validation == 'realestate.listing.utils.validation_simple':
-                attributes.append(u'%s: %s' % (attribute_name, attribute.value))
+                attributes.append('%s: %s' % (attribute_name, attribute.value))
             elif attribute.attribute.validation == 'realestate.listing.utils.validation_yesno':
-                attributes.append(u'%s' % attribute_name)
+                attributes.append('%s' % attribute_name)
             else:
                 if attribute.attribute.validation == 'realestate.listing.utils.validation_integer':
-                    attributes.append(u'%s %s' % (attribute.value, attribute_name))
+                    attributes.append('%s %s' % (attribute.value, attribute_name))
                 else:
-                    attributes.append(u'%.2f %s' % (attribute.value, attribute_name))
+                    attributes.append('%.2f %s' % (attribute.value, attribute_name))
 
         return attributes
 
@@ -265,13 +265,13 @@ class Listing(models.Model):
 
 
 class Attribute(models.Model):
-    name = models.CharField(_(u'Attribute'), max_length=100)
-    validation = models.CharField(_(u'Value type'), choices=VALIDATIONS, max_length=100)
+    name = models.CharField(_('Attribute'), max_length=100)
+    validation = models.CharField(_('Value type'), choices=VALIDATIONS, max_length=100)
 
     class Meta:
         ordering = ('name',)
-        verbose_name = _(u'Attribute')
-        verbose_name_plural = _(u'Attributes')
+        verbose_name = _('Attribute')
+        verbose_name_plural = _('Attributes')
 
     def __unicode__(self):
         return self.name
@@ -280,13 +280,13 @@ class Attribute(models.Model):
 class AttributeListing(models.Model):
     listing = models.ForeignKey(Listing)
     attribute = models.ForeignKey(Attribute)
-    value = models.CharField(_(u'Value'), max_length=255)
-    # order = models.SmallIntegerField(u'Orden', default=99)
+    value = models.CharField(_('Value'), max_length=255)
+    order = models.SmallIntegerField(_('Order'), default=99)
 
     class Meta:
-        verbose_name = _(u'Listing attribute')
-        verbose_name_plural = _(u'Listing attributes')
-        # ordering = ['order', ]
+        verbose_name = _('Listing attribute')
+        verbose_name_plural = _('Listing attributes')
+        ordering = ['order', ]
 
     def __unicode__(self):
         return '%s: %s' % (self.attribute.name, self.value)
@@ -329,8 +329,8 @@ class Deal(models.Model):
     listing = models.ForeignKey(Listing, verbose_name=_('Listing'))
     price = MoneyField(_('Sale Price'), default=Money(0, USD), max_digits=12, decimal_places=2)
     active = models.BooleanField(_('Active'), default=False)
-    start_date = models.DateTimeField(verbose_name=_(u'Activation date'))
-    end_date = models.DateTimeField(verbose_name=_(u'Deactivation date'))
+    start_date = models.DateTimeField(verbose_name=_('Activation date'))
+    end_date = models.DateTimeField(verbose_name=_('Deactivation date'))
 
     objects = DealManager()
 
@@ -340,5 +340,5 @@ class Deal(models.Model):
         return self.listing.title
 
     class Meta:
-        verbose_name = _(u'Deal')
-        verbose_name_plural = _(u'Deals')
+        verbose_name = _('Deal')
+        verbose_name_plural = _('Deals')
