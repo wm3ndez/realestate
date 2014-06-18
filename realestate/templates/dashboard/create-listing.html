@@ -89,9 +89,9 @@
                             {{ form.price.label_tag }} {{ form.price|widget_attrs:"class:form-control" }}
                         </div>
                         <div class="row">
-                            <div class="col-xs-6 {% if form.sector.errors %}has-error{% endif %}">
-                                {{ form.sector.errors }}
-                                {{ form.sector.label_tag }} {{ form.sector|widget_attrs:"class:form-control" }}
+                            <div class="col-xs-6 {% if form.location.errors %}has-error{% endif %}">
+                                {{ form.location.errors }}
+                                {{ form.location.label_tag }} {{ form.location|widget_attrs:"class:form-control" }}
                             </div>
                             <div class="col-xs-1 plus-row">
                                 <a href="{% url 'add-sector' %}" class="add-modal">
