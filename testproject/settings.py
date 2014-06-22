@@ -157,7 +157,10 @@ REST_FRAMEWORK = {
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'realestate.api.authentication.ApiKeyAuthentication',
+    )
 }
 
 CURRENCIES = ('USD', 'EUR', 'CNY', 'DOP',)
