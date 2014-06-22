@@ -107,6 +107,7 @@ INSTALLED_APPS = (
     'realestate',
     'realestate.listing',
     'realestate.home',
+    'realestate.api',
     'testproject',
     'testproject.localsite',
     'rest_framework',
