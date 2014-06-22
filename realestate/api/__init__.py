@@ -1,6 +1,7 @@
 from rest_framework import viewsets, serializers
 from django.forms import widgets
 from realestate.listing.models import Listing
+from realestate.api.authentication import ApiKeyAuthentication
 
 
 class PropertySerializer(serializers.Serializer):
@@ -29,6 +30,7 @@ class PropertySerializer(serializers.Serializer):
 class PropiedadViewSet(viewsets.ReadOnlyModelViewSet):
     model = Listing
     serializer_class = PropertySerializer
+    authentication_classes = (ApiKeyAuthentication,)
 
     def get_queryset(self):
         queryset = Listing.objects.all()

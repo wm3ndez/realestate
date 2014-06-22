@@ -7,9 +7,9 @@ from django.utils.translation import ugettext as _
 
 class ApiKeyAuthentication(BaseAuthentication):
     def authenticate(self, request):
-        key = request.META.get('X-API-Key')
+        key = request.META.get('HTTP_X_API_KEY')
         if not key:
-            return None
+            raise exceptions.AuthenticationFailed(_('The API Key is missing'))
 
         try:
             api_key = ApiKeys.objects.get(key=key)
