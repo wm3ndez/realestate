@@ -5,6 +5,7 @@ from django.views.generic import TemplateView, CreateView, ListView, UpdateView,
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from realestate.home.models import Contact
+from realestate.api.models import ApiKeys as ApiKey
 from realestate.listing.models import Listing, Agent, Deal, Location
 from realestate.admin.forms import ListingForm, ListingImageFormSet, AttributeListingFormSet, ConstanceForm, UserForm, \
     SetPasswordForm
@@ -220,3 +221,10 @@ class Settings(LoginRequiredMixin, SuperuserRequiredMixin, FormView):
     def form_valid(self, form):
         form.save()
         return HttpResponseRedirect(self.get_success_url())
+
+
+class ApiKeys(LoginRequiredMixin, StaffuserRequiredMixin, OrderableListMixin, ListView):
+    template_name = 'dashboard/api_keys.html'
+    model = ApiKey
+    orderable_columns = ('key',)
+    orderable_columns_default = 'key'

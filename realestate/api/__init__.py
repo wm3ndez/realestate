@@ -30,7 +30,6 @@ class PropertySerializer(serializers.Serializer):
 class PropiedadViewSet(viewsets.ReadOnlyModelViewSet):
     model = Listing
     serializer_class = PropertySerializer
-    authentication_classes = (ApiKeyAuthentication,)
 
     def get_queryset(self):
         queryset = Listing.objects.all()

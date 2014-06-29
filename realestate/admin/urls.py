@@ -3,7 +3,7 @@ from django.contrib.auth.views import password_change
 from realestate.admin.views import Dashboard, CreateListing, UpdateListing, Listings, CreateAgent, Agents, Contacts, \
     CreateContact, \
     UpdateAgent, UpdateContact, Locations, CreateLocation, UpdateLocation, Settings, Users, \
-    CreateUser, UpdateUser, SetUserPassword, Deals, CreateDeal, UpdateDeal
+    CreateUser, UpdateUser, SetUserPassword, Deals, CreateDeal, UpdateDeal, ApiKeys
 
 urlpatterns = patterns(
     'realestate.admin.views',
@@ -30,6 +30,7 @@ urlpatterns = patterns(
     url('^deals/', Deals.as_view(), name='admin-list-deals'),
     url('^new-deal/', CreateDeal.as_view(), name='add-deal'),
     url('^update-deal/(?P<pk>\d+)$', UpdateDeal.as_view(), name='update-deal'),
+    url('^api-keys/', ApiKeys.as_view(), name='admin-api-keys'),
 
 
     url('^config/$', Settings.as_view(), name='dashboard-settings'),
