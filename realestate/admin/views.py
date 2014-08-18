@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse_lazy, reverse
 from django.views.generic import TemplateView, CreateView, ListView, UpdateView, FormView
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.utils.translation import gettext_lazy as _
 from realestate.home.models import Contact
 from realestate.api.models import ApiKeys as ApiKey
 from realestate.listing.models import Listing, Agent, Deal, Location
@@ -48,7 +49,7 @@ class CreateListing(LoginRequiredMixin, StaffuserRequiredMixin, CreateView):
             listing_attributes_form.instance = self.object
             listing_attributes_form.save()
 
-            messages.success(self.request, 'Listing created successfully.')
+            messages.success(self.request, _('Listing created successfully.'))
 
             return HttpResponseRedirect(self.get_success_url())
         else:
@@ -86,7 +87,7 @@ class UpdateListing(LoginRequiredMixin, StaffuserRequiredMixin, UpdateView):
             listing_images_form.save()
             listing_attributes_form.save()
 
-            messages.success(self.request, 'Listing updated successfully.')
+            messages.success(self.request, _('Listing updated successfully.'))
 
             return HttpResponseRedirect(self.get_success_url())
         else:

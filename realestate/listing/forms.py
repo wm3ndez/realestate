@@ -1,7 +1,8 @@
+from django.conf import settings
 from realestate.listing.models import OFFERS, TYPES, Agent, Location
 from django import forms
 from django.utils.translation import ugettext as _
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 from constance import config
 
 
@@ -16,6 +17,17 @@ class ListingContactForm(forms.Form):
         if not cleaned_data.get('mensaje'):
             raise forms.ValidationError('El mensaje no puede estar en blanco.')
         return cleaned_data
+
+    def send_contact_form(self, listing):
+        asunto = '%s %s' % (_('Customer interested in:'), listing.title)
+        # TODO: Translate
+        message = "El cliente %s esta interesado en esta listing y le ha dejado el siguiente mensaje:\n\n%s\n\nTelefono: %s" % (
+            self.cleaned_data.get('nombre'), self.cleaned_data.get('mensaje'), self.cleaned_data.get('phone'))
+        _from = settings.DEFAULT_FROM_EMAIL
+        to = [listing.agente.user.email, ]
+        reply = self.cleaned_data.get('email')
+        email = EmailMessage(asunto, message, _from, to, headers={'Reply-To': reply})
+        email.send(fail_silently=False)
 
 
 BATHROOMS_RANGE = (

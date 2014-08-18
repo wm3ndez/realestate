@@ -3,7 +3,7 @@ from django.conf import settings
 
 from django.contrib import admin
 from django.views.generic import TemplateView
-from realestate.listing.views import ListingList, ListingForSaleList, ListingForRentList, ListingView, SearchView
+from realestate.listing import views  as listing_views
 from rest_framework import routers
 from home.views import ContactView, IndexView
 from realestate.api import PropiedadViewSet
@@ -17,16 +17,16 @@ router.register(r'propiedades', PropiedadViewSet)
 urlpatterns = patterns(
     '',
     url(r'^$', IndexView.as_view(), name='index'),
-    url(r'^properties/$', ListingList.as_view(), name='all_properties'),
-    url(r'^sale/$', ListingForSaleList.as_view(), name='properties_for_sale'),
-    url(r'^sale/(?P<order_by>[\w-]+)/$', ListingForSaleList.as_view(), name='properties_for_sale'),
-    url(r'^rent/$', ListingForRentList.as_view(), name='properties_for_rent'),
-    url(r'^rent/(?P<order_by>[\w-]+)/$', ListingForRentList.as_view(), name='properties_for_rent'),
-    url(r'^search/', SearchView.as_view(), name='search'),
-    url(r'^listing/(?P<slug>[\w-]+)/', ListingView.as_view(), name='property_details'),
-    url(r'^agents/$', 'realestate.listing.views.agents', name='agents'),
-    url(r'^agents/listing/(?P<agent>[\d]+)/$', 'realestate.listing.views.agent_listings', name='agent-listings'),
-    url(r'^get_map/$', 'realestate.listing.views.get_map', name='mapa-propiedades'),  # Ajax
+    url(r'^properties/$', listing_views.ListingList.as_view(), name='all_properties'),
+    url(r'^sale/$', listing_views.ListingForSaleList.as_view(), name='properties_for_sale'),
+    url(r'^sale/(?P<order_by>[\w-]+)/$', listing_views.ListingForSaleList.as_view(), name='properties_for_sale'),
+    url(r'^rent/$', listing_views.ListingForRentList.as_view(), name='properties_for_rent'),
+    url(r'^rent/(?P<order_by>[\w-]+)/$', listing_views.ListingForRentList.as_view(), name='properties_for_rent'),
+    url(r'^search/', listing_views.SearchView.as_view(), name='search'),
+    url(r'^listing/(?P<slug>[\w-]+)/', listing_views.ListingView.as_view(), name='property_details'),
+    url(r'^agents/$', listing_views.AgentList.as_view(), name='agents'),
+    url(r'^agents/listing/(?P<agent>[\d]+)/$', listing_views.AgentListing.as_view(), name='agent-listings'),
+    url(r'^get_map/$', listing_views.MapView.as_view(), name='mapa-propiedades'),
     url(r'^contact/$', ContactView.as_view(), name='home_contact'),
 
     # Static Pages
