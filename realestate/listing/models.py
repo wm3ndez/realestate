@@ -74,6 +74,9 @@ class Location(models.Model):
         location_tree = self.get_parent_name(self, [])
         return ', '.join(location_tree)
 
+    def __str__(self):
+        return self.__unicode__()
+
     def get_parent_name(self, location, names):
         names.append(location.name)
         if location.parent is None:
@@ -158,11 +161,9 @@ class Listing(models.Model):
             return im[0]
         return None
 
-
     @property
     def image_list(self):
         return [{'title': image.name, 'url': image.absolute_url, 'order': image.order} for image in self.images.all()]
-
 
     @property
     def address(self):
@@ -274,6 +275,9 @@ class Attribute(models.Model):
         verbose_name_plural = _('Attributes')
 
     def __unicode__(self):
+        return self.name
+
+    def __str__(self):
         return self.name
 
 

@@ -1,5 +1,4 @@
 # !/usr/bin/env python
-from distutils.core import setup
 from distutils.util import convert_path
 from realestate import __version__, __maintainer__, __email__
 from fnmatch import fnmatchcase
@@ -57,8 +56,7 @@ def find_package_data(where='.', package='', exclude=standard_exclude,
             if os.path.isdir(fn):
                 bad_name = False
                 for pattern in exclude_directories:
-                    if (fnmatchcase(name, pattern)
-                        or fn.lower() == pattern.lower()):
+                    if (fnmatchcase(name, pattern) or fn.lower() == pattern.lower()):
                         bad_name = True
                         if show_ignored:
                             print >> sys.stderr, (
@@ -67,8 +65,7 @@ def find_package_data(where='.', package='', exclude=standard_exclude,
                         break
                 if bad_name:
                     continue
-                if (os.path.isfile(os.path.join(fn, '__init__.py'))
-                    and not prefix):
+                if (os.path.isfile(os.path.join(fn, '__init__.py')) and not prefix):
                     if not package:
                         new_package = name
                     else:
@@ -81,8 +78,7 @@ def find_package_data(where='.', package='', exclude=standard_exclude,
                 # is a file
                 bad_name = False
                 for pattern in exclude:
-                    if (fnmatchcase(name, pattern)
-                        or fn.lower() == pattern.lower()):
+                    if (fnmatchcase(name, pattern) or fn.lower() == pattern.lower()):
                         bad_name = True
                         if show_ignored:
                             print >> sys.stderr, (
@@ -127,7 +123,6 @@ setup(
     classifiers=CLASSIFIERS,
     install_requires=[
         'Django>=1.5.1',
-        'MySQL-python',
         'Pillow',
         'South',
         'Werkzeug',

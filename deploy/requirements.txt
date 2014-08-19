@@ -1,5 +1,4 @@
 Django>=1.5.1
-MySQL-python
 Pillow
 South
 Werkzeug
@@ -8,7 +7,7 @@ django-extensions
 django-localeurl
 python-twitter
 six
-sorl-thumbnail
+sorl-thumbnail==11.12.1b
 djangorestframework
 django-filter
 django-braces==1.4.0
@@ -16,3 +15,4 @@ django-money==0.4.1
 django-discover-runner==1.0
 django-discoverage==1.0.0
 django-constance
+pytz
