@@ -3,13 +3,16 @@ python:
   - 2.7
 
 env:
-  - DJANGO_VERSION=1.6.4
+  - TOX_ENV=py33-1.6.X
+  - TOX_ENV=py33-1.5.X
+  - TOX_ENV=py27-1.6.X
+  - TOX_ENV=py27-1.5.X
 
 install:
-  - pip install Django==$DJANGO_VERSION
-  - python setup.py install
-  - pip install coveralls
+  - pip install tox
 
-script: python setup.py test
+script:
+  - tox -e $TOX_ENV
+
 after_success:
   - coveralls
