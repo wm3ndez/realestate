@@ -140,5 +140,5 @@ setup(
         'django-constance',
         'django-picklefield',
     ],
-    test_suite='tests.runtests.main',
+    test_suite='tests.runtests.runtests',
 )
