@@ -111,6 +111,7 @@ INSTALLED_APPS = (
     'testproject',
     'testproject.localsite',
     'rest_framework',
+    'rest_framework.authtoken',
     'discoverage'
 
 )
@@ -159,6 +160,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
         'realestate.api.authentication.ApiKeyAuthentication',  # this should be the last one cause it never returns none
     )
 }
