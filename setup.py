@@ -139,6 +139,7 @@ setup(
         'django-discoverage==1.0.0',
         'django-constance',
         'django-picklefield',
+        'factory_boy',
     ],
     test_suite='tests.runtests.runtests',
 )
