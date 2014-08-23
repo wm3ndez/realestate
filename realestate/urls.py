@@ -26,8 +26,6 @@ urlpatterns = patterns(
     url(r'^contact/$', ContactView.as_view(), name='home_contact'),
 
     # Static Pages
-    url(r'^about-us/$', TemplateView.as_view(template_name='home/about-us.html'), name='home_aboutus'),
-    url(r'^services/$', TemplateView.as_view(template_name='home/services.html'), name='home_services'),
     url(r'^thank-you/$', TemplateView.as_view(template_name='home/thank-you.html'), name='thank-you'),
 
     # API
