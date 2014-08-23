@@ -5,47 +5,59 @@ import sys
 import django
 from django.conf import settings
 
-if not settings.configured:
-    settings_dict = dict(
-        INSTALLED_APPS=[
-            'django.contrib.auth',
-            'django.contrib.contenttypes',
 
-            'realestate',
-            'realestate.listing',
-            'realestate.home',
-            'realestate.api',
-            'tests',
-        ],
-        DATABASES={
-            "default": {
-                "ENGINE": "django.db.backends.sqlite3",
-            }
-        },
-        MEDIA_ROOT=os.path.join(os.path.dirname(__file__), 'media'),
-        MEDIA_URL='/media/',
-        STATIC_URL='/static/',
-    )
+DEFAULT_SETTINGS = dict(
+    INSTALLED_APPS=[
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
 
-    settings.configure(**settings_dict)
+        'realestate',
+        'constance',
+    ],
+    DATABASES={
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": "test.db"
+        }
+    },
+    MEDIA_ROOT=os.path.join(os.path.dirname(__file__), 'media'),
+    MEDIA_URL='/media/',
+    STATIC_URL='/static/',
 
-if django.VERSION >= (1, 7):
-    django.setup()
+    CONSTANCE_CONFIG={
+        'PROPERTIES_PER_PAGE': (16, 'Properties per page'),
+        'RECENTLY_ADDED': (6, 'Recently Added'),
+        'CONTACT_DEFAULT_EMAIL': ('email@example.com', 'Contact form email')
+    },
+    CONSTANCE_CONNECTION_CLASS='tests.redis_mockup.Connection',
+
+
+)
 
 
 def runtests(*test_args):
-    if not test_args:
-        test_args = ['tests']
+    if not settings.configured:
+        settings.configure(**DEFAULT_SETTINGS)
 
-    parent = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    # Compatibility with Django 1.7's stricter initialization
+    if hasattr(django, 'setup'):
+        django.setup()
+
+    parent = os.path.dirname(os.path.abspath(__file__))
     sys.path.insert(0, parent)
 
     try:
-        from django.test.runner import DiscoveryRunner as Runner
+        from django.test.runner import DiscoverRunner
+
+        runner_class = DiscoverRunner
+        test_args = ['realestate']
     except ImportError:
-        from django.test.simple import DjangoTestSuiteRunner as Runner
-    failures = Runner(
-        verbosity=1, interactive=True, failfast=False).run_tests(test_args)
+        from django.test.simple import DjangoTestSuiteRunner
+
+        runner_class = DjangoTestSuiteRunner
+        test_args = ['tests']
+
+    failures = runner_class(verbosity=1, interactive=True, failfast=False).run_tests(test_args)
     sys.exit(failures)
 
 
