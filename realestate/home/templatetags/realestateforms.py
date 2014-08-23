@@ -2,7 +2,7 @@ from django.template import Library
 
 register = Library()
 
-
+#TODO: Implement django-widget-tweaks
 @register.filter
 def widget_with_classes(widget, classes):
     widget.field.widget.attrs['class'] = classes
