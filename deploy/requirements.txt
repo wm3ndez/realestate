@@ -16,3 +16,4 @@ django-discover-runner==1.0
 django-discoverage==1.0.0
 django-constance
 pytz
+factory_boy

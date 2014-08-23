@@ -4,15 +4,11 @@ from django.conf import settings
 from django.contrib import admin
 from django.views.generic import TemplateView
 from realestate.listing import views  as listing_views
-from rest_framework import routers
-from home.views import ContactView, IndexView
-from realestate.api import PropiedadViewSet
+from realestate.api.urls import router as api_router
+from realestate.home.views import ContactView, IndexView
 from realestate.listing import sitemap
 
 admin.autodiscover()
-
-router = routers.DefaultRouter()
-router.register(r'propiedades', PropiedadViewSet)
 
 urlpatterns = patterns(
     '',
@@ -36,7 +32,7 @@ urlpatterns = patterns(
 
     # API
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url('^api/', include(router.urls)),
+    url('^api/', include(api_router.urls)),
 
     # Sitemaps
     (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': {'blog': sitemap.ListingSitemap}}),

@@ -7,26 +7,26 @@ from constance import config
 
 
 class ListingContactForm(forms.Form):
-    nombre = forms.CharField(max_length=40, required=True)
+    name = forms.CharField(max_length=40, required=True)
     email = forms.EmailField(required=True)
-    telefono = forms.CharField(required=False)
-    mensaje = forms.CharField(widget=forms.Textarea)
+    phone = forms.CharField(required=False)
+    message = forms.CharField(widget=forms.Textarea)
 
     def clean(self):
         cleaned_data = super(ListingContactForm, self).clean()
-        if not cleaned_data.get('mensaje'):
+        if not cleaned_data.get('message'):
             raise forms.ValidationError('El mensaje no puede estar en blanco.')
         return cleaned_data
 
     def send_contact_form(self, listing):
-        asunto = '%s %s' % (_('Customer interested in:'), listing.title)
+        subject = '%s %s' % (_('Customer interested in:'), listing.title)
         # TODO: Translate
         message = "El cliente %s esta interesado en esta listing y le ha dejado el siguiente mensaje:\n\n%s\n\nTelefono: %s" % (
-            self.cleaned_data.get('nombre'), self.cleaned_data.get('mensaje'), self.cleaned_data.get('phone'))
+            self.cleaned_data.get('name'), self.cleaned_data.get('message'), self.cleaned_data.get('phone'))
         _from = settings.DEFAULT_FROM_EMAIL
-        to = [listing.agente.user.email, ]
+        to = [listing.agent.email, ]
         reply = self.cleaned_data.get('email')
-        email = EmailMessage(asunto, message, _from, to, headers={'Reply-To': reply})
+        email = EmailMessage(subject, message, _from, to, headers={'Reply-To': reply})
         email.send(fail_silently=False)
 
 

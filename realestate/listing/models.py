@@ -109,6 +109,10 @@ class Agent(models.Model):
     def name(self):
         return '%s %s' % (self.first_name, self.last_name)
 
+    @property
+    def email(self):
+        return self.user.email if self.user is not None else None
+
     def __unicode__(self):
         return self.name
 
