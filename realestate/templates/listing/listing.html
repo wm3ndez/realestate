@@ -1,5 +1,5 @@
 {% extends 'base_theme.html' %}
-{% load extra_functions thumbnail i18n realestate_utils realestateforms %}
+{% load extra_functions thumbnail i18n realestateforms %}
 {% block title %}{{ listing.title }} | WILLIAMSMENDEZ.COM{% endblock %}
 {% block content %}
 
@@ -16,12 +16,6 @@
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">{% trans "Close" %}</button>
         </div>
-        {% comment %}
-        <div class="modal-body">
-            <iframe width="620" height="414"
-                    src="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q={{ listing.coords }}&amp;aq=&amp;sll={{ listing.coords }}&amp;sspn=0.009692,0.027874&amp;ie=UTF8&amp;t=m&amp;layer=c&amp;cbll={{ listing.coords }}&amp;panoid=RxBbTTBT6Uh_6ze7kq0kJQ&amp;cbp=13,70.35,,0,9.98&amp;ll={{ listing.coords }}&amp;spn=0.022145,0.053215&amp;z=14&amp;output=svembed"></iframe>
-        </div>
-        {% endcomment %}
     </div>
 
 
@@ -74,7 +68,11 @@
                     <h4>Características</h4>
 
                     <div class="row">
-                        {% feature_list listing %}
+                        <ul>
+                            {% for feature in listing.get_features %}
+                                <li>{{ feature }}</li>
+                            {% endfor %}
+                        </ul>
                     </div>
 
                     <h4>{% trans "Description" %}</h4>
