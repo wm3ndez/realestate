@@ -1,4 +1,6 @@
+from decimal import Decimal
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 from django.test import TestCase
 import factory
 from realestate.listing.forms import ContactForm, SearchForm, ListingContactForm
@@ -23,13 +25,19 @@ class AgentFactory(factory.Factory):
     user = factory.SubFactory(UserFactory)
 
 
-class ListingFactory(factory.Factory):
+class ListingFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Listing
 
     title = 'A New House'
+    slug = 'a-new-house'
+    type = 'house'
+    active = True
+    featured = True
+    baths = 2
+    beds = 3
     description = 'House Description Here'
-    price = 0
+    price = Decimal('1000.00')
     agent = factory.SubFactory(AgentFactory)
 
 
@@ -63,3 +71,11 @@ class FormTests(TestCase):
         }
         form = ContactForm(data=form_data)
         self.assertEqual(form.is_valid(), True)
+        form.send_email()
+
+
+class ViewsTests(TestCase):
+    def test_listing_view(self):
+        listing = ListingFactory()
+        response = self.client.get(reverse('property_details', args=[listing.slug]))
+        self.assertEqual(200, response.status_code)

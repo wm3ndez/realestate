@@ -4,8 +4,8 @@ from django.conf import settings
 from django.contrib import admin
 from django.views.generic import TemplateView
 from realestate.listing import views  as listing_views
-from api.urls import router as api_router
-from home.views import ContactView, IndexView
+from realestate.api.urls import router as api_router
+from realestate.home.views import ContactView, IndexView
 from realestate.listing import sitemap
 
 admin.autodiscover()

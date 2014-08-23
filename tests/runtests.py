@@ -11,9 +11,13 @@ DEFAULT_SETTINGS = dict(
         'django.contrib.auth',
         'django.contrib.contenttypes',
 
+        'realestate',
         'realestate.home',
         'realestate.listing',
+
+        #Deps
         'constance',
+        'sorl.thumbnail',
     ],
     DATABASES={
         "default": {
@@ -32,6 +36,8 @@ DEFAULT_SETTINGS = dict(
     },
     CONSTANCE_CONNECTION_CLASS='tests.redis_mockup.Connection',
     EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend',
+    ROOT_URLCONF='realestate.urls',
+    TEMPLATE_DIRS=(os.path.abspath(os.path.join(os.path.dirname(__file__), '../realestate/templates')), ),
 )
 
 
