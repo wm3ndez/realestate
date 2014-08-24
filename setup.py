@@ -131,7 +131,6 @@ setup(
         'six',
         'sorl-thumbnail',
         'djangorestframework',
-        'django-filter',
         'django-braces==1.4.0',
         'django-money==0.4.1',
         'django-discover-runner==1.0',
