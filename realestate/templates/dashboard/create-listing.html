@@ -1,5 +1,5 @@
 {% extends "dashboard/base.html" %}
-{% load i18n static realestateforms %}
+{% load i18n static widget_tweaks  %}
 {% block content-header %}
     <h1>{% trans "Create Listing" %} </h1>
 {% endblock %}
@@ -78,20 +78,21 @@
                     <div class="box-body">
                         <div class="form-group {% if form.title.errors %}has-error{% endif %}">
                             {{ form.title.errors }}
-                            {{ form.title.label_tag }} {{ form.title|widget_attrs:"class:form-control" }}
+                            {{ form.title.label_tag }}
+                            {% render_field form.title class+="form-control"  %}
                         </div>
                         <div class="form-group {% if form.description.errors %}has-error{% endif %}">
                             {{ form.description.errors }}
-                            {{ form.description.label_tag }} {{ form.description|widget_attrs:"class:form-control" }}
+                            {{ form.description.label_tag }} {% render_field form.description class+="form-control" %}
                         </div>
                         <div class="form-group {% if form.price.errors %}has-error{% endif %}">
                             {{ form.price.errors }}
-                            {{ form.price.label_tag }} {{ form.price|widget_attrs:"class:form-control" }}
+                            {{ form.price.label_tag }} {% render_field form.price class+="form-control" %}
                         </div>
                         <div class="row">
                             <div class="col-xs-6 {% if form.location.errors %}has-error{% endif %}">
                                 {{ form.location.errors }}
-                                {{ form.location.label_tag }} {{ form.location|widget_attrs:"class:form-control" }}
+                                {{ form.location.label_tag }} {% render_field form.location class+="form-control" %}
                             </div>
                             <div class="col-xs-1 plus-row">
                                 <a href="{% url 'add-sector' %}" class="add-modal">
@@ -102,7 +103,7 @@
                         <div class="row">
                             <div class="col-xs-6 {% if form.type.errors %}has-error{% endif %}">
                                 {{ form.type.errors }}
-                                {{ form.type.label_tag }} {{ form.type|widget_attrs:"class:form-control" }}
+                                {{ form.type.label_tag }} {% render_field form.type class+="form-control"  %}
                             </div>
                             <div class="col-xs-1 plus-row">
                                 <a href="{% url 'add-sector' %}"><i class="fa fa-fw fa-plus"></i></a>
@@ -111,7 +112,7 @@
                         <div class="row">
                             <div class="col-xs-6 {% if form.offer.errors %}has-error{% endif %}">
                                 {{ form.offer.errors }}
-                                {{ form.offer.label_tag }} {{ form.offer|widget_attrs:"class:form-control" }}
+                                {{ form.offer.label_tag }} {% render_field form.offer class+="form-control"  %}
                             </div>
                             <div class="col-xs-1 plus-row">
                                 <a href="{% url 'add-sector' %}"><i class="fa fa-fw fa-plus"></i></a>
@@ -119,27 +120,27 @@
                         </div>
                         <div class="form-group {% if form.active.errors %}has-error{% endif %}">
                             {{ form.active.errors }}
-                            {{ form.active.label_tag }} {{ form.active|widget_attrs:"class:form-control" }}
+                            {{ form.active.label_tag }} {% render_field form.active class+="form-control"  %}
                         </div>
                         <div class="form-group {% if form.featured.errors %}has-error{% endif %}">
                             {{ form.featured.errors }}
-                            {{ form.featured.label_tag }} {{ form.featured|widget_attrs:"class:form-control" }}
+                            {{ form.featured.label_tag }} {% render_field form.featured class+="form-control"  %}
                         </div>
                         <div class="form-group {% if form.baths.errors %}has-error{% endif %}">
                             {{ form.baths.errors }}
-                            {{ form.baths.label_tag }} {{ form.baths|widget_attrs:"class:form-control" }}
+                            {{ form.baths.label_tag }} {% render_field form.baths class+="form-control"  %}
                         </div>
                         <div class="form-group {% if form.beds.errors %}has-error{% endif %}">
                             {{ form.beds.errors }}
-                            {{ form.beds.label_tag }} {{ form.beds|widget_attrs:"class:form-control" }}
+                            {{ form.beds.label_tag }} {% render_field form.beds class+="form-control"  %}
                         </div>
                         <div class="form-group {% if form.size.errors %}has-error{% endif %}">
                             {{ form.size.errors }}
-                            {{ form.size.label_tag }} {{ form.size|widget_attrs:"class:form-control" }}
+                            {{ form.size.label_tag }} {% render_field form.size class+="form-control"  %}
                         </div>
                         <div class="form-group {% if form.coords.errors %}has-error{% endif %}">
                             {{ form.coords.errors }}
-                            {{ form.coords.label_tag }} {{ form.coords|widget_attrs:"class:form-control" }}
+                            {{ form.coords.label_tag }} {% render_field form.coords class+="form-control"  %}
                         </div>
                         <div class="row">
                             <div id="map-canvas" class="col-xs-12" style="height: 300px;"></div>
@@ -147,7 +148,7 @@
                         <div class="row">
                             <div class="col-xs-7 {% if form.agent.errors %}has-error{% endif %}">
                                 {{ form.agent.errors }}
-                                {{ form.agent.label_tag }} {{ form.agent|widget_attrs:"class:form-control" }}
+                                {{ form.agent.label_tag }} {% render_field form.agent class+="form-control"  %}
                             </div>
                             <div class="col-xs-1 plus-row">
                                 <a href="{% url 'add-agent' %}"><i class="fa fa-fw fa-plus"></i></a>
@@ -156,7 +157,7 @@
                         <div class="row">
                             <div class="col-xs-7 {% if form.contact.errors %}has-error{% endif %}">
                                 {{ form.contact.errors }}
-                                {{ form.contact.label_tag }} {{ form.contact|widget_attrs:"class:form-control" }}
+                                {{ form.contact.label_tag }} {% render_field form.contact class+="form-control"  %}
                             </div>
                             <div class="col-xs-1 plus-row">
                                 <a href="{% url 'add-contact' %}"><i class="fa fa-fw fa-plus"></i></a>
@@ -164,7 +165,7 @@
                         </div>
                         <div class="form-group {% if form.notes.errors %}has-error{% endif %}">
                             {{ form.notes.errors }}
-                            {{ form.notes.label_tag }} {{ form.notes|widget_attrs:"class:form-control" }}
+                            {{ form.notes.label_tag }} {% render_field form.notes class+="form-control"  %}
                         </div>
                     </div>
                     <!-- /.box-body -->
@@ -189,7 +190,7 @@
                                 <div class="row {{ listing_images_form.prefix }}">
                                     <div class="col-xs-3 {% if form.name.errors %}has-error{% endif %}">
                                         {{ form.name.errors }}
-                                        {{ form.name.label_tag }} {{ form.name|widget_attrs:"class:form-control" }}
+                                        {{ form.name.label_tag }} {% render_field form.name class+="form-control"  %}
                                     </div>
                                     <div class="col-xs-5 {% if form.image.errors %}has-error{% endif %}">
                                         {{ form.image.errors }}
@@ -197,7 +198,7 @@
                                     </div>
                                     <div class="col-xs-2 {% if form.order.errors %}has-error{% endif %}">
                                         {{ form.order.errors }}
-                                        {{ form.order.label_tag }} {{ form.order|widget_attrs:"class:form-control" }}
+                                        {{ form.order.label_tag }} {% render_field form.order class+="form-control"  %}
                                     </div>
 
                                     {% if listing_images_form.can_delete %}
@@ -216,7 +217,7 @@
                                 <div class="row" data-empty-permitted="true">
                                     <div class="col-xs-3">
                                         {{ listing_images_form.empty_form.name.label_tag }}
-                                        {{ listing_images_form.empty_form.name|widget_attrs:"class:form-control" }}
+                                        {% render_field listing_images_form.empty_form.name class+="form-control"  %}
                                     </div>
                                     <div class="col-xs-5">
                                         {{ listing_images_form.empty_form.image.label_tag }}
@@ -224,7 +225,7 @@
                                     </div>
                                     <div class="col-xs-2">
                                         {{ listing_images_form.empty_form.order.label_tag }}
-                                        {{ listing_images_form.empty_form.order|widget_attrs:"class:form-control" }}
+                                        {% render_field listing_images_form.empty_form.order class+="form-control"  %}
                                     </div>
                                     {% if listing_images_form.can_delete %}
                                         <div class="col-xs-1">
@@ -257,11 +258,11 @@
                                 <div class="row {{ listing_attributes_form.prefix }}">
                                     <div class="col-xs-5 {% if form.attribute.errors %}has-error{% endif %}">
                                         {{ form.attribute.errors }}
-                                        {{ form.attribute.label_tag }} {{ form.attribute|widget_attrs:"class:form-control" }}
+                                        {{ form.attribute.label_tag }} {% render_field form.attribute class+="form-control"  %}
                                     </div>
                                     <div class="col-xs-4 {% if form.value.errors %}has-error{% endif %}">
                                         {{ form.value.errors }}
-                                        {{ form.value.label_tag }} {{ form.value|widget_attrs:"class:form-control" }}
+                                        {{ form.value.label_tag }} {% render_field form.value class+="form-control"  %}
                                     </div>
                                     {% if listing_attributes_form.can_delete %}
                                         <div class="col-xs-2">
@@ -279,11 +280,11 @@
                                 <div class="row" data-empty-permitted="true">
                                     <div class="col-xs-5">
                                         {{ listing_attributes_form.empty_form.attribute.label_tag }}
-                                        {{ listing_attributes_form.empty_form.attribute|widget_attrs:"class:form-control" }}
+                                        {% render_field listing_attributes_form.empty_form.attribute class+="form-control"  %}
                                     </div>
                                     <div class="col-xs-4">
                                         {{ listing_attributes_form.empty_form.value.label_tag }}
-                                        {{ listing_attributes_form.empty_form.value|widget_attrs:"class:form-control" }}
+                                        {% render_field listing_attributes_form.empty_form.value class+="form-control"  %}
                                     </div>
                                     {% if listing_attributes_form.can_delete %}
                                         <div class="col-xs-2">

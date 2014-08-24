@@ -1,5 +1,5 @@
 {% extends 'base_theme.html' %}
-{% load extra_functions thumbnail i18n realestateforms %}
+{% load extra_functions thumbnail i18n %}
 {% block title %}{{ listing.title }} | WILLIAMSMENDEZ.COM{% endblock %}
 {% block content %}
 
@@ -138,7 +138,7 @@
                         {% for field in form %}
                             <div class="form-group{% if field.errors %} error{% endif %}">
                                 <div class="controls">
-                                    {{ field|widget_with_placeholder:field.name }}
+                                    {{ field.name }}: {{ field }}
                                     {% if field.errors %}
                                         <span class="help-inline">{{ field.errors }}</span>
                                     {% endif %}

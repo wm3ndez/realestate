@@ -125,7 +125,6 @@ setup(
         'Django>=1.5.1',
         'Pillow',
         'South',
-        'Werkzeug',
         'decorator==3.4.0',
         'django-extensions',
         'django-localeurl',
@@ -140,6 +139,7 @@ setup(
         'django-constance',
         'django-picklefield',
         'factory_boy',
+        'django-widget-tweaks',
     ],
     test_suite='tests.runtests.runtests',
 )

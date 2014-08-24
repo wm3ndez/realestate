@@ -1,7 +1,6 @@
 Django>=1.5.1
 Pillow
 South
-Werkzeug
 decorator==3.4.0
 django-extensions
 django-localeurl
@@ -17,3 +16,4 @@ django-discoverage==1.0.0
 django-constance
 pytz
 factory_boy
+django-widget-tweaks

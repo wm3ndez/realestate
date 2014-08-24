@@ -15,9 +15,10 @@ DEFAULT_SETTINGS = dict(
         'realestate.home',
         'realestate.listing',
 
-        #Deps
+        # Deps
         'constance',
         'sorl.thumbnail',
+        'widget_tweaks',
     ],
     DATABASES={
         "default": {

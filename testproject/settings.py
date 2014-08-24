@@ -112,8 +112,8 @@ INSTALLED_APPS = (
     'testproject.localsite',
     'rest_framework',
     'rest_framework.authtoken',
-    'discoverage'
-
+    'discoverage',
+    'widget_tweaks',
 )
 
 MIDDLEWARE_CLASSES = (
