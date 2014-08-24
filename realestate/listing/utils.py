@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import string
 from decimal import Decimal
+from django.utils import six
 from django.db.models import AutoField
 
 
@@ -9,11 +10,11 @@ def validation_simple(value, obj=None):
     Validates that at least one character has been entered.
     Not change is made to the value.
     """
-    if len(value) >= 1:
-        return True, value, ''
-    else:
-        # TODO: Translate
+    # TODO: Translate
+    if value is None or len(value) == 0:
         return False, value, u'El valor digitado debe tener uno o más caracteres'
+
+    return True, value, ''
 
 
 def validation_integer(value, obj=None):
@@ -34,11 +35,16 @@ def validation_yesno(value, obj=None):
     Validates that yes or no is entered.
     Converts the yes or no to capitalized version
     """
-    if string.upper(value) in ["YES", "NO"]:
-        return True, string.capitalize(value), ''
-    else:
-        # TODO: Translate
-        return False, value, u'El valor digitado debe ser YES o NO'
+    if value is not None:
+        if six.PY3:
+            if str.upper(value) in ["YES", "NO"]:
+                return True, str.capitalize(value), ''
+        else:
+            if string.upper(value) in ["YES", "NO"]:
+                return True, string.capitalize(value), ''
+
+    # TODO: Translate
+    return False, value, u'El valor digitado debe ser YES o NO'
 
 
 def validation_decimal(value, obj=None):

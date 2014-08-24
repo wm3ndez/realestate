@@ -9,7 +9,7 @@ register = template.Library()
 def currency(dollars):
     try:
         dollars = float(dollars)
-    except ValueError:
+    except (ValueError, TypeError):
         return '$0'
     return "$%s" % intcomma(int(dollars), False)
 
