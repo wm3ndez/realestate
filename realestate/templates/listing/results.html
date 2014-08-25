@@ -1,12 +1,8 @@
 {% extends "base_theme.html" %}
-{% load re_paginator render_form %}
+{% load re_paginator %}
 {% block content %}
     <div class="row">
-        <div class="col-md-4">
-            {% get_search_form %}
-        </div>
-
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="row">
                 <div class="col-md-4 select_height"> Mostrando {{ page_obj.start_index }} - {{ page_obj.end_index }}
                     de {{ paginator.count }} resultados
