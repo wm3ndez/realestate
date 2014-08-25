@@ -1,10 +1,7 @@
 Django>=1.5.1
 Pillow
 South
-decorator==3.4.0
 django-extensions
-django-localeurl
-python-twitter
 six
 sorl-thumbnail==11.12.1b
 djangorestframework
