@@ -1,7 +1,7 @@
 from braces.views import StaffuserRequiredMixin, LoginRequiredMixin, OrderableListMixin, SuperuserRequiredMixin
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy, reverse
-from django.views.generic import TemplateView, CreateView, ListView, UpdateView, FormView
+from django.views.generic import TemplateView, CreateView, ListView, UpdateView, FormView, DeleteView
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
@@ -229,3 +229,15 @@ class ApiKeys(LoginRequiredMixin, StaffuserRequiredMixin, OrderableListMixin, Li
     model = ApiKey
     orderable_columns = ('key',)
     orderable_columns_default = 'key'
+
+
+class CreateApiKey(LoginRequiredMixin, SuperuserRequiredMixin, CreateView):
+    template_name = 'dashboard/create-apikey.html'
+    model = ApiKey
+    success_url = reverse_lazy('admin-api-keys')
+
+
+class DeleteApiKey(LoginRequiredMixin, SuperuserRequiredMixin, DeleteView):
+    template_name = 'dashboard/apikey-confirm-delete.html'
+    model = ApiKey
+    success_url = reverse_lazy('admin-api-keys')

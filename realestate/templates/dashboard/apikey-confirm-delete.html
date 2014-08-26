@@ -1,0 +1,23 @@
+{% extends "dashboard/base.html" %}
+{% load i18n static %}
+{% block extra_css %}
+    <link href="{% static 'admin/css/editForms.css" rel="stylesheet" type="text/css' %}"/>
+{% endblock %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <!-- general form elements disabled -->
+            <div class="box box-primary">
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <form role="form" action="" method="post">{% csrf_token %}
+                        <p>{% trans "Are you sure you want to delete" %} "{{ object }}"?</p>
+                        <button type="submit" class="btn btn-danger">{% trans "Confirm" %}</button>
+                    </form>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+    </div>
+{% endblock %}
