@@ -39,6 +39,7 @@ DEFAULT_SETTINGS = dict(
     EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend',
     ROOT_URLCONF='realestate.urls',
     TEMPLATE_DIRS=(os.path.abspath(os.path.join(os.path.dirname(__file__), '../realestate/templates')), ),
+    TEMPLATE_CONTEXT_PROCESSORS=("django.core.context_processors.request",),
 )
 
 

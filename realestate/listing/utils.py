@@ -60,6 +60,8 @@ def validation_decimal(value, obj=None):
 
 
 def import_validator(validator):
+    if validator is None:
+        raise ImportError
     try:
         import_name, function_name = validator.rsplit('.', 1)
     except ValueError:

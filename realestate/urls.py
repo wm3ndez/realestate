@@ -22,7 +22,7 @@ urlpatterns = patterns(
     url(r'^listing/(?P<slug>[\w-]+)/', listing_views.ListingView.as_view(), name='property_details'),
     url(r'^agents/$', listing_views.AgentList.as_view(), name='agents'),
     url(r'^agents/listing/(?P<agent>[\d]+)/$', listing_views.AgentListing.as_view(), name='agent-listings'),
-    url(r'^get_map/$', listing_views.MapView.as_view(), name='mapa-propiedades'),
+    url(r'^get-map/$', listing_views.MapView.as_view(), name='listings-map'),
     url(r'^contact/$', ContactView.as_view(), name='home_contact'),
 
     # Static Pages

@@ -54,8 +54,7 @@ class SearchView(ListView):
         form = SearchForm(self.request.GET)
         if form.is_valid():
             if form.cleaned_data.get('location'):
-                queryset = queryset.filter(Q(location__icontains=form.cleaned_data.get('location')))
-
+                queryset = queryset.filter(Q(location=form.cleaned_data.get('location')))
             if form.cleaned_data.get('type'):
                 queryset = queryset.filter(type=form.cleaned_data.get('type'))
             if form.cleaned_data.get('offer'):
@@ -80,20 +79,16 @@ class MapView(JSONResponseMixin, AjaxResponseMixin, View):
 
         listings = []
         for listing in Listing.objects.active():
-            lat, lng = listing.coordenadas.split(',')
+            lat, lng = listing.coords.split(',')
             try:
                 im = get_thumbnail(listing.main_image.imagen, '135x90', crop='center', quality=99).url
             except (ValueError, AttributeError):
                 im = ''
 
-            try:
-                url = listing.get_absolute_url()
-            except:
-                url = ''
             listings.append({
                 'id': listing.id,
-                'url': url,
-                'street': listing.get_address(),
+                'url': listing.get_absolute_url(),
+                'street': '%s' % listing.get_address(),
                 'title': listing.title,
                 'lat': lat,
                 'lng': lng,

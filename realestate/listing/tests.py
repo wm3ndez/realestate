@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 import factory
 from realestate.listing.forms import ContactForm, SearchForm, ListingContactForm
-from realestate.listing.models import Listing, Agent, Attribute
+from realestate.listing.models import Listing, Agent, Attribute, Location
 from realestate.listing.templatetags.extra_functions import currency
 from realestate.listing.utils import validation_simple, validation_integer, validation_yesno, validation_decimal, \
     import_validator, validate_attribute_value
@@ -28,6 +28,14 @@ class AgentFactory(factory.Factory):
     user = factory.SubFactory(UserFactory)
 
 
+class LocationFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Location
+
+    name = 'Test Location'
+    location_type = 'state'
+
+
 class ListingFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Listing
@@ -35,6 +43,7 @@ class ListingFactory(factory.django.DjangoModelFactory):
     title = 'A New House'
     slug = 'a-new-house'
     type = 'house'
+    offer = 'buy-rent'
     active = True
     featured = True
     baths = 2
@@ -42,6 +51,7 @@ class ListingFactory(factory.django.DjangoModelFactory):
     description = 'House Description Here'
     price = Decimal('1000.00')
     agent = factory.SubFactory(AgentFactory)
+    location = factory.SubFactory(LocationFactory)
 
 
 class AttributeFactory(factory.Factory):
@@ -86,9 +96,27 @@ class FormTests(TestCase):
 
 
 class ViewsTests(TestCase):
+    def setUp(self):
+        self.listing = ListingFactory()
+
     def test_listing_view(self):
-        listing = ListingFactory()
-        response = self.client.get(reverse('property_details', args=[listing.slug]))
+        response = self.client.get(reverse('property_details', args=[self.listing.slug]))
+        self.assertEqual(200, response.status_code)
+
+    def test_map_view(self):
+        response = self.client.get(reverse('listings-map'), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
+        self.assertEqual(200, response.status_code)
+
+    def test_search_view(self):
+        response = self.client.get(reverse('search'), data={'location': 1, 'type': 'house', 'offer': 'buy-rent'})
+        self.assertEqual(200, response.status_code)
+
+    def test_for_sale_view(self):
+        response = self.client.get(reverse('properties_for_sale'))
+        self.assertEqual(200, response.status_code)
+
+    def test_for_rent_view(self):
+        response = self.client.get(reverse('properties_for_rent'))
         self.assertEqual(200, response.status_code)
 
 
@@ -145,7 +173,10 @@ class UtilsTests(TestCase):
     def test_import_validator(self):
         attribute = AttributeFactory.build()
         self.assertIsNotNone(import_validator(attribute.validation))
+        self.assertIsNotNone(import_validator('validate_attribute_value'))
         self.assertRaises(ImportError, lambda: import_validator('fake.validator'))
+        self.assertRaises(ImportError, lambda: import_validator('fake'))
+        self.assertRaises(ImportError, lambda: import_validator(None))
 
 
     def test_validate_attribute_value(self):
