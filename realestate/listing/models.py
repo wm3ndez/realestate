@@ -228,6 +228,7 @@ class Listing(models.Model):
 
         return attributes
 
+    @property
     def nearby(self):
         return Listing.objects.active(location=self.location).exclude(id=self.id).order_by('?')
 

@@ -4,7 +4,7 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 import factory
 from realestate.listing.forms import ContactForm, SearchForm, ListingContactForm
-from realestate.listing.models import Listing, Agent, Attribute, Location
+from realestate.listing.models import Listing, Agent, Attribute, Location, AttributeListing
 from realestate.listing.templatetags.extra_functions import currency
 from realestate.listing.utils import validation_simple, validation_integer, validation_yesno, validation_decimal, \
     import_validator, validate_attribute_value
@@ -60,6 +60,15 @@ class AttributeFactory(factory.Factory):
 
     name = 'Test Attribute'
     validation = 'realestate.listing.utils.validation_simple'
+
+
+class AttributeListingFactory(factory.Factory):
+    class Meta:
+        model = AttributeListing
+
+    listing = factory.SubFactory(ListingFactory)
+    attribute = factory.SubFactory(AttributeFactory)
+    value = 'Test'
 
 
 class FormTests(TestCase):
@@ -189,3 +198,28 @@ class UtilsTests(TestCase):
         self.assertEqual("$1", result)
         result = currency(None)
         self.assertEqual("$0", result)
+
+
+class ModelTests(TestCase):
+    def setUp(self):
+        self.listing = ListingFactory()
+
+    def test_listing(self):
+        self.assertEqual(0, self.listing.suggested.count())
+        self.assertTrue(self.listing.should_have_baths)
+        self.assertTrue(self.listing.should_have_beds)
+        self.assertEqual(0, self.listing.nearby.count())
+        self.assertEqual(0, len(self.listing.image_list))
+        self.assertFalse(self.listing.on_sale)
+
+    def test_attribute_listing(self):
+        attributelisting = AttributeListingFactory.create()
+        self.assertEqual("A New House", attributelisting.listing.title)
+
+    def test_location(self):
+        self.assertEqual(0, Location.objects.streets().count())
+        self.assertEqual(0, Location.objects.sectors().count())
+        self.assertEqual(0, Location.objects.cities().count())
+        self.assertEqual(1, Location.objects.states().count())
+
+        self.assertIn(self.listing.location.name, self.listing.location.get_parent_name(self.listing.location, []))
