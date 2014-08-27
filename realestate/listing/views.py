@@ -1,3 +1,4 @@
+from django.views.generic.edit import FormMixin
 from braces.views import AjaxResponseMixin, JSONResponseMixin
 from django.db.models.query_utils import Q
 from django.views.generic import ListView, FormView, DetailView, View
@@ -63,14 +64,30 @@ class SearchView(ListView):
         return queryset
 
 
-class ListingView(DetailView, FormView):
+class ListingView(FormMixin, DetailView):
     template_name = 'listing/listing.html'
     model = Listing
     form_class = ListingContactForm
     success_url = reverse_lazy('thank-you')
 
+    def get_context_data(self, **kwargs):
+        context = super(ListingView, self).get_context_data(**kwargs)
+        form_class = self.get_form_class()
+        context['form'] = self.get_form(form_class)
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
     def form_valid(self, form):
         form.send_contact_form(self.object)
+        return super(ListingView, self).form_valid(form)
 
 
 class MapView(JSONResponseMixin, AjaxResponseMixin, View):

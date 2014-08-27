@@ -19,12 +19,13 @@ class UserFactory(factory.Factory):
     email = factory.LazyAttribute(lambda a: '{0}.{1}@example.com'.format(a.first_name, a.last_name).lower())
 
 
-class AgentFactory(factory.Factory):
+class AgentFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Agent
 
     first_name = 'Agent'
     last_name = '007'
+    email = 'test@example.com'
     user = factory.SubFactory(UserFactory)
 
 
@@ -105,11 +106,9 @@ class FormTests(TestCase):
 
 
 class ViewsTests(TestCase):
-    def setUp(self):
-        self.listing = ListingFactory()
-
     def test_listing_view(self):
-        response = self.client.get(reverse('property_details', args=[self.listing.slug]))
+        listing = ListingFactory.create()
+        response = self.client.get(reverse('property_details', args=[listing.slug]))
         self.assertEqual(200, response.status_code)
 
     def test_map_view(self):
