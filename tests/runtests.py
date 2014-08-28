@@ -10,6 +10,7 @@ DEFAULT_SETTINGS = dict(
     INSTALLED_APPS=[
         'django.contrib.auth',
         'django.contrib.contenttypes',
+        'django.contrib.sessions',
 
         'realestate',
         'realestate.home',
@@ -19,6 +20,8 @@ DEFAULT_SETTINGS = dict(
         'constance',
         'sorl.thumbnail',
         'widget_tweaks',
+        'rest_framework',
+        'rest_framework.authtoken',
     ],
     DATABASES={
         "default": {
