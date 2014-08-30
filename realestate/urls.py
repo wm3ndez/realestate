@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from realestate.listing import views  as listing_views
 from realestate.api.urls import router as api_router
-from realestate.home.views import ContactView, IndexView
+from realestate.home.views import ContactView, IndexView, ListingFeed
 from realestate.listing import sitemap
 
 admin.autodiscover()
@@ -42,6 +42,9 @@ urlpatterns = patterns(
     url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', name="logout"),
     (r'^admin/', include(admin.site.urls)),  # Enabling Admin
     (r'^i18n/', include('django.conf.urls.i18n')),
+
+    # RSS Feed
+    (r'^rss/$', ListingFeed()),
 )
 
 if settings.DEBUG:
