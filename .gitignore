@@ -4,6 +4,7 @@ venv
 build/*
 docs/_build/
 dist/*
+*.egg
 
 *.pyc
 *.db
