@@ -7,6 +7,8 @@ django-realestate
    :target: https://crate.io/packages/django-realestate
 .. image:: https://pypip.in/d/django-realestate/badge.png
    :target: https://crate.io/packages/django-realestate
+.. image:: https://coveralls.io/repos/wm3ndez/realestate/badge.png?branch=master
+   :target: https://coveralls.io/r/wm3ndez/realestate
 
 Documentation
 =============
