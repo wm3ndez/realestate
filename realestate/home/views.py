@@ -30,15 +30,13 @@ class ContactView(FormView):
 
 
 class ListingFeed(Feed):
-    title = "Recent Listing"
+    title = "Recent Listing Feed"
     link = "/rss/"
-    description = "Recent Listing"
+    description = "Recent Listing Feed"
+    description_template = "home/rss-item-description.html"
 
     def items(self):
         return Listing.objects.order_by('-last_modified')[:10]
 
     def item_title(self, item):
         return item.title
-
-    def item_description(self, item):
-        return item.description

@@ -44,7 +44,7 @@ urlpatterns = patterns(
     (r'^i18n/', include('django.conf.urls.i18n')),
 
     # RSS Feed
-    (r'^rss/$', ListingFeed()),
+    url(r'^rss/$', ListingFeed(), name="rss-feed"),
 )
 
 if settings.DEBUG:
