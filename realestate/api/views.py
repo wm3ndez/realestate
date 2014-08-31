@@ -8,7 +8,7 @@ class PropiedadViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = PropertySerializer
 
     def get_queryset(self):
-        queryset = Listing.objects.all()
+        queryset = Listing.objects.active()
 
         last_modified = self.request.QUERY_PARAMS.get('modified_from')
         if last_modified is not None:
