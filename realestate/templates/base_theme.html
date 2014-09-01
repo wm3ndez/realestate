@@ -1,4 +1,4 @@
-{% load static %}
+{% load static i18n %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +17,8 @@
           content="Venta de inmuebles en la Republica Dominicana.  Casas, Apartamentos, Solares, Locales Comerciales, Haciendas, Fincas."/>
     <meta name="keywords"
           content="Casas, Solares, Apartamentos, Locales Comerciales, Fincas, Haciendas, Villas, Villages, House, Apartments"/>
+
+    <link rel="alternate" type="application/rss+xml" title="{% trans "Recent Listing Feed" %}" href="{% url 'rss-feed' %}" />
 
     <title>{% block title %}WilliamsMendez.com{% endblock %}</title>
     {% block extrahead %}{% endblock %}
