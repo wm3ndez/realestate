@@ -1,4 +1,5 @@
 from decimal import Decimal
+from django.contrib.sites.models import Site
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test import TestCase
@@ -8,6 +9,14 @@ from realestate.listing.models import Listing, Agent, Attribute, Location, Attri
 from realestate.listing.templatetags.extra_functions import currency
 from realestate.listing.utils import validation_simple, validation_integer, validation_yesno, validation_decimal, \
     import_validator, validate_attribute_value
+
+
+class SiteFactory(factory.Factory):
+    class Meta:
+        model = Site
+
+    domain = 'www.example.com'
+    name = 'Real Estate'
 
 
 class UserFactory(factory.Factory):
@@ -73,6 +82,9 @@ class AttributeListingFactory(factory.Factory):
 
 
 class FormTests(TestCase):
+    def setUp(self):
+        SiteFactory.create()
+
     def test_listingcontact_form(self):
         form_data = {
             'name': 'Williams Mendez',

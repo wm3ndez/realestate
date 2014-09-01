@@ -1,3 +1,4 @@
+from django.contrib.sites.models import Site
 from django.conf import settings
 from realestate.listing.models import OFFERS, TYPES, Agent, Location
 from django import forms
@@ -28,6 +29,8 @@ class ListingContactForm(forms.Form):
         reply = self.cleaned_data.get('email')
         email = EmailMessage(subject, message, _from, to, headers={'Reply-To': reply})
         email.send(fail_silently=False)
+
+        send_autoresponder(reply)
 
 
 BATHROOMS_RANGE = (
@@ -86,3 +89,13 @@ class ContactForm(forms.Form):
         subject = self.cleaned_data['subject']
         message = self.cleaned_data['message']
         send_mail(subject, message, from_name, self.recipient_list)
+
+        send_autoresponder(from_name)
+
+
+def send_autoresponder(recipient_email):
+    from_email = config.CONTACT_DEFAULT_EMAIL
+    from_name = '%s<%s>' % (Site.objects.first().name, from_email)
+    subject = _('Contact Request')
+    message = _("Thank you for contacting us.  We will contact you as soon as possible.")
+    send_mail(subject, message, from_name, [recipient_email])
