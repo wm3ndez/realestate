@@ -107,6 +107,7 @@ INSTALLED_APPS = (
     'testproject.localsite',
 
     # Deps
+    'haystack',
     'constance',
     'django_extensions',
     'south',
@@ -175,6 +176,14 @@ CURRENCIES = ('USD', 'EUR', 'CNY', 'DOP',)
 SKIP_SOUTH_TESTS = True
 SOUTH_TESTS_MIGRATE = False
 TEST_RUNNER = 'discoverage.DiscoverageRunner'
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://127.0.0.1:9200/',
+        'INDEX_NAME': 'realestate',
+    },
+}
 
 import sys
 

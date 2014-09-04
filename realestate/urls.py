@@ -18,7 +18,7 @@ urlpatterns = patterns(
     url(r'^sale/(?P<order_by>[\w-]+)/$', listing_views.ListingForSaleList.as_view(), name='properties_for_sale'),
     url(r'^rent/$', listing_views.ListingForRentList.as_view(), name='properties_for_rent'),
     url(r'^rent/(?P<order_by>[\w-]+)/$', listing_views.ListingForRentList.as_view(), name='properties_for_rent'),
-    url(r'^search/', listing_views.SearchView.as_view(), name='search'),
+    # url(r'^search/', listing_views.SearchView.as_view(), name='search'),
     url(r'^listing/(?P<slug>[\w-]+)/', listing_views.ListingView.as_view(), name='property_details'),
     url(r'^agents/$', listing_views.AgentList.as_view(), name='agents'),
     url(r'^agents/listing/(?P<agent>[\d]+)/$', listing_views.AgentListing.as_view(), name='agent-listings'),
@@ -45,6 +45,9 @@ urlpatterns = patterns(
 
     # RSS Feed
     url(r'^rss/$', ListingFeed(), name="rss-feed"),
+
+    # Haystack Search
+    (r'^search/', include('haystack.urls')),
 )
 
 if settings.DEBUG:
