@@ -98,17 +98,19 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'django.contrib.staticfiles',
 
-    'constance',
-
-    'django_extensions',
-    'south',
-    'sorl.thumbnail',
+    # Realestate App
     'realestate',
     'realestate.listing',
     'realestate.home',
     'realestate.api',
     'testproject',
     'testproject.localsite',
+
+    # Deps
+    'constance',
+    'django_extensions',
+    'south',
+    'sorl.thumbnail',
     'rest_framework',
     'rest_framework.authtoken',
     'discoverage',
@@ -143,7 +145,6 @@ LOGGING = {
 
 CONSTANCE_BACKEND = 'constance.backends.redisd.RedisBackend'
 CONSTANCE_REDIS_PREFIX = 'constance:realestate:'
-
 
 CONSTANCE_CONFIG = {
     'PROPERTIES_PER_PAGE': (16, _('Properties per page')),
