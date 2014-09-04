@@ -99,7 +99,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'constance',
-    'constance.backends.database',
 
     'django_extensions',
     'south',
@@ -134,6 +133,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.core.context_processors.request",
     "django.core.context_processors.static",
     "django.contrib.messages.context_processors.messages",
+    "constance.context_processors.config",
 )
 
 LOGGING = {
@@ -141,7 +141,9 @@ LOGGING = {
     'disable_existing_loggers': True,
 }
 
-CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+CONSTANCE_BACKEND = 'constance.backends.redisd.RedisBackend'
+CONSTANCE_REDIS_PREFIX = 'constance:realestate:'
+
 
 CONSTANCE_CONFIG = {
     'PROPERTIES_PER_PAGE': (16, _('Properties per page')),
