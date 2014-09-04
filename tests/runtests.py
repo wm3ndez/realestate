@@ -23,6 +23,7 @@ DEFAULT_SETTINGS = dict(
         'widget_tweaks',
         'rest_framework',
         'rest_framework.authtoken',
+        'haystack',
     ],
     DATABASES={
         "default": {
@@ -44,6 +45,13 @@ DEFAULT_SETTINGS = dict(
     ROOT_URLCONF='realestate.urls',
     TEMPLATE_DIRS=(os.path.abspath(os.path.join(os.path.dirname(__file__), '../realestate/templates')), ),
     TEMPLATE_CONTEXT_PROCESSORS=("django.core.context_processors.request",),
+    HAYSTACK_CONNECTIONS={
+        'default': {
+            'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+            'URL': 'http://127.0.0.1:9200/',
+            'INDEX_NAME': 'realestate',
+        },
+    }
 )
 
 

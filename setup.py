@@ -138,6 +138,7 @@ setup(
         'django-constance',
         'factory_boy',
         'django-widget-tweaks',
+        'django-haystack',
         'elasticsearch',
     ],
     test_suite='tests.runtests.runtests',

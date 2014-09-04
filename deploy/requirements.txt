@@ -14,3 +14,5 @@ redis
 pytz
 factory_boy
 django-widget-tweaks
+django-haystack
+elasticsearch
