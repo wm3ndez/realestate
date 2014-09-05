@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 import factory
-from realestate.listing.forms import ContactForm, SearchForm, ListingContactForm
+from realestate.listing.forms import ContactForm, ListingContactForm
 from realestate.listing.models import Listing, Agent, Attribute, Location, AttributeListing
 from realestate.listing.templatetags.extra_functions import currency
 from realestate.listing.utils import validation_simple, validation_integer, validation_yesno, validation_decimal, \
@@ -99,12 +99,6 @@ class FormTests(TestCase):
         listing = ListingFactory.build()
         form.send_contact_form(listing)
 
-    def test_search_form(self):
-        form_data = {}
-
-        form = SearchForm(data=form_data)
-        self.assertEqual(form.is_valid(), True)
-
     def test_contact_form(self):
         form_data = {
             'name': 'Williams Mendez',
@@ -125,10 +119,6 @@ class ViewsTests(TestCase):
 
     def test_map_view(self):
         response = self.client.get(reverse('listings-map'), HTTP_X_REQUESTED_WITH='XMLHttpRequest')
-        self.assertEqual(200, response.status_code)
-
-    def test_search_view(self):
-        response = self.client.get(reverse('search'), data={'location': 1, 'type': 'house', 'offer': 'buy-rent'})
         self.assertEqual(200, response.status_code)
 
     def test_for_sale_view(self):

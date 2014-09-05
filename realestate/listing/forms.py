@@ -64,17 +64,6 @@ BEDROOMS_RANGE = (
 TIPO_PROPIEDADES_CHOICES = (('', _('All')),) + TYPES
 
 
-class SearchForm(forms.Form):
-    id = forms.CharField(required=False)
-    agent = forms.ModelChoiceField(label=_('Agent'), queryset=Agent.objects.all(), required=False)
-    location = forms.ModelChoiceField(label=_('Location'), queryset=Location.objects.states(), required=False)
-    sector = forms.ModelChoiceField(label=_('Sector'), queryset=Location.objects.sectors(), required=False)
-    type = forms.ChoiceField(label=_('Type'), choices=TIPO_PROPIEDADES_CHOICES, required=False)
-    offer = forms.ChoiceField(label=_('Offer'), choices=OFFERS, required=False)
-    beds = forms.ChoiceField(label=_('Bedrooms'), choices=BEDROOMS_RANGE, required=False)
-    baths = forms.ChoiceField(label=_('Bathrooms'), choices=BATHROOMS_RANGE, required=False)
-
-
 class ContactForm(forms.Form):
     name = forms.CharField(label=_('Name'), max_length=60, required=True)
     subject = forms.CharField(label=_('Subject'), max_length=60, required=True)

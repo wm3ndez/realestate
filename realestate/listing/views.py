@@ -1,8 +1,8 @@
 from django.views.generic.edit import FormMixin
 from braces.views import AjaxResponseMixin, JSONResponseMixin
 from django.db.models.query_utils import Q
-from django.views.generic import ListView, FormView, DetailView, View
-from realestate.listing.forms import ListingContactForm, SearchForm
+from django.views.generic import ListView, DetailView, View
+from realestate.listing.forms import ListingContactForm
 from realestate.listing.models import Listing, Agent
 from rest_framework.reverse import reverse_lazy
 from sorl.thumbnail.shortcuts import get_thumbnail
@@ -44,24 +44,6 @@ class ListingForRentList(ListView):
         ctx = super(ListingForRentList, self).get_context_data(**kwargs)
         ctx['sort'] = self.kwargs.get('order_by', 'pk')
         return ctx
-
-
-class SearchView(ListView):
-    template_name = 'listing/search.html'
-    paginate_by = config.PROPERTIES_PER_PAGE
-
-    def get_queryset(self):
-        queryset = Listing.objects.active()
-        form = SearchForm(self.request.GET)
-        if form.is_valid():
-            if form.cleaned_data.get('location'):
-                queryset = queryset.filter(Q(location=form.cleaned_data.get('location')))
-            if form.cleaned_data.get('type'):
-                queryset = queryset.filter(type=form.cleaned_data.get('type'))
-            if form.cleaned_data.get('offer'):
-                queryset = queryset.filter(offer=form.cleaned_data.get('offer'))
-
-        return queryset
 
 
 class ListingView(FormMixin, DetailView):

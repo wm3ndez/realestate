@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 from django.contrib.syndication.views import Feed
 from realestate.listing.models import Listing
-from realestate.listing.forms import SearchForm, ContactForm
+from realestate.listing.forms import ContactForm
 from constance import config
 
 
@@ -13,9 +13,7 @@ class IndexView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
         recentp = Listing.objects.active().order_by('-created_at')[:config.RECENTLY_ADDED]
-        form = SearchForm()
         context['recent'] = recentp
-        context['form'] = form
         return context
 
 
