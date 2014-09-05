@@ -7,8 +7,16 @@ class ListingIndex(indexes.SearchIndex, indexes.Indexable):
     text = indexes.EdgeNgramField(document=True, use_template=True)
     title = indexes.CharField(model_attr='title', )
     slug = indexes.CharField(model_attr='slug')
-    baths = indexes.IntegerField(model_attr='baths')
-    beds = indexes.IntegerField(model_attr='beds')
+    price = indexes.FloatField(null=True, faceted=True)
+    currency = indexes.CharField(null=True, faceted=True)
+    baths = indexes.IntegerField(model_attr='baths', faceted=True)
+    beds = indexes.IntegerField(model_attr='beds', faceted=True)
+    location = indexes.CharField(model_attr='location', null=True, faceted=True)
+    featured = indexes.BooleanField(model_attr='featured', faceted=True)
+    coords = indexes.CharField(model_attr='coords')
+    size = indexes.FloatField(model_attr='size', faceted=True)
+    agent = indexes.CharField(model_attr='agent', faceted=True)
+    images = indexes.CharField(model_attr='location')
     date_updated = indexes.DateTimeField(model_attr='last_modified')
 
     def get_model(self):
@@ -20,3 +28,22 @@ class ListingIndex(indexes.SearchIndex, indexes.Indexable):
 
     def get_updated_field(self):
         return 'last_modified'
+
+    def prepare_price(self, listing):
+        return listing.price.amount
+
+    def prepare_currency(self, listing):
+        return '%s' % listing.price.currency
+
+    def prepare_location(self, listing):
+        if listing.location is not None:
+            return '%s' % listing.location
+        return ""
+
+    def prepare_agent(self, listing):
+        if listing.agent is not None:
+            return '%s' % listing.agent
+        return ""
+
+    def prepare_images(self, listing):
+        return ""
