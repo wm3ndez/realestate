@@ -1,11 +1,11 @@
 {% load thumbnail i18n %}
 
 <div>
-    <a href="{{ obj.absolute_url }}" class="thumbnail">
+    <a href="{{ ABSOLUTE_ROOT_URL }}{{ obj.absolute_url }}" class="thumbnail">
         {% thumbnail obj.main_image.image "640x480" crop="center" as image %}
-            <img align="middle" src="{{ image.url }}" alt="{{ obj.title }}"
+            <img align="middle" src="{{ ABSOLUTE_ROOT_URL }}{{ image.url }}" alt="{{ obj.title }}"
                  title="{{ obj.title }}"/>
         {% endthumbnail %}
     </a>
-    <a href="{{ obj.get_absolute_url }}"><h3>{{ obj.title }}</h3></a>
+    <a href="{{ ABSOLUTE_ROOT_URL }}{{ obj.get_absolute_url }}"><h3>{{ obj.title }}</h3></a>
 </div>
