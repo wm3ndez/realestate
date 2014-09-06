@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.forms import widgets
 
 
-class PropertySerializer(serializers.Serializer):
+class ListingSerializer(serializers.Serializer):
     id = serializers.Field()
     title = serializers.CharField(required=False, max_length=100)
     description = serializers.CharField(widget=widgets.Textarea, max_length=1000)

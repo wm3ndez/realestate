@@ -1,11 +1,11 @@
 from rest_framework import viewsets
 from realestate.listing.models import Listing
-from realestate.api.serializers import PropertySerializer
+from realestate.api.serializers import ListingSerializer
 
 
-class PropiedadViewSet(viewsets.ReadOnlyModelViewSet):
+class ListingViewSet(viewsets.ReadOnlyModelViewSet):
     model = Listing
-    serializer_class = PropertySerializer
+    serializer_class = ListingSerializer
 
     def get_queryset(self):
         queryset = Listing.objects.active()
