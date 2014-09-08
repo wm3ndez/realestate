@@ -22,7 +22,11 @@
             </div>
 
 
-            {% include 'includes/listing_grid.html' %}
+            <div class="col-md-12">
+                {% for listing in page_obj.object_list %}
+                    {% include 'includes/listing-box.html' %}
+                {% endfor %}
+            </div>
 
 
             {# pagination #}

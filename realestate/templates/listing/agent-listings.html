@@ -3,7 +3,9 @@
 {% block content %}
     <div class="row">
         <div class="col-md-12">
-            {% include 'includes/listing_grid.html' %}
+            {% for listing in page_obj.object_list %}
+                {% include 'includes/listing-box.html' %}
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

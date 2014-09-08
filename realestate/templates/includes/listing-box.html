@@ -1,0 +1,30 @@
+{% load thumbnail i18n %}
+<div class="row ">
+    <div class="col-md-2">
+        <a href="{{ listing.absolute_url }}" class="thumbnail">
+            {% if listing.image %}
+                <img align="middle" src="{{ listing.image }}" alt="{{ listing.title }}" title="{{ listing.title }}"/>
+            {% else %}
+                {% thumbnail listing.main_image.image "135x90" crop="center" as image %}
+                    <img align="middle" src="{{ image.url }}" alt="{{ listing.title }}"
+                         title="{{ listing.title }}"/>
+                {% endthumbnail %}
+            {% endif %}
+        </a>
+        <h5>{% trans "Price" %}: {{ listing.price }}</h5>
+        <h6>{% trans "Bedrooms" %}: {{ listing.beds }}</h6>
+        <h6>{% trans "Size" %}: {{ listing.size }} mt&sup2;</h6>
+    </div>
+
+    <div class="col-md-6">
+        <a href="{{ listing.absolute_url }}"><h3>{{ listing.title }}</h3></a>
+
+        <p>{{ listing.description }}</p>
+
+        <p>
+            <a href="{{ listing.absolute_url }}">{% trans "More details" %}, {{ listing.images.count }} {% trans "pictures" %},
+                etc</a>
+        </p>
+    </div>
+</div>
+<hr/>

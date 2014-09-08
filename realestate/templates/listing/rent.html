@@ -1,5 +1,5 @@
 {% extends 'base_theme.html' %}
-{% load re_paginator render_form %}
+{% load re_paginator render_form i18n %}
 {% block content %}
     <div class="row">
         <div class="col-md-3">
@@ -26,8 +26,11 @@
                 </div>
             </div>
 
-
-            {% include 'includes/listing_list.html' %}
+            {% for listing in results %}
+                {% include 'includes/listing-box.html' %}
+            {% empty %}
+                <h4>{% trans "0 properties to show." %}</h4>
+            {% endfor %}
 
 
             {# pagination #}

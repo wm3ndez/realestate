@@ -17,10 +17,8 @@
         {% if query %}
             <h3>Results</h3>
 
-            {% for result in page.object_list %}
-                <p>
-                    <a href="{{ result.object.get_absolute_url }}">{{ result.object.title }}</a>
-                </p>
+            {% for listing in page.object_list %}
+                {% include 'includes/listing-box.html' %}
             {% empty %}
                 <p>No results found.</p>
             {% endfor %}
@@ -40,38 +38,3 @@
         {% endif %}
     </form>
 {% endblock %}
-
-{% comment %}
-{% extends "base_theme.html" %}
-{% load static re_paginator %}
-{% block content %}
-    <div class="row">
-        <div class="col-md-4 select_height"> Mostrando {{ page_obj.start_index }} - {{ page_obj.end_index }}
-            de {{ page_obj.paginator.count }} resultados
-        </div>
-        <div class="pull-right">
-            <form action="{% url 'search' %}" id="form-sort">
-                Ordenar por :
-                <select id="sort" name="sort" class="col-md-3">
-                    <option value="price">Precio: Ascendente</option>
-                    <option value="-price"{% if request.GET.sort == '-price' %} selected="selected"{% endif %}>Precio:
-                        Descendente
-                    </option>
-                </select>
-            </form>
-        </div>
-    </div>
-
-
-    {% include 'includes/listing_list.html' %}
-
-
-    {# pagination #}
-    <div class="pagination pagination-centered">
-        {% pagination_url page_obj %}
-    </div>
-    {# pagination #}
-
-{% endblock %}
-
-{% endcomment %}
