@@ -1,2 +1,2 @@
-from realestate.api.serializers import PropertySerializer
-from realestate.api.views import PropiedadViewSet
+from realestate.api.serializers import ListingSerializer
+from realestate.api.views import ListingViewSet

@@ -1,5 +1,5 @@
 from rest_framework import routers
-from realestate.api.views import PropiedadViewSet
+from realestate.api.views import ListingViewSet
 
 router = routers.DefaultRouter()
-router.register(r'propiedades', PropiedadViewSet)
+router.register(r'listings', ListingViewSet)
