@@ -95,20 +95,6 @@ package_data = find_package_data(exclude_directories=excluded_directories)
 license_text = open('LICENSE.txt').read()
 long_description = open('README.rst').read()
 
-CLASSIFIERS = [
-    'Development Status :: 5 - Production/Stable',
-    'Environment :: Web Environment',
-    'Intended Audience :: Developers',
-    'License :: OSI Approved :: BSD License',
-    'Operating System :: OS Independent',
-    'Programming Language :: Python',
-    'Programming Language :: Python :: 2.7',
-    'Programming Language :: Python :: 3.3',
-    'Topic :: Office/Business',
-    'Framework :: Django'
-]
-
-DESCRIPTION = """Real Estate app built on Django"""
 
 setup(
     name='django-realestate',
@@ -119,9 +105,22 @@ setup(
     license=license_text,
     packages=find_packages(),
     package_data=package_data,
-    description=DESCRIPTION,
+    description="Real Estate app built on Django",
     long_description=long_description,
-    classifiers=CLASSIFIERS,
+    classifiers=[
+        'Development Status :: 5 - Production/Stable',
+        'Environment :: Web Environment',
+        'Intended Audience :: Developers',
+        'License :: OSI Approved :: BSD License',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.3',
+        'Programming Language :: Python :: 3.4',
+        'Topic :: Office/Business',
+        'Framework :: Django'
+    ],
     install_requires=[
         'Django>=1.5.1',
         'Pillow',
