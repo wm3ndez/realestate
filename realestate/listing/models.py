@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 import os
 import re
 from sorl.thumbnail import ImageField
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 from realestate.home.models import Contact
 
 TYPES = (
