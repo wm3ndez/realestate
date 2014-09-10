@@ -1,6 +1,6 @@
 from django.contrib.sites.models import Site
 from django.conf import settings
-from realestate.listing.models import OFFERS, TYPES, Agent, Location
+from realestate.listing.models import TYPES
 from django import forms
 from django.utils.translation import ugettext as _
 from django.core.mail import send_mail, EmailMessage

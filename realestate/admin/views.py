@@ -1,5 +1,9 @@
+from django.core.files.storage import FileSystemStorage
+import os
 from braces.views import StaffuserRequiredMixin, LoginRequiredMixin, OrderableListMixin, SuperuserRequiredMixin
+from django.conf import settings
 from django.contrib.auth.models import User
+from django.contrib.formtools.wizard.views import SessionWizardView
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.views.generic import TemplateView, CreateView, ListView, UpdateView, FormView, DeleteView
 from django.http import HttpResponseRedirect
@@ -7,7 +11,7 @@ from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
 from realestate.home.models import Contact
 from realestate.api.models import ApiKeys as ApiKey
-from realestate.listing.models import Listing, Agent, Deal, Location
+from realestate.listing.models import Listing, Agent, Deal, Location, ListingImage, AttributeListing
 from realestate.admin.forms import ListingForm, ListingImageFormSet, AttributeListingFormSet, ConstanceForm, UserForm, \
     SetPasswordForm
 
@@ -18,6 +22,44 @@ MESSAGE_TAGS = {
 
 class Dashboard(LoginRequiredMixin, StaffuserRequiredMixin, TemplateView):
     template_name = 'dashboard/dashboard.html'
+
+
+class CreateListingWizard(LoginRequiredMixin, StaffuserRequiredMixin, SessionWizardView):
+    file_storage = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'tmp_listing_images'))
+    form_list = (
+        ('listingdata', ListingForm),
+        ('images', ListingImageFormSet),
+        ('attributes', AttributeListingFormSet),
+    )
+    TEMPLATES = {
+        "listingdata": "dashboard/create-listing-step1.html",
+        "images": "dashboard/create-listing-step2.html",
+        "attributes": "dashboard/create-listing-step3.html",
+    }
+
+
+    def get_template_names(self):
+        return [self.TEMPLATES[self.steps.current]]
+
+    def done(self, form_list, **kwargs):
+        cleaned_data = self.get_all_cleaned_data()
+        images = cleaned_data.pop('formset-images')
+        attributes = cleaned_data.pop('formset-attributes')
+
+        #TODO: Wrap this in a transaction
+        listing = Listing.objects.create(**cleaned_data)
+
+        for image in images:
+            if len(image) > 0:
+                image['listing'] = listing
+                ListingImage.objects.create(**image)
+
+        for attribute in attributes:
+            if len(attribute) > 0:
+                attribute['listing'] = listing
+                AttributeListing.objects.create(**attribute)
+
+        return HttpResponseRedirect(reverse_lazy('admin-list-listing'))
 
 
 class CreateListing(LoginRequiredMixin, StaffuserRequiredMixin, CreateView):

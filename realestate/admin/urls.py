@@ -7,7 +7,8 @@ urlpatterns = patterns(
     url('^$', admin_views.Dashboard.as_view(), name='dashboard'),
 
     url('^listing/', admin_views.Listings.as_view(), name='admin-list-listing'),
-    url('^new-listing/', admin_views.CreateListing.as_view(), name='add-listing'),
+    # url('^new-listing/', admin_views.CreateListing.as_view(), name='add-listing'),
+    url('^new-listing/', admin_views.CreateListingWizard.as_view(), name='add-listing'),
     url('^update-listing/(?P<pk>\d+)$', admin_views.UpdateListing.as_view(), name='update-listing'),
     url('^agents/', admin_views.Agents.as_view(), name='admin-list-agents'),
     url('^new-agent/', admin_views.CreateAgent.as_view(), name='add-agent'),

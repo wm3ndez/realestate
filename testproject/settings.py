@@ -97,6 +97,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.humanize',
     'django.contrib.staticfiles',
+    'django.contrib.formtools',
 
     # Realestate App
     'realestate',

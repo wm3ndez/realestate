@@ -1,0 +1,74 @@
+{% extends "dashboard/base.html" %}
+{% load i18n static widget_tweaks %}
+{% block content-header %}
+    <h1>{% trans "Create Listing " %} </h1>
+{% endblock %}
+{% block extra_css %}
+    <style>
+        .empty-form {
+            display: none
+        }
+
+        .box-body .row {
+            margin-bottom: 15px;
+        }
+
+        .plus-row {
+            padding-top: 30px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <form role="form" action="" method="post">
+        <div class="row">
+            {% csrf_token %}
+            {% for form in  wizard.form.forms %}
+                <div class="col-md-12">
+                    <!-- general form elements disabled -->
+                    <div class="box box-primary">
+                        <div class="box-header">
+                            <h3 class="box-title">{% trans "Image" %}</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body inline">
+
+                            <div class="col-xs-4 form-group {% if form.name.errors %}has-error{% endif %}">
+                                {{ form.name.errors }}
+                                {{ form.name.label_tag }} {% render_field form.name class+="form-control" %}
+                            </div>
+                            <div class="col-xs-4 form-group {% if form.image.errors %}has-error{% endif %}">
+                                {{ form.image.errors }}
+                                {{ form.image.label_tag }} {% render_field form.image class+="form-control" %}
+                            </div>
+                            <div class="col-xs-4 form-group {% if form.order.errors %}has-error{% endif %}">
+                                {{ form.order.errors }}
+                                {{ form.order.label_tag }} {% render_field form.order class+="form-control" %}
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <!-- general form elements disabled -->
+                <div class="box box-primary">
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+        </div>
+        {{ wizard.management_form }}
+        {{ wizard.form.management_form }}
+    </form>
+    <div id="ajax-modal" class="modal fade" tabindex="-1" style="display: none;"></div>
+{% endblock %}
