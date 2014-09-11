@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.forms import formset_factory
+from django.forms.formsets import formset_factory
 from realestate.home.models import Contact
 from realestate.listing.models import Location, TYPES, OFFERS, Agent, Attribute, Listing, ListingImage, AttributeListing
 from constance import config, settings

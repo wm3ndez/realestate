@@ -1,4 +1,4 @@
-from django.core.files.storage import FileSystemStorage
+from django.core.files.storage import FileSystemStorage, default_storage
 import os
 from braces.views import StaffuserRequiredMixin, LoginRequiredMixin, OrderableListMixin, SuperuserRequiredMixin
 from django.conf import settings
@@ -25,7 +25,7 @@ class Dashboard(LoginRequiredMixin, StaffuserRequiredMixin, TemplateView):
 
 
 class CreateListingWizard(LoginRequiredMixin, StaffuserRequiredMixin, SessionWizardView):
-    file_storage = FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'tmp_listing_images'))
+    file_storage = default_storage  # FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'tmp_listing_images'))
     form_list = (
         ('listingdata', ListingForm),
         ('images', ListingImageFormSet),
@@ -37,7 +37,6 @@ class CreateListingWizard(LoginRequiredMixin, StaffuserRequiredMixin, SessionWiz
         "attributes": "dashboard/create-listing-step3.html",
     }
 
-
     def get_template_names(self):
         return [self.TEMPLATES[self.steps.current]]
 
@@ -46,7 +45,7 @@ class CreateListingWizard(LoginRequiredMixin, StaffuserRequiredMixin, SessionWiz
         images = cleaned_data.pop('formset-images')
         attributes = cleaned_data.pop('formset-attributes')
 
-        #TODO: Wrap this in a transaction
+        # TODO: Wrap this in a transaction
         listing = Listing.objects.create(**cleaned_data)
 
         for image in images:
