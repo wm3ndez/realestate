@@ -1,11 +1,13 @@
 from django.forms import ValidationError
 from django.forms.models import ModelForm
-from realestate.listing.models import ListingImage, AttributeListing, Listing, Location, Agent, Deal, Attribute
+from realestate.listing.models import ListingImage, AttributeListing, Listing, \
+    Location, Agent, Deal, Attribute
 from django.contrib import admin
 from sorl.thumbnail import get_thumbnail
 from sorl.thumbnail.admin import AdminImageMixin
 from realestate.listing.templatetags.extra_functions import currency
-from realestate.listing.utils import import_validator, validate_attribute_value, copy_model_instance
+from realestate.listing.utils import import_validator, \
+    validate_attribute_value, copy_model_instance
 from django.utils.translation import ugettext as _
 
 
@@ -30,7 +32,8 @@ def clean_attribute_value(cleaned_data):
     value = cleaned_data['value']
     attribute = cleaned_data['attribute']
     obj = cleaned_data['listing']
-    success, valid_value, error_message = validate_attribute_value(attribute, value, obj)
+    success, valid_value, error_message = validate_attribute_value(attribute,
+                                                                   value, obj)
 
     if not success:
         raise ValidationError(error_message)
@@ -55,25 +58,27 @@ class ListingAdmin(admin.ModelAdmin):
     change_form_template = "admin/realestate/listing/change_form.html"
     fieldsets = [
         (_(u'Listing Description'),
-         {
-             'fields': [
-                 'title', 'description', 'price', ( 'baths', 'beds', 'size'), 'location', 'type', 'offer',
-                 'active', 'featured',
-             ]
-         }),
+            {
+                'fields': [
+                    'title', 'description', 'price', ('baths', 'beds', 'size'),
+                    'location', 'type', 'offer', 'active', 'featured',
+                ]
+            }
+         ),
         (_('Contact Info'),
-         {
-             'fields': [
-                 'agent', 'contact', 'notes', 'coords',
-             ]
-         })
+            {
+                'fields': [
+                    'agent', 'contact', 'notes', 'coords',
+                ]
+            }
+         )
     ]
 
     inlines = [AttributeListingInline, ImageListingInline, ]
 
     list_display = (
-        'id', 'title', 'slug', 'currency_price', 'active', 'type', 'location', 'location', 'agent', 'created_at',
-        'featured', 'thumb_nail'
+        'id', 'title', 'slug', 'currency_price', 'active', 'type', 'location',
+        'agent', 'created_at', 'featured', 'thumb_nail'
     )
 
     actions = ['duplicate_listing', ]
@@ -88,7 +93,6 @@ class ListingAdmin(admin.ModelAdmin):
     list_filter = ['created_at', 'agent', 'title', 'active', ]
     date_hierarchy = 'created_at'
 
-
     def thumb_nail(self, obj):
         imageobj = obj.main_image
         if imageobj:
@@ -99,7 +103,6 @@ class ListingAdmin(admin.ModelAdmin):
 
     thumb_nail.short_description = _(u'Image')
     thumb_nail.allow_tags = True
-
 
     def duplicate_listing(self, request, queryset):
         for listing in queryset:
