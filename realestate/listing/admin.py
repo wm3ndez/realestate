@@ -1,13 +1,12 @@
 from django.forms import ValidationError
 from django.forms.models import ModelForm
-from realestate.listing.models import ListingImage, AttributeListing, Listing, \
-    Location, Agent, Deal, Attribute
+from realestate.listing.models import ListingImage, AttributeListing, Listing
 from django.contrib import admin
 from sorl.thumbnail import get_thumbnail
 from sorl.thumbnail.admin import AdminImageMixin
 from realestate.listing.templatetags.extra_functions import currency
-from realestate.listing.utils import import_validator, \
-    validate_attribute_value, copy_model_instance
+from realestate.listing.utils import validate_attribute_value, \
+    copy_model_instance
 from django.utils.translation import ugettext as _
 
 
@@ -121,42 +120,5 @@ class ListingAdmin(admin.ModelAdmin):
         js = ('js/admin/propiedades.js',)
 
 
-class DealsAdmin(admin.ModelAdmin):
-    list_display = ('listing', 'active', 'price', 'start_date', 'end_date')
-
-
-class AgentAdmin(admin.ModelAdmin):
-    list_display = ('name', 'phone', 'mobile', 'image')
-
-    def image(self, obj):
-        imageobj = obj.fotografia
-        if imageobj:
-            image = get_thumbnail(imageobj, '133x100', quality=99)
-            return '<img src="%s" />' % image.url
-        else:
-            return _(u'Please, add an image')
-
-    image.short_description = _(u'Image')
-    image.allow_tags = True
-
-
-class AtributosForm(ModelForm):
-    def clean_validation(self):
-        validation = self.cleaned_data['validation']
-        try:
-            import_validator(validation)
-        except ImportError:
-            raise ValidationError(_("Invalid validation function specifed!"))
-        return validation
-
-
-class AttributesAdmin(admin.ModelAdmin):
-    form = AtributosForm
-
-
 admin.site.register(Listing, ListingAdmin)
-admin.site.register(Location)
-admin.site.register(Agent, AgentAdmin)
 admin.site.register(ListingImage, ImageAdmin)
-admin.site.register(Deal, DealsAdmin)
-admin.site.register(Attribute, AttributesAdmin)
