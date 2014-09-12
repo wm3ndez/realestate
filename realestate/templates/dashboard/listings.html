@@ -31,21 +31,23 @@
                        aria-describedby="example2_info">
                     <thead>
                     <tr role="row">
-                        <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1"
-                            colspan="1" aria-sort="ascending"
-                            aria-label="Rendering engine: activate to sort column descending"> ID
+                        <th class="sorting_asc" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">
+				{% trans "ID" %}
                         </th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1"
-                            colspan="1" aria-label="Browser: activate to sort column ascending">Title
+                        <th class="sorting" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-label="">
+				{% trans "Title" %}
                         </th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1"
-                            colspan="1" aria-label="Platform(s): activate to sort column ascending">Price
+                        <th class="sorting" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-label="">
+				{% trans "Preview" %}
                         </th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1"
-                            colspan="1" aria-label="Engine version: activate to sort column ascending">Type
+                        <th class="sorting" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-label="">
+				{% trans "Price" %}
                         </th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1"
-                            colspan="1" aria-label="CSS grade: activate to sort column ascending">Image
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="">
+				{% trans "Type" %}
+                        </th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="">
+				{% trans "Image" %}
                         </th>
                     </tr>
                     </thead>
@@ -54,6 +56,7 @@
                     <tr>
                         <th rowspan="1" colspan="1">ID</th>
                         <th rowspan="1" colspan="1">{% trans "Title" %}</th>
+                        <th rowspan="1" colspan="1">{% trans "Preview" %}</th>
                         <th rowspan="1" colspan="1">{% trans "Price" %}</th>
                         <th rowspan="1" colspan="1">{% trans "Type" %}</th>
                         <th rowspan="1" colspan="1">{% trans "Image" %}</th>
@@ -64,6 +67,7 @@
                         <tr class="{% cycle 'even' 'odd' %}">
                             <td class=" sorting_1"><a href="{% url 'update-listing' listing.id %}">{{ listing.id }}</a></td>
                             <td class=" "><a href="{% url 'update-listing' listing.id %}">{{ listing.title }}</a></td>
+			    <td class=" "><a target="_blank" href="{{ listing.absolute_url }}">{% trans "Preview" %}</a></td>
                             <td class=" ">{{ listing.price }}</td>
                             <td class=" ">{{ listing.type }}</td>
                             <td class=" ">{{ listing.main_image }}</td>
