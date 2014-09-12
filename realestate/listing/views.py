@@ -52,6 +52,11 @@ class ListingView(FormMixin, DetailView):
     form_class = ListingContactForm
     success_url = reverse_lazy('thank-you')
 
+    def get_queryset(self):
+        if self.request.user.is_staff:
+            return Listing.objects.all()
+        return Listing.objects.active()
+
     def get_context_data(self, **kwargs):
         context = super(ListingView, self).get_context_data(**kwargs)
         form_class = self.get_form_class()
