@@ -93,9 +93,9 @@ class ListingAdmin(admin.ModelAdmin):
         imageobj = obj.main_image
         if imageobj:
             image = get_thumbnail(imageobj.image, '75x50', quality=99)
-            return '<img src="%s" />' % image.url
-        else:
-            return _(u'No image')
+            if image is not None:
+                return '<img src="%s" />' % image.url
+        return _(u'No image')
 
     thumb_nail.short_description = _(u'Image')
     thumb_nail.allow_tags = True
