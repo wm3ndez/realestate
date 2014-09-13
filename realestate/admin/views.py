@@ -1,9 +1,7 @@
-from django.core.files.storage import FileSystemStorage, default_storage
-import os
+from django.core.files.storage import default_storage
 from braces.views import StaffuserRequiredMixin, LoginRequiredMixin, OrderableListMixin, SuperuserRequiredMixin
-from django.conf import settings
 from django.contrib.auth.models import User
-from django.contrib.formtools.wizard.views import SessionWizardView
+from django.contrib.formtools.wizard.views import NamedUrlSessionWizardView
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.views.generic import TemplateView, CreateView, ListView, UpdateView, FormView, DeleteView
 from django.http import HttpResponseRedirect
@@ -24,8 +22,8 @@ class Dashboard(LoginRequiredMixin, StaffuserRequiredMixin, TemplateView):
     template_name = 'dashboard/dashboard.html'
 
 
-class CreateListingWizard(LoginRequiredMixin, StaffuserRequiredMixin, SessionWizardView):
-    file_storage = default_storage  # FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'tmp_listing_images'))
+class CreateListingWizard(LoginRequiredMixin, StaffuserRequiredMixin, NamedUrlSessionWizardView):
+    file_storage = default_storage
     form_list = (
         ('listingdata', ListingForm),
         ('images', ListingImageFormSet),
