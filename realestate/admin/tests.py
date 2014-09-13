@@ -29,7 +29,7 @@ class AdminViewsTests(TestCase):
         self.assertEqual(200, response.status_code)
 
     def test_create_listing_view(self):
-        response = self.client.get(reverse('add-listing'))
+        response = self.client.get(reverse('add-listing-wizard', args=['listingdata']))
         self.assertEqual(200, response.status_code)
 
         # response = self.client.post(reverse('add-listing'), data=listing_info)
@@ -60,8 +60,8 @@ class AdminViewsTests(TestCase):
         self.assertEqual(200, response.status_code)
 
     # def test_apikey_list_view(self):
-    #     response = self.client.get(reverse('admin-api-keys'))
-    #     self.assertEqual(200, response.status_code)
+    # response = self.client.get(reverse('admin-api-keys'))
+    # self.assertEqual(200, response.status_code)
 
     def test_users_list_view(self):
         self.user.is_superuser = True
