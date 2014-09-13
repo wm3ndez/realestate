@@ -77,5 +77,5 @@ class SetPasswordForm(forms.Form):
         return self.cleaned_data
 
 
-ListingImageFormSet = formset_factory(ListingImageForm)
-AttributeListingFormSet = formset_factory(AttributeListingForm)
+ListingImageFormSet = formset_factory(ListingImageForm, extra=2)
+AttributeListingFormSet = formset_factory(AttributeListingForm, extra=2)

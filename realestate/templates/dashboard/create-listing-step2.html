@@ -19,38 +19,103 @@
     </style>
 {% endblock %}
 
+{% block extra_js %}
+    <script src="{% static 'admin/js/django-superformset.js' %}" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var formsetOptions = {
+                prefix: 'images',
+                containerSel: 'form',
+                rowSel: '.inline',
+                formTemplate: '.images-inline .inline',
+                addTrigger: '<a href="#" class="add-row" title="add">{% trans 'add new' %}</a>'
+            };
+            $('.formlistImages').superformset(formsetOptions);
+        });
+    </script>
+{% endblock %}
+
 {% block content %}
     <form role="form" action="" method="post" enctype="multipart/form-data">
         <div class="row">
             {% csrf_token %}
-            {% for form in  wizard.form.forms %}
-                <div class="col-md-12">
-                    <!-- general form elements disabled -->
-                    <div class="box box-primary">
-                        <div class="box-header">
-                            <h3 class="box-title">{% trans "Image" %}</h3>
-                        </div>
-                        <!-- /.box-header -->
-                        <div class="box-body inline">
-
-                            <div class="col-xs-4 form-group {% if form.name.errors %}has-error{% endif %}">
-                                {{ form.name.errors }}
-                                {{ form.name.label_tag }} {% render_field form.name class+="form-control" %}
-                            </div>
-                            <div class="col-xs-4 form-group {% if form.image.errors %}has-error{% endif %}">
-                                {{ form.image.errors }}
-                                {{ form.image.label_tag }} {% render_field form.image class+="form-control" %}
-                            </div>
-                            <div class="col-xs-4 form-group {% if form.order.errors %}has-error{% endif %}">
-                                {{ form.order.errors }}
-                                {{ form.order.label_tag }} {% render_field form.order class+="form-control" %}
-                            </div>
-                        </div>
-                        <!-- /.box-body -->
+            <div class="col-md-12">
+                <!-- general form elements disabled -->
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">{% trans "Image" %}</h3>
                     </div>
-                    <!-- /.box -->
-                </div>
-            {% endfor %}
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <fieldset class="formlistImages">
+                            {{ wizard.form.management_form }}
+                            {{ wizard.form.non_form_errors }}
+
+                            {% if wizard.form.forms %}
+                                {% for form in wizard.form.forms %}
+                                    {{ form.id }}
+                                    <div class="inline">
+                                        <div class="row {{ wizard.form.prefix }}">
+                                            <div class="col-xs-3 {% if form.name.errors %}has-error{% endif %}">
+                                                {{ form.name.errors }}
+                                                {{ form.name.label_tag }} {% render_field form.name class+="form-control" %}
+                                            </div>
+                                            <div class="col-xs-5 {% if form.image.errors %}has-error{% endif %}">
+                                                {{ form.image.errors }}
+                                                {{ form.image.label_tag }} {{ form.image }}
+                                            </div>
+                                            <div class="col-xs-2 {% if form.order.errors %}has-error{% endif %}">
+                                                {{ form.order.errors }}
+                                                {{ form.order.label_tag }} {% render_field form.order class+="form-control" %}
+                                            </div>
+
+                                            {% if wizard.form.can_delete %}
+                                                <div class="col-xs-1">
+                                                    {{ form.DELETE.label_tag }}
+                                                    {{ form.DELETE }}
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <hr/>
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="inline">
+                                <div class="row {{ wizard.form.prefix }}">
+                                {{ wizard.form }}
+                                </div>
+                                </div>
+                            {% endif %}
+                        </fieldset>
+                        <div class="empty-form images-inline">
+                            <div class="inline">
+                                <div class="row" data-empty-permitted="true">
+                                    <div class="col-xs-3">
+                                        {{ wizard.form.empty_form.name.label_tag }}
+                                        {% render_field wizard.form.empty_form.name class+="form-control" %}
+                                    </div>
+                                    <div class="col-xs-5">
+                                        {{ wizard.form.empty_form.image.label_tag }}
+                                        {{ wizard.form.empty_form.image }}
+                                    </div>
+                                    <div class="col-xs-2">
+                                        {{ wizard.form.empty_form.order.label_tag }}
+                                        {% render_field wizard.form.empty_form.order class+="form-control" %}
+                                    </div>
+                                    {% if wizard.form.can_delete %}
+                                        <div class="col-xs-1">
+                                            {{ wizard.form.empty_form.DELETE.label_tag }}
+                                            {{ wizard.form.empty_form.DELETE }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <hr/>
+                            </div>
+                        </div>
+                    </div>
+                <!-- /.box -->
+            </div>
+            </div>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -68,7 +133,6 @@
             </div>
         </div>
         {{ wizard.management_form }}
-        {{ wizard.form.management_form }}
     </form>
     <div id="ajax-modal" class="modal fade" tabindex="-1" style="display: none;"></div>
 {% endblock %}
