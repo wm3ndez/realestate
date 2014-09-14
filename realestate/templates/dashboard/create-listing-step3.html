@@ -55,13 +55,17 @@
                                     {{ form.id }}
                                     <div class="inline">
                                         <div class="row {{ wizard.form.prefix }}">
-                                            <div class="col-xs-5 {% if form.attribute.errors %}has-error{% endif %}">
+                                            <div class="col-xs-4 {% if form.attribute.errors %}has-error{% endif %}">
                                                 {{ form.attribute.errors }}
                                                 {{ form.attribute.label_tag }} {% render_field form.attribute class+="form-control" %}
                                             </div>
                                             <div class="col-xs-4 {% if form.value.errors %}has-error{% endif %}">
                                                 {{ form.value.errors }}
                                                 {{ form.value.label_tag }} {% render_field form.value class+="form-control"  %}
+                                            </div>
+                                            <div class="col-xs-4 {% if form.order.errors %}has-error{% endif %}">
+                                                {{ form.value.errors }}
+                                                {{ form.order.label_tag }} {% render_field form.order class+="form-control"  %}
                                             </div>
 
                                             {% if wizard.form.can_delete %}
