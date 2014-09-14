@@ -16,7 +16,9 @@ class ImageAdmin(admin.ModelAdmin):
 
     def image_miniatura(self, obj):
         image = get_thumbnail(obj.image, '75x50', crop='center', quality=99)
-        return '<img src="%s" />' % image.url
+        if image is not None:
+            return '<img src="%s" />' % image.url
+        return _('Image not Available')
 
     image_miniatura.short_description = _(u'Image')
     image_miniatura.allow_tags = True
