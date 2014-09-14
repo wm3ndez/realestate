@@ -39,7 +39,11 @@ LOCATION_TYPES = (
     (LOCATION_STATE, _('State/Province')),
 )
 
-OFFERS = (('buy', _('For Sale')), ('rent', _('For Rent')), ('buy-rent', _('For Sale/For Rent')))
+OFFERS = (
+    ('buy', _('For Sale')),
+    ('rent', _('For Rent')),
+    ('buy-rent', _('For Sale/For Rent'))
+)
 
 VALIDATIONS = [
     ('realestate.listing.utils.validation_simple', _('One or more characters')),
@@ -64,9 +68,12 @@ class LocationManager(models.Manager):
 
 
 class Location(models.Model):
-    parent = models.ForeignKey('self', verbose_name=_('Location'), null=True, blank=True)
+    parent = models.ForeignKey('self', verbose_name=_('Location'), null=True,
+                               blank=True)
     name = models.CharField(_('Name'), max_length=60)
-    location_type = models.CharField(_('Location Type'), choices=LOCATION_TYPES, default=LOCATION_SECTOR, max_length=20)
+    location_type = models.CharField(_('Location Type'),
+                                     choices=LOCATION_TYPES,
+                                     default=LOCATION_SECTOR, max_length=20)
 
     objects = LocationManager()
 
@@ -268,6 +275,16 @@ class Listing(models.Model):
     @property
     def on_sale(self):
         return Deal.objects.on_sale(listing__in=(self,)).exists()
+
+    @property
+    def code(self):
+        if self.agent is not None:
+            agent = self.agent
+            prefix = '{0}{1}'.format(agent.first_name[0], agent.last_name[0])
+            return '{0}{1:04}'.format(prefix, self.id).upper()
+
+        rent_or_sale = 'v' if self.offer in ('buy-rent', 'buy') else 'r'
+        return '{0}{1:04x}'.format(rent_or_sale, self.id).upper()
 
 
 class Attribute(models.Model):
