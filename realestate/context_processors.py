@@ -19,9 +19,13 @@ def absolute(request):
         'ABSOLUTE_ROOT': request.build_absolute_uri('/')[:-1].strip("/"),
         'ABSOLUTE_ROOT_URL': request.build_absolute_uri('/').strip("/"),
     }
-    
+
     if 'django.contrib.sites' in settings.INSTALLED_APPS:
         urls['SITE_ROOT'] = get_site_url(request)
         urls['SITE_ROOT_URL'] = get_site_url(request, True)
-    
+
     return urls
+
+
+def site_name(request):
+    return {'site_name': Site.objects.get_current().name}

@@ -139,6 +139,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.messages.context_processors.messages",
     "constance.context_processors.config",
     "realestate.context_processors.absolute",
+    "realestate.context_processors.site_name",
 )
 
 LOGGING = {
