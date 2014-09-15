@@ -11,6 +11,7 @@ class ListingIndex(indexes.SearchIndex, indexes.Indexable):
     slug = indexes.CharField(model_attr='slug')
     price = indexes.FloatField(null=True, faceted=True)
     currency = indexes.CharField(null=True, faceted=True)
+    type = indexes.CharField(model_attr='type', faceted=True)
     baths = indexes.IntegerField(model_attr='baths', faceted=True)
     beds = indexes.IntegerField(model_attr='beds', faceted=True)
     location = indexes.CharField(model_attr='location', null=True, faceted=True)
