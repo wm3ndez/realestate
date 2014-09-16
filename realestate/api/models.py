@@ -15,6 +15,7 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 
 
 class ApiKeys(models.Model):
+    description = models.CharField(max_length=100, blank=True, default='', verbose_name=_('Description'))
     key = models.CharField(max_length=40, primary_key=True)
     created = models.DateTimeField(auto_now_add=True)
 

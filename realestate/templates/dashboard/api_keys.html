@@ -20,6 +20,9 @@
                 <table id="api_keys" class="table table-bordered table-hover dataTable"
                        aria-describedby="api_info">
                     <thead>
+                    <th class="sorting" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-label="">
+                        {% trans "Description" %}
+                    </th>
                     <tr role="row">
                         <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="api_keys" rowspan="1"
                             colspan="1" aria-sort="ascending"
@@ -30,6 +33,7 @@
                     </thead>
 
                     <tfoot>
+                    <th rowspan="1" colspan="1">{% trans "Description" %}</th>
                     <tr>
                         <th rowspan="1" colspan="1">{% trans "Key" %}</th>
                         <th></th>
