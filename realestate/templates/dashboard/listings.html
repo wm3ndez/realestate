@@ -1,5 +1,5 @@
 {% extends 'dashboard/base.html' %}
-{% load i18n re_paginator %}
+{% load i18n re_paginator thumbnail %}
 {% block content-header %}
     <h1>Listings</h1>
 {% endblock %}
@@ -31,23 +31,26 @@
                        aria-describedby="example2_info">
                     <thead>
                     <tr role="row">
-                        <th class="sorting_asc" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-sort="ascending" aria-label="">
-				{% trans "ID" %}
+                        <th class="sorting_asc" role="columnheader" tabindex="0" rowspan="1" colspan="1"
+                            aria-sort="ascending" aria-label="">
+                            {% trans "ID" %}
                         </th>
                         <th class="sorting" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-label="">
-				{% trans "Title" %}
+                            {% trans "Title" %}
                         </th>
                         <th class="sorting" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-label="">
-				{% trans "Preview" %}
+                            {% trans "Preview" %}
                         </th>
                         <th class="sorting" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-label="">
-				{% trans "Price" %}
+                            {% trans "Price" %}
                         </th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="">
-				{% trans "Type" %}
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1"
+                            colspan="1" aria-label="">
+                            {% trans "Type" %}
                         </th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="">
-				{% trans "Image" %}
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1"
+                            colspan="1" aria-label="">
+                            {% trans "Image" %}
                         </th>
                     </tr>
                     </thead>
@@ -65,9 +68,11 @@
                     <tbody role="alert" aria-live="polite" aria-relevant="all">
                     {% for listing in object_list %}
                         <tr class="{% cycle 'even' 'odd' %}">
-                            <td class=" sorting_1"><a href="{% url 'update-listing' listing.id %}">{{ listing.id }}</a></td>
+                            <td class=" sorting_1"><a href="{% url 'update-listing' listing.id %}">{{ listing.id }}</a>
+                            </td>
                             <td class=" "><a href="{% url 'update-listing' listing.id %}">{{ listing.title }}</a></td>
-			    <td class=" "><a target="_blank" href="{{ listing.absolute_url }}">{% trans "Preview" %}</a></td>
+                            <td class=" "><a target="_blank" href="{{ listing.absolute_url }}">{% trans "Preview" %}</a>
+                            </td>
                             <td class=" ">{{ listing.price }}</td>
                             <td class=" ">{{ listing.type }}</td>
                             <td class=" ">{{ listing.main_image }}</td>
