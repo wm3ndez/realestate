@@ -70,12 +70,19 @@
                         <tr class="{% cycle 'even' 'odd' %}">
                             <td class=" sorting_1"><a href="{% url 'update-listing' listing.id %}">{{ listing.id }}</a>
                             </td>
-                            <td class=" "><a href="{% url 'update-listing' listing.id %}">{{ listing.title }}</a></td>
-                            <td class=" "><a target="_blank" href="{{ listing.absolute_url }}">{% trans "Preview" %}</a>
+                            <td><a href="{% url 'update-listing' listing.id %}">{{ listing.title }}</a></td>
+                            <td><a target="_blank" href="{{ listing.absolute_url }}">{% trans "Preview" %}</a>
                             </td>
-                            <td class=" ">{{ listing.price }}</td>
-                            <td class=" ">{{ listing.type }}</td>
-                            <td class=" ">{{ listing.main_image }}</td>
+                            <td>{{ listing.price }}</td>
+                            <td>{{ listing.type }}</td>
+                            <td>
+                                {% thumbnail listing.main_image.image "100x75" crop="center" as image %}
+                                    <img src="{{ image.url }}">
+                                {% empty %}
+                                    {% trans "No Image" %}
+                                {% endthumbnail %}
+
+                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>
