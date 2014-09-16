@@ -31,25 +31,35 @@
                        aria-describedby="example2_info">
                     <thead>
                     <tr role="row">
-                        <th class="sorting_asc" role="columnheader" tabindex="0" rowspan="1" colspan="1"
+                        <th class="sorting_asc" role="columnheader" tabindex="0"
                             aria-sort="ascending" aria-label="">
                             {% trans "ID" %}
                         </th>
-                        <th class="sorting" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-label="">
+                        <th class="sorting" role="columnheader" tabindex="0" aria-label="">
                             {% trans "Title" %}
                         </th>
-                        <th class="sorting" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-label="">
+                        <th class="sorting" role="columnheader" tabindex="0" aria-label="">
                             {% trans "Preview" %}
                         </th>
-                        <th class="sorting" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-label="">
+                        <th class="sorting" role="columnheader" tabindex="0" aria-label="">
                             {% trans "Price" %}
                         </th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1"
-                            colspan="1" aria-label="">
+                        <th class="sorting" role="columnheader" tabindex="0" aria-label="">
                             {% trans "Type" %}
                         </th>
-                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="example2" rowspan="1"
-                            colspan="1" aria-label="">
+                        <th class="sorting" role="columnheader" tabindex="0" aria-label="">
+                            {% trans "Location" %}
+                        </th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-label="">
+                            {% trans "Agent" %}
+                        </th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-label="">
+                            {% trans "Status" %}
+                        </th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-label="">
+                            {% trans "Featured" %}
+                        </th>
+                        <th class="sorting" role="columnheader" tabindex="0" aria-label="">
                             {% trans "Image" %}
                         </th>
                     </tr>
@@ -57,12 +67,16 @@
 
                     <tfoot>
                     <tr>
-                        <th rowspan="1" colspan="1">ID</th>
-                        <th rowspan="1" colspan="1">{% trans "Title" %}</th>
-                        <th rowspan="1" colspan="1">{% trans "Preview" %}</th>
-                        <th rowspan="1" colspan="1">{% trans "Price" %}</th>
-                        <th rowspan="1" colspan="1">{% trans "Type" %}</th>
-                        <th rowspan="1" colspan="1">{% trans "Image" %}</th>
+                        <th>ID</th>
+                        <th>{% trans "Title" %}</th>
+                        <th>{% trans "Preview" %}</th>
+                        <th>{% trans "Price" %}</th>
+                        <th>{% trans "Type" %}</th>
+                        <th>{% trans "Location" %}</th>
+                        <th>{% trans "Agent" %}</th>
+                        <th>{% trans "Status" %}</th>
+                        <th>{% trans "Featured" %}</th>
+                        <th>{% trans "Image" %}</th>
                     </tr>
                     </tfoot>
                     <tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -74,9 +88,17 @@
                             <td><a target="_blank" href="{{ listing.absolute_url }}">{% trans "Preview" %}</a>
                             </td>
                             <td>{{ listing.price }}</td>
-                            <td>{{ listing.type }}</td>
+                            <td>{{ listing.get_type_display }}</td>
+                            <td>{{ listing.location }}</td>
+                            <td>{% if listing.agent %}{{ listing.agent }}{% endif %}</td>
                             <td>
-                                {% thumbnail listing.main_image.image "100x75" crop="center" as image %}
+                                <i class="fa fa-{% if listing.active %}check{% else %}times{% endif %}"></i>
+                            </td>
+                            <td>
+                                <i class="fa fa-{% if listing.featured %}check{% else %}times{% endif %}"></i>
+                            </td>
+                            <td>
+                                {% thumbnail listing.main_image.image "100x60" crop="center" as image %}
                                     <img src="{{ image.url }}">
                                 {% empty %}
                                     {% trans "No Image" %}
