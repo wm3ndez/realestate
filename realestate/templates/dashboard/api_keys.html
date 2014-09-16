@@ -20,10 +20,11 @@
                 <table id="api_keys" class="table table-bordered table-hover dataTable"
                        aria-describedby="api_info">
                     <thead>
-                    <th class="sorting" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-label="">
-                        {% trans "Description" %}
-                    </th>
+
                     <tr role="row">
+                        <th class="sorting" role="columnheader" tabindex="0" rowspan="1" colspan="1" aria-label="">
+                            {% trans "Description" %}
+                        </th>
                         <th class="sorting_asc" role="columnheader" tabindex="0" aria-controls="api_keys" rowspan="1"
                             colspan="1" aria-sort="ascending"
                             aria-label="Rendering engine: activate to sort column descending"> {% trans "Key" %}
@@ -33,8 +34,8 @@
                     </thead>
 
                     <tfoot>
-                    <th rowspan="1" colspan="1">{% trans "Description" %}</th>
                     <tr>
+                        <th rowspan="1" colspan="1">{% trans "Description" %}</th>
                         <th rowspan="1" colspan="1">{% trans "Key" %}</th>
                         <th></th>
                     </tr>
@@ -43,7 +44,8 @@
                     <tbody role="alert" aria-live="polite" aria-relevant="all">
                     {% for key in object_list %}
                         <tr class="{% cycle 'even' 'odd' %}">
-                            <td class=" sorting_1">{{ key.key }}</td>
+                            <td class=" sorting_1">{{ key.description }}</td>
+                            <td class="">{{ key.key }}</td>
                             <td><a href="{% url 'delete-apikey' key.key %}" class="btn btn-danger">{% trans "Delete" %}</a></td>
                         </tr>
                     {% endfor %}
