@@ -3,7 +3,13 @@ from realestate.listing.models import Listing
 from realestate.api.serializers import ListingSerializer
 
 
-class ListingViewSet(viewsets.ReadOnlyModelViewSet):
+class PaginationMixin(object):
+    paginate_by = 15
+    paginate_by_param = 'limit'
+    max_paginate_by = 100
+
+
+class ListingViewSet(PaginationMixin, viewsets.ReadOnlyModelViewSet):
     model = Listing
     serializer_class = ListingSerializer
 
