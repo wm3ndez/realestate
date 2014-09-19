@@ -329,7 +329,10 @@ class ListingImage(models.Model):
 
     @property
     def absolute_url(self):
-        return self.image.url
+        try:
+            return self.image.url
+        except ValueError:
+            return ''
 
     def get_filename(self):
         return os.path.basename(self.image.path)
