@@ -1,8 +1,11 @@
-from django.core.files.storage import default_storage
+from django.core.files.storage import FileSystemStorage, default_storage
+import os
 from braces.views import StaffuserRequiredMixin, LoginRequiredMixin, OrderableListMixin, SuperuserRequiredMixin
+from django.conf import settings
 from django.contrib.auth.models import User
-from django.contrib.formtools.wizard.views import NamedUrlSessionWizardView
+from django.contrib.formtools.wizard.views import SessionWizardView
 from django.core.urlresolvers import reverse_lazy, reverse
+from django.db import transaction
 from django.views.generic import TemplateView, CreateView, ListView, UpdateView, FormView, DeleteView
 from django.http import HttpResponseRedirect
 from django.contrib import messages
@@ -22,8 +25,8 @@ class Dashboard(LoginRequiredMixin, StaffuserRequiredMixin, TemplateView):
     template_name = 'dashboard/dashboard.html'
 
 
-class CreateListingWizard(LoginRequiredMixin, StaffuserRequiredMixin, NamedUrlSessionWizardView):
-    file_storage = default_storage
+class CreateListingWizard(LoginRequiredMixin, StaffuserRequiredMixin, SessionWizardView):
+    file_storage = default_storage  # FileSystemStorage(location=os.path.join(settings.MEDIA_ROOT, 'tmp_listing_images'))
     form_list = (
         ('listingdata', ListingForm),
         ('images', ListingImageFormSet),
@@ -43,18 +46,18 @@ class CreateListingWizard(LoginRequiredMixin, StaffuserRequiredMixin, NamedUrlSe
         images = cleaned_data.pop('formset-images')
         attributes = cleaned_data.pop('formset-attributes')
 
-        # TODO: Wrap this in a transaction
-        listing = Listing.objects.create(**cleaned_data)
+        with transaction.atomic():
+            listing = Listing.objects.create(**cleaned_data)
 
-        for image in images:
-            if len(image) > 0:
-                image['listing'] = listing
-                ListingImage.objects.create(**image)
+            for image in images:
+                if len(image) > 0:
+                    image['listing'] = listing
+                    ListingImage.objects.create(**image)
 
-        for attribute in attributes:
-            if len(attribute) > 0:
-                attribute['listing'] = listing
-                AttributeListing.objects.create(**attribute)
+            for attribute in attributes:
+                if len(attribute) > 0:
+                    attribute['listing'] = listing
+                    AttributeListing.objects.create(**attribute)
 
         return HttpResponseRedirect(reverse_lazy('admin-list-listing'))
 
