@@ -201,7 +201,12 @@ class Listing(models.Model):
         if not self.is_valid_slug():
             slug = slugify(self.title)
             while Listing.objects.filter(slug=slug).exclude(id=self.id).exists():
-                slug = '%s-1' % slug
+                slug_parts = slug.split('-')
+                if slug_parts[-1].isdigit():
+                    slug_parts[-1] = '%s' % (int(slug_parts[-1]) + 1)
+                else:
+                    slug_parts.append('2')
+                slug = '-'.join(slug_parts)
             self.slug = slug
 
     def is_valid_slug(self):
