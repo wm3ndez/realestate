@@ -12,6 +12,7 @@ class ListingIndex(indexes.SearchIndex, indexes.Indexable):
     price = indexes.FloatField(null=True, faceted=True)
     currency = indexes.CharField(null=True, faceted=True)
     type = indexes.CharField(model_attr='type', faceted=True)
+    offer = indexes.CharField(model_attr='offer', faceted=True)
     baths = indexes.IntegerField(model_attr='baths', faceted=True)
     beds = indexes.IntegerField(model_attr='beds', faceted=True)
     location = indexes.CharField(model_attr='location', null=True, faceted=True)
@@ -54,7 +55,6 @@ class ListingIndex(indexes.SearchIndex, indexes.Indexable):
             return get_thumbnail(listing.main_image.image, '640x480', crop='center', quality=99).url
         except:
             return ''
-
 
     def prepare_absolute_url(self, listing):
         return listing.absolute_url
