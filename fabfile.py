@@ -9,6 +9,10 @@ def runserver(cli_args=''):
     local('venv/bin/python testproject/manage.py runserver_plus 0.0.0.0:8000 %s' % cli_args)
 
 
+def shell():
+    local('venv/bin/python testproject/manage.py shell_plus')
+
+
 def local_deploy():
     local('mv testproject/realestate.db testproject/realestate_bak.db')
     local('venv/bin/python testproject/manage.py syncdb;', False)
