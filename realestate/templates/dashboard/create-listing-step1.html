@@ -17,9 +17,9 @@
             padding-top: 30px;
         }
     </style>
-    <link href="{% static 'admin/js/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css' %}" rel="stylesheet"
+    <link href="{% static 'bower_components/bootstrap-modal/css/bootstrap-modal-bs3patch.css' %}" rel="stylesheet"
           type="text/css"/>
-    <link href="{% static 'admin/js/plugins/bootstrap-modal/css/bootstrap-modal.css' %}" rel="stylesheet"
+    <link href="{% static 'bower_components/bootstrap-modal/css/bootstrap-modal.css' %}" rel="stylesheet"
           type="text/css"/>
 {% endblock %}
 {% block extra_metadata %}
@@ -27,9 +27,9 @@
     <script src="{% static 'admin/js/listing-map.js' %}" type="text/javascript"></script>
 {% endblock %}
 {% block extra_js %}
-    <script src="{% static 'admin/js/plugins/bootstrap-modal/js/bootstrap-modalmanager.js' %}"
+    <script src="{% static 'bower_components/bootstrap-modal/js/bootstrap-modalmanager.js' %}"
             type="text/javascript"></script>
-    <script src="{% static 'admin/js/plugins/bootstrap-modal/js/bootstrap-modal.js' %}" type="text/javascript"></script>
+    <script src="{% static 'bower_components/bootstrap-modal/js/bootstrap-modal.js' %}" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             var $modal = $('#ajax-modal');

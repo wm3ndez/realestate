@@ -21,3 +21,6 @@ settings_local.py
 django_realestate.egg-info
 *.swp
 .ropeproject/
+
+#Bower
+bower_components
