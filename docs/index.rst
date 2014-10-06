@@ -22,6 +22,8 @@ Add the need apps to INSTALLED_APPS::
             'constance',
             # see django-constance documentation
             'constance.backends.database',
+            'widget_tweaks',
+            'haystack',
 
         )
 
@@ -44,3 +46,30 @@ Assuming that you are storing Constance values in the Database::
         CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
 
+Though, the default and recommended backend is Redis. You can read more
+here: https://github.com/comoga/django-constance#redis-default
+
+
+
+Haystack
+--------
+
+We're using Haystack to handle the search.  Here is an example using
+Elasticsearch::
+
+        HAYSTACK_CONNECTIONS = {
+                'default': {
+                        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+                        'URL': 'http://127.0.0.1:9200/',
+                        'INDEX_NAME': 'realestate',
+                },
+        }
+
+For more info you can look at Haystack documentation:
+http://django-haystack.readthedocs.org/en/latest/tutorial.html#modify-your-settings-py
+
+
+RESTful API
+-----------
+
+**djangorestframework**

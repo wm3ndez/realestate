@@ -16,3 +16,4 @@ factory_boy
 django-widget-tweaks
 django-haystack
 elasticsearch
+sphinx
