@@ -1,25 +1,11 @@
-{% extends "dashboard/base.html" %}
+{% extends "dashboard/form_base.html" %}
 {% load i18n static widget_tweaks %}
 {% block content-header %}
     <h1>{% trans "Create Listing " %} </h1>
 {% endblock %}
-{% block extra_css %}
-    <style>
-        .empty-form {
-            display: none
-        }
-
-        .box-body .row {
-            margin-bottom: 15px;
-        }
-
-        .plus-row {
-            padding-top: 30px;
-        }
-    </style>
-{% endblock %}
 
 {% block extra_js %}
+    {{ block.super }}
     <script src="{% static 'bower_components/django-superformset/django-superformset.js' %}" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {

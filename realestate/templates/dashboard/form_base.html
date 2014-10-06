@@ -1,0 +1,46 @@
+{% extends "dashboard/base.html" %}
+{% load i18n static %}
+{% block extra_css %}
+    <style>
+        .empty-form {
+            display: none
+        }
+
+        .box-body .row {
+            margin-bottom: 15px;
+        }
+
+        .plus-row {
+            padding-top: 30px;
+        }
+    </style>
+    <link href="{% static 'bower_components/bootstrap-modal/css/bootstrap-modal-bs3patch.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'bower_components/bootstrap-modal/css/bootstrap-modal.css' %}" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'bower_components/chosen/chosen.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'admin/css/editForms.css" rel="stylesheet" type="text/css' %}"/>
+{% endblock %}
+{% block extra_js %}
+    <script src="{% static 'bower_components/bootstrap-modal/js/bootstrap-modalmanager.js' %}" type="text/javascript"></script>
+    <script src="{% static 'bower_components/bootstrap-modal/js/bootstrap-modal.js' %}" type="text/javascript"></script>
+    <script type="text/javascript" src="{% static 'bower_components/chosen/chosen.jquery.min.js' %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Chosen    
+            $('.chosen-select').chosen();
+
+            var $modal = $('#ajax-modal');
+            $('.add-modal').on('click', function (e) {
+                e.preventDefault();
+                var url = $(this).attr("href");
+                // create the backdrop and wait for next modal to be triggered
+                $('body').modalmanager('loading');
+                setTimeout(function () {
+                    $modal.load(url + ' #create-form', '', function () {
+                        $modal.modal();
+                    });
+                }, 1000);
+            });
+
+        });
+    </script>
+{% endblock %}

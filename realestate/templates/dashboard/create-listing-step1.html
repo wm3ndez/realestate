@@ -1,52 +1,15 @@
-{% extends "dashboard/base.html" %}
+{% extends "dashboard/form_base.html" %}
 {% load i18n static widget_tweaks %}
+
 {% block content-header %}
     <h1>{% trans "Create Listing" %} </h1>
 {% endblock %}
-{% block extra_css %}
-    <style>
-        .empty-form {
-            display: none
-        }
 
-        .box-body .row {
-            margin-bottom: 15px;
-        }
-
-        .plus-row {
-            padding-top: 30px;
-        }
-    </style>
-    <link href="{% static 'bower_components/bootstrap-modal/css/bootstrap-modal-bs3patch.css' %}" rel="stylesheet"
-          type="text/css"/>
-    <link href="{% static 'bower_components/bootstrap-modal/css/bootstrap-modal.css' %}" rel="stylesheet"
-          type="text/css"/>
-{% endblock %}
 {% block extra_metadata %}
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script src="{% static 'admin/js/listing-map.js' %}" type="text/javascript"></script>
 {% endblock %}
-{% block extra_js %}
-    <script src="{% static 'bower_components/bootstrap-modal/js/bootstrap-modalmanager.js' %}"
-            type="text/javascript"></script>
-    <script src="{% static 'bower_components/bootstrap-modal/js/bootstrap-modal.js' %}" type="text/javascript"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var $modal = $('#ajax-modal');
-            $('.add-modal').on('click', function (e) {
-                e.preventDefault();
-                var url = $(this).attr("href");
-                // create the backdrop and wait for next modal to be triggered
-                $('body').modalmanager('loading');
-                setTimeout(function () {
-                    $modal.load(url + ' #create-form', '', function () {
-                        $modal.modal();
-                    });
-                }, 1000);
-            });
-        });
-    </script>
-{% endblock %}
+
 {% block content %}
     <form role="form" action="" method="post">
         <div class="row">
@@ -76,7 +39,7 @@
                         <div class="row">
                             <div class="col-xs-6 {% if form.location.errors %}has-error{% endif %}">
                                 {{ form.location.errors }}
-                                {{ form.location.label_tag }} {% render_field form.location class+="form-control" %}
+                                {{ form.location.label_tag }} {% render_field form.location class+="form-control chosen-select" %}
                             </div>
                             <div class="col-xs-1 plus-row">
                                 <a href="{% url 'add-sector' %}" class="add-modal">
@@ -136,7 +99,7 @@
                         <div class="row">
                             <div class="col-xs-7 {% if form.agent.errors %}has-error{% endif %}">
                                 {{ form.agent.errors }}
-                                {{ form.agent.label_tag }} {% render_field form.agent class+="form-control" %}
+                                {{ form.agent.label_tag }} {% render_field form.agent class+="form-control chosen-select" %}
                             </div>
                             <div class="col-xs-1 plus-row">
                                 <a href="{% url 'add-agent' %}"><i class="fa fa-fw fa-plus"></i></a>
@@ -145,7 +108,7 @@
                         <div class="row">
                             <div class="col-xs-7 {% if form.contact.errors %}has-error{% endif %}">
                                 {{ form.contact.errors }}
-                                {{ form.contact.label_tag }} {% render_field form.contact class+="form-control" %}
+                                {{ form.contact.label_tag }} {% render_field form.contact class+="form-control chosen-select" %}
                             </div>
                             <div class="col-xs-1 plus-row">
                                 <a href="{% url 'add-contact' %}"><i class="fa fa-fw fa-plus"></i></a>
