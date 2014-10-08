@@ -7,7 +7,6 @@ from django.db import transaction
 from django.views.generic import TemplateView, CreateView, ListView, UpdateView, FormView, DeleteView
 from django.http import HttpResponseRedirect
 from django.contrib import messages
-from django.utils.translation import gettext_lazy as _
 from realestate.home.models import Contact
 from realestate.api.models import ApiKeys as ApiKey
 from realestate.listing.models import Listing, Agent, Deal, Location, ListingImage, AttributeListing
@@ -58,83 +57,6 @@ class CreateListingWizard(LoginRequiredMixin, StaffuserRequiredMixin, NamedUrlSe
                     AttributeListing.objects.create(**attribute)
 
         return HttpResponseRedirect(reverse_lazy('admin-list-listing'))
-
-
-class CreateListing(LoginRequiredMixin, StaffuserRequiredMixin, CreateView):
-    template_name = 'dashboard/create-listing.html'
-    model = Listing
-    form_class = ListingForm
-    success_url = reverse_lazy('admin-list-listing')
-
-    def get_context_data(self, **kwargs):
-        context = super(CreateListing, self).get_context_data(**kwargs)
-        context['states'] = Location.objects.states()
-        if self.request.POST:
-            context['listing_images_form'] = ListingImageFormSet(self.request.POST, self.request.FILES)
-            context['listing_attributes_form'] = AttributeListingFormSet(self.request.POST, self.request.FILES)
-        else:
-            context['listing_images_form'] = ListingImageFormSet()
-            context['listing_attributes_form'] = AttributeListingFormSet()
-        return context
-
-    def form_valid(self, form):
-        context = self.get_context_data()
-        listing_images_form = context['listing_images_form']
-        listing_attributes_form = context['listing_attributes_form']
-
-        if listing_images_form.is_valid() and form.is_valid() and listing_attributes_form.is_valid():
-            self.object = form.save()  # saves parent and children
-            listing_images_form.instance = self.object
-            listing_images_form.save()
-            listing_attributes_form.instance = self.object
-            listing_attributes_form.save()
-
-            messages.success(self.request, _('Listing created successfully.'))
-
-            return HttpResponseRedirect(self.get_success_url())
-        else:
-            return self.form_invalid(form)
-
-    def form_invalid(self, form):
-        return self.render_to_response(self.get_context_data(form=form))
-
-
-class UpdateListing(LoginRequiredMixin, StaffuserRequiredMixin, UpdateView):
-    template_name = 'dashboard/create-listing.html'
-    model = Listing
-    form_class = ListingForm
-    success_url = reverse_lazy('admin-list-listing')
-
-    def get_context_data(self, **kwargs):
-        context = super(UpdateListing, self).get_context_data(**kwargs)
-        if self.request.POST:
-            context['listing_images_form'] = ListingImageFormSet(self.request.POST, self.request.FILES,
-                                                                 instance=self.object)
-            context['listing_attributes_form'] = AttributeListingFormSet(self.request.POST, self.request.FILES,
-                                                                         instance=self.object)
-        else:
-            context['listing_images_form'] = ListingImageFormSet(instance=self.object)
-            context['listing_attributes_form'] = AttributeListingFormSet(instance=self.object)
-        return context
-
-    def form_valid(self, form):
-        context = self.get_context_data()
-        listing_images_form = context['listing_images_form']
-        listing_attributes_form = context['listing_attributes_form']
-
-        if listing_images_form.is_valid() and form.is_valid() and listing_attributes_form.is_valid():
-            form.save()  # saves parent and Children
-            listing_images_form.save()
-            listing_attributes_form.save()
-
-            messages.success(self.request, _('Listing updated successfully.'))
-
-            return HttpResponseRedirect(self.get_success_url())
-        else:
-            return self.form_invalid(form)
-
-    def form_invalid(self, form):
-        return self.render_to_response(self.get_context_data(form=form))
 
 
 class Listings(LoginRequiredMixin, StaffuserRequiredMixin, ListView):

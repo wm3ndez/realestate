@@ -19,7 +19,7 @@
             <td>
                 {{ listing.location.ciudad }}
             </td>
-            <td> &dollar;{{ listing.price }} </td>
+            <td> {{ listing.price }} </td>
             <td><a href="{{ listing.get_absolute_url }}" title="{{ listing.title }}">Ver</a></td>
         </tr>
     {% endfor %}
