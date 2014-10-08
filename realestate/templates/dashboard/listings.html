@@ -27,8 +27,7 @@
                     <div class="col-xs-6"></div>
                     <div class="col-xs-6"></div>
                 </div>
-                <table id="example2" class="table table-bordered table-hover dataTable"
-                       aria-describedby="example2_info">
+                <table id="" class="table table-bordered table-hover dataTable">
                     <thead>
                     <tr role="row">
                         <th class="sorting_asc" role="columnheader" tabindex="0"
@@ -82,7 +81,8 @@
                     <tbody role="alert" aria-live="polite" aria-relevant="all">
                     {% for listing in object_list %}
                         <tr class="{% cycle 'even' 'odd' %}">
-                            <td class=" sorting_1"><a href="#{# {% url 'update-listing' listing.id %} #}">{{ listing.id }}</a>
+                            <td class=" sorting_1"><a
+                                    href="#{# {% url 'update-listing' listing.id %} #}">{{ listing.code }}</a>
                             </td>
                             <td><a href="#{# {% url 'update-listing' listing.id %} #}">{{ listing.title }}</a></td>
                             <td><a target="_blank" href="{{ listing.absolute_url }}">{% trans "Preview" %}</a>

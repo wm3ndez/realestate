@@ -1,27 +1,13 @@
-{% extends "dashboard/base.html" %}
+{% extends "dashboard/form_base.html" %}
 {% load i18n static widget_tweaks %}
 {% block content-header %}
     <h1>{% trans "Create Listing " %} </h1>
 {% endblock %}
-{% block extra_css %}
-    <style>
-        .empty-form {
-            display: none
-        }
-
-        .box-body .row {
-            margin-bottom: 15px;
-        }
-
-        .plus-row {
-            padding-top: 30px;
-        }
-    </style>
-{% endblock %}
 {% block extra_js %}
-    <script src="{% static 'admin/js/django-superformset.js' %}" type="text/javascript"></script>
+    {{ block.super }}
+    <script src="{% static 'bower_components/django-superformset/django-superformset.jquery.json' %}" type="text/javascript"></script>
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function () {
             var formsetOptions = {
                 prefix: 'attributes',
                 containerSel: 'form',
@@ -61,11 +47,11 @@
                                             </div>
                                             <div class="col-xs-4 {% if form.value.errors %}has-error{% endif %}">
                                                 {{ form.value.errors }}
-                                                {{ form.value.label_tag }} {% render_field form.value class+="form-control"  %}
+                                                {{ form.value.label_tag }} {% render_field form.value class+="form-control" %}
                                             </div>
                                             <div class="col-xs-4 {% if form.order.errors %}has-error{% endif %}">
                                                 {{ form.value.errors }}
-                                                {{ form.order.label_tag }} {% render_field form.order class+="form-control"  %}
+                                                {{ form.order.label_tag }} {% render_field form.order class+="form-control" %}
                                             </div>
 
                                             {% if wizard.form.can_delete %}
@@ -80,9 +66,9 @@
                                 {% endfor %}
                             {% else %}
                                 <div class="inline">
-                                <div class="row {{ wizard.form.prefix }}">
-                                {{ wizard.form }}
-                                </div>
+                                    <div class="row {{ wizard.form.prefix }}">
+                                        {{ wizard.form }}
+                                    </div>
                                 </div>
                             {% endif %}
                         </fieldset>
@@ -108,8 +94,8 @@
                             </div>
                         </div>
                     </div>
-                <!-- /.box -->
-            </div>
+                    <!-- /.box -->
+                </div>
             </div>
         </div>
         <div class="row">

@@ -1,36 +1,75 @@
 {% extends "dashboard/form_base.html" %}
-{% load i18n static %}
-{% block extra_css %}
-{% endblock %}
+{% load i18n widget_tweaks %}
 {% block content-header %}
     <h1>{% trans "Create Agent" %} </h1>
 {% endblock %}
 {% block content %}
-    <div class="row">
-        <div class="col-md-12">
-            <!-- general form elements disabled -->
-            <div class="box box-primary">
-                <!-- /.box-header -->
-                <div class="box-body">
-                    <form role="form" action="" method="post">
+    <form role="form" action="" method="post">
+        <div class="row">
+            <div class="col-md-9">
+                <!-- general form elements disabled -->
+                <div class="box box-primary">
+                    <!-- /.box-header -->
+                    <div class="box-body">
                         {% csrf_token %}
 
-                        {% for field in form %}
-                            <div class="form-group {% if field.errors %}has-error{% endif %}">
-                                {{ field.errors }}
-                                {{ field.label_tag }} {{ field }}
-                            </div>
-                        {% endfor %}
+                        <div class="form-group col-md-6 {% if form.title.errors %}has-error{% endif %}">
+                            {{ form.first_name.errors }}
+                            {{ form.first_name.label_tag }}
+                            {% render_field form.first_name class+="form-control" %}
+                        </div>
+                        <div class="form-group col-md-6{% if form.last_name.errors %}has-error{% endif %}">
+                            {{ form.last_name.errors }}
+                            {{ form.last_name.label_tag }}
+                            {% render_field form.first_name class+="form-control" %}
+                        </div>
+                        <div class="form-group col-md-6{% if form.phone.errors %}has-error{% endif %}">
+                            {{ form.phone.errors }}
+                            {{ form.phone.label_tag }}
+                            {% render_field form.phone class+="form-control" %}
+                        </div>
+                        <div class="form-group col-md-6{% if form.mobile.errors %}has-error{% endif %}">
+                            {{ form.mobile.errors }}
+                            {{ form.mobile.label_tag }}
+                            {% render_field form.mobile class+="form-control" %}
+                        </div>
+                        <div class="form-group col-md-9{% if form.location.errors %}has-error{% endif %}">
+                            {{ form.location.errors }}
+                            {{ form.location.label_tag }}
+                            {% render_field form.location class+="form-control chosen-select" %}
+                        </div>
+                        <div class="form-group col-md-9{% if form.address.errors %}has-error{% endif %}">
+                            {{ form.address.errors }}
+                            {{ form.address.label_tag }}
+                            {% render_field form.address class+="form-control" %}
+                        </div>
+                        <div class="form-group col-md-6{% if form.image.errors %}has-error{% endif %}">
+                            {{ form.image.errors }}
+                            {{ form.image.label_tag }}
+                            {% render_field form.image class+="form-control" %}
+                        </div>
+                        <div class="form-group col-md-9{% if form.user.errors %}has-error{% endif %}">
+                            {{ form.user.errors }}
+                            {{ form.user.label_tag }}
+                            {% render_field form.user class+="form-control chosen-select" %}
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group col-md-6{% if form.active.errors %}has-error{% endif %}">
+                            {{ form.active.errors }}
+                            {{ form.active.label_tag }}
+                            {% render_field form.active class+="form-control" %}
+                        </div>
+                        <div class="clearfix"></div>
 
-                        <div class="form-group">
+                        <div class="form-group col-md-6">
                             <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
                         </div>
-
-                    </form>
+                        <div class="clearfix"></div>
+                    </div>
+                    <!-- /.box-body -->
                 </div>
-                <!-- /.box-body -->
+                <!-- /.box -->
             </div>
-            <!-- /.box -->
         </div>
-    </div>
+    </form>
 {% endblock %}
