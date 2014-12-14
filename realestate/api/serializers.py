@@ -1,11 +1,10 @@
 from rest_framework import serializers
-from django.forms import widgets
 
 
 class ListingSerializer(serializers.Serializer):
     id = serializers.Field()
     title = serializers.CharField(required=False, max_length=100)
-    description = serializers.CharField(widget=widgets.Textarea, max_length=1000)
+    description = serializers.CharField(max_length=1000)
     absolute_url = serializers.URLField(required=False)
     price = serializers.SerializerMethodField('get_price')
     currency = serializers.SerializerMethodField('get_currency')
