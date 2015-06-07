@@ -12,7 +12,8 @@ except ImportError:
 
 standard_exclude = ['*.py', '*.pyc', '*~', '.*', '*.bak']
 standard_exclude_directories = [
-    '.*', 'CVS', '_darcs', './build', './dist', 'EGG-INFO', '*.egg-info', 'testproject', '*.egg'
+    '.*', 'CVS', '_darcs', './build', './dist', 'EGG-INFO', '*.egg-info', 'testproject', '*.egg',
+    './realestate/static/bower_components'
 ]
 
 
