@@ -1,6 +1,5 @@
 import os
 
-
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -111,7 +110,6 @@ INSTALLED_APPS = (
     'haystack',
     'constance',
     'django_extensions',
-    'south',
     'sorl.thumbnail',
     'rest_framework',
     'rest_framework.authtoken',
@@ -176,8 +174,6 @@ REST_FRAMEWORK = {
 CURRENCIES = ('USD', 'EUR', 'CNY', 'DOP',)
 
 # Test Settings
-SKIP_SOUTH_TESTS = True
-SOUTH_TESTS_MIGRATE = False
 TEST_RUNNER = 'discoverage.DiscoverageRunner'
 
 HAYSTACK_CONNECTIONS = {
@@ -195,6 +191,17 @@ if 'test' in sys.argv:
     PASSWORD_HASHERS = (
         'django.contrib.auth.hashers.MD5PasswordHasher',
     )
+
+    # See this https://gist.github.com/NotSqrt/5f3c76cd15e40ef62d09
+    class DisableMigrations(object):
+        def __contains__(self, item):
+            return True
+
+        def __getitem__(self, item):
+            return "notmigrations"
+
+
+    MIGRATION_MODULES = DisableMigrations()
 
 try:
     from settings_local import *
