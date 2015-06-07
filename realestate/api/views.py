@@ -12,6 +12,7 @@ class PaginationMixin(object):
 class ListingViewSet(PaginationMixin, viewsets.ReadOnlyModelViewSet):
     model = Listing
     serializer_class = ListingSerializer
+    queryset = Listing.objects.none()
 
     def get_queryset(self):
         queryset = Listing.objects.active()
