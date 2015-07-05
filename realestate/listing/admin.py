@@ -1,13 +1,17 @@
 from django.forms import ValidationError
 from django.forms.models import ModelForm
-from realestate.listing.models import ListingImage, AttributeListing, Listing
 from django.contrib import admin
 from sorl.thumbnail import get_thumbnail
+
 from sorl.thumbnail.admin import AdminImageMixin
+
+from django.utils.translation import ugettext as _
+
+from realestate.listing.models import ListingImage, AttributeListing, Listing, Location, Agent, \
+    Deal, Attribute
 from realestate.listing.templatetags.extra_functions import currency
 from realestate.listing.utils import validate_attribute_value, \
-    copy_model_instance
-from django.utils.translation import ugettext as _
+    copy_model_instance, import_validator
 
 
 class ImageAdmin(admin.ModelAdmin):
@@ -59,19 +63,19 @@ class ListingAdmin(admin.ModelAdmin):
     change_form_template = "admin/realestate/listing/change_form.html"
     fieldsets = [
         (_(u'Listing Description'),
-            {
-                'fields': [
-                    'title', 'description', 'price', ('baths', 'beds', 'size'),
-                    'location', 'type', 'offer', 'active', 'featured',
-                ]
-            }
+         {
+             'fields': [
+                 'title', 'description', 'price', ('baths', 'beds', 'size'),
+                 'location', 'type', 'offer', 'active', 'featured',
+             ]
+         }
          ),
         (_('Contact Info'),
-            {
-                'fields': [
-                    'agent', 'contact', 'notes', 'coords',
-                ]
-            }
+         {
+             'fields': [
+                 'agent', 'contact', 'notes', 'coords',
+             ]
+         }
          )
     ]
 
@@ -122,5 +126,46 @@ class ListingAdmin(admin.ModelAdmin):
         js = ('js/admin/propiedades.js',)
 
 
+class DealsAdmin(admin.ModelAdmin):
+    list_display = ('listing', 'active', 'price', 'start_date', 'end_date')
+
+
+class AgentAdmin(AdminImageMixin, admin.ModelAdmin):
+    list_display = ('name', 'email', 'phone', 'mobile', 'photo',)
+
+    def photo(self, obj):
+        imageobj = obj.image
+        if imageobj:
+            image = get_thumbnail(imageobj, '133x100', quality=99)
+            return '<img src="%s" />' % image.url
+        else:
+            return _(u'Please, add an image')
+
+    photo.short_description = _(u'Image')
+    photo.allow_tags = True
+
+
+class AtributosForm(ModelForm):
+    def clean_validation(self):
+        validation = self.cleaned_data['validation']
+        try:
+            import_validator(validation)
+        except ImportError:
+            raise ValidationError(_("Invalid validation function specifed!"))
+        return validation
+
+
+class AttributesAdmin(admin.ModelAdmin):
+    form = AtributosForm
+
+
+class LocationAdmin(admin.ModelAdmin):
+    list_display = ('name', 'parent', 'location_type')
+
+
 admin.site.register(Listing, ListingAdmin)
 admin.site.register(ListingImage, ImageAdmin)
+admin.site.register(Location, LocationAdmin)
+admin.site.register(Agent, AgentAdmin)
+admin.site.register(Deal, DealsAdmin)
+admin.site.register(Attribute, AttributesAdmin)
