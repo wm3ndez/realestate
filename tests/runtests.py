@@ -5,7 +5,6 @@ import sys
 import django
 from django.conf import settings
 
-
 DEFAULT_SETTINGS = dict(
     INSTALLED_APPS=[
         'django.contrib.auth',
@@ -40,7 +39,7 @@ DEFAULT_SETTINGS = dict(
         'RECENTLY_ADDED': (6, 'Recently Added'),
         'CONTACT_DEFAULT_EMAIL': ('email@example.com', 'Contact form email')
     },
-    CONSTANCE_CONNECTION_CLASS='tests.redis_mockup.Connection',
+    CONSTANCE_REDIS_CONNECTION_CLASS='tests.redis_mockup.Connection',
     EMAIL_BACKEND='django.core.mail.backends.console.EmailBackend',
     ROOT_URLCONF='realestate.urls',
     TEMPLATE_DIRS=(os.path.abspath(os.path.join(os.path.dirname(__file__), '../realestate/templates')), ),
@@ -51,7 +50,12 @@ DEFAULT_SETTINGS = dict(
             'URL': 'http://127.0.0.1:9200/',
             'INDEX_NAME': 'realestate',
         },
-    }
+    },
+    MIDDLEWARE_CLASSES=[
+        'django.contrib.sessions.middleware.SessionMiddleware',
+        'django.contrib.auth.middleware.AuthenticationMiddleware',
+        'django.contrib.messages.middleware.MessageMiddleware'
+    ]
 )
 
 
@@ -59,9 +63,7 @@ def runtests(*test_args):
     if not settings.configured:
         settings.configure(**DEFAULT_SETTINGS)
 
-    # Compatibility with Django 1.7's stricter initialization
-    if hasattr(django, 'setup'):
-        django.setup()
+    django.setup()
 
     parent = os.path.dirname(os.path.abspath(__file__))
     sys.path.insert(0, parent)
