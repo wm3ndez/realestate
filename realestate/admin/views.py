@@ -1,7 +1,7 @@
 from django.core.files.storage import default_storage
 from braces.views import StaffuserRequiredMixin, LoginRequiredMixin, OrderableListMixin, SuperuserRequiredMixin
 from django.contrib.auth.models import User
-from django.contrib.formtools.wizard.views import NamedUrlSessionWizardView
+from formtools.wizard.views import NamedUrlSessionWizardView
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.db import transaction
 from django.views.generic import TemplateView, CreateView, ListView, UpdateView, FormView, DeleteView

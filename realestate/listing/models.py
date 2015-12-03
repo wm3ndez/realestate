@@ -328,7 +328,7 @@ class ListingImage(models.Model):
     name = models.CharField(_('Name'), max_length=60)
     image = ImageField(_('Image'), upload_to='listing/')
     added = models.DateTimeField(_('Added'), auto_now_add=True)
-    order = models.IntegerField(_('Order'), max_length=2, default=99, null=True)
+    order = models.PositiveSmallIntegerField(_('Order'), default=99, null=True)
 
     ordering = ['order']
 

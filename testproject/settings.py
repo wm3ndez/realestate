@@ -89,14 +89,12 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.comments',
     'django.contrib.sessions',
     'django.contrib.sitemaps',
     'django.contrib.messages',
     'django.contrib.sites',
     'django.contrib.humanize',
     'django.contrib.staticfiles',
-    'django.contrib.formtools',
 
     # Realestate App
     'realestate',
@@ -113,7 +111,6 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
     'rest_framework',
     'rest_framework.authtoken',
-    'discoverage',
     'widget_tweaks',
 )
 
@@ -173,8 +170,6 @@ REST_FRAMEWORK = {
 
 CURRENCIES = ('USD', 'EUR', 'CNY', 'DOP',)
 
-# Test Settings
-TEST_RUNNER = 'discoverage.DiscoverageRunner'
 
 HAYSTACK_CONNECTIONS = {
     'default': {

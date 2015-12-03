@@ -19,13 +19,14 @@ class SiteFactory(factory.Factory):
     name = 'Real Estate'
 
 
-class UserFactory(factory.Factory):
+class UserFactory(factory.DjangoModelFactory):
     class Meta:
         model = User
 
     first_name = 'Agent'
     last_name = '007'
     email = factory.LazyAttribute(lambda a: '{0}.{1}@example.com'.format(a.first_name, a.last_name).lower())
+    username = factory.Sequence(lambda n: 'person{0}'.format(n))
 
 
 class AgentFactory(factory.django.DjangoModelFactory):
@@ -34,7 +35,7 @@ class AgentFactory(factory.django.DjangoModelFactory):
 
     first_name = 'Agent'
     last_name = '007'
-    email = 'test@example.com'
+    email = factory.Sequence(lambda n: 'person{0}@example.com'.format(n))
     user = factory.SubFactory(UserFactory)
 
 

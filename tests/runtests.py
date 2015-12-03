@@ -63,21 +63,18 @@ def runtests(*test_args):
     if not settings.configured:
         settings.configure(**DEFAULT_SETTINGS)
 
-    django.setup()
-
     parent = os.path.dirname(os.path.abspath(__file__))
+    parent = os.path.join(parent, '../')
     sys.path.insert(0, parent)
 
-    try:
-        from django.test.runner import DiscoverRunner
+    django.setup()
 
-        runner_class = DiscoverRunner
-        test_args = ['realestate']
-    except ImportError:
-        from django.test.simple import DjangoTestSuiteRunner
+    print(parent)
 
-        runner_class = DjangoTestSuiteRunner
-        test_args = ['tests']
+    from django.test.runner import DiscoverRunner
+
+    runner_class = DiscoverRunner
+    test_args = ['realestate']
 
     failures = runner_class(verbosity=1, interactive=True, failfast=False).run_tests(test_args)
     sys.exit(failures)
