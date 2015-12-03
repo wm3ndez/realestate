@@ -7,7 +7,7 @@ env:
   - TOX_ENV=py34
 
 install:
-  - pip install --user -r deploy/requirements.txt
+  - pip install -r deploy/requirements.txt
   - pip install tox
   - pip install coveralls
   - pip install coverage
