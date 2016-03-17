@@ -17,7 +17,7 @@ class ListingViewSet(PaginationMixin, viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         queryset = Listing.objects.active()
 
-        last_modified = self.request.QUERY_PARAMS.get('modified_from')
+        last_modified = self.request.query_params.get('modified_from')
         if last_modified is not None:
             queryset = queryset.filter(last_modified__gt=last_modified)
 
