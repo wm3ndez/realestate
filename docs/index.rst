@@ -8,7 +8,7 @@ Install **django-realestate** with ``pip install -e git+https://github.com/wm3nd
 Usage
 -----
 
-Add the need apps to INSTALLED_APPS::
+Add dependencies to INSTALLED_APPS::
 
 
         INSTALLED_APPS =(
@@ -34,9 +34,9 @@ Add the url patterns::
 Configure Constance::
 
         CONSTANCE_CONFIG = {
-            'PROPERTIES_PER_PAGE': (16, _('Properties per page')),
-            'RECENTLY_ADDED': (6, _('Recently Added')),
-            'CONTACT_DEFAULT_EMAIL': (ADMINS[0][0], _('Contact form email'))
+            'PROPERTIES_PER_PAGE': (16, 'Properties per page'),
+            'RECENTLY_ADDED': (6, 'Recently Added'),
+            'CONTACT_DEFAULT_EMAIL': ('contact@example.com', 'Contact form email')
 
         }
 
@@ -64,6 +64,16 @@ Elasticsearch::
                         'INDEX_NAME': 'realestate',
                 },
         }
+
+
+You might use a simpler configuration for development::
+
+        HAYSTACK_CONNECTIONS = {
+            'default': {
+            'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+            },
+        }
+
 
 For more info you can look at Haystack documentation:
 http://django-haystack.readthedocs.org/en/latest/tutorial.html#modify-your-settings-py

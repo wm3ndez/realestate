@@ -123,7 +123,7 @@ setup(
         'Framework :: Django'
     ],
     install_requires=[
-        'Django>=1.7,<1.8',
+        'Django>=1.7,<1.9',
         'Pillow',
         'django-extensions',
         'six',
