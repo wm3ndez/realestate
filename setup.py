@@ -131,6 +131,7 @@ setup(
         'djangorestframework',
         'django-braces',
         'django-money',
+        'django-formtools',
         'redis',
         'django-constance',
         'factory_boy',
