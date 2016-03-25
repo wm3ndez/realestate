@@ -123,7 +123,7 @@ setup(
         'Framework :: Django'
     ],
     install_requires=[
-        'Django>=1.7,<1.9',
+        'Django>=1.7',
         'Pillow',
         'django-extensions',
         'six',
@@ -138,6 +138,7 @@ setup(
         'django-widget-tweaks',
         'django-haystack',
         'elasticsearch',
+        'django-filter'
     ],
     test_suite='tests.runtests.runtests',
 )

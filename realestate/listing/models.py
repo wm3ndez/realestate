@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
-from django.core.urlresolvers import reverse
-from django.template.defaultfilters import slugify
-from django.db import models
-from django.utils import timezone
-from djmoney.models.fields import MoneyField
-from moneyed import USD, Money
-
-from django.contrib.auth.models import User
 import os
 import re
-from sorl.thumbnail import ImageField
+from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
+from django.db import models
+from django.template.defaultfilters import slugify
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from djmoney.models.fields import MoneyField
+from moneyed import USD, Money
 from realestate.home.models import Contact
+from sorl.thumbnail import ImageField
 
 TYPES = (
     ('house', _('Houses')),
@@ -302,7 +301,7 @@ class Attribute(models.Model):
         verbose_name_plural = _('Attributes')
 
     def __unicode__(self):
-        return self.name
+        return self.__str__()
 
     def __str__(self):
         return self.name
