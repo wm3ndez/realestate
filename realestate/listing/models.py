@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from decimal import Decimal
+
 import os
 import re
 from django.contrib.auth.models import User
@@ -228,14 +230,14 @@ class Listing(models.Model):
         for attribute in self.attributelisting_set.all():
             attribute_name = _(attribute.attribute.name)
             if attribute.attribute.validation == 'realestate.listing.utils.validation_simple':
-                attributes.append('%s: %s' % (attribute_name, attribute.value))
+                attributes.append('{0}: {1}'.format(attribute_name, attribute.value))
             elif attribute.attribute.validation == 'realestate.listing.utils.validation_yesno':
                 attributes.append(attribute_name)
             else:
                 if attribute.attribute.validation == 'realestate.listing.utils.validation_integer':
-                    attributes.append('%s %s' % (attribute.value, attribute_name))
+                    attributes.append('{0} {1}'.format(attribute.value, attribute_name))
                 else:
-                    attributes.append('%.2f %s' % (attribute.value, attribute_name))
+                    attributes.append('{0:.2f} {1}'.format(Decimal(attribute.value), attribute_name))
 
         return attributes
 

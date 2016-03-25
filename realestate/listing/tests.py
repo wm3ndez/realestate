@@ -1,9 +1,10 @@
 from decimal import Decimal
-from django.contrib.sites.models import Site
+
+import factory
 from django.contrib.auth.models import User
+from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 from django.test import TestCase
-import factory
 from realestate.listing.forms import ContactForm, ListingContactForm
 from realestate.listing.models import Listing, Agent, Attribute, Location, AttributeListing
 from realestate.listing.templatetags.extra_functions import currency
@@ -65,7 +66,7 @@ class ListingFactory(factory.django.DjangoModelFactory):
     location = factory.SubFactory(LocationFactory)
 
 
-class AttributeFactory(factory.Factory):
+class AttributeFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Attribute
 
@@ -73,7 +74,7 @@ class AttributeFactory(factory.Factory):
     validation = 'realestate.listing.utils.validation_simple'
 
 
-class AttributeListingFactory(factory.Factory):
+class AttributeListingFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = AttributeListing
 
@@ -189,7 +190,6 @@ class UtilsTests(TestCase):
         self.assertRaises(ImportError, lambda: import_validator('fake'))
         self.assertRaises(ImportError, lambda: import_validator(None))
 
-
     def test_validate_attribute_value(self):
         listing = ListingFactory()
         attribute = AttributeFactory.build()
@@ -213,10 +213,22 @@ class ModelTests(TestCase):
         self.assertEqual(0, self.listing.nearby.count())
         self.assertEqual(0, len(self.listing.image_list))
         self.assertFalse(self.listing.on_sale)
+        self.assertIsNotNone(self.listing.code)
+        self.assertIsNone(self.listing.main_image)
 
     def test_attribute_listing(self):
         attributelisting = AttributeListingFactory.create()
         self.assertEqual("A New House", attributelisting.listing.title)
+
+        AttributeListingFactory.create(listing=attributelisting.listing,
+                                       attribute__validation='realestate.listing.utils.validation_yesno')
+        AttributeListingFactory.create(listing=attributelisting.listing, value=1,
+                                       attribute__validation='realestate.listing.utils.validation_integer')
+        AttributeListingFactory.create(listing=attributelisting.listing, value=10.0,
+                                       attribute__validation='realestate.listing.utils.validation_decimal')
+
+        features = attributelisting.listing.get_features()
+        self.assertEqual(4, len(features))
 
     def test_location(self):
         self.assertEqual(0, Location.objects.streets().count())
