@@ -34,9 +34,6 @@ urlpatterns = patterns(
     # Sitemaps
     (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': {'blog': sitemap.ListingSitemap}}),
 
-    # Django apps
-    (r'^dashboard/', include('realestate.admin.urls')),  # Custom Admin Site
-
     url(r'^accounts/login/$', 'django.contrib.auth.views.login', name='login'),
     url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', name="logout"),
     (r'^admin/', include(admin.site.urls)),  # Enabling Admin
