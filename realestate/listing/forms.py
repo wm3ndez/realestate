@@ -16,13 +16,13 @@ class ListingContactForm(forms.Form):
     def clean(self):
         cleaned_data = super(ListingContactForm, self).clean()
         if not cleaned_data.get('message'):
-            raise forms.ValidationError('El mensaje no puede estar en blanco.')
+            raise forms.ValidationError(_('Validating form error!'))
         return cleaned_data
 
     def send_contact_form(self, listing):
         subject = '%s %s' % (_('Customer interested in:'), listing.title)
-        # TODO: Translate
-        message = "El cliente %s esta interesado en esta listing y le ha dejado el siguiente mensaje:\n\n%s\n\nTelefono: %s" % (
+        # TODO @stregoica: Translate
+        message = _("Client %s write you:\n\n%s\n\n Telephone - tel:%s") % (
             self.cleaned_data.get('name'), self.cleaned_data.get('message'), self.cleaned_data.get('phone'))
         _from = settings.DEFAULT_FROM_EMAIL
         to = [listing.agent.email, ]
