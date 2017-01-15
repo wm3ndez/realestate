@@ -1,74 +1,129 @@
 {% load i18n static %}
 
-<div class="row">
-    <div class="col-md-4 logo">
-        <a href="/">
-            <div class="row">
-                <div class="col-md-3">
-                    <img src="" alt=""/>
-                </div>
+<div class="row header">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <nav id="top-line" class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="col-md-3 col-xs-6">
+                <a href="{% url 'index' %}">
+                    <img src="{% static 'img/logo.svg' %}" class="img-responsive"
+                         alt="{% trans "Агенство Нерухомості Добробут" %}">
+                </a>
             </div>
-        </a>
-    </div>
-    <div class="col-md-4 customer_service pull-right text-right">
-        <br/>
-        <h4>{% trans "Contact Us" %}: 000-000-0000</h4>
-        <h4>
-            <small>24/7</small>
-        </h4>
-    </div>
+            <div id="contacts" class="col-md-9 col-xs-6">
+                <div class="row">
+                    <div class="col-md-3 col-xs-12">
+                        <div><a href="tel:380674029585">0674029585</a></div>
+                        <div><a href="tel:380442090896">0442090896</a></div>
+                    </div>
+                    <div class="hidden-xs col-md-3">
+                        <div><span class="ti-email"></span><a
+                                href="mailto:0674029585p@gmail.com">0674029585p@gmail.com</a>
+                        </div>
+                        <div><span class="ti-skype"></span><a href="skype:pan_dobrobyt">pan_dobrobyt</a>
+                        </div>
+                    </div>
+                    <div class="hidden-xs col-md-3">
+                        <div class="socials-box">
+                            <a href="#" target="_blank">
+                                <i class="fa fa-facebook"> &nbsp; </i>
+                            </a>
+                            <a href="http://plus.google.com/#" target="_blank">
+                                <i class="fa fa-google-plus"> &nbsp; </i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="hidden-sm hidden-xs col-md-3">
+                        <div id="currency" class="pull-right">
+                            <ul>
+                                <li>1 USD = 25.5 UAH</li>
+                                <li>1 EUR = 28 UAH</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </nav>
 </div>
 
-<div class="row"><!-- start nav -->
-    <div class="col-md-12">
-        <nav class="navbar navbar-default" role="navigation">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse"
-                            data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">{% trans "Toggle navigation" %}</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/">Real Estate</a>
-                </div>
+<div class="row menu">
+    <nav id="bottom-line" role="navigation" class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header visible-xs visible-sm">
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        data-target="#main-menu">
+                    <span class="sr-only"><i class="fa fa-menu"></i> {% trans "Toggle navigation" %}</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/"> <i class="fa fa-menu"></i> </a>
+            </div>
 
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="collapse navbar-collapse" id="main-menu">
+                <div class="col-md-6">
                     <ul class="nav navbar-nav">
-                        <li><a href="/" class="first">{% trans "Home" %}</a></li>
-                        <li><a href="{% url 'properties_for_sale' %}">{% trans "For Sale" %}</a></li>
-                        <li><a href="{% url 'properties_for_rent' %}">{% trans "For Rent" %}</a></li>
+                        <!--  // BUY -->
+
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                {% trans "Listings" %} <b class="caret"></b>
+                            <a href="{% url 'properties_for_sale' %}" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">{% trans "For Sale" %}
                             </a>
                             <ul class="dropdown-menu">
-                                <li>
-                                    <a href="{% url 'all_properties' %}"> {% trans "Listings" %} </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                {% trans "Other pages" %} <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a href="{% url 'home_contact' %}">{% trans "Contact" %}</a></li>
+                                <li><a href="{% url 'properties_for_sale' 'apartment' %}">{% trans "Apartments" %}</a></li>
+                                <li><a href="{% url 'properties_for_sale' 'house' %}">{% trans "Houses" %}</a></li>
+                                <li><a href="{% url 'properties_for_sale' 'office' %}">{% trans "Offices" %}</a></li>
                             </ul>
                         </li>
 
+                        {# RENT#}
+
+                        <li class="dropdown">
+                            <a href="{% url 'properties_for_rent' %}" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">{% trans "For Rent" %}</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{% url 'properties_for_rent' 'apartamento' %}">{% trans "Apartments" %}</a></li>
+                                <li><a href="{% url 'properties_for_rent' 'casa' %}">{% trans "Houses" %}</a></li>
+                                <li><a href="{% url 'properties_for_rent' 'local' %}">{% trans "Offices" %}</a></li>
+                            </ul>
+                        </li>
+
+                        {# // COMMERCIAL#}
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">{% trans "Commercial" %}</a>
+                            <ul class="dropdown-menu">
+{#                                    TODO: Create urls #}
+{#                                <li><a href="{% url 'buy_commercial' %}">Купить</a></li>#}
+{#                                <li><a href="{% url 'rent_commercial' %}">Орендувати</a></li>#}
+                            </ul>
+                        </li>
+
+                        <li><a href="#cooperation">{% trans "For Customers" %}</a></li>
                     </ul>
-                    <form class="navbar-form navbar-right" role="search" action="{% url 'haystack_search' %}">
+                </div>
+                <div class="col-md-3">
+                    <ul class="nav navbar-nav navbar-left">
+                        <li><a href="#about">{% trans "About" %}</a></li>
+                        <li><a href="#articles">{% trans "Blog" %}</a></li>
+                        <li><a href="{% url 'home_contact' %}">{% trans "Contact" %}</a></li>
+                    </ul>
+                </div>
+{#                <div class="col-md-3">#}
+                     <form class="navbar-form navbar-right" role="search" action="{% url 'haystack_search' %}">
                         <div class="form-group">
                             <input id="id_q" name="q" type="search" class="form-control"
-                                   placeholder="{% trans "Search" %}">
+                                   placeholder="{% trans "Search" %}"/>
                         </div>
-                        <button type="submit" class="btn btn-default">{% trans "Search" %}</button>
+                        <button type="submit" class="btn btn-default btn-flat"> <i class="fa fa-search"></i></button>
                     </form>
-                </div>
-            </div>
-        </nav>
-    </div>
+{#                </div>#}
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
 </div>
+
