@@ -37,7 +37,7 @@ urlpatterns = patterns(
     url(r'^accounts/login/$', 'django.contrib.auth.views.login', name='login'),
     url(r'^accounts/logout/$', 'django.contrib.auth.views.logout', name="logout"),
     (r'^admin/', include(admin.site.urls)),  # Enabling Admin
-    (r'^i18n/', include('django.conf.urls.i18n')),
+    # (r'^i18n/', include('django.conf.urls.i18n')),
 
     # RSS Feed
     url(r'^rss/$', ListingFeed(), name="rss-feed"),

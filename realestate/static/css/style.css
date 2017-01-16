@@ -90,6 +90,7 @@ nav#bottom-line.navbar.navbar-default {
 
 #currency ul{
     list-style: none;
+    padding-left: 0;
 }
 
 .socials-box {
