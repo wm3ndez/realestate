@@ -1,159 +1,150 @@
 {% extends 'base_theme.html' %}
-{% load extra_functions thumbnail i18n %}
-{% block title %}{{ listing.title }} | WILLIAMSMENDEZ.COM{% endblock %}
+{% load extra_functions thumbnail i18n static%}
+{% block title %}{{ listing.title }} {% endblock %}
+{% block extra_css %}
+   <link href="{% static 'css/product-cart.css"' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
 {% block content %}
 
-    <div class="modal hide" id="mapModal">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">{% trans "Close" %}</button>
-        </div>
-        <div class="modal-body">
-            <iframe width="620" height="414"
-                    src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q={{ listing.coordenadas }}&amp;aq=&amp;sll={{ listing.coordenadas }}&amp;sspn={{ listing.coordenadas }}&amp;ie=UTF8&amp;t=m&amp;ll={{ listing.coordenadas }}&amp;spn={{ listing.coordenadas }}&amp;z=14&amp;output=embed"></iframe>
-        </div>
-    </div>
-    <div class="modal hide" id="streetModal">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">{% trans "Close" %}</button>
-        </div>
-    </div>
 
+    {#ToDO @osadchuk: breadcrumbs#}
 
-    <div class="row">
-
-        <div class="col-md-9">
-            <div class="row">
-                <div class="col-md-8">
-                    <h3>{{ listing.title }}</h3>
-                    <h6>{{ listing.get_address }}</h6>
-                </div>
-                <div class="col-md-4 text-right">
-                    <h2>{{ listing.price|currency }}</h2>
-                </div>
-            </div>
-
-            <div class="row">
-                <br/>
-
-                <div class="col-md-12">
-                    <!-- Start slideshow-carousel -->
-                    <div id="showcase-loader"></div>
-                    <div id="showcase" class="showcase">
-                        {% for imagen in listing.images.all %}
-                            {% thumbnail imagen.image "620x410" crop="center" as bigimage %}
-                                {% thumbnail imagen.image "116x90" crop="center" as thumb %}
-
-                                    <div class="showcase-slide">
-                                        <div class="showcase-content">
-                                            <img src="{{ bigimage.url }}" alt="{{ bigimage.title }}"/>
-                                        </div>
-                                        <div class="showcase-thumbnail">
-                                            <img src="{{ thumb.url }}" alt="{{ thumb.title }}"/>
-
-                                            <div class="showcase-thumbnail-cover"></div>
-                                        </div>
-                                    </div>
-                                {% endthumbnail %}
-                            {% endthumbnail %}
-                        {% endfor %}
+    <div class="card">
+        <div class="container-fliud">
+            <div class="wrapper row">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h1>
+                            <badge>{{ listing.id }}</badge>
+                            {{ listing.title }}
+                        </h1>
                     </div>
-                    <!-- // end of slideshow-carousel -->
-
+                    <div class="col-md-4 text-right">
+                        <h2>{{ listing.price|currency }}</h2>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <br/>
 
-                <div class="col-md-12">
-                    <h4>Características</h4>
+                <div class="row">
+                    <div class="col-md-8 col-sm-6">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#images">{% trans "Photos" %}</a></li>
+                            <li><a data-toggle="tab" href="#technical-docs">{% trans "Technical documentation" %}</a>
+                            </li>
+                            <li><a data-toggle="tab" href="#description">{% trans "Description" %}</a></li>
+                            <li><a data-toggle="tab" href="#google-map">{% trans "See on map!" %}</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="images" class="tab-pane fade in active">
+                                <div class="preview">
+                                    <div class="preview-pic tab-content">
+                                        {% for imagen in listing.images.all %}
+                                            {% thumbnail imagen.image "620x410" crop="center" as bigimage %}
+                                                <div class="tab-pane {% if imagen.order == 1 %} active {% endif %}" id="pic-{{ imagen.id }}">
+                                                    <img src="{{ bigimage.url }}" alt="{{ bigimage.title }}"/>
+                                                </div>
+                                            {% endthumbnail %}
+                                        {% endfor %}
+                                    </div>
+                                    <ul class="preview-thumbnail nav nav-tabs">
+                                         {% for imagen in listing.images.all %}
+                                             {% thumbnail imagen.image "116x90" crop="center" as thumb %}
+                                                <li class="{% if imagen.order == 1 %} active {% endif %}">
+                                                    <a data-target="#pic-{{ imagen.id }}" data-toggle="tab">
+                                                        <img src="{{ thumb.url }}"/>
+                                                    </a>
+                                                </li>
+                                             {% endthumbnail %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
 
-                    <div class="row">
+                            </div>
+                            <div id="technical-docs" class="tab-pane fade">
+                                <h3>{% trans "If this offer need to review technical documentation, we pin it there..." %}</h3>
+                                {# TODO: need to user story for development #}
+                            </div>
+                            <div id="description" class="tab-pane fade">
+                                <h3>Description</h3>
+                                <p class="product-description"> {{ listing.description }}</p>
+                            </div>
+                            <div id="google-map" class="tab-pane fade">
+                                <h3>We are here:</h3>
+                                   <iframe width="620" height="414"
+                                  src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q={{ listing.coordenadas }}&amp;aq=&amp;sll={{ listing.coordenadas }}&amp;sspn={{ listing.coordenadas }}&amp;ie=UTF8&amp;t=m&amp;ll={{ listing.coordenadas }}&amp;spn={{ listing.coordenadas }}&amp;z=14&amp;output=embed"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
                         <ul>
                             {% for feature in listing.get_features %}
                                 <li>{{ feature }}</li>
                             {% endfor %}
                         </ul>
                     </div>
-
-                    <h4>{% trans "Description" %}</h4>
-
-                    <p>{{ listing.description }}</p>
-                    <br/>
-
-                    <h4>{% trans "More properties on this area" %}</h4>
-                    <ul class="thumbnails">
-                        {% for en_area in listing.nearby %}
-                            <li class="col-md-3 list-group-item">
-                                <a href="{{ en_area.absolute_url }}">
-                                    {% thumbnail en_area.main_image.image "130x87" crop="center" as image %}
-                                        <img src="{{ image.url }}" alt="{{ en_area.title }}">
-                                    {% endthumbnail %}
-                                </a>
-                                <h5>Precio : {{ en_area.price|currency }}</h5>
-
-                                <p><a href="{{ en_area.absolute_url }}">{{ en_area.title }}</a><br/>
-                                    {{ en_area.address }}
-                                </p>
-                            </li>
-                        {% empty %}
-                            {% trans "0 properties near by." %}
-                        {% endfor %}
-                    </ul>
                 </div>
-            </div>
-
-        </div>
-        <div class="col-md-3 pull-right" id="portamento_container">
-            <div id="property_map" class="center">
-                <a href="#mapModal">
-                    <img src="http://maps.google.com/staticmap?center={{ listing.coordenadas }}&amp;zoom=14&amp;size=250x250&amp;maptype=mobile&amp;markers={{ listing.coordenadas }},red&amp;key=ABQIAAAAqQJ-gFBKUbBLaFN1HQF4KBQ_k2Fxd8XZtbWUsvz5Vrarxzf2SRSh7DRXLQmAZ-6XwtrmMhkINGT27A&amp;sensor=false"
-                         alt=""/>
-                </a>
-
-                <p>
-                    <br/>
-                    <a data-toggle="modal" href="#mapModal">{% trans "Zoom in Map" %}</a><br/>
-                </p>
-                <hr/>
-            </div>
-            <div id="contact_agent" class="center">
-
-                <a href="#">
-                    {% thumbnail listing.agent.image "108x108" crop="center" as imagen_agente %}
-                        <img src="{{ imagen_agente.url }}" alt="{{ listing.agent }}"/>
-                    {% endthumbnail %}
-                </a>
-
-                <p>{{ listing.agent }}<br/>
-                    {{ listing.agent.user.email }}
-                    {% if listing.agent.phone %}<br/>{% trans "Phone" %}. {{ listing.agente.telefono }}{% endif %}
-                    {% if listing.agent.cellphone %}<br/>{% trans "Mobile" %}. {{ listing.agent.cellphone }}{% endif %}
-                </p>
-
-                <h4>{% trans "Contact agent" %}</h4>
-
-                <form class="form-inline" method="post" action="">
-                    {% csrf_token %}
-                    <fieldset>
-                        {% for field in form %}
-                            <div class="form-group{% if field.errors %} error{% endif %}">
-                                <div class="controls">
-                                    {{ field.name }}: {{ field }}
-                                    {% if field.errors %}
-                                        <span class="help-inline">{{ field.errors }}</span>
-                                    {% endif %}
-                                </div>
-                            </div>
-
-                        {% endfor %}
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-primary btn-large">{% trans "Contact agent" %}</button>
-                        </div>
-                    </fieldset>
-                </form>
-
             </div>
         </div>
     </div>
+
+{#                   <h4>{% trans "More properties on this area" %}</h4>#}
+{#                    <ul class="thumbnails">#}
+{#                        {% for en_area in listing.nearby %}#}
+{#                            <li class="col-md-3 list-group-item">#}
+{#                                <a href="{{ en_area.absolute_url }}">#}
+{#                                    {% thumbnail en_area.main_image.image "130x87" crop="center" as image %}#}
+{#                                        <img src="{{ image.url }}" alt="{{ en_area.title }}">#}
+{#                                    {% endthumbnail %}#}
+{#                                </a>#}
+{#                                <h5>{% trans "Price" %} : {{ en_area.price|currency }}</h5>#}
+{##}
+{#                                <p><a href="{{ en_area.absolute_url }}">{{ en_area.title }}</a><br/>#}
+{#                                    {{ en_area.address }}#}
+{#                                </p>#}
+{#                            </li>#}
+{#                        {% empty %}#}
+{#                            {% trans "0 properties near by." %}#}
+{#                        {% endfor %}#}
+{#                    </ul>#}
+
+
+{#            <div id="contact_agent" class="center">#}
+{##}
+{#                <a href="#">#}
+{#                    {% thumbnail listing.agent.image "108x108" crop="center" as imagen_agente %}#}
+{#                        <img src="{{ imagen_agente.url }}" alt="{{ listing.agent }}"/>#}
+{#                    {% endthumbnail %}#}
+{#                </a>#}
+{##}
+{#                <p>{{ listing.agent }}<br/>#}
+{#                    {{ listing.agent.user.email }}#}
+{#                    {% if listing.agent.phone %}<br/>{% trans "Phone" %}. {{ listing.agente.telefono }}{% endif %}#}
+{#                    {% if listing.agent.cellphone %}<br/>{% trans "Mobile" %}. {{ listing.agent.cellphone }}{% endif %}#}
+{#                </p>#}
+{##}
+{#                <h4>{% trans "Contact agent" %}</h4>#}
+{##}
+{#                <form class="form-inline" method="post" action="">#}
+{#                    {% csrf_token %}#}
+{#                    <fieldset>#}
+{#                        {% for field in form %}#}
+{#                            <div class="form-group{% if field.errors %} error{% endif %}">#}
+{#                                <div class="controls">#}
+{#                                    {{ field.name }}: {{ field }}#}
+{#                                    {% if field.errors %}#}
+{#                                        <span class="help-inline">{{ field.errors }}</span>#}
+{#                                    {% endif %}#}
+{#                                </div>#}
+{#                            </div>#}
+{##}
+{#                        {% endfor %}#}
+{#                        <div class="form-actions">#}
+{#                            <button type="submit" class="btn btn-primary btn-large">{% trans "Contact agent" %}</button>#}
+{#                        </div>#}
+{#                    </fieldset>#}
+{#                </form>#}
+{##}
+{#            </div>#}
+
+
 
 {% endblock %}

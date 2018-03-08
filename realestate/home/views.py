@@ -5,6 +5,7 @@ from django.contrib.syndication.views import Feed
 from realestate.listing.models import Listing
 from realestate.listing.forms import ContactForm
 from constance import config
+from django.utils.translation import ugettext_lazy as _
 
 
 class IndexView(TemplateView):
@@ -15,7 +16,6 @@ class IndexView(TemplateView):
         recentp = Listing.objects.active().order_by('-created_at')[:config.RECENTLY_ADDED]
         context['recent'] = recentp
         return context
-
 
 class ContactView(FormView):
     template_name = 'home/contact-us.html'
@@ -28,9 +28,9 @@ class ContactView(FormView):
 
 
 class ListingFeed(Feed):
-    title = "Recent Listing Feed"
+    title = _("Recent Listing Feed")
     link = "/rss/"
-    description = "Recent Listing Feed"
+    description = _("Recent Listing Feed")
     description_template = "home/rss-item-description.html"
 
     def items(self):

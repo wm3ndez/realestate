@@ -1,0 +1,918 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Yevhenii <yevhenii.dehtiar@gmail.com>, 2016.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-01-16 01:15+0200\n"
+"PO-Revision-Date: 2017-01-17 00:29+0200\n"
+"Last-Translator: Yevhenii <yevhenii.dehtiar@gmail.com>\n"
+"Language-Team: Russian <yevhenii.dehtiar@gmail.com>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1: 2);\n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1: n%10==0 || (n%10>=5 && n%10<=9) || (n\n"
+"%100>=11 && n%100<=14)? 2: 3);\n"
+"X-Generator: Poedit 1.8.7.1\n"
+
+#: realestate/admin/forms.py:42 realestate/home/models.py:6
+#: realestate/listing/forms.py:68 realestate/listing/models.py:74
+#: realestate/listing/models.py:329
+#: realestate/templates/dashboard/agents.html:29
+#: realestate/templates/dashboard/agents.html:51
+#: realestate/templates/dashboard/cities.html:29
+#: realestate/templates/dashboard/cities.html:41
+#: realestate/templates/dashboard/contacts.html:29
+#: realestate/templates/dashboard/contacts.html:51
+#: realestate/templates/dashboard/locations.html:29
+#: realestate/templates/dashboard/locations.html:40
+#: realestate/templates/dashboard/users.html:32
+#: realestate/templates/dashboard/users.html:54
+msgid "Name"
+msgstr "Назва"
+
+#: realestate/admin/forms.py:43 realestate/listing/admin.py:27
+#: realestate/listing/admin.py:109 realestate/listing/admin.py:144
+#: realestate/listing/models.py:330
+#: realestate/templates/dashboard/create-listing-step2.html:32
+#: realestate/templates/dashboard/listings.html:62
+#: realestate/templates/dashboard/listings.html:78
+msgid "Image"
+msgstr "Зображення"
+
+#: realestate/admin/forms.py:44 realestate/admin/forms.py:50
+#: realestate/listing/models.py:316 realestate/listing/models.py:332
+msgid "Order"
+msgstr "Замовлення"
+
+#: realestate/admin/forms.py:48 realestate/listing/models.py:297
+#: realestate/listing/models.py:302
+msgid "Attribute"
+msgstr "Атрибут "
+
+#: realestate/admin/forms.py:49 realestate/listing/models.py:315
+msgid "Value"
+msgstr "Значення"
+
+#: realestate/admin/forms.py:66
+msgid "Password"
+msgstr "Пароль"
+
+#: realestate/admin/forms.py:67
+msgid "Password(again)"
+msgstr "Повтор пароля"
+
+#: realestate/admin/forms.py:75
+msgid "Passwords don't match"
+msgstr "Пароль не співпадає"
+
+#: realestate/api/authentication.py:12
+msgid "The API Key is missing"
+msgstr "Відсутній API Ключ "
+
+#: realestate/api/authentication.py:18
+msgid "The API Key is not valid"
+msgstr "Невірний API ключ\t"
+
+#: realestate/api/models.py:18 realestate/listing/models.py:149
+#: realestate/templates/dashboard/api_keys.html:26
+#: realestate/templates/dashboard/api_keys.html:38
+#: realestate/templates/home/featured.html:7
+#: realestate/templates/listing/listing.html:33
+msgid "Description"
+msgstr "Загальний опис"
+
+#: realestate/api/models.py:23
+msgid "API Key"
+msgstr "API Ключ"
+
+#: realestate/api/models.py:24 realestate/templates/dashboard/api_keys.html:4
+#: realestate/templates/dashboard/api_keys.html:11
+#: realestate/templates/dashboard/includes/sidebar.html:51
+msgid "API Keys"
+msgstr "API Ключі"
+
+#: realestate/home/models.py:7 realestate/listing/models.py:106
+#: realestate/templates/dashboard/agents.html:36
+#: realestate/templates/dashboard/agents.html:53
+#: realestate/templates/dashboard/contacts.html:36
+#: realestate/templates/dashboard/contacts.html:53
+msgid "Phone"
+msgstr "Телефон"
+
+#: realestate/home/models.py:8 realestate/listing/models.py:107
+#: realestate/templates/dashboard/agents.html:40
+#: realestate/templates/dashboard/agents.html:54
+#: realestate/templates/dashboard/contacts.html:40
+#: realestate/templates/dashboard/contacts.html:54
+msgid "Cellphone"
+msgstr "Мобільний"
+
+#: realestate/home/models.py:9 realestate/listing/forms.py:70
+msgid "Email"
+msgstr "Ел. пошта"
+
+#: realestate/home/models.py:10 realestate/templates/dashboard/contacts.html:43
+#: realestate/templates/dashboard/contacts.html:55
+msgid "Info"
+msgstr "Інформація"
+
+#: realestate/home/models.py:11
+msgid "Date Added"
+msgstr "Додано"
+
+#: realestate/home/models.py:14 realestate/templates/includes/header.html:113
+#: realestate/templates/includes/header_old.html:58
+msgid "Contact"
+msgstr "Контакт "
+
+#: realestate/home/models.py:15 realestate/templates/dashboard/contacts.html:4
+#: realestate/templates/dashboard/contacts.html:11
+#: realestate/templates/dashboard/includes/sidebar.html:41
+msgid "Contacts"
+msgstr "Контакти"
+
+#: realestate/listing/admin.py:25
+msgid "Image not Available"
+msgstr "Фото недоступне"
+
+#: realestate/listing/admin.py:29
+msgid "Image title"
+msgstr "Назва фото"
+
+#: realestate/listing/admin.py:65
+msgid "Listing Description"
+msgstr "Опис об'єкту"
+
+#: realestate/listing/admin.py:73
+msgid "Contact Info"
+msgstr "Контакти"
+
+#: realestate/listing/admin.py:94 realestate/listing/models.py:150
+#: realestate/templates/dashboard/listings.html:44
+#: realestate/templates/dashboard/listings.html:72
+#: realestate/templates/home/featured.html:9
+#: realestate/templates/home/homepage_listing.html:11
+#: realestate/templates/includes/listing-box.html:14
+msgid "Price"
+msgstr "Ціна"
+
+#: realestate/listing/admin.py:107
+#: realestate/templates/dashboard/agents.html:70
+msgid "No image"
+msgstr "Без фото"
+
+#: realestate/listing/admin.py:142
+msgid "Please, add an image"
+msgstr "Будь-ласка, додайте фото"
+
+#: realestate/listing/admin.py:154
+msgid "Invalid validation function specifed!"
+msgstr "Помилка функції валідації"
+
+#: realestate/listing/forms.py:19
+msgid "Validating form error!"
+msgstr "Помилка заповнення форми!"
+
+#: realestate/listing/forms.py:23
+msgid "Customer interested in:"
+msgstr "Клієнт зацікавлений в:"
+
+#: realestate/listing/forms.py:25
+#, python-format
+msgid ""
+"Client %s write you:\n"
+"\n"
+"%s\n"
+"\n"
+" Telephone - tel:%s"
+msgstr "Клієнт %s написав вам %s. Телефон - %s"
+
+#: realestate/listing/forms.py:64
+msgid "All"
+msgstr "Всі"
+
+#: realestate/listing/forms.py:69
+msgid "Subject"
+msgstr "Тема"
+
+#: realestate/listing/forms.py:71
+msgid "Message"
+msgstr "Повідомлення"
+
+#: realestate/listing/forms.py:88
+msgid "Contact Request"
+msgstr "Запит контактів"
+
+#: realestate/listing/forms.py:89
+msgid "Thank you for contacting us.  We will contact you as soon as possible."
+msgstr ""
+"Дякуюємо, що залишили свою заявку. Ми зв'яжемося з Вами найближчим часом!"
+
+#: realestate/listing/models.py:18 realestate/templates/includes/header.html:78
+#: realestate/templates/includes/header.html:90
+#: realestate/templates/includes/menu.html:15
+#: realestate/templates/includes/menu.html:24
+msgid "Houses"
+msgstr "Будинки"
+
+#: realestate/listing/models.py:19
+msgid "Villas"
+msgstr "Вілли"
+
+#: realestate/listing/models.py:20
+msgid "Penthouses"
+msgstr "Пентхауси"
+
+#: realestate/listing/models.py:21 realestate/templates/includes/header.html:77
+#: realestate/templates/includes/header.html:89
+#: realestate/templates/includes/menu.html:14
+#: realestate/templates/includes/menu.html:23
+msgid "Apartments"
+msgstr "Квартири"
+
+#: realestate/listing/models.py:22
+msgid "Residential Land"
+msgstr "Резиденції"
+
+#: realestate/listing/models.py:23
+msgid "Corporate Offices"
+msgstr "Корпорації"
+
+#: realestate/listing/models.py:24
+msgid "Commercial Offices"
+msgstr "Комерційні офіси"
+
+#: realestate/listing/models.py:25
+msgid "Commercial Space"
+msgstr "Комерційні площі"
+
+#: realestate/listing/models.py:26
+msgid "Industrial Buildings"
+msgstr "Індустріальні будівлі"
+
+#: realestate/listing/models.py:27
+msgid "Commercial Warehouses"
+msgstr "Склади"
+
+#: realestate/listing/models.py:28
+msgid "Commercial Land"
+msgstr "Земельні ділянки"
+
+#: realestate/listing/models.py:37
+msgid "Street"
+msgstr "Вулиця"
+
+#: realestate/listing/models.py:38
+msgid "Sector"
+msgstr "Сектор"
+
+#: realestate/listing/models.py:39
+#: realestate/templates/dashboard/locations.html:32
+#: realestate/templates/dashboard/locations.html:41
+msgid "City"
+msgstr "Місто"
+
+#: realestate/listing/models.py:40
+msgid "State/Province"
+msgstr "Область/Штат"
+
+#: realestate/listing/models.py:44 realestate/templates/includes/header.html:74
+#: realestate/templates/includes/header_old.html:41
+#: realestate/templates/includes/menu.html:12
+msgid "For Sale"
+msgstr "Продаж"
+
+#: realestate/listing/models.py:45 realestate/templates/includes/header.html:87
+#: realestate/templates/includes/header_old.html:42
+#: realestate/templates/includes/menu.html:21
+msgid "For Rent"
+msgstr "Оренда"
+
+#: realestate/listing/models.py:46
+msgid "For Sale/For Rent"
+msgstr "Продаж | Оренда"
+
+#: realestate/listing/models.py:50
+msgid "One or more characters"
+msgstr "Хоча б один символ"
+
+#: realestate/listing/models.py:51
+msgid "Integer"
+msgstr "Число"
+
+#: realestate/listing/models.py:52
+msgid "Yes/No"
+msgstr "Так/Ні"
+
+#: realestate/listing/models.py:53
+msgid "Decimal"
+msgstr "Дробове число"
+
+#: realestate/listing/models.py:72 realestate/listing/models.py:108
+#: realestate/templates/dashboard/listings.html:50
+#: realestate/templates/dashboard/listings.html:74
+#: realestate/templates/home/featured.html:8
+msgid "Location"
+msgstr "Адреса"
+
+#: realestate/listing/models.py:75
+msgid "Location Type"
+msgstr "Вид адреси"
+
+#: realestate/listing/models.py:104
+msgid "First name"
+msgstr "Ім'я"
+
+#: realestate/listing/models.py:105
+msgid "Last name"
+msgstr "Прізвище"
+
+#: realestate/listing/models.py:109
+msgid "Address"
+msgstr "Адрес"
+
+#: realestate/listing/models.py:110 realestate/listing/models.py:350
+#: realestate/templates/dashboard/agents.html:43
+#: realestate/templates/dashboard/agents.html:55
+msgid "Picture"
+msgstr "Фото"
+
+#: realestate/listing/models.py:111
+msgid "User"
+msgstr "Користувач"
+
+#: realestate/listing/models.py:112 realestate/listing/models.py:154
+#: realestate/listing/models.py:366
+msgid "Active"
+msgstr "Активне"
+
+#: realestate/listing/models.py:128 realestate/listing/models.py:161
+#: realestate/templates/dashboard/listings.html:53
+#: realestate/templates/dashboard/listings.html:75
+msgid "Agent"
+msgstr "Агент"
+
+#: realestate/listing/models.py:129
+#: realestate/templates/dashboard/agents.html:4
+#: realestate/templates/dashboard/agents.html:11
+#: realestate/templates/dashboard/includes/sidebar.html:36
+msgid "Agents"
+msgstr "Агенты"
+
+#: realestate/listing/models.py:147
+#: realestate/templates/dashboard/listings.html:38
+#: realestate/templates/dashboard/listings.html:70
+msgid "Title"
+msgstr "Заголовок"
+
+#: realestate/listing/models.py:148
+msgid "Slug"
+msgstr "Seo Url"
+
+#: realestate/listing/models.py:152
+msgid "Listing Type"
+msgstr "Тип об'єкту"
+
+#: realestate/listing/models.py:153
+msgid "Offer"
+msgstr "Предложение"
+
+#: realestate/listing/models.py:155
+#: realestate/templates/dashboard/listings.html:59
+#: realestate/templates/dashboard/listings.html:77
+msgid "Featured"
+msgstr "Рекомендуємо"
+
+#: realestate/listing/models.py:156
+msgid "Bathrooms"
+msgstr "Ванні кімнати"
+
+#: realestate/listing/models.py:157
+#: realestate/templates/includes/listing-box.html:15
+msgid "Bedrooms"
+msgstr "Спальні кімнати"
+
+#: realestate/listing/models.py:158
+msgid "Size(m2)"
+msgstr "Площа (м. кв.)"
+
+#: realestate/listing/models.py:159
+msgid "Coords"
+msgstr "Координати"
+
+#: realestate/listing/models.py:163
+msgid "Private Notes"
+msgstr "Замітки"
+
+#: realestate/listing/models.py:164
+msgid "Created"
+msgstr "Створено"
+
+#: realestate/listing/models.py:165
+msgid "Last Modified"
+msgstr "Ост. зміни"
+
+#: realestate/listing/models.py:186
+msgid "No location provided"
+msgstr "Не вказана адреса"
+
+#: realestate/listing/models.py:193 realestate/listing/models.py:328
+#: realestate/listing/models.py:364
+#: realestate/templates/dashboard/deals.html:29
+#: realestate/templates/dashboard/deals.html:48
+msgid "Listing"
+msgstr "Об'єкт нерухомості"
+
+#: realestate/listing/models.py:194
+#: realestate/templates/dashboard/includes/sidebar.html:18
+#: realestate/templates/dashboard/listings.html:21
+#: realestate/templates/includes/header_old.html:45
+#: realestate/templates/includes/header_old.html:49
+#: realestate/templates/includes/menu.html:9
+msgid "Listings"
+msgstr "Нерухомість"
+
+#: realestate/listing/models.py:298
+msgid "Value type"
+msgstr "Тип атрибута"
+
+#: realestate/listing/models.py:303
+msgid "Attributes"
+msgstr "Атрибути"
+
+#: realestate/listing/models.py:319
+msgid "Listing attribute"
+msgstr "Атрибут об'єкта"
+
+#: realestate/listing/models.py:320
+msgid "Listing attributes"
+msgstr "Список атрибутів\t"
+
+#: realestate/listing/models.py:331
+msgid "Added"
+msgstr "Додано"
+
+#: realestate/listing/models.py:351
+msgid "Pictures"
+msgstr "Фото"
+
+#: realestate/listing/models.py:365
+msgid "Sale Price"
+msgstr "Ціна продажу"
+
+#: realestate/listing/models.py:367
+msgid "Activation date"
+msgstr "Дата активації"
+
+#: realestate/listing/models.py:368
+msgid "Deactivation date"
+msgstr "Дата деактивації"
+
+#: realestate/listing/models.py:378
+msgid "Deal"
+msgstr "Сделка"
+
+#: realestate/listing/models.py:379 realestate/templates/dashboard/deals.html:4
+#: realestate/templates/dashboard/deals.html:11
+#: realestate/templates/dashboard/includes/sidebar.html:24
+#: realestate/templates/widgets/deals.html:3
+msgid "Deals"
+msgstr "Сделки"
+
+#: realestate/templates/404.html:4
+msgid "Oh oh! This page doesn't exist :(."
+msgstr "Вибачте, ця сторінка не існує :("
+
+#: realestate/templates/admin/base_site.html:7
+msgid "Real Estate Admin Site"
+msgstr "\"Добробут\" - Панель керування"
+
+#: realestate/templates/base_theme.html:18
+msgid "Recent Listing Feed"
+msgstr "Останні новини"
+
+#: realestate/templates/base_theme.html:20
+msgid "Dobrobut"
+msgstr "Добробут"
+
+#: realestate/templates/dashboard/agents.html:8
+#: realestate/templates/dashboard/api_keys.html:8
+#: realestate/templates/dashboard/cities.html:8
+#: realestate/templates/dashboard/contacts.html:8
+#: realestate/templates/dashboard/deals.html:8
+#: realestate/templates/dashboard/listings.html:17
+#: realestate/templates/dashboard/locations.html:8
+#: realestate/templates/dashboard/users.html:8
+msgid "Add New"
+msgstr "Створити"
+
+#: realestate/templates/dashboard/agents.html:26
+#: realestate/templates/dashboard/agents.html:50
+#: realestate/templates/dashboard/cities.html:26
+#: realestate/templates/dashboard/cities.html:40
+#: realestate/templates/dashboard/contacts.html:26
+#: realestate/templates/dashboard/contacts.html:50
+#: realestate/templates/dashboard/deals.html:26
+#: realestate/templates/dashboard/deals.html:47
+#: realestate/templates/dashboard/listings.html:35
+#: realestate/templates/dashboard/locations.html:26
+#: realestate/templates/dashboard/locations.html:39
+#: realestate/templates/dashboard/users.html:26
+#: realestate/templates/dashboard/users.html:52
+msgid "ID"
+msgstr "Код"
+
+#: realestate/templates/dashboard/agents.html:32
+#: realestate/templates/dashboard/agents.html:52
+#: realestate/templates/dashboard/contacts.html:32
+#: realestate/templates/dashboard/contacts.html:52
+#: realestate/templates/dashboard/users.html:35
+#: realestate/templates/dashboard/users.html:55
+msgid "E-mail"
+msgstr "Ел. Пошта"
+
+#: realestate/templates/dashboard/api_keys.html:30
+#: realestate/templates/dashboard/api_keys.html:39
+msgid "Key"
+msgstr "Ключ"
+
+#: realestate/templates/dashboard/api_keys.html:49
+msgid "Delete"
+msgstr "Видалити"
+
+#: realestate/templates/dashboard/apikey-confirm-delete.html:14
+msgid "Are you sure you want to delete"
+msgstr "Ви дійсно хочете видалити це?"
+
+#: realestate/templates/dashboard/apikey-confirm-delete.html:15
+msgid "Confirm"
+msgstr "Підтвердити"
+
+#: realestate/templates/dashboard/cities.html:4
+#: realestate/templates/dashboard/cities.html:11
+msgid "Cities"
+msgstr "Міста"
+
+#: realestate/templates/dashboard/cities.html:33
+#: realestate/templates/dashboard/cities.html:42
+msgid "Province"
+msgstr "Район "
+
+#: realestate/templates/dashboard/create-agent.html:4
+msgid "Create Agent"
+msgstr "Створити агента"
+
+#: realestate/templates/dashboard/create-agent.html:65
+#: realestate/templates/dashboard/create-apikey.html:36
+#: realestate/templates/dashboard/create-city.html:27
+#: realestate/templates/dashboard/create-contact.html:27
+#: realestate/templates/dashboard/create-deal.html:27
+#: realestate/templates/dashboard/create-listing-step1.html:137
+#: realestate/templates/dashboard/create-listing-step2.html:113
+#: realestate/templates/dashboard/create-listing-step3.html:108
+#: realestate/templates/dashboard/create-location.html:24
+#: realestate/templates/dashboard/create-user.html:24
+#: realestate/templates/dashboard/password_reset.html:25
+#: realestate/templates/dashboard/settings.html:27
+msgid "Save"
+msgstr "Зберегти"
+
+#: realestate/templates/dashboard/create-apikey.html:7
+msgid "Add API Key"
+msgstr "Додати API ключ"
+
+#: realestate/templates/dashboard/create-apikey.html:32
+msgid "Generate Key"
+msgstr "Сгенерувати ключ"
+
+#: realestate/templates/dashboard/create-city.html:7
+msgid "Create City"
+msgstr "Створити місто"
+
+#: realestate/templates/dashboard/create-contact.html:7
+msgid "Create Contact"
+msgstr "Створити контакт"
+
+#: realestate/templates/dashboard/create-deal.html:7
+msgid "Add Deal"
+msgstr "Створити пропозицію"
+
+#: realestate/templates/dashboard/create-listing-step1.html:5
+msgid "Create Listing"
+msgstr "Створити об'єкт"
+
+#: realestate/templates/dashboard/create-listing-step1.html:23
+msgid "Listing Information"
+msgstr "Інформація про об'єкт"
+
+#: realestate/templates/dashboard/create-listing-step2.html:4
+#: realestate/templates/dashboard/create-listing-step3.html:4
+msgid "Create Listing "
+msgstr "Створити об'єкт"
+
+#: realestate/templates/dashboard/create-listing-step2.html:17
+#: realestate/templates/dashboard/create-listing-step3.html:16
+msgid "add new"
+msgstr "Добавить"
+
+#: realestate/templates/dashboard/create-listing-step3.html:31
+msgid "Listing Features"
+msgstr ""
+
+#: realestate/templates/dashboard/create-location.html:4
+msgid "Create Sector"
+msgstr "Створити сектор"
+
+#: realestate/templates/dashboard/create-user.html:4
+msgid "Create User"
+msgstr "Створити користувача"
+
+#: realestate/templates/dashboard/deals.html:32
+#: realestate/templates/dashboard/deals.html:49
+msgid "New Price"
+msgstr "Нова ціна"
+
+#: realestate/templates/dashboard/deals.html:36
+#: realestate/templates/dashboard/deals.html:50
+msgid "Activation Date"
+msgstr "Дата активації"
+
+#: realestate/templates/dashboard/deals.html:40
+#: realestate/templates/dashboard/deals.html:51
+msgid "Deactivation Date"
+msgstr "Дата деактивації"
+
+#: realestate/templates/dashboard/includes/header.html:29
+msgid "Profile"
+msgstr "Профіль"
+
+#: realestate/templates/dashboard/includes/header.html:32
+msgid "Sign out"
+msgstr "Вийти"
+
+#: realestate/templates/dashboard/includes/sidebar.html:11
+msgid "Dashboard"
+msgstr "Дошка "
+
+#: realestate/templates/dashboard/includes/sidebar.html:30
+#: realestate/templates/dashboard/locations.html:4
+#: realestate/templates/dashboard/locations.html:11
+msgid "Locations"
+msgstr "Локаціїї"
+
+#: realestate/templates/dashboard/includes/sidebar.html:46
+#: realestate/templates/dashboard/users.html:4
+#: realestate/templates/dashboard/users.html:11
+msgid "Users"
+msgstr "Користувачі"
+
+#: realestate/templates/dashboard/includes/sidebar.html:56
+#: realestate/templates/dashboard/settings.html:7
+msgid "Settings"
+msgstr "Налаштування"
+
+#: realestate/templates/dashboard/listings.html:41
+#: realestate/templates/dashboard/listings.html:71
+#: realestate/templates/dashboard/listings.html:88
+msgid "Preview"
+msgstr "Подивитися"
+
+#: realestate/templates/dashboard/listings.html:47
+#: realestate/templates/dashboard/listings.html:73
+msgid "Type"
+msgstr "Тип"
+
+#: realestate/templates/dashboard/listings.html:56
+#: realestate/templates/dashboard/listings.html:76
+msgid "Status"
+msgstr "Статус"
+
+#: realestate/templates/dashboard/listings.html:104
+msgid "No Image"
+msgstr "Без фото"
+
+#: realestate/templates/dashboard/password_reset.html:4
+#: realestate/templates/dashboard/users.html:70
+msgid "Change Password"
+msgstr "Змінити пароль"
+
+#: realestate/templates/dashboard/users.html:29
+#: realestate/templates/dashboard/users.html:53
+msgid "Username"
+msgstr "Ім'я"
+
+#: realestate/templates/dashboard/users.html:39
+msgid "Group"
+msgstr "Група"
+
+#: realestate/templates/dashboard/users.html:43
+#: realestate/templates/dashboard/users.html:57
+msgid "Actions"
+msgstr "Дії"
+
+#: realestate/templates/dashboard/users.html:56
+msgid "Groups"
+msgstr "Групи"
+
+#: realestate/templates/home/contact-us.html:40
+msgid "Send"
+msgstr "Відправити"
+
+#: realestate/templates/home/featured.html:2
+msgid "Featured Properties"
+msgstr "Популярні "
+
+#: realestate/templates/home/thank-you.html:4
+msgid "Thank you!!!"
+msgstr "Дякую"
+
+#: realestate/templates/includes/footer.html:4
+msgid "To top"
+msgstr "Нагору"
+
+#: realestate/templates/includes/footer.html:7
+#: realestate/templates/includes/header_old.html:40
+#: realestate/templates/includes/menu.html:6
+msgid "Home"
+msgstr "Домашня"
+
+#: realestate/templates/includes/footer.html:8
+msgid "Contact us"
+msgstr "Зв'язатися з нами"
+
+#: realestate/templates/includes/footer.html:9
+msgid "Copyright"
+msgstr "Copyright"
+
+#: realestate/templates/includes/footer.html:9
+msgid "Real Estate Dobrobut Ukraine | All Rights Reserved."
+msgstr "Агенство нерухомості \"Добробут\""
+
+#: realestate/templates/includes/footer.html:10
+msgid "Ukraine. Kyiv"
+msgstr "Україна. м.Київ"
+
+#: realestate/templates/includes/header.html:10
+msgid "Агенство Нерухомості Добробут"
+msgstr "Агенство Нерухомості Добробут"
+
+#: realestate/templates/includes/header.html:59
+#: realestate/templates/includes/header_old.html:30
+msgid "Toggle navigation"
+msgstr "Випливаюче меню"
+
+#: realestate/templates/includes/header.html:79
+#: realestate/templates/includes/header.html:91
+#: realestate/templates/includes/menu.html:16
+#: realestate/templates/includes/menu.html:25
+msgid "Offices"
+msgstr "Офіси"
+
+#: realestate/templates/includes/header.html:98
+msgid "Commercial"
+msgstr "Комерційна"
+
+#: realestate/templates/includes/header.html:106
+msgid "For Customers"
+msgstr "Партнерам"
+
+#: realestate/templates/includes/header.html:111
+msgid "About"
+msgstr "Про нас"
+
+#: realestate/templates/includes/header.html:112
+msgid "Blog"
+msgstr "Блог"
+
+#: realestate/templates/includes/header.html:120
+#: realestate/templates/includes/header_old.html:66
+#: realestate/templates/includes/header_old.html:68
+#: realestate/templates/includes/left-col.html:4
+msgid "Search"
+msgstr "Пошук"
+
+#: realestate/templates/includes/header_old.html:15
+#: realestate/templates/includes/menu.html:30
+msgid "Contact Us"
+msgstr "Св'язатися з нами"
+
+#: realestate/templates/includes/header_old.html:55
+msgid "Other pages"
+msgstr "Інші сторінки"
+
+#: realestate/templates/includes/listing-box.html:16
+msgid "Size"
+msgstr "Розміри"
+
+#: realestate/templates/includes/listing-box.html:25
+msgid "More details"
+msgstr "Детальніше"
+
+#: realestate/templates/includes/listing-box.html:25
+msgid "pictures"
+msgstr "зображень\t"
+
+#: realestate/templates/includes/pagination.html:4
+#: realestate/templates/includes/pagination.html:6
+msgid "Previous"
+msgstr "Попередній"
+
+#: realestate/templates/includes/pagination.html:14
+#: realestate/templates/includes/pagination.html:16
+msgid "Next"
+msgstr "Наступний"
+
+#: realestate/templates/index.html:13
+msgid "Popular"
+msgstr "Популярний"
+
+#: realestate/templates/listing/listing.html:30
+msgid "Photos"
+msgstr "Фото"
+
+#: realestate/templates/listing/listing.html:31
+msgid "Technical documentation"
+msgstr "Технічна документація"
+
+#: realestate/templates/listing/listing.html:34
+msgid "See on map!"
+msgstr "Подивитися на карті"
+
+#: realestate/templates/listing/listing.html:63
+msgid ""
+"If this offer need to review technical documentation, we pin it there..."
+msgstr "Тут буде потрібна документація"
+
+#: realestate/templates/listing/rent.html:12
+msgid "Viewed"
+msgstr "Переглянуло"
+
+#: realestate/templates/listing/rent.html:13
+msgid "from"
+msgstr "з"
+
+#: realestate/templates/listing/rent.html:13
+msgid "pages"
+msgstr "сторінок"
+
+#: realestate/templates/listing/rent.html:19
+msgid "Price Ascending"
+msgstr "Дешевші - дорожчі"
+
+#: realestate/templates/listing/rent.html:22
+msgid "Price Descending"
+msgstr "Дорожчі - дешевші"
+
+#: realestate/templates/listing/rent.html:32
+#: realestate/templates/listing/sale.html:33
+msgid "0 properties to show."
+msgstr "Вибачте, такі пропозиції відсутні."
+
+#: realestate/templates/registration/login.html:24
+#: realestate/templates/registration/login.html:44
+msgid "Sign In"
+msgstr "Увійти"
+
+#: realestate/templates/widget/image.html:2
+msgid "Currently:"
+msgstr "Поточні:"
+
+#: realestate/templates/widget/image.html:4
+msgid "Change:"
+msgstr "Змінити:"
+
+#: realestate/templates/widgets/links.html:3
+msgid "Links"
+msgstr "Лінки"
+
+#: realestate/templates/widgets/links.html:9
+msgid "0 items to show."
+msgstr "Вибачте, такі пропозиції відсутні."
+
+#~ msgid "Baths"
+#~ msgstr "Ванные"
+
+#~ msgid "Beds"
+#~ msgstr "Кровати"
+
+#~ msgid "Notes"
+#~ msgstr "Заметки"
+
+#~ msgid "Close"
+#~ msgstr "Закрыть"
+
+#~ msgid "More properties on this area"
+#~ msgstr "Больше свойств для этой зоны"
+
+#~ msgid "Zoom in Map"
+#~ msgstr "Увеличить масштаб"
+
+#~ msgid "Mobile"
+#~ msgstr "Мобильный"

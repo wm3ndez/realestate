@@ -1,0 +1,134 @@
+body {
+    font-family: 'Roboto',sans-serif;
+}
+
+a {
+    color: #876852;
+    opacity:0.8;
+}
+a:hover, a:focus {
+    color: #876852;
+    opacity:1;
+}
+
+#page {
+    max-width: 1120px;
+    margin: 0 auto;
+}
+
+.nav > li > a {
+    padding: 10px 10px;
+}
+
+.navbar {
+    border:0px;
+    min-height: 42px;
+    margin-bottom: 20px;
+}
+
+#topbar-menu {
+   min-height: 120px;
+   line-height: 22px;
+}
+.header #top-line {
+    height: 60px;
+    background-color: #4a3124;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.6);
+    color: #dfb75a;
+    margin-bottom: 0;
+    padding: 5px 10px;
+    z-index: 100;
+}
+
+.header #top-line .navbar-default .navbar-nav {
+    /* Style for "Rectangle" */
+    border:none;
+}
+
+.header a {
+    color: #dfb75a;
+    letter-spacing: normal!important;
+}
+.header > div {
+    padding:5px 10px;
+}
+.menu > .navbar-default .navbar-nav {
+    text-transform: uppercase;
+    font-weight: 300;
+}
+nav#bottom-line.navbar.navbar-default {
+    background: #866853;
+    height: 42px;
+    min-height: 42px;
+    color:white;
+}
+
+.menu > .navbar-default .navbar-nav  > li > a:hover,
+.menu > .navbar-default .navbar-nav  > li > a:focus,
+.menu > .navbar-default .navbar-nav  > li.active {
+    color:#31261e;
+    background: white;
+    border-top: 4px solid #dfb75a;
+    border-radius: 4px 4px 0 0;
+    z-index: 110;
+}
+
+.menu .navbar-default .navbar-nav > li > a {
+    color:#f3f4f5;
+    border-top: 4px solid transparent;
+    padding-top: 8px;
+    padding-bottom: 12px;
+}
+
+#main-menu {
+    padding: 0;
+}
+
+#main-menu > div {
+    padding: 0;
+}
+
+#currency ul{
+    list-style: none;
+    padding-left: 0;
+}
+
+.socials-box {
+    min-height: 50px;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.socials-box > a {
+    margin:0 10px;
+    padding:2px 5px;
+    border:1px solid;
+}
+
+form > div#search {
+    max-width:200px;
+}
+
+#search input {
+    background-color: #ecd9ca;
+    border-radius: 2px;
+    color: #4a3124;
+    height: 30px;
+}
+
+button.btn.btn-default.btn-flat {
+padding: 4px 8px 4px 8px;
+font-size: 16px;
+border: none;
+background: #ecd9ca;
+box-shadow: inset 0 1px 2px rgba(0, 0, 0, .075);
+color: #876852;
+}
+
+.breadcrumb {
+    padding: 8px 10px;
+    margin-bottom: 20px;
+    list-style: none;
+    background-color: transparent;
+    border-radius: 4px;
+}

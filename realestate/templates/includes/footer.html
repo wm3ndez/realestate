@@ -4,8 +4,8 @@
     <p class="pull-right"><a href="#">{% trans "To top" %}</a></p>
 
     <p>
-        <a href="/">Inicio</a> |
+        <a href="/">{% trans "Home" %}</a> |
         <a href="{% url 'home_contact' %}">{% trans "Contact us" %}</a><br/>
-        Copyright &copy; {% now "Y" %} Your Business Name HERE. | All Rights Reserved.
-        <br> Address HERE</p>
+        {% trans "Copyright" %} &copy; {% now "Y" %} {% trans "Real Estate Dobrobut Ukraine | All Rights Reserved." %}
+        <br>{% trans "Ukraine. Kyiv" %} </p>
 </footer>

@@ -9,17 +9,17 @@
         <div class="col-md-9">
 
             <div class="row">
-                <div class="col-md-6 select_height"> Mostrando {{ results.start_index }} - {{ results.end_index }}
-                    de {{ results.paginator.count }} resultados
+                <div class="col-md-6 select_height"> {% trans "Viewed" %} {{ results.start_index }} - {{ results.end_index }}
+                    {% trans "from" %} {{ results.paginator.count }} {% trans "pages" %}
                 </div>
                 <div class="pull-right">
                     <form action="{% url 'properties_for_rent' %}" id="form-sort">
                         Ordenar por :
                         <select id="sort" name="sort" class="col-md-3">
-                            <option value="price">Precio: Ascendente</option>
+                            <option value="price">{% trans "Price Ascending" %}</option>
                             <option value="-price"{% if request.GET.sort == '-price' %}
                                     selected="selected"{% endif %}>
-                                Precio: Descendente
+                                {% trans "Price Descending" %}
                             </option>
                         </select>
                     </form>
